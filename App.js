@@ -15,6 +15,8 @@
  */
 
 import React, {Component} from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -32,16 +34,21 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import ReadAllMessages from './src/components/ReadAllMessages';
+// import ReadAllMessages from './src/components/ReadAllMessages';
+// import Home from './src/screens/HomeScreen'
+// import WelcomeScreen from './src/screens/WelcomeScreen';
+import AuthNavigator from './src/navigation/AuthNavigator';
+import AppNavigator from './src/navigation/AppNavigator';
 
 
 class App extends Component {
   render() {
     return (
       <>
-        <View>
-          <ReadAllMessages />
-        </View>
+      <NavigationContainer>
+        {/* <AuthNavigator/> */}
+        <AppNavigator/>
+      </NavigationContainer>
       </>
     );
   }

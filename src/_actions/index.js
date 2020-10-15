@@ -1,26 +1,18 @@
-import {forEach} from 'lodash';
+// const _ = require('lodash');
+import { processMpesa } from '../_actionsMethods/processMpesa.js'
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import {STORE_MESSAGES} from './types';
-const _ = require('lodash');
+import  _  from 'lodash';
 
 // Global regex variables
 
-
 export const storeMessages = (address, messages) => async (dispatch) => {
-  await processMpesa(messages);
-  // console.log(messages.body);
-  // messages.forEach((data)=>{
-  //   console.log(data.body)
-  // })
-  // console.log(address);
+  const i = await processMpesa(messages);
+  console.log(i)
 
   return {
     type: STORE_MESSAGES,
     payload: messages,
   };
 };
-
-const processMpesa = (mpesaData) => {
-    console.log(mpesaData[0].body)
-}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Constants } from 'react-native-unimodules';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 
-const Screen = () => {
+const Screen = ({children, style}) => {
     return (
         <SafeAreaView>
             <View style={[styles.view, style]}>{children}</View>
