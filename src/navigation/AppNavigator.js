@@ -6,16 +6,19 @@ import Home from "../screens/HomeScreen";
 import BillingScreen from "../screens/BillsScreen"
 import ReportsScreen from "../screens/ReportsScreen"
 import HomeScreen from '../screens/HomeScreen';
+import SourceDetailsScreen from '../screens/SourceDetailsScreen';
+import ViewNavigator from "./ViewNavigator"
+
 
 const Tab = createBottomTabNavigator();
 
 
 const AppNavigator = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen
                 name="Home"
-                component={HomeScreen}
+                component={ViewNavigator}
             />
             <Tab.Screen
                 name="Billing"

@@ -1,23 +1,22 @@
-import React from 'react'
-import { Constants } from 'react-native-unimodules';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import React from 'react';
+import {Constants} from 'react-native-unimodules';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 
 const Screen = ({children, style}) => {
-    return (
-        <SafeAreaView>
-            <View style={[styles.view, style]}>{children}</View>
-        </SafeAreaView>
-    )
-}
+  return (
+    <SafeAreaView style={[styles.screen, style]}>
+      <View style={[styles.view, style]}>{children}</View>
+    </SafeAreaView>
+  );
+};
 
-export default Screen
+export default Screen;
 
 const styles = StyleSheet.create({
-    screen: {
-        paddingTop: Constants.statusBarHeight,
-        flex:1,
-    },
-    view: {
-        flex:1,
-    },
+  screen: {
+    flex: 1,
+  },
+  view: {
+    flex: 1,
+  },
 });
