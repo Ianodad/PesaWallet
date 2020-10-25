@@ -8,45 +8,45 @@ const data = [
   {
     id: 1,
     title: 'All',
-    image: require('../assets/source/buttons/All.png'),
+    image: require('../assets/buttons/All.png'),
   },
   {
     id: 2,
     title: 'Sent',
-    image: require('../assets/source/buttons/Sent.png'),
+    image: require('../assets/buttons/Sent.png'),
   },
   {
     id: 3,
     title: 'Receive',
-    image: require('../assets/source/buttons/Recieve.png'),
+    image: require('../assets/buttons/Receive.png'),
   },
   {
     id: 4,
     title: 'Deposit',
-    image: require('../assets/source/buttons/Deposit.png'),
+    image: require('../assets/buttons/Deposit.png'),
   },
   {
     id: 5,
     title: 'Withdraw',
-    image: require('../assets/source/buttons/Withdraw.png'),
+    image: require('../assets/buttons/Withdraw.png'),
   },
   {
     id: 6,
     title: 'PayBill',
-    image: require('../assets/source/buttons/PayBill.png'),
+    image: require('../assets/buttons/PayBill.png'),
   },
   {
     id: 7,
     title: 'BuyGoods',
-    image: require('../assets/source/buttons/BuyGoods.png'),
+    image: require('../assets/buttons/BuyGoods.png'),
   },{
     id: 8,
     title: 'Airtime',
-    image: require('../assets/source/buttons/Airtime.png'),
+    image: require('../assets/buttons/Airtime.png'),
   },{
     id: 9,
     title: 'Reverse',
-    image: require('../assets/source/buttons/Reverse.png'),
+    image: require('../assets/buttons/Reverse.png'),
   }
 ];
 

@@ -5,7 +5,7 @@ import Transaction from './Transaction';
 const data = [
   {
     id: 1,
-    type: 'sent',
+    type: 'Sent',
     name: 'Jack Reacher',
     date: 'July 20 2020',
     time: '3:00PM',
@@ -14,7 +14,7 @@ const data = [
   },
   {
     id: 2,
-    type: 'received',
+    type: 'Receive',
     name: 'Steve Jobs',
     date: 'July 20 2020',
     time: '8:00AM',
@@ -23,7 +23,7 @@ const data = [
   },
   {
     id: 3,
-    type: 'withdraw',
+    type: 'Withdraw',
     name: 'Elon Musk',
     date: 'July 20 2020',
     time: '7:41PM',
@@ -32,7 +32,7 @@ const data = [
   },
   {
     id: 4,
-    type: 'deposit',
+    type: 'Deposit',
     name: 'Mash Jones',
     date: 'July 20 2020',
     time: '8:10PM',
@@ -41,7 +41,7 @@ const data = [
   },
   {
     id: 5,
-    type: 'Paidbill',
+    type: 'PayBill',
     name: 'John Otieno',
     date: 'July 20 2020',
     time: '5:30PM',
@@ -56,7 +56,25 @@ const data = [
     time: '3:51PM',
     amount: 200,
     transactionCost: 0,
+  },{
+    id: 7,
+    type: 'Airtime',
+    name: 'Kate Nyoroge',
+    date: 'July 20 2020',
+    time: '3:51PM',
+    amount: 200,
+    transactionCost: 0,
   },
+  {
+    id: 8,
+    type: 'Reverse',
+    name: 'Kate Nyoroge',
+    date: 'July 20 2020',
+    time: '3:51PM',
+    amount: 200,
+    transactionCost: 0,
+  }
+
 ];
 const TransactionList = () => {
   return (

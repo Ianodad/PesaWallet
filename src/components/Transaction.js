@@ -4,15 +4,37 @@ import IconButton from './IconButton';
 import colors from '../config/colors';
 
 const Transaction = ({type, name, date, time, amount, transactionCost}) => {
-  const image = require('../assets/source/buttons/All.png');
+  const Image = () => {
+    switch (type) {
+      case 'Sent':
+        return require('../assets/buttons/Sent.png');
+      case 'Receive':
+        return require('../assets/buttons/Receive.png');
+      case 'Deposit':
+        return require('../assets/buttons/Deposit.png');
+      case 'Withdraw':
+        return require('../assets/buttons/Withdraw.png');
+      case 'PayBill':
+        return require('../assets/buttons/PayBill.png');
+      case 'BuyGoods':
+        return require('../assets/buttons/BuyGoods.png');
+      case 'Airtime':
+        return require('../assets/buttons/Airtime.png');
+      case 'Reverse':
+        return require('../assets/buttons/Reverse.png');
+      default:
+        return require('../assets/buttons/All.png');
+    }
+  };
   return (
     <TouchableWithoutFeedback>
       <View style={styles.container}>
         <View style={styles.leftCard}>
           <IconButton
             resizeMode="contain"
+            type={type}
             style={styles.button}
-            image={image}
+            image={Image()}
             color={colors.white}
           />
         </View>
@@ -36,7 +58,7 @@ export default Transaction;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     flexDirection: 'row',
     overflow: 'hidden',
     height: 60,
@@ -47,6 +69,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     // width: 130,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   leftCard: {
     backgroundColor: colors.white,
@@ -56,14 +83,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   center: {
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 20,
     flex: 2,
   },
   cardRight: {
-    backgroundColor: colors.red,
+    // backgroundColor: colors.red,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
