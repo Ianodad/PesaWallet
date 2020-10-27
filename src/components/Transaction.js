@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableWithoutFeedback} from 'react-native';
+import Text from '../components/Text';
+import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 import IconButton from './IconButton';
 import colors from '../config/colors';
 
@@ -34,8 +35,9 @@ const Transaction = ({type, name, date, time, amount, transactionCost}) => {
             resizeMode="contain"
             type={type}
             style={styles.button}
+            logoStyle={styles.logo}
             image={Image()}
-            color={colors.white}
+            color={'primary'}
           />
         </View>
         <View style={styles.center}>
@@ -76,10 +78,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   leftCard: {
+    flex: 1,
     backgroundColor: colors.white,
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
     flex: 1,
   },
   center: {
@@ -97,11 +98,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   button: {
-    marginBottom: 1,
-    backgroundColor: colors.medium,
+    flex: 1,
+    width: 55,
+    margin: 5,
+  },
+  logo: {
     width: 40,
+    // height:30,
   },
   name: {
+    fontWeight: 'bold',
+    fontSize: 14,
     marginVertical: 1,
   },
   dateTime: {

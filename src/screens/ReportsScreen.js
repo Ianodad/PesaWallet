@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Text, View } from 'react-native'
-
+import React, {Component} from 'react';
+import {View} from 'react-native';
+import Text from '../components/Text';
 export class ReportsScreen extends Component {
-    render() {
-        return (
-            <View>
-                <Text> Reports screen</Text>
-            </View>
-        )
-    }
+  render() {
+    return (
+        <Screen>
+        <Text> Reports screen</Text>
+        </Screen>
+    );
+  }
 }
 
-export default ReportsScreen
+export default ReportsScreen;

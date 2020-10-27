@@ -1,10 +1,12 @@
 import React from 'react';
 import {Constants} from 'react-native-unimodules';
 import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import IconMenu from './IconMenu';
 
 const Screen = ({children, style}) => {
   return (
     <SafeAreaView style={[styles.screen, style]}>
+      <IconMenu/>
       <View style={[styles.view, style]}>{children}</View>
     </SafeAreaView>
   );

@@ -1,12 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import Text from './Text';
+import {StyleSheet, View} from 'react-native';
 import IconButton from './IconButton';
 import colors from '../config/colors';
 
 const Type = ({image, title}) => {
   return (
     <View style={styles.container}>
-      <IconButton style={styles.button} image={image} />
+      <IconButton style={styles.button} image={image} logoStyle={styles.logoStyle} color="red" />
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -21,11 +22,13 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: 5,
-    backgroundColor: colors.medium,
     paddingVertical: 5,
     marginHorizontal: 5,
     width: 70,
     height: 70,
+  },
+  logoStyle:{
+    width:50
   },
   title: {
     // alignItems: 'center',

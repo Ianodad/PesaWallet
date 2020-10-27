@@ -1,6 +1,8 @@
 import React from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import Text from './Text';
+import {StyleSheet, View, FlatList} from 'react-native';
 import Transaction from './Transaction';
+import colors from '../config/colors';
 
 const data = [
   {
@@ -56,7 +58,8 @@ const data = [
     time: '3:51PM',
     amount: 200,
     transactionCost: 0,
-  },{
+  },
+  {
     id: 7,
     type: 'Airtime',
     name: 'Kate Nyoroge',
@@ -73,13 +76,15 @@ const data = [
     time: '3:51PM',
     amount: 200,
     transactionCost: 0,
-  }
-
+  },
 ];
 const TransactionList = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Transaction</Text>
+      <View style={styles.transaction}>
+        <Text style={styles.header}>Transaction</Text>
+        <Text style={styles.SeeAll}>See All</Text>
+      </View>
       <FlatList
         data={data}
         howsVerticalScrollIndicator={false}
@@ -106,5 +111,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: 5,
+    // backgroundColor:colors.primary
+  },
+  transaction: {
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    // JustifyContent: 'space-between',
+  },
+  header: {
+    flex: 1,
+  },
+  SeeAll: {
+    // flex: 1,
+    // justifyContent:"space-between"
+    // alignItems:"flex-end",
   },
 });

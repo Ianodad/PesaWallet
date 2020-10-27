@@ -25,16 +25,16 @@ export default SourceDetails;
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
   },
   header: {
-    backgroundColor: color.primary,
+    backgroundColor: color.white,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     flex: 4,
   },
   body: {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     flex: 5,
     flexDirection: 'column',
     // borderTopLeftRadius: 50,

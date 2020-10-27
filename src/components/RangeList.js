@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   button: {
-    marginVertical: 3,
+    marginVertical: 1,
     backgroundColor: colors.medium,
-    paddingVertical: 5,
+    paddingVertical: 1,
   },
 });

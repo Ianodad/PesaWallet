@@ -39,15 +39,17 @@ const data = [
     id: 7,
     title: 'BuyGoods',
     image: require('../assets/buttons/BuyGoods.png'),
-  },{
+  },
+  {
     id: 8,
     title: 'Airtime',
     image: require('../assets/buttons/Airtime.png'),
-  },{
+  },
+  {
     id: 9,
     title: 'Reverse',
     image: require('../assets/buttons/Reverse.png'),
-  }
+  },
 ];
 
 const TypeList = () => {
@@ -60,7 +62,7 @@ const TypeList = () => {
         horizontal
         keyExtractor={(icon) => icon.id.toString()}
         renderItem={({item}) => (
-          <Type style={styles.type} image={item.image} title={item.title}/>
+          <Type style={styles.type} image={item.image} title={item.title} />
         )}
       />
     </View>
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
+    marginLeft: 10,
   },
   button: {
     marginVertical: 5,
