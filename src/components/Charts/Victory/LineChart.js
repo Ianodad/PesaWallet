@@ -29,6 +29,7 @@ class LineChart extends Component {
           <VictoryLine
             style={{
               data: {stroke: '#c43a31'},
+              marginLeft:"70"
             }}
             interpolation="natural"
             data={[
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    marginTop:25
     // alignItems: 'center',
     // backgroundColor: '#f5fcff',
   },
