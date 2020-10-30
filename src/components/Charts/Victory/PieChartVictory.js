@@ -1,16 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {
-  VictoryLine,
-  VictoryChart,
-  VictoryTooltip,
-  VictoryTheme,
-  VictoryScatter,
-  VictoryPie,
-  VictoryLabel,
-  VictoryGroup,
-  VictoryVoronoiContainer,
-} from 'victory-native';
+import {VictoryPie} from 'victory-native';
+
+import {Dimensions} from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
 
 const sampleData = [
   {x: 'Cats', y: 35},
@@ -21,7 +15,9 @@ const PieChartVictory = () => {
   return (
     <View style={styles.container}>
       <VictoryPie
-        colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
+      height={320}
+      width={screenWidth} 
+       colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
         data={sampleData}
       />
     </View>
@@ -32,6 +28,7 @@ export default PieChartVictory;
 
 const styles = StyleSheet.create({
   container: {
+    width: 500,
     flex: 1,
     justifyContent: 'center',
     marginTop: 25,

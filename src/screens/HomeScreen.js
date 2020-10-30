@@ -120,11 +120,8 @@ const styles = StyleSheet.create({
     // height:110
   },
   headerLeft: {
-    paddingTop: 20,
+    paddingTop: 50,
 
-    // flexDirection:"column",
-    // justifyContent: 'center',
-    // paddingHorizontal:15,
   },
   // title: {
   //   paddingHorizontal: 10,

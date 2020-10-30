@@ -7,7 +7,7 @@ const IconMenu = () => {
       <Image
         style={styles.menu}
         resizeMode="contain"
-        source={require('../assets/Menu.png')}
+        source={require('../../assets/Menu.png')}
       />
     </TouchableOpacity>
   );
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     zIndex: 2,
+    
   },
   menu: {
     width: 30,

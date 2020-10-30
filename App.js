@@ -34,10 +34,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-// import ReadAllMessages from './src/components/ReadAllMessages';
-// import Home from './src/screens/HomeScreen'
-// import WelcomeScreen from './src/screens/WelcomeScreen';
-import AuthNavigator from './src/navigation/AuthNavigator';
 import AppNavigator from './src/navigation/AppNavigator';
 
 

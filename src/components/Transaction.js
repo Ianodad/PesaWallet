@@ -1,10 +1,21 @@
 import React from 'react';
 import Text from '../components/Text';
-import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
-import IconButton from './IconButton';
+import {StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import IconButton from './Button/IconButton';
 import colors from '../config/colors';
 
-const Transaction = ({type, name, date, time, amount, transactionCost}) => {
+const Transaction = ({
+  id,
+  type,
+  name,
+  date,
+  time,
+  amount,
+  detail,
+  transactionCost,
+  navigation,
+  onPress
+}) => {
   const Image = () => {
     switch (type) {
       case 'Sent':
@@ -35,21 +46,29 @@ const Transaction = ({type, name, date, time, amount, transactionCost}) => {
             resizeMode="contain"
             type={type}
             style={styles.button}
-            logoStyle={styles.logo}
+            imageStyle={styles.image}
             image={Image()}
-            color={'primary'}
+            detail={detail}
+            color={type}
           />
         </View>
         <View style={styles.center}>
           <View style={styles.cardDetails}>
-            <Text style={styles.name}>{name}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('FilteredDetailsScreen', id)
+              }>
+              <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1}>
+                {name}
+              </Text>
+            </TouchableOpacity>
             <Text style={styles.dateTime}>
               {date} {time}
             </Text>
           </View>
         </View>
         <View style={styles.cardRight}>
-          <Text style={styles.amount}>Ksh {amount}</Text>
+          <Text style={styles.amount}>Ksh{amount}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -71,11 +90,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     // width: 130,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
+    shadowColor: '#FFFFFF',
+    shadowOffset: {width: 0, height: 8},
     shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 16,
   },
   leftCard: {
     flex: 1,
@@ -101,18 +120,34 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 55,
     margin: 5,
+    padding: 5,
+    shadowColor: '#FFFFFF',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 16,
   },
-  logo: {
+  image: {
     width: 40,
     // height:30,
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 18,
     marginVertical: 1,
   },
   dateTime: {
+    color: colors.medium,
+    fontSize: 14,
     marginVertical: 1,
   },
-  amount: {},
+  amount: {
+    borderRadius: 10,
+    backgroundColor: colors.primary,
+    shadowColor: '#FFFFFF',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 4,
+  },
 });

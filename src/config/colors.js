@@ -8,4 +8,13 @@ export default {
   airtel: '#FF0000',
   telkom: '#0daacb',
   black: '#0c0c0c',
+  Sent: '#ff7d7d',
+  All: '#8387f9',
+  Receive: '#65cd73',
+  BuyGoods: '#e500e0',
+  PayBill: '#fedd42',
+  Deposit: '#848ac2',
+  Withdraw: '#f1925b',
+  Airtime: '#f56c9e',
+  Reverse: '#de7c28',
 };

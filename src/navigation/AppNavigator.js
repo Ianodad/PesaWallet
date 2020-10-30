@@ -14,24 +14,13 @@ const Tab = createBottomTabNavigator();
 
 
 const AppNavigator = () => {
-    return (
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
-            <Tab.Screen
-                name="Home"
-                component={ViewNavigator}
-            />
-            <Tab.Screen
-                name="Billing"
-                component={BillingScreen}
-            />
-            <Tab.Screen
-                name="Reports"
-                component={ReportsScreen}
-            />
-        </Tab.Navigator>
-    )
-}
+  return (
+    <Tab.Navigator screenOptions={{headerShown: false}}>
+      <Tab.Screen name="Home" component={ViewNavigator} />
+      <Tab.Screen name="Billing" component={BillingScreen} />
+      <Tab.Screen name="Reports" component={ReportsScreen} />
+    </Tab.Navigator>
+  );
+};
 
-export default AppNavigator
-
-
+export default AppNavigator;

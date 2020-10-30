@@ -6,7 +6,7 @@ import VisualChart from '../components/VisualChart';
 import color from '../config/colors';
 import TransactionList from '../components/TransactionList';
 
-const SourceDetails = ({route}) => {
+const SourceDetails = ({route, navigation}) => {
   const details = route.params;
   return (
     <Screen style={styles.screen}>
@@ -15,7 +15,7 @@ const SourceDetails = ({route}) => {
       </View>
       <View style={styles.body}>
         <TypeList />
-        <TransactionList />
+        <TransactionList navigation={navigation}/>
       </View>
     </Screen>
   );
@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
     backgroundColor: color.primary,
   },
   header: {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     flex: 4,
   },
   body: {
-    backgroundColor: color.primary,
+    backgroundColor: color.white,
     flex: 5,
     flexDirection: 'column',
-    // borderTopLeftRadius: 50,
-    // borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
 });

@@ -25,11 +25,15 @@ class LineChart extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <VictoryChart width={screenWidth+30}>
+        <VictoryChart width={screenWidth} padding={60}>
           <VictoryLine
             style={{
-              data: {stroke: '#c43a31'},
-              marginLeft:"70"
+              axis: {stroke: 'white'},
+              axisLabel: {fontSize: 20, padding: 30},
+              grid: {stroke: ({tick}) => (tick > 0.5 ? 'red' : 'grey')},
+              ticks: {stroke: 'grey', size: 5},
+              tickLabels: {fontSize: 15, padding: 5},
+              marginLeft: '70',
             }}
             interpolation="natural"
             data={[
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginTop:25
+    marginTop: 25,
     // alignItems: 'center',
     // backgroundColor: '#f5fcff',
   },

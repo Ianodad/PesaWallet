@@ -15,6 +15,7 @@ export default TitleName;
 
 const styles = StyleSheet.create({
   container: {
+    
     // flexDirection: 'row',
     // alignItems: 'center',
     // justifyContent: 'center',

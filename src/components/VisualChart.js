@@ -12,7 +12,8 @@ import PieChartVicrort from "./Charts/Victory/PieChartVictory"
 const VisualChart = () => {
   return (
     <View style={styles.container}>
-    <PieChartVicrort/>
+    {/* <PieChartVicrort/> */}
+    <LineChartVictory/>
       <View style={styles.chartButton}>
         <RangeList />
       </View>

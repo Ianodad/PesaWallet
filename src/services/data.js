@@ -8277,8 +8277,7 @@ export const data = [
    ]
 ]
 
-const jsonify = (res) => res.json();
 
 export function getData() {
-  return data.filter(item => jsonify(item));
+  return data.filter(item => item);
 }

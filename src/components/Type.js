@@ -1,34 +1,81 @@
 import React from 'react';
 import Text from './Text';
-import {StyleSheet, View} from 'react-native';
-import IconButton from './IconButton';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import IconButton from './Button/IconButton';
 import colors from '../config/colors';
+import {sub} from 'react-native-reanimated';
+import Info from './Button/Info';
 
-const Type = ({image, title}) => {
+const Type = ({image, title, amount}) => {
   return (
-    <View style={styles.container}>
-      <IconButton style={styles.button} image={image} logoStyle={styles.logoStyle} color="red" />
-      <Text style={styles.title}>{title}</Text>
-    </View>
+    <IconButton
+      style={styles.button}
+      image={image}
+      imageStyle={styles.image}
+      color={title}
+      info={<Info style={styles.info} subTitle={title} detail={amount} />}
+    />
   );
 };
 
 export default Type;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: 100,
-  },
   button: {
-    marginVertical: 5,
-    paddingVertical: 5,
+    width: 100,
+    height: 50,
+    padding: 5,
     marginHorizontal: 5,
-    width: 70,
-    height: 70,
+    shadowColor: '#FFFFFF',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 4,
   },
-  logoStyle:{
-    width:50
+  info: {
+    position: 'absolute',
+  },
+  image: {
+    // position: 'absolute',
+    // zIndex: 1,
+  },
+  subStyle: {
+    position: 'relative',
+    marginBottom: 60,
+  },
+  detailStyle: {},
+  info: {},
+  // detail:{
+  //   position:"absolute",
+  //   zIndex:1
+  // },
+  container: {
+    marginHorizontal: 5,
+    flex: 1,
+    height: 40,
+    width: 110,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+  },
+  topDetails: {
+    flexDirection: 'row',
+    height: 20,
+  },
+  topic: {
+    // flex: 1,
+  },
+  account: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  logoStyle: {
+    width: 30,
+    height: 30,
+  },
+  titleDetail: {
+    paddingLeft: 5,
+    fontWeight: 'bold',
+    fontSize: 20,
   },
   title: {
     // alignItems: 'center',

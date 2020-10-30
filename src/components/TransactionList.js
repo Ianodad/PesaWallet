@@ -1,8 +1,12 @@
 import React from 'react';
 import Text from './Text';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
+import FilteredDetailsScreen from "../screens/FilteredDetailsScreen";
 import Transaction from './Transaction';
 import colors from '../config/colors';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import {messages} from "../services/messagesCollection"
+import {nameTitleCase} from "../_helpers/NameTitleCase";
 
 const data = [
   {
@@ -78,25 +82,35 @@ const data = [
     transactionCost: 0,
   },
 ];
-const TransactionList = () => {
+
+const TransactionList = ({navigation}) => {
+  // console.log(messages)
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
         <Text style={styles.header}>Transaction</Text>
-        <Text style={styles.SeeAll}>See All</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('FilteredDetailsScreen', data[0].item)
+          }>
+          <Text style={styles.SeeAll}>See All</Text>
+        </TouchableOpacity>
       </View>
       <FlatList
-        data={data}
+        data={messages}
         howsVerticalScrollIndicator={false}
-        keyExtractor={(type) => type.id.toString()}
+        keyExtractor={(type) => type.ID.toString()}
         renderItem={({item}) => (
           <Transaction
             style={styles.transaction}
-            type={item.type}
-            name={item.name}
-            date={item.date}
-            time={item.time}
-            amount={item.amount}
+            id={item.ID}
+            type={item.TYPE}
+            name={nameTitleCase(item.NAME)}
+            date={item.DATE}
+            time={item.TIME}
+            cost={item.COST}
+            amount={item.AMOUNT}
+            navigation={navigation}
             // transactionCost={item.transactionCost}
           />
         )}
@@ -116,14 +130,18 @@ const styles = StyleSheet.create({
   transaction: {
     flexDirection: 'row',
     marginHorizontal: 10,
+    shadowColor: '#FFFFFF',
+    shadowOffset: {width: 0, height: 8},
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 16,
     // JustifyContent: 'space-between',
   },
   header: {
     flex: 1,
   },
   SeeAll: {
-    // flex: 1,
-    // justifyContent:"space-between"
-    // alignItems:"flex-end",
+    color: colors.primary,
+    textDecorationLine: 'underline',
   },
 });

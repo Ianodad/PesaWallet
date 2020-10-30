@@ -55,10 +55,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
+    borderRadius: 20,
   },
   button: {
     marginVertical: 1,
     backgroundColor: colors.medium,
     paddingVertical: 1,
+    shadowColor: '#FFFFFF',
+    shadowOffset: {width: 1, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 15,
   },
 });
