@@ -1,6 +1,11 @@
 import React from 'react';
 import Text from '../components/Text';
-import {StyleSheet, View, TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from 'react-native';
 import IconButton from './Button/IconButton';
 import colors from '../config/colors';
 
@@ -14,7 +19,7 @@ const Transaction = ({
   detail,
   transactionCost,
   navigation,
-  onPress
+  onPress,
 }) => {
   const Image = () => {
     switch (type) {
@@ -54,14 +59,24 @@ const Transaction = ({
         </View>
         <View style={styles.center}>
           <View style={styles.cardDetails}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('FilteredDetailsScreen', id)
-              }>
+            {navigation && (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('FilteredDetailsScreen', id)
+                }>
+                <Text
+                  style={styles.name}
+                  ellipsizeMode="tail"
+                  numberOfLines={1}>
+                  {name}
+                </Text>
+              </TouchableOpacity>
+            )}
+            {!navigation && (
               <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1}>
                 {name}
               </Text>
-            </TouchableOpacity>
+            )}
             <Text style={styles.dateTime}>
               {date} {time}
             </Text>

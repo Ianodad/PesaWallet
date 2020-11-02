@@ -15,7 +15,7 @@ const SourceDetails = ({route, navigation}) => {
       </View>
       <View style={styles.body}>
         <TypeList />
-        <TransactionList navigation={navigation}/>
+        <TransactionList navigation={navigation} />
       </View>
     </Screen>
   );
@@ -25,7 +25,7 @@ export default SourceDetails;
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: color.primary,
+    backgroundColor: color.white,
   },
   header: {
     backgroundColor: color.primary,

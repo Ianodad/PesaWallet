@@ -13,7 +13,7 @@ import {connect} from 'react-redux';
 import ReadMessages from '../_helpers/ReadMessages';
 import {storeMessages} from '../_actions';
 import color from '../config/colors';
-import TitleName from '../components/TitleName';
+import TitleHeader from '../components/TitleHeader';
 
 const sources = [
   {
@@ -67,7 +67,7 @@ export class home extends Component {
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>
-              <TitleName style={styles.title} />
+              <TitleHeader style={styles.title} home={'home'} />
             </View>
           </View>
           <View style={styles.sources}>
@@ -119,10 +119,10 @@ const styles = StyleSheet.create({
     overflow: 'scroll',
     // height:110
   },
-  headerLeft: {
-    paddingTop: 50,
+  // headerLeft: {
+  //   paddingTop: 50,
 
-  },
+  // },
   // title: {
   //   paddingHorizontal: 10,
   //   flexDirection: 'row',
