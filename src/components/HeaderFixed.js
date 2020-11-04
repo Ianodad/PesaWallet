@@ -5,8 +5,8 @@ import Text from './Text';
 const HeaderFixed = () => {
   return (
     <View style={styles.container}>
-      <Text>Hello</Text>
-      <Text> Ian Adera</Text>
+      <Text style={styles.title}>Joe Dancan</Text>
+      {/* <Text> Ian Adera</Text> */}
     </View>
   );
 };
@@ -19,9 +19,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent:'center',
+  },
+  title: {
+    alignItems: 'center',
+    fontSize: 24,
   },
 });

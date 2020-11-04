@@ -6,6 +6,7 @@ import colors from '../config/colors';
 import {sub} from 'react-native-reanimated';
 import Info from './Button/Info';
 
+
 const Type = ({image, title, amount}) => {
   return (
     <IconButton
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
   },
   info: {
     position: 'absolute',
+    color:colors.white
   },
   image: {
     // position: 'absolute',

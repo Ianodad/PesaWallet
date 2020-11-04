@@ -4,6 +4,7 @@ import ParallaxScroll from '@monterosa/react-native-parallax-scroll';
 import HeaderFixed from '../components/HeaderFixed';
 import TitleHeader from '../components/TitleHeader';
 import TransactionList from '../components/TransactionList';
+import {messages} from '../services/messagesCollection';
 import Screen from '../components/Screen';
 import {LogBox} from 'react-native';
 import colors from '../config/colors';
@@ -58,8 +59,8 @@ class FilteredDetailsScreen extends Component {
             />
           )}
           parallaxBackgroundScrollSpeed={5}
-          parallaxForegroundScrollSpeed={2.5}>
-          <TransactionList navigation={this.props.navigation} />
+          parallaxForegroundScrollSpeed={4.5}>
+          <TransactionList navigation={this.props.navigation} data={messages}/>
         </ParallaxScroll>
       </Screen>
     );
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 50,
   },
   foreGroundHeader: {
-    height: 180,
+    // height: 180,
     backgroundColor: colors.primary,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,

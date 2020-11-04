@@ -5,6 +5,7 @@ import TypeList from '../components/TypeList';
 import VisualChart from '../components/VisualChart';
 import color from '../config/colors';
 import TransactionList from '../components/TransactionList';
+import {messages} from "../services/messagesCollection";
 
 const SourceDetails = ({route, navigation}) => {
   const details = route.params;
@@ -15,7 +16,7 @@ const SourceDetails = ({route, navigation}) => {
       </View>
       <View style={styles.body}>
         <TypeList />
-        <TransactionList navigation={navigation} />
+        <TransactionList navigation={navigation} data={messages} />
       </View>
     </Screen>
   );

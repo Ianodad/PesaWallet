@@ -26,5 +26,6 @@ const styles = StyleSheet.create({
   },
   detailStyle: {
     fontWeight: 'bold',
+    color: 'white',
   },
 });

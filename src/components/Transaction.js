@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import IconButton from './Button/IconButton';
 import colors from '../config/colors';
+import DateLineSeparator from './DateLineSeparator';
 
 const Transaction = ({
   id,
@@ -17,6 +18,7 @@ const Transaction = ({
   time,
   amount,
   detail,
+  separator,
   transactionCost,
   navigation,
   onPress,
@@ -44,49 +46,55 @@ const Transaction = ({
     }
   };
   return (
-    <TouchableWithoutFeedback>
-      <View style={styles.container}>
-        <View style={styles.leftCard}>
-          <IconButton
-            resizeMode="contain"
-            type={type}
-            style={styles.button}
-            imageStyle={styles.image}
-            image={Image()}
-            detail={detail}
-            color={type}
-          />
-        </View>
-        <View style={styles.center}>
-          <View style={styles.cardDetails}>
-            {navigation && (
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate('FilteredDetailsScreen', id)
-                }>
+    <View>
+      {DateLineSeparator(date)}
+      <TouchableWithoutFeedback>
+        <View style={styles.container}>
+          <View style={styles.leftCard}>
+            <IconButton
+              resizeMode="contain"
+              type={type}
+              style={styles.button}
+              imageStyle={styles.image}
+              image={Image()}
+              detail={detail}
+              color={type}
+            />
+          </View>
+          <View style={styles.center}>
+            <View style={styles.cardDetails}>
+              {navigation && (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('FilteredDetailsScreen', id)
+                  }>
+                  <Text
+                    style={styles.name}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}>
+                    {name}
+                  </Text>
+                </TouchableOpacity>
+              )}
+              {!navigation && (
                 <Text
                   style={styles.name}
                   ellipsizeMode="tail"
                   numberOfLines={1}>
                   {name}
                 </Text>
-              </TouchableOpacity>
-            )}
-            {!navigation && (
-              <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1}>
-                {name}
+              )}
+              <Text style={styles.dateTime}>
+                {date} {time}
               </Text>
-            )}
-            <Text style={styles.dateTime}>
-              {date} {time}
-            </Text>
+            </View>
+          </View>
+          <View style={styles.cardRight}>
+            <Text style={styles.amount}>Ksh{amount}</Text>
           </View>
         </View>
-        <View style={styles.cardRight}>
-          <Text style={styles.amount}>Ksh{amount}</Text>
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </View>
   );
 };
 

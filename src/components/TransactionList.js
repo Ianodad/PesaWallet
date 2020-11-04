@@ -5,28 +5,30 @@ import Text from './Text';
 import Transaction from './Transaction';
 
 import colors from '../config/colors';
-import {nameTitleCase} from "../_helpers/NameTitleCase";
-import {messages} from "../services/messagesCollection"
+import {nameTitleCase} from '../_helpers/NameTitleCase';
+import DateLineSeparator from '../components/DateLineSeparator'
 
-
-const TransactionList = ({navigation}) => {
-
-  
+const TransactionList = ({navigation, data, seperator}) => {
   // console.log(messages)
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
         <Text style={styles.header}>Transaction</Text>
-        {navigation && (<TouchableOpacity
-          onPress={() =>
-            navigation.navigate('FilteredDetailsScreen', data[0].item)
-          }>
-          <Text style={styles.SeeAll}>See All</Text>
-        </TouchableOpacity>)}
+        {navigation && (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('FilteredDetailsScreen', data[0].item)
+            }>
+            <Text style={styles.SeeAll}>See All</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <FlatList
-        data={messages}
-        howsVerticalScrollIndicator={false}
+        data={data}
+        // howsVerticalScrollIndicator={false}
+        // ItemSeparatorComponent={DateLineSeparator}
+        // ListHeaderComponent={DateLineSeparator}
+        // ListFooterComponent={DateLineSeparator}
         keyExtractor={(type) => type.ID.toString()}
         renderItem={({item}) => (
           <Transaction
@@ -39,6 +41,7 @@ const TransactionList = ({navigation}) => {
             cost={item.COST}
             amount={item.AMOUNT}
             navigation={navigation}
+            // separator={DateLineSeparator(item.DATE)}
             // transactionCost={item.transactionCost}
           />
         )}
