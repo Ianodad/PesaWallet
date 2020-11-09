@@ -63,7 +63,7 @@ export class home extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <Screen style={styles.screen}>
+      <Screen navigation={navigation} style={styles.screen}>
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>

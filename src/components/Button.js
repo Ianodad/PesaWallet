@@ -3,7 +3,7 @@ import Text from "../components/Text"
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import colors from '../config/colors';
-import Button from '../components/Button';
+
 
 const AppButton = ({
   title,

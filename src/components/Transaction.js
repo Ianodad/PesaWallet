@@ -1,4 +1,5 @@
 import React from 'react';
+import DayJS from 'react-dayjs';
 import Text from '../components/Text';
 import {
   StyleSheet,
@@ -8,7 +9,7 @@ import {
 } from 'react-native';
 import IconButton from './Button/IconButton';
 import colors from '../config/colors';
-import DateLineSeparator from './DateLineSeparator';
+// import DateLineSeparator from './DateLineSeparator';
 
 const Transaction = ({
   id,
@@ -47,7 +48,7 @@ const Transaction = ({
   };
   return (
     <View>
-      {DateLineSeparator(date)}
+      {/* <DateLineSeparator date={date}/> */}
       <TouchableWithoutFeedback>
         <View style={styles.container}>
           <View style={styles.leftCard}>
@@ -84,9 +85,11 @@ const Transaction = ({
                   {name}
                 </Text>
               )}
-              <Text style={styles.dateTime}>
-                {date} {time}
-              </Text>
+              <View style={styles.dateTime}>
+                <Text>
+                  {date} - {time}
+                </Text>
+              </View>
             </View>
           </View>
           <View style={styles.cardRight}>
@@ -129,8 +132,8 @@ const styles = StyleSheet.create({
     // backgroundColor: colors.primary,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 20,
-    flex: 2,
+    marginLeft: 10,
+    flex: 2.5,
   },
   cardRight: {
     // backgroundColor: colors.red,
@@ -138,6 +141,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
+    marginLeft: 10,
   },
   button: {
     flex: 1,

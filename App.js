@@ -15,7 +15,7 @@
  */
 
 import React, {Component} from 'react';
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from '@react-navigation/native';
 
 import {
   SafeAreaView,
@@ -35,15 +35,21 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import AppNavigator from './src/navigation/AppNavigator';
-
+import SideMenuNavigation from './src/navigation/SideMenuNavigation';
+import AuthNavigator from './src/navigation/AuthNavigator';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {auth: false};
+  }
+
   render() {
     return (
       <>
-      <NavigationContainer>
-        <AppNavigator/>
-      </NavigationContainer>
+        <NavigationContainer>
+          {this.state.auth ? <SideMenuNavigation /> : <AuthNavigator />}
+        </NavigationContainer>
       </>
     );
   }

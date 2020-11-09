@@ -5,18 +5,22 @@ import TypeList from '../components/TypeList';
 import VisualChart from '../components/VisualChart';
 import color from '../config/colors';
 import TransactionList from '../components/TransactionList';
-import {messages} from "../services/messagesCollection";
+import {messages} from '../services/messagesCollection';
 
 const SourceDetails = ({route, navigation}) => {
   const details = route.params;
   return (
-    <Screen style={styles.screen}>
+    <Screen navigation={navigation} style={styles.screen}>
       <View style={styles.header}>
         <VisualChart />
       </View>
       <View style={styles.body}>
         <TypeList />
-        <TransactionList navigation={navigation} data={messages} />
+        <TransactionList
+          flatList={true}
+          navigation={navigation}
+          data={messages}
+        />
       </View>
     </Screen>
   );

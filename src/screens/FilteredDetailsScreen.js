@@ -35,7 +35,7 @@ class FilteredDetailsScreen extends Component {
 
   render() {
     return (
-      <Screen style={styles.container}>
+      <Screen navigation={this.props.navigation} style={styles.container}>
         <ParallaxScroll
           renderHeader={({animatedValue}) => (
             <HeaderFixed animatedValue={animatedValue} />
@@ -60,7 +60,11 @@ class FilteredDetailsScreen extends Component {
           )}
           parallaxBackgroundScrollSpeed={5}
           parallaxForegroundScrollSpeed={4.5}>
-          <TransactionList navigation={this.props.navigation} data={messages}/>
+          <TransactionList
+            sectionList={true}
+            navigation={this.props.navigation}
+            data={messages}
+          />
         </ParallaxScroll>
       </Screen>
     );
