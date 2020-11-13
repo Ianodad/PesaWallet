@@ -37,11 +37,16 @@ import {
 import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import AuthNavigator from './src/navigation/AuthNavigator';
+import RNBootSplash from 'react-native-bootsplash';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {auth: false};
+  }
+
+  componentDidMount() {
+    RNBootSplash.hide({duration: 250});
   }
 
   render() {
