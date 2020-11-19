@@ -2,7 +2,7 @@ import SmsAndroid from 'react-native-get-sms-android';
 
 
 
-/ eslint-disable-next-line no-shadow
+// eslint-disable-next-line no-shadow
 export const ReadAllMessages = ({collection, storeMessages}) => {
   const ReadAll = useCallback((address, callback) => {
     let filter = {

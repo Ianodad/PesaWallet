@@ -10,7 +10,7 @@ import TransactionList from '../components/TransactionList';
 
 const BillsScreen = ({navigation}) => {
   return (
-    <Screen navigation={navigation} style={styles.screen}>
+    <Screen navigation={navigation} style={styles.screen} menu>
       <View style={styles.header}>
         <Text style={styles.title}>Billing Subscriptions</Text>
       </View>

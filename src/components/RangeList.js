@@ -41,7 +41,11 @@ const RangeList = () => {
         data={data}
         keyExtractor={(range) => range.id.toString()}
         renderItem={({item}) => (
-          <Button style={styles.button} title={item.title} fontSize="9" />
+          <Button
+            style={styles.button}
+            textStyle={styles.textStyle}
+            title={item.title}
+          />
         )}
       />
     </View>
@@ -52,15 +56,16 @@ export default RangeList;
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 5,
-    borderRadius: 20,
+    height: 45,
   },
   button: {
-    marginVertical: 1,
+    width: 50,
+    height: 40,
+    borderRadius: 15,
+    marginHorizontal: 2,
     backgroundColor: colors.medium,
-    paddingVertical: 1,
     shadowColor: '#FFFFFF',
     shadowOffset: {width: 1, height: 2},
     shadowOpacity: 0.1,

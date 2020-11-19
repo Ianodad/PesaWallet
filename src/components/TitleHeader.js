@@ -38,8 +38,20 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
   },
+  greeting: {
+    fontSize: 20,
+    textShadowColor: 'blue',
+    textShadowOffset: {width: 1, height: -1.3},
+    textShadowRadius: 1,
+    fontWeight: 'bold',
+  },
   name: {
-    fontSize: 24,
+    fontSize: 30,
+    color: 'white',
+    textShadowColor: 'blue',
+    textShadowOffset: {width: 1, height: -1.3},
+    textShadowRadius: 1,
+    fontWeight: 'bold',
   },
   number: {
     fontSize: 20,

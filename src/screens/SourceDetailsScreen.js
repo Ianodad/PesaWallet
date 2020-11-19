@@ -6,14 +6,19 @@ import VisualChart from '../components/VisualChart';
 import color from '../config/colors';
 import TransactionList from '../components/TransactionList';
 import {messages} from '../services/messagesCollection';
+import LinearGradient from 'react-native-linear-gradient';
 
 const SourceDetails = ({route, navigation}) => {
   const details = route.params;
   return (
-    <Screen navigation={navigation} style={styles.screen}>
-      <View style={styles.header}>
+    <Screen navigation={navigation} style={styles.screen} menu>
+      <LinearGradient
+        start={{x: 0, y: 0.8}}
+        end={{x: 0.5, y: 0.1}}
+        style={styles.header}
+        colors={['#8387f9', '#5a60f8']}>
         <VisualChart />
-      </View>
+      </LinearGradient>
       <View style={styles.body}>
         <TypeList />
         <TransactionList

@@ -1,0 +1,51 @@
+export const sources = [
+  {
+    id: 1,
+    title: 'Mpesa',
+    balance: 11500,
+    color: ['#39b54b', '#39b54b', '#65cd73'],
+    logo: require('../assets/source/logoone.png'),
+  },
+  {
+    id: 2,
+    title: 'Airtel',
+    balance: 750,
+    color: ['#ff5251', '#ff5252', '#ff7d7d'],
+    logo: require('../assets/source/logotwo.png'),
+  },
+  {
+    id: 3,
+    title: 'Telkom',
+    balance: 20500,
+    color: ['#fed304', '#fed304', '#fedd42'],
+    logo: require('../assets/source/logothree.png'),
+  },
+  {
+    id: 4,
+    title: 'Bank',
+    balance: 11500,
+    color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    logo: require('../assets/source/logofour.png'),
+  },
+  {
+    id: 5,
+    title: 'Airtel',
+    balance: 7500,
+    color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    logo: require('../assets/source/logotwo.png'),
+  },
+  {
+    id: 6,
+    title: 'Telkom',
+    balance: 2050000,
+    color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    logo: require('../assets/source/logothree.png'),
+  },
+  {
+    id: 7,
+    title: 'Bank',
+    balance: 11500,
+    color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    logo: require('../assets/source/logofour.png'),
+  },
+];

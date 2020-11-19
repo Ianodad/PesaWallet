@@ -35,7 +35,7 @@ class FilteredDetailsScreen extends Component {
 
   render() {
     return (
-      <Screen navigation={this.props.navigation} style={styles.container}>
+      <Screen navigation={this.props.navigation} style={styles.container} menu>
         <ParallaxScroll
           renderHeader={({animatedValue}) => (
             <HeaderFixed animatedValue={animatedValue} />

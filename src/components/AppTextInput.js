@@ -5,24 +5,52 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import defaultStyles from '../config/styles';
 
-const AppTextInput = ({icon, ...otherProps}) => {
+import {Neomorph} from 'react-native-neomorph-shadows';
+
+const AppTextInput = ({icon, shadow, ...otherProps}) => {
   return (
-    <View style={styles.container}>
-      {icon && (
-        <FontAwesome5
-          name={icon}
-          size={25}
-          color={defaultStyles.colors.medium}
-          style={styles.icon}
-        />
+    <>
+      {shadow ? (
+        <Neomorph
+          style={styles.shadowContainer}
+          // lightShadowColor={defaultStyles.colors.white}
+          // darkShadowColor={defaultStyles.colors.medium}
+          inner
+          swapShadows>
+          {icon && (
+            <FontAwesome5
+              name={icon}
+              size={25}
+              color={defaultStyles.colors.medium}
+              style={styles.icon}
+            />
+          )}
+          <TextInput
+            // underlineColorAndroid="black"
+            placeholderTextColor={defaultStyles.colors.black}
+            style={defaultStyles.text}
+            {...otherProps}
+          />
+        </Neomorph>
+      ) : (
+        <View style={styles.container}>
+          {icon && (
+            <FontAwesome5
+              name={icon}
+              size={25}
+              color={defaultStyles.colors.medium}
+              style={styles.icon}
+            />
+          )}
+          <TextInput
+            // underlineColorAndroid="black"
+            placeholderTextColor={defaultStyles.colors.black}
+            style={defaultStyles.text}
+            {...otherProps}
+          />
+        </View>
       )}
-      <TextInput
-        // underlineColorAndroid="black"
-        placeholderTextColor={defaultStyles.colors.black}
-        style={defaultStyles.text}
-        {...otherProps}
-      />
-    </View>
+    </>
   );
 };
 
@@ -31,14 +59,26 @@ export default AppTextInput;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: defaultStyles.colors.white,
-    borderRadius: 15,
+    borderRadius: 45,
     flexDirection: 'row',
-    width: '100%',
+    width: '90%',
     padding: 5,
     marginVertical: 10,
   },
   icon: {
-    marginRight: 10,
-    // height:20
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    marginHorizontal: 10,
+  },
+  shadowContainer: {
+    flexDirection: 'row',
+    shadowRadius: 10,
+    borderRadius: 40,
+    backgroundColor: '#DDDDDD',
+    width: 350,
+    height: 55,
+    padding: 5,
+    marginVertical: 10,
   },
 });

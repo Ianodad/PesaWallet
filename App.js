@@ -1,19 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -34,7 +18,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import AppNavigator from './src/navigation/AppNavigator';
+// import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import RNBootSplash from 'react-native-bootsplash';
@@ -42,7 +26,7 @@ import RNBootSplash from 'react-native-bootsplash';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {auth: false};
+    this.state = {auth: true};
   }
 
   componentDidMount() {

@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     alignItems: 'center',
-    flex: 1,
   },
   center: {
     // backgroundColor: colors.primary,

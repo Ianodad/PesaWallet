@@ -1,16 +1,23 @@
 import React from 'react';
 import {Constants} from 'react-native-unimodules';
 import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
-import IconMenu from './Button/IconMenu';
+import Button from './Button/Button';
 // import {DrawerActions} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Screen = ({children, style, navigation, Gradient}) => {
+const Screen = ({children, style, navigation, Gradient, menu}) => {
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      {/* <IconMenu
-        onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-      /> */}
+      {menu && (
+        <Button
+          style={styles.button}
+          iconStyle={styles.iconImage}
+          color=""
+          image={require('../assets/Menu.png')}
+          onPress={() => navigation.openDrawer()}
+        />
+      )}
+
       {Gradient ? (
         <LinearGradient
           colors={['#5a60f8', '#5a60f8', '#8387f9']}
@@ -32,5 +39,15 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
+  },
+  button: {
+    position: 'absolute',
+    margin: 10,
+    flex: 1,
+    zIndex: 2,
+  },
+  iconImage: {
+    width: 30,
+    height: 30,
   },
 });

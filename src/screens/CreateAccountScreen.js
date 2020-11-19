@@ -2,7 +2,7 @@ import React from 'react';
 import Text from '../components/Text';
 import {StyleSheet, View} from 'react-native';
 import Screen from '../components/Screen';
-import {AppForm, AppFormField, SubmitButton} from '../components/forms';
+import {AppForm, AppFormField, SubmitButton} from '../components/Forms';
 import * as Yup from 'yup';
 
 const validationSchema = Yup.object().shape({
@@ -23,38 +23,42 @@ const validationSchema = Yup.object().shape({
 const CreateAccountScreen = () => {
   return (
     <Screen style={styles.container} Gradient>
-      <Text>Register Screen</Text>
-      <AppForm
-        initialValues={{fullName: '', email: '', phoneNumber: ''}}
-        validationSchema={validationSchema}
-        onSubmit={(values) => console.log(values)}>
-         <AppFormField
-          icon="user"
-          name="fullName"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Fullname"
-          textContentType="name"
-        />
-        <AppFormField
-          icon="mobile"
-          name="phoneNumber"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Phone Number"
-          textContentType="telephoneNumber"
-        />
-        <AppFormField
-          icon="envelope"
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder="Email"
-          name="email"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <SubmitButton title="Create Account" />
-      </AppForm>
+     <View style={styles.header}>
+        <Text style={styles.title}>Register Screen</Text>
+      </View>
+      <View style={styles.form}>
+        <AppForm
+          initialValues={{fullName: '', email: '', phoneNumber: ''}}
+          validationSchema={validationSchema}
+          onSubmit={(values) => console.log(values)}>
+          <AppFormField
+            icon="user"
+            name="fullName"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Fullname"
+            textContentType="name"
+          />
+          <AppFormField
+            icon="mobile"
+            name="phoneNumber"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Phone Number"
+            textContentType="telephoneNumber"
+          />
+          <AppFormField
+            icon="envelope"
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder="Email"
+            name="email"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <SubmitButton title="Create Account" />
+        </AppForm>
+      </View>
     </Screen>
   );
 };
@@ -62,7 +66,22 @@ const CreateAccountScreen = () => {
 export default CreateAccountScreen;
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1
-  }
+  container: {
+    flex: 1,
+  },
+  form:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 30,
+    color: 'white',
+    // fontWeight: 'bold',
+  },
+  header: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

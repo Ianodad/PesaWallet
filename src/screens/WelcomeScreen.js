@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import Button from '../components/Button/Button';
 import Text from '../components/Text';
 import Screen from '../components/Screen';
 // import LinearGradient from 'react-native-linear-gradient';
 import Modal from 'react-native-modal';
+
+import {Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get('window');
 
 const WelcomeScreen = ({navigation}) => {
   const [isLoginModalVisible, setLoginModalVisible] = useState(false);
@@ -23,12 +27,16 @@ const WelcomeScreen = ({navigation}) => {
     <Screen style={styles.container} Gradient>
       <View style={styles.main} />
       <View style={styles.logoDescription}>
-        <Text>Logo</Text>
+        <Image
+          style={styles.logo}
+          resizeMode="contain"
+          source={require('../assets/logo/logos2.png')}
+        />
       </View>
       <View style={styles.authButtons}>
         <Button
+          buttonType
           style={styles.login}
-          width="50%"
           color={'white'}
           title="Login"
           textStyle={styles.text}
@@ -36,9 +44,10 @@ const WelcomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('Login')}
         />
         <Button
+          buttonType
+          style={styles.create}
           textStyle={styles.text}
           color={'white'}
-          width="50%"
           title="Create Account"
           onPress={toggleCreateModal}
           onPress={() => navigation.navigate('Create')}
@@ -65,27 +74,37 @@ export default WelcomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // flexDirection: 'col',
-    // alignItems: 'center',
   },
   main: {
-    flex: 1,
+    // flex: 1,
     flexDirection: 'row',
   },
   logoDescription: {
-    flex: 1,
+    flex: 2,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: 150,
   },
   authButtons: {
     flex: 1,
-    // width:'70%',
+    alignItems: 'center',
     flexDirection: 'column',
   },
   login: {
+    alignItems: 'center',
     backgroundColor: 'white',
     color: 'blue',
     marginVertical: 10,
+    width: width - 90,
+    height: height / 15,
+  },
+  create: {
+    width: '80%',
+    marginVertical: 10,
+    alignItems: 'center',
+
   },
   text: {
     color: 'blue',
