@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   button: {
     position: 'absolute',
     margin: 10,
-    flex: 1,
+    width:50,
     zIndex: 2,
   },
   iconImage: {

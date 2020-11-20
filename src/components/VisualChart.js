@@ -17,6 +17,7 @@ import LineChartV3 from './Charts/SvgCharts/LineChartsV3';
 const VisualChart = () => {
   return (
     <View style={styles.container}>
+  
       {/* <PieChartVicrort/> */}
       {/* <BrushZoom/> */}
       {/* <LineChartVictory /> */}

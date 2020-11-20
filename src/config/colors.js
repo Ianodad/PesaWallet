@@ -6,7 +6,7 @@ export default {
   red: '#ff5252',
   safaricom: '#39b54b',
   airtel: '#FF0000',
-  telkom: '#0daacb',
+  tkash: '#0daacb',
   black: '#0c0c0c',
   Sent: '#ff7d7d',
   All: '#8387f9',
