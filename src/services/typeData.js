@@ -2,6 +2,7 @@ export const typesData = [
   {
     id: 1,
     title: 'All',
+    value: '',
     image: require('../assets/buttons/All.png'),
     amount: 'Ksh1000',
     colors: ['#5a60f8', '#5a60f8', '#8387f9'],
@@ -9,6 +10,7 @@ export const typesData = [
   {
     id: 2,
     title: 'Sent',
+    value: 'Sent',
     image: require('../assets/buttons/Sent.png'),
     amount: 'Ksh130000',
     colors: ['#5a60f8', '#5a60f8', '#8387f9'],
@@ -16,6 +18,7 @@ export const typesData = [
   {
     id: 3,
     title: 'Receive',
+    value: 'Receive',
     image: require('../assets/buttons/Receive.png'),
     amount: 'Ksh1700',
     colors: ['#39b54b', '#39b54b', '#65cd73'],
@@ -23,6 +26,7 @@ export const typesData = [
   {
     id: 4,
     title: 'Deposit',
+    value: 'Deposit',
     image: require('../assets/buttons/Deposit.png'),
     amount: 'Ksh500',
     colors: ['#5b64ae', '#5b64ae', '#848ac2'],
@@ -30,6 +34,7 @@ export const typesData = [
   {
     id: 5,
     title: 'Withdraw',
+    value: 'Withdraw',
     image: require('../assets/buttons/Withdraw.png'),
     amount: 'Ksh100',
     colors: ['#ed6e25', '#ed6e25', '#f1925b'],
@@ -37,6 +42,7 @@ export const typesData = [
   {
     id: 6,
     title: 'PayBill',
+    value: 'PayBill',
     image: require('../assets/buttons/PayBill.png'),
     amount: 'Ksh30000',
     colors: ['#fed304', '#fed304', '#fedd42'],
@@ -44,6 +50,7 @@ export const typesData = [
   {
     id: 7,
     title: 'BuyGoods',
+    value: 'BuyGoods',
     image: require('../assets/buttons/BuyGoods.png'),
     amount: 'Ksh4000',
     colors: ['#880085', '#880085', '#e500e0'],
@@ -51,6 +58,7 @@ export const typesData = [
   {
     id: 8,
     title: 'Airtime',
+    value: 'Airtime',
     image: require('../assets/buttons/Airtime.png'),
     amount: 'Ksh5000',
     colors: ['#f33c7E', '#f33c7E', '#f56c9e'],
@@ -58,6 +66,7 @@ export const typesData = [
   {
     id: 9,
     title: 'Reverse',
+    value: 'Reverse',
     image: require('../assets/buttons/Reverse.png'),
     amount: 'Ksh7700',
     colors: ['#9c5518', '#9c5518', '#de7c28'],

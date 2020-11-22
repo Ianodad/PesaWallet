@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Type from './Type';
 
-const TypeList = ({data}) => {
+const TypeList = ({data, onSetType}) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -17,6 +17,7 @@ const TypeList = ({data}) => {
             image={item.image}
             title={item.title}
             amount={item.amount}
+            onSetType={() => onSetType(item.value)}
           />
         )}
       />

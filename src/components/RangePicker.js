@@ -1,63 +1,54 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-const data = [
-  {
-    id: 1,
-    title: '1D',
-  },
-  {
-    id: 2,
-    title: '1W',
-  },
-  {
-    id: 3,
-    title: '1M',
-  },
-  {
-    id: 4,
-    title: '3M',
-  },
-  {
-    id: 5,
-    title: '6M',
-  },
-  {
-    id: 6,
-    title: '1Y',
-  },
-  {
-    id: 7,
-    title: 'MAX',
-  },
-];
-const RangePicker = () => {
-  const [selectedValue, setSelectedValue] = useState('');
+const RangePicker = ({range, onSetRange}) => {
+  const [selectedValue, setSelectedValue] = useState('month');
 
+  // console.log(selectedValue);
+  const setValue = (value) => {
+    setSelectedValue(value);
+    onSetRange(value);
+  };
   return (
-    <View style={styles.container}>
-      <RNPickerSelect
-        style={styles.picker}
-        value={selectedValue}
-        onValueChange={(value) => setSelectedValue(value)}
+    <>
+      <DropDownPicker
         items={[
-          {label: '1DAY', value: 'DAY'},
-          {label: '1WEEK', value: 'WEEK'},
-          {label: '1MONTH', value: 'MONTH'},
-          {label: '1YEAR', value: 'YEAR'},
+          {label: 'DAY', value: 'day', hidden: true},
+          {label: 'WEEK', value: 'week'},
+          {label: 'MONTH', value: 'month'},
+          {label: 'YEAR', value: 'year'},
+          {label: 'MAX', value: 'max'}
         ]}
+        defaultValue={selectedValue}
+        containerStyle={{width: 100}}
+        style={styles.picker}
+        itemStyle={{
+          justifyContent: 'flex-start',
+        }}
+        labelStyle={{
+          fontSize: 14,
+          fontWeight: 'bold',
+          textAlign: 'left',
+          color: '#000',
+        }}
+        dropDownStyle={{backgroundColor: '#fafafa'}}
+        onChangeItem={(item) => setValue(item.value)}
       />
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: 200,
-    position: 'absolute',
-    margin: 10,
+  picker: {
+    // alignItems: 'flex-end',
+    backgroundColor: '#fafafa',
+    marginTop: 13,
+    height: 35,
+    width: 100,
     zIndex: 2,
+    position: 'absolute',
   },
 });
 
