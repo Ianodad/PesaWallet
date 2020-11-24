@@ -19,10 +19,10 @@ const RangePicker = ({range, onSetRange}) => {
           {label: 'WEEK', value: 'week'},
           {label: 'MONTH', value: 'month'},
           {label: 'YEAR', value: 'year'},
-          {label: 'MAX', value: 'max'}
+          {label: 'MAX', value: 'max'},
         ]}
         defaultValue={selectedValue}
-        containerStyle={{width: 100}}
+        containerStyle={styles.container}
         style={styles.picker}
         itemStyle={{
           justifyContent: 'flex-start',
@@ -41,6 +41,9 @@ const RangePicker = ({range, onSetRange}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: 100,
+  },
   picker: {
     // alignItems: 'flex-end',
     backgroundColor: '#fafafa',

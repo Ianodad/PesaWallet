@@ -12,12 +12,14 @@ const FlatListItem = ({data, navigation}) => {
         <Transaction
           style={styles.transaction}
           id={item.ID}
+          phoneNo={item.PHONENO}
           type={item.TYPE}
           name={nameTitleCase(item.NAME)}
           date={item.DATE}
           time={item.TIME}
           cost={item.COST}
           amount={item.AMOUNT}
+          finance={item.FINANCE}
           navigation={navigation}
         />
       )}

@@ -6,44 +6,44 @@ import * as shape from 'd3-shape';
 
 class LineCharts extends Component {
   render() {
-    const data = [
-      500,
-      100,
-      4000,
-      950,
-      40,
-      240,
-      857,
-      910,
-      357,
-      536,
-      530,
-      249,
-      509,
-      20000,
-      8000,
-      500,
-      100,
-      4000,
-      950,
-      40,
-      240,
-      857,
-      910,
-      357,
-      536,
-      530,
-      249,
-      509,
-      20000,
-      8000,
-    ];
-// ['#39b54b', '#39b54b', '#65cd73']
+        const {data, colors} = this.props;
+    // const data = [
+    //   500,
+    //   100,
+    //   4000,
+    //   950,
+    //   40,
+    //   240,
+    //   857,
+    //   910,
+    //   357,
+    //   536,
+    //   530,
+    //   249,
+    //   509,
+    //   20000,
+    //   8000,
+    //   500,
+    //   100,
+    //   4000,
+    //   950,
+    //   40,
+    //   240,
+    //   857,
+    //   910,
+    //   357,
+    //   536,
+    //   530,
+    //   249,
+    //   509,
+    //   20000,
+    //   8000,
+    // ];
     const Gradient = () => (
       <Defs key={'gradient'}>
         <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
-          <Stop offset={'30%'} stopColor={'#39b54b'} />
-          <Stop offset={'100%'} stopColor={'#65cd73'} />
+          <Stop offset={'30%'} stopColor={colors[0]} />
+          <Stop offset={'100%'} stopColor={colors[2]} />
         </LinearGradient>
       </Defs>
     );
@@ -57,7 +57,7 @@ class LineCharts extends Component {
           contentInset={{top: 20, bottom: 20}}
           curve={shape.curveNatural}
           svg={{
-            strokeWidth: 9,
+            strokeWidth: 6,
             stroke: 'url(#gradient)',
           }}>
           {/* <Grid /> */}

@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Type from './Type';
 
-const TypeList = ({data, onSetType}) => {
+
+const TypeList = ({data, typesSummed, onSetType, onGetSummedTotal}) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -16,8 +17,8 @@ const TypeList = ({data, onSetType}) => {
             style={styles.type}
             image={item.image}
             title={item.title}
-            amount={item.amount}
-            onSetType={() => onSetType(item.value)}
+            amount={onGetSummedTotal(typesSummed, item.title) ? "K"+onGetSummedTotal(typesSummed, item.title): undefined }
+            onSetType={() => onSetType(item.value, item.colors)}
           />
         )}
       />

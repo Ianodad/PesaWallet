@@ -2,10 +2,10 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 import Text from './Text';
-const HeaderFixed = () => {
+const HeaderFixed = ({title}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Joe Dancan</Text>
+      <Text style={styles.title}>{title}</Text> 
       {/* <Text> Ian Adera</Text> */}
     </View>
   );

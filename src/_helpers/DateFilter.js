@@ -5,7 +5,6 @@ dayjs.extend(isBetween);
 const today = dayjs(dayjs(new Date())).format('MM/DD/YY');
 
 const filterPoint = (dataNew, startDate, endDate) => {
-  console.log(startDate, endDate);
   const result = dataNew.filter((a) => {
     const date = a.DATE;
     return dayjs(date).isBetween(startDate, endDate, null, '[]')

@@ -2,25 +2,26 @@ import React from 'react';
 import Text from '../components/Text';
 import {StyleSheet, View} from 'react-native';
 import colors from '../config/colors';
+import {NumberCommas} from '../_helpers/NumberCommas';
 
-const TitleHeader = ({home, filter}) => {
+const TitleHeader = ({home, title, phoneNo, creditSum, debitSum, creditLength, debitLength,  filter}) => {
   return (
     <View style={styles.container}>
       <View style={styles.Title}>
         {home && <Text style={styles.greeting}>Hello</Text>}
-        <Text style={styles.name}>Joe Dancan</Text>
+        <Text style={styles.name}>{title}</Text>
         {/* <Text>{caller}</Text> */}
-        {filter && <Text style={styles.number}>0712725144</Text>}
+        {filter && <Text style={styles.number}>{phoneNo}</Text>}
       </View>
       {filter && (
         <View style={styles.details}>
           <View style={styles.sentNo}>
-            <Text>Sent 13</Text>
-            <Text>Ksh3000</Text>
+            <Text style={{fontWeight: 'bold', color:"#848ac2"}}>Sent {creditLength}</Text>
+            <Text style={[styles.credit, {color:colors.Credit} ]}>{NumberCommas(creditSum)+"/="}</Text>
           </View>
           <View style={styles.receiveNo}>
-            <Text>Received 19</Text>
-            <Text>Ksh7000</Text>
+            <Text style={{fontWeight: 'bold', color:"#848ac2" }}>Received {debitLength}</Text>
+            <Text style={[styles.debit, {color:colors.Debit}]}>{NumberCommas(debitSum)+"/="}</Text>
           </View>
         </View>
       )}
@@ -62,6 +63,20 @@ const styles = StyleSheet.create({
   sentNo: {
     flex: 1,
     flexDirection: 'column',
+  },
+  credit:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    textShadowColor: 'green',
+    textShadowOffset: {width: 0.7, height: -0.7},
+    textShadowRadius: 1,
+
+  },
+  debit:{
+    fontWeight: 'bold', 
+    textShadowColor: 'blue', 
+    textShadowOffset: {width: 0.7, height: -0.7}, 
+    textShadowRadius: 1,
   },
   receiveNo: {
     flex: 1,

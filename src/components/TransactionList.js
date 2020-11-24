@@ -14,17 +14,17 @@ const TransactionList = ({navigation, data, flatList, sectionList}) => {
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
-        <Text style={styles.header}>Transaction</Text>
+        <Text style={styles.header}>Transactions</Text>
         {navigation && (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate('FilteredDetailsScreen', data[0].item)
             }>
-            <Text style={styles.SeeAll}>See All</Text>
+            <Text style={styles.ShowAll}>Show All</Text>
           </TouchableOpacity>
         )}
       </View>
-      {flatList && (<FlatListItem data={data} navigation={navigation} />)}
+      {flatList && <FlatListItem data={data} navigation={navigation} />}
       {sectionList && <SectionListItem data={data} navigation={navigation} />}
     </View>
   );
@@ -50,9 +50,13 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20
   },
-  SeeAll: {
+  ShowAll: {
+    marginRight:2,
+    fontSize: 18,
     color: colors.primary,
-    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
 });

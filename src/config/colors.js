@@ -17,4 +17,6 @@ export default {
   Withdraw: '#f1925b',
   Airtime: '#f56c9e',
   Reverse: '#de7c28',
+  Credit: '#3ab54b',
+  Debit: '#ff7d7d',
 };

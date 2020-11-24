@@ -10,6 +10,8 @@ import RangePicker from '../components/RangePicker';
 import color from '../config/colors';
 
 import {DateFilter} from '../_helpers/DateFilter.js';
+import {NumberCommas} from '../_helpers/NumberCommas';
+
 import {messages} from '../services/messagesCollection';
 import {typesData} from '../services/typeData';
 
@@ -20,9 +22,9 @@ class SourceDetailsScreen extends Component {
     super(props);
     this.state = {
       fullData: [],
-      filtered: [],
       types: [],
-      selectedType: 'Receive',
+      selectedType: '',
+      typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
       selectedRange: 'month',
       selectedDate: '',
     };
@@ -31,57 +33,84 @@ class SourceDetailsScreen extends Component {
   componentDidMount() {
     this.setState({fullData: messages});
     this.setState({types: typesData});
-    // this.filterMessages(
-    //   this.state.fullData,
-    //   this.state.selectedRange,
-    //   this.state.selectedType,
-    // );
   }
 
-  setType = (selectedType) => {
+  setType = (selectedType, typeColors) => {
     this.setState({selectedType});
-    // this.filterMessages(
-    //   this.state.fullData,
-    //   this.state.selectedRange,
-    //   this.state.selectedType,
-    // );
+    this.setState({typeColors});
   };
 
   setRange = (selectedRange) => {
     this.setState({selectedRange});
-    // this.filterMessages(
-    //   this.state.fullData,
-    //   this.state.selectedRange,
-    //   this.state.selectedType,
-    // );
   };
 
   filterMessages = (data, range, type) => {
-    // let query = {
-    //   range: this.state.selectedRange,
-    //   type: this.state.selectedType,
-    // };
-    const filter = DateFilter(data, range);
-    // console.log(filter);
-    const filtered = _.filter(filter, {TYPE: type});
-    // console.log(filtered);
-    this.setState({filtered});
+    if (type) {
+      const filter = DateFilter(data, range);
+      // console.log(filter);
+      const fullFiltered = _.filter(filter, {TYPE: type});
+      // console.log(filtered);
+      return {fullFiltered, filter};
+    } else {
+      const filter = DateFilter(data, range);
+
+      return {fullFiltered: data, filter};
+    }
+  };
+
+  getGraphData = (data) => {
+    return _.map(data, function (f) {
+      if (f.FINANCE == 'Debit') {
+        return -f.AMOUNT;
+      } else {
+        return f.AMOUNT;
+      }
+    });
+    return _.map(data, 'AMOUNT');
+  };
+
+  filterType = (data) => {
+    let typesSummed = _(data)
+      .groupBy('TYPE')
+      .map((objs, key) => {
+        return {
+          TYPE: key,
+          AMOUNT: _.sumBy(objs, 'AMOUNT'),
+        };
+      })
+      .value();
+    return typesSummed;
+    // console.log(summed);
+  };
+
+  getSummedTotal = (data, title) => {
+    const summed = _.filter(data, {TYPE: title}).map((t) => t.AMOUNT);
+    // console.log(summed.length);
+    if (!summed[0]) {
+      return undefined;
+    } else {
+      return NumberCommas(summed[0]);
+    }
   };
 
   render() {
     const {navigation, route} = this.props;
-    const {filtered, fullData, types, selectedRange, selectedType} = this.state;
-    // this.filterMessages(fullData, selectedRange, selectedType);
-    console.log(selectedRange);
-    const filter = DateFilter(fullData, selectedRange);
+    const {
+      fullData,
+      types,
+      selectedRange,
+      selectedType,
+      typeColors,
+    } = this.state;
 
-    // console.log(filter);
-    const fullFiltered = _.filter(filter, {TYPE: selectedType});
-    // console.log(fullData)
-    // const filter = selectedType
-    // ? fullData.filter((data) => data.TYPE == selectedType)
-    // : fullData;
-    // console.log(filter);
+    const {fullFiltered, filter} = this.filterMessages(
+      fullData,
+      selectedRange,
+      selectedType,
+    );
+
+    const graphData = this.getGraphData(fullFiltered);
+    const typesSummed = this.filterType(filter);
 
     return (
       <Screen navigation={navigation} style={styles.screen} menu>
@@ -97,10 +126,18 @@ class SourceDetailsScreen extends Component {
           end={{x: 0.5, y: 0.1}}
           style={styles.header}
           colors={['#8387f9', '#5a60f8']}>
-          <VisualChart data={fullFiltered ? fullFiltered : fullData} />
+          <VisualChart
+            data={graphData ? graphData : fullData}
+            colors={typeColors}
+          />
         </LinearGradient>
         <View style={styles.body}>
-          <TypeList data={types} onSetType={this.setType} />
+          <TypeList
+            data={types}
+            typesSummed={typesSummed}
+            onSetType={this.setType}
+            onGetSummedTotal={this.getSummedTotal}
+          />
           <TransactionList
             flatList={true}
             navigation={navigation}

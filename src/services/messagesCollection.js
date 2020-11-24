@@ -1,93 +1,11 @@
+const _ = require('lodash');
+import {nameTitleCase} from '../_helpers/NameTitleCase';
+
+
 export const messages = [
   {
-    ID: 'OGS74HDQMP',
-    AMOUNT: 2000,
-    NAME: 'JAEL OMOLO',
-    PHONENO: '+254717964343',
-    TIME: '9:52 AM.',
-    DATE: '11/22/20',
-    BALANCE: 10542,
-    COST: 41,
-    TYPE: 'Sent',
-  },
-  {
-    ID: 'OGS44N9YMM',
-    AMOUNT: 110,
-    NAME: 'SAMUEL WANJIKU',
-    PHONENO: '0700839022',
-    TIME: '12:50 PM.',
-    DATE: '11/22/20',
-    BALANCE: 10432,
-    COST: 0,
-    TYPE: 'Sent',
-  },
-  {
-    ID: 'OGS44Q5VBC',
-    AMOUNT: 400,
-    NAME: 'JAMES WAMBUI',
-    PHONENO: '0724982994',
-    TIME: '2:14 PM.',
-    DATE: '11/08/20',
-    BALANCE: 10032,
-    COST: 0,
-    TYPE: 'Sent',
-  },
-  {
-    ID: 'OGS04WC926',
-    AMOUNT: 1000,
-    NAME: 'THOMAS OTIENO',
-    PHONENO: '0727200036',
-    TIME: '5:03 PM.',
-    DATE: '10/28/20',
-    BALANCE: 9032,
-    COST: 0,
-    TYPE: 'Sent',
-  },
-  {
-    ID: 'OH25A2CC5T',
-    AMOUNT: 800,
-    NAME: 'THOMAS OTIENO',
-    PHONENO: '0746555721',
-    TIME: '7:16 PM.',
-    DATE: '10/2/20',
-    BALANCE: 8232,
-    COST: 0,
-    TYPE: 'Sent',
-  },
-  {
-    ID: 'OH24A2LTUC',
-    AMOUNT: 6000,
-    NAME: 'FELGONA OTIENO',
-    PHONENO: '0721654360',
-    TIME: '7:21 PM.',
-    DATE: '8/2/20',
-    BALANCE: 2155,
-    COST: 77,
-    TYPE: 'Sent',
-  },
-  {
-    ID: 'OH31AXT8DD',
-    AMOUNT: 3000,
-    NAME: 'BRIANAS INV LTDGIFT SHOPKARIOBANGI',
-    PHONENO: undefined,
-    TIME: '6:07 PM',
-    DATE: '8/3/20',
-    BALANCE: 5155,
-    TYPE: 'Deposit',
-  },
-  {
-    ID: 'OH30AXW2E4',
-    AMOUNT: 2000,
-    NAME: 'BRIANAS INV LTDGIFT SHOPKARIOBANGI',
-    PHONENO: undefined,
-    TIME: '6:09 PM',
-    DATE: '8/3/20',
-    BALANCE: 7155,
-    TYPE: 'Deposit',
-  },
-  {
     ID: 'OH34B1J28I',
-    AMOUNT: 5504,
+    AMOUNT: 550400,
     NAME: 'ZUKU 86599',
     PHONENO: undefined,
     TIME: '7:15 PM',
@@ -95,16 +13,18 @@ export const messages = [
     BALANCE: 1617,
     COST: 34,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OH41BLIEUH',
-    AMOUNT: 72000,
+    AMOUNT: 72000000,
     NAME: 'SAFARICOM GALLERIA 2',
     PHONENO: undefined,
     TIME: '1:05 PM',
     DATE: '8/4/20',
     BALANCE: 73617,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OH51CEO7O5',
@@ -116,6 +36,7 @@ export const messages = [
     BALANCE: 16012,
     COST: 105,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OH62DEAYDI',
@@ -127,6 +48,7 @@ export const messages = [
     BALANCE: 10927,
     COST: 85,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OH69DZWV1R',
@@ -138,6 +60,7 @@ export const messages = [
     BALANCE: 10577,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OH78ER1GA0',
@@ -149,6 +72,7 @@ export const messages = [
     BALANCE: 9493,
     COST: 34,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OH82GK8MAQ',
@@ -160,6 +84,7 @@ export const messages = [
     BALANCE: 2708,
     COST: 85,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OH94GTEAE6',
@@ -171,6 +96,7 @@ export const messages = [
     BALANCE: 2458,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHA0HMK8FS',
@@ -181,6 +107,7 @@ export const messages = [
     DATE: '8/10/20',
     BALANCE: 7458,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OHA1HMKTY9',
@@ -191,6 +118,7 @@ export const messages = [
     DATE: '8/10/20',
     BALANCE: 13458,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OHA3HMM0HF',
@@ -201,6 +129,7 @@ export const messages = [
     DATE: '8/10/20',
     BALANCE: 17458,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OHA6HT7FDU',
@@ -212,6 +141,7 @@ export const messages = [
     BALANCE: 8021,
     COST: 87,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHA7I84UY3',
@@ -223,6 +153,7 @@ export const messages = [
     BALANCE: 4360,
     COST: 61,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHB8J4ZNU2',
@@ -234,6 +165,7 @@ export const messages = [
     BALANCE: 4040,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHB9J5340N',
@@ -245,6 +177,7 @@ export const messages = [
     BALANCE: 3940,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHC5JQHYBX',
@@ -255,6 +188,7 @@ export const messages = [
     DATE: '8/12/20',
     BALANCE: 23940,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OHC4JR85B4',
@@ -266,6 +200,7 @@ export const messages = [
     BALANCE: 22037,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHC5JWD99X',
@@ -277,6 +212,7 @@ export const messages = [
     BALANCE: 5925,
     COST: 112,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHD1LIQYC5',
@@ -288,6 +224,7 @@ export const messages = [
     BALANCE: 5625,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHD5LJY6OV',
@@ -299,6 +236,7 @@ export const messages = [
     BALANCE: 4099,
     COST: 26,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHF5N0GM9P',
@@ -310,6 +248,7 @@ export const messages = [
     BALANCE: 3951,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHF5N1L6M7',
@@ -321,6 +260,7 @@ export const messages = [
     BALANCE: 3030,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHF1NNVYD7',
@@ -332,6 +272,7 @@ export const messages = [
     BALANCE: 2630,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHH9OUPK4L',
@@ -343,6 +284,7 @@ export const messages = [
     BALANCE: 2007,
     COST: 23,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHJ6QZK992',
@@ -353,6 +295,7 @@ export const messages = [
     DATE: '8/19/20',
     BALANCE: 1379,
     TYPE: 'Withdraw',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHJ4R4ZZH6',
@@ -364,6 +307,7 @@ export const messages = [
     BALANCE: 819,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHL7T07PW9',
@@ -374,6 +318,7 @@ export const messages = [
     DATE: '8/21/20',
     BALANCE: 5208,
     TYPE: 'Receive',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OHM4U7GIXU',
@@ -385,6 +330,7 @@ export const messages = [
     BALANCE: 5108,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHP1X7C7IT',
@@ -396,6 +342,7 @@ export const messages = [
     BALANCE: 4388,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHP7XAIGTL',
@@ -407,6 +354,7 @@ export const messages = [
     BALANCE: 4038,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHS0ZZM8LE',
@@ -418,6 +366,7 @@ export const messages = [
     BALANCE: 3038,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHT41YVRIS',
@@ -428,6 +377,7 @@ export const messages = [
     BALANCE: 2988,
     COST: 0,
     TYPE: 'Airtime',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OHT92LTS2R',
@@ -439,6 +389,7 @@ export const messages = [
     BALANCE: 2288,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI1355PDPP',
@@ -450,6 +401,7 @@ export const messages = [
     BALANCE: 1468,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI115GJ41V',
@@ -461,6 +413,7 @@ export const messages = [
     BALANCE: 1268,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI175GVBT5',
@@ -471,6 +424,7 @@ export const messages = [
     DATE: '9/1/20',
     BALANCE: 9268,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI155WIHK3',
@@ -482,6 +436,7 @@ export const messages = [
     BALANCE: 7227,
     COST: 41,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI2670CT5S',
@@ -492,6 +447,7 @@ export const messages = [
     DATE: '9/2/20',
     BALANCE: 8655,
     TYPE: 'Receive',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI347DPXCY',
@@ -503,6 +459,7 @@ export const messages = [
     BALANCE: 3121,
     COST: 34,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI4889AO6Q',
@@ -514,6 +471,7 @@ export const messages = [
     BALANCE: 1595,
     COST: 26,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI529FEXRY',
@@ -525,6 +483,7 @@ export const messages = [
     BALANCE: 1365,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI58A531JA',
@@ -536,6 +495,7 @@ export const messages = [
     BALANCE: 865,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI60ALH372',
@@ -547,6 +507,7 @@ export const messages = [
     BALANCE: 765,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI64B6Q7PY',
@@ -558,6 +519,7 @@ export const messages = [
     BALANCE: 220,
     COST: 45,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI71BX3F2R',
@@ -568,6 +530,7 @@ export const messages = [
     DATE: '9/7/20',
     BALANCE: 5220,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI78BX4TR4',
@@ -578,6 +541,7 @@ export const messages = [
     DATE: '9/7/20',
     BALANCE: 12220,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI71BX68OJ',
@@ -588,6 +552,7 @@ export const messages = [
     DATE: '9/7/20',
     BALANCE: 16220,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI77BX7T75',
@@ -598,6 +563,7 @@ export const messages = [
     DATE: '9/7/20',
     BALANCE: 19720,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI70BX8XM8',
@@ -608,6 +574,7 @@ export const messages = [
     DATE: '9/7/20',
     BALANCE: 20220,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OI88CM9DS4',
@@ -619,6 +586,7 @@ export const messages = [
     BALANCE: 14143,
     COST: 77,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI90DEW966',
@@ -630,6 +598,7 @@ export const messages = [
     BALANCE: 9058,
     COST: 85,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OI90DEWDLC',
@@ -641,6 +610,7 @@ export const messages = [
     BALANCE: 8735,
     COST: 23,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIA4EWGHQY',
@@ -652,6 +622,7 @@ export const messages = [
     BALANCE: 1158,
     COST: 77,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OID6HYM3HS',
@@ -663,6 +634,7 @@ export const messages = [
     BALANCE: 658,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OID9HZ31MB',
@@ -673,6 +645,7 @@ export const messages = [
     DATE: '9/13/20',
     BALANCE: 10658,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OIF1JUEHG5',
@@ -684,6 +657,7 @@ export const messages = [
     BALANCE: 3102,
     COST: 56,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIF3JXU1HX',
@@ -695,6 +669,7 @@ export const messages = [
     BALANCE: 2068,
     COST: 34,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIF3K1ZIGX',
@@ -706,6 +681,7 @@ export const messages = [
     BALANCE: 1888,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIH6MVDD84',
@@ -716,6 +692,7 @@ export const messages = [
     DATE: '9/17/20',
     BALANCE: 4988,
     TYPE: 'Receive',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OIH2MVQAEO',
@@ -727,6 +704,7 @@ export const messages = [
     BALANCE: 1906,
     COST: 82,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIK6PJXJ7S',
@@ -737,6 +715,7 @@ export const messages = [
     DATE: '9/20/20',
     BALANCE: 35906,
     TYPE: 'Deposit',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OIL9Q6IQRB',
@@ -748,6 +727,7 @@ export const messages = [
     BALANCE: 35733,
     COST: 23,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIL2QA77VQ',
@@ -759,6 +739,7 @@ export const messages = [
     BALANCE: 34733,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIL3QKDTJ1',
@@ -770,6 +751,7 @@ export const messages = [
     BALANCE: 33207,
     COST: 26,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIL2QNZ86O',
@@ -781,6 +763,7 @@ export const messages = [
     BALANCE: 32081,
     COST: 26,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIM9RFEEQX',
@@ -792,6 +775,7 @@ export const messages = [
     BALANCE: 31781,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIM5RJI4QB',
@@ -803,6 +787,7 @@ export const messages = [
     BALANCE: 31741,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIM7RULVVR',
@@ -814,6 +799,7 @@ export const messages = [
     BALANCE: 31241,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIM8RUYY6W',
@@ -825,6 +811,7 @@ export const messages = [
     BALANCE: 29200,
     COST: 41,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIN7SSFSX5',
@@ -836,6 +823,7 @@ export const messages = [
     BALANCE: 27090,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIN0SV8NZK',
@@ -847,6 +835,7 @@ export const messages = [
     BALANCE: 25636,
     COST: 26,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIN0SVNFH6',
@@ -858,6 +847,7 @@ export const messages = [
     BALANCE: 25436,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIO2TN7MZ6',
@@ -869,6 +859,7 @@ export const messages = [
     BALANCE: 25216,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIO3TOIVPL',
@@ -880,6 +871,7 @@ export const messages = [
     BALANCE: 24216,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIO7TRIBIJ',
@@ -891,6 +883,7 @@ export const messages = [
     BALANCE: 23636,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIR4WYT3JC',
@@ -901,6 +894,7 @@ export const messages = [
     DATE: '9/27/20',
     BALANCE: 30636,
     TYPE: 'Receive',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OIR1X40NFL',
@@ -912,6 +906,7 @@ export const messages = [
     BALANCE: 28942,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIR2X45J0G',
@@ -923,6 +918,7 @@ export const messages = [
     BALANCE: 28662,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OIT0YVLERI',
@@ -933,6 +929,7 @@ export const messages = [
     DATE: '9/29/20',
     BALANCE: 33762,
     TYPE: 'Receive',
+    FINANCE: 'Credit',
   },
   {
     ID: 'OJ1426RCNO',
@@ -944,6 +941,7 @@ export const messages = [
     BALANCE: 32762,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ19351CE9',
@@ -955,6 +953,7 @@ export const messages = [
     BALANCE: 26685,
     COST: 77,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ12355HRU',
@@ -966,6 +965,7 @@ export const messages = [
     BALANCE: 23629,
     COST: 56,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ213K2Q55',
@@ -977,10 +977,11 @@ export const messages = [
     BALANCE: 23529,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ244E0BWI',
-    AMOUNT: 520,
+    AMOUNT: 520000,
     NAME: 'SERPHINE OSUMBA',
     PHONENO: '0722501140',
     TIME: '9:48 PM.',
@@ -988,6 +989,7 @@ export const messages = [
     BALANCE: 23009,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ394UQN9R',
@@ -999,6 +1001,7 @@ export const messages = [
     BALANCE: 22909,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ324XD2EG',
@@ -1006,10 +1009,11 @@ export const messages = [
     NAME: 'CARREFOUR 06.',
     PHONENO: undefined,
     TIME: '1:26 PM',
-    DATE: '10/3/20',
+    DATE: '11/19/20',
     BALANCE: 20839,
     COST: 0,
     TYPE: 'BuyGoods',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ325C12CK',
@@ -1017,10 +1021,11 @@ export const messages = [
     NAME: 'AGNES NZISA ROGO',
     PHONENO: '0722332959',
     TIME: '6:32 PM.',
-    DATE: '10/3/20',
+    DATE: '11/20/20',
     BALANCE: 19839,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ305KWNVY',
@@ -1028,10 +1033,11 @@ export const messages = [
     NAME: 'ZUKU 86599',
     PHONENO: undefined,
     TIME: '9:10 PM',
-    DATE: '10/3/20',
+    DATE: '11/18/20',
     BALANCE: 15905,
     COST: 34,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ446IRDVY',
@@ -1039,24 +1045,32 @@ export const messages = [
     NAME: 'EQUITY PAYBILL ACCOUNT',
     PHONENO: '0170279522799',
     TIME: '7:25 PM',
-    DATE: '10/4/20',
+    DATE: '11/23/20',
     BALANCE: 5905,
     COST: 0,
     TYPE: 'PayBill',
+    FINANCE: 'Debit',
   },
   {
     ID: 'OJ576TE5CL',
-    AMOUNT: 1000,
+    AMOUNT: 100000,
     NAME: 'IAN ADERA',
     PHONENO: '0712725144',
     TIME: '8:09 AM.',
-    DATE: '10/5/20',
+    DATE: '11/23/20',
     BALANCE: 4905,
     COST: 0,
     TYPE: 'Sent',
+    FINANCE: 'Debit',
   },
 ];
 
-export function getMessages() {
-  return messages.filter((message) => message);
+export function getMessages(id) {
+  // console.log(id)
+  // console.log(_.filter(messages, (message) => message.PHONENO == id || message.NAME == id.toUpperCase()));
+  return _.filter(
+    messages,
+    (message) => message.PHONENO == id || nameTitleCase(message.NAME) == id,
+  );
+  // return messages.filter((message) => message);
 }

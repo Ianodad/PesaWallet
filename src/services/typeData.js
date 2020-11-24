@@ -4,7 +4,7 @@ export const typesData = [
     title: 'All',
     value: '',
     image: require('../assets/buttons/All.png'),
-    amount: 'Ksh1000',
+    amount: 'k1000',
     colors: ['#5a60f8', '#5a60f8', '#8387f9'],
   },
   {
@@ -12,15 +12,15 @@ export const typesData = [
     title: 'Sent',
     value: 'Sent',
     image: require('../assets/buttons/Sent.png'),
-    amount: 'Ksh130000',
-    colors: ['#5a60f8', '#5a60f8', '#8387f9'],
+    amount: 'k130000',
+    colors: ['#ff5252', '#ff7d7d', '#ff7d7d'],
   },
   {
     id: 3,
     title: 'Receive',
     value: 'Receive',
     image: require('../assets/buttons/Receive.png'),
-    amount: 'Ksh1700',
+    amount: 'k1700',
     colors: ['#39b54b', '#39b54b', '#65cd73'],
   },
   {
@@ -28,7 +28,7 @@ export const typesData = [
     title: 'Deposit',
     value: 'Deposit',
     image: require('../assets/buttons/Deposit.png'),
-    amount: 'Ksh500',
+    amount: 'k500',
     colors: ['#5b64ae', '#5b64ae', '#848ac2'],
   },
   {
@@ -36,7 +36,7 @@ export const typesData = [
     title: 'Withdraw',
     value: 'Withdraw',
     image: require('../assets/buttons/Withdraw.png'),
-    amount: 'Ksh100',
+    amount: 'K100',
     colors: ['#ed6e25', '#ed6e25', '#f1925b'],
   },
   {
@@ -44,7 +44,7 @@ export const typesData = [
     title: 'PayBill',
     value: 'PayBill',
     image: require('../assets/buttons/PayBill.png'),
-    amount: 'Ksh30000',
+    amount: 'k30000',
     colors: ['#fed304', '#fed304', '#fedd42'],
   },
   {
@@ -52,7 +52,7 @@ export const typesData = [
     title: 'BuyGoods',
     value: 'BuyGoods',
     image: require('../assets/buttons/BuyGoods.png'),
-    amount: 'Ksh4000',
+    amount: 'k4000',
     colors: ['#880085', '#880085', '#e500e0'],
   },
   {
@@ -60,7 +60,7 @@ export const typesData = [
     title: 'Airtime',
     value: 'Airtime',
     image: require('../assets/buttons/Airtime.png'),
-    amount: 'Ksh5000',
+    amount: 'k5000',
     colors: ['#f33c7E', '#f33c7E', '#f56c9e'],
   },
   {
@@ -68,7 +68,7 @@ export const typesData = [
     title: 'Reverse',
     value: 'Reverse',
     image: require('../assets/buttons/Reverse.png'),
-    amount: 'Ksh7700',
+    amount: 'k7700',
     colors: ['#9c5518', '#9c5518', '#de7c28'],
   },
 ];

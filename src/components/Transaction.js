@@ -9,16 +9,20 @@ import {
 } from 'react-native';
 import IconButton from './Button/IconButton';
 import colors from '../config/colors';
+import {NumberCommas} from '../_helpers/NumberCommas';
+
 // import DateLineSeparator from './DateLineSeparator';
 
 const Transaction = ({
   id,
+  phoneNo,
   type,
   name,
   date,
   time,
   amount,
   detail,
+  finance,
   separator,
   transactionCost,
   navigation,
@@ -46,6 +50,12 @@ const Transaction = ({
         return require('../assets/buttons/All.png');
     }
   };
+
+  if (finance == "Debit"){
+    amount = `-${NumberCommas(amount)}`
+  }else {
+    amount = NumberCommas(amount);
+  }
   return (
     <View>
       {/* <DateLineSeparator date={date}/> */}
@@ -67,7 +77,7 @@ const Transaction = ({
               {navigation && (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('FilteredDetailsScreen', id)
+                    navigation.navigate('FilteredDetailsScreen', {'id':phoneNo||name, 'title':name, 'phoneNo': phoneNo })
                   }>
                   <Text
                     style={styles.name}
@@ -93,7 +103,9 @@ const Transaction = ({
             </View>
           </View>
           <View style={styles.cardRight}>
-            <Text style={styles.amount}>Ksh{amount}</Text>
+            <Text style={[styles.amount, {color: colors[finance]}]}>
+              {amount}/=
+            </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -135,11 +147,12 @@ const styles = StyleSheet.create({
     flex: 2.5,
   },
   cardRight: {
+    flexDirection: 'row-reverse',
     // backgroundColor: colors.red,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
+    flex: 1.31,
     marginLeft: 10,
   },
   button: {
@@ -168,12 +181,18 @@ const styles = StyleSheet.create({
     marginVertical: 1,
   },
   amount: {
+    fontSize: 16,
     borderRadius: 10,
-    backgroundColor: colors.primary,
-    shadowColor: '#FFFFFF',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-    elevation: 4,
+    fontWeight: 'bold',
+    // color: colors.white,
+    // backgroundColor: colors.primary,
+    textShadowRadius: 2,
+    textShadowOffset: {width: 0, height: 1},
+    textShadowColor: 'black',
+
+    // shadowColor: '#FFFFFF',
+    // shadowOpacity: 0.5,
+    // shadowRadius: 3,
+    // elevation: 4,
   },
 });

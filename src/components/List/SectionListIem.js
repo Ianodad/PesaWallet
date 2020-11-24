@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, SectionList} from 'react-native';
 import Transaction from '../Transaction';
 import {DataModifier} from '../../_helpers/DataModifier';
 import {nameTitleCase} from '../../_helpers/NameTitleCase';
+
 // import {DateConverter} from '../../_helpers/DateConverter';
 var dayjs = require('dayjs');
 
@@ -23,7 +24,7 @@ const SectionListIem = ({data, navigation}) => {
     );
   };
   return (
-    <View>
+    <>
       {/* {DateConverter('7/10/2020')} */}
       <SectionList
         style={styles.transaction}
@@ -34,6 +35,7 @@ const SectionListIem = ({data, navigation}) => {
           <Transaction
             style={styles.transaction}
             id={item.ID}
+            phoneNo={item.PHONENO}
             type={item.TYPE}
             name={nameTitleCase(item.NAME)}
             date={DateConverter(item.DATE)}
@@ -41,11 +43,12 @@ const SectionListIem = ({data, navigation}) => {
             time={item.TIME}
             cost={item.COST}
             amount={item.AMOUNT}
+            finance={item.FINANCE}
             navigation={navigation}
           />
         )}
       />
-    </View>
+    </>
   );
 };
 

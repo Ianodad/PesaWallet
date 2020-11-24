@@ -14,20 +14,17 @@ import LineCharts from './Charts/SvgCharts/LineCharts.js';
 import DecoratorCharts from './Charts/SvgCharts/DecoratorCharts';
 import LineChartsV2 from './Charts/SvgCharts/LineChartsV2';
 import LineChartV3 from './Charts/SvgCharts/LineChartsV3';
-const VisualChart = () => {
+const VisualChart = ({data, colors}) => {
   return (
     <View style={styles.container}>
-  
       {/* <PieChartVicrort/> */}
       {/* <BrushZoom/> */}
       {/* <LineChartVictory /> */}
       {/* <LineChartsV2/> */}
       {/* <DecoratorCharts /> */}
       {/* <LineChartV3 /> */}
-      <LineCharts />
-      <View style={styles.chartButton}>
-        {/* <RangeList /> */}
-      </View>
+      <LineCharts data={data} colors={colors} />
+      {/* <View style={styles.chartButton}><RangeList /></View> */}
     </View>
   );
 };
@@ -37,7 +34,7 @@ export default VisualChart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop:45,
+    paddingTop: 45,
   },
   chartButton: {
     // justifyContent: 'center',
