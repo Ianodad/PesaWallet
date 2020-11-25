@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Screen from '../components/Screen';
-import SourceDetails from './SourceDetailsScreen';
+// import SourceDetailsScreen from './SourceDetailsScreen';
 import Card from '../components/Card';
 import {
   StyleSheet,

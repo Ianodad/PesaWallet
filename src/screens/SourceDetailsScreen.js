@@ -5,7 +5,7 @@ import Screen from '../components/Screen';
 import TypeList from '../components/TypeList';
 import TransactionList from '../components/TransactionList';
 import VisualChart from '../components/VisualChart';
-import RangePicker from '../components/RangePicker';
+import RangePicker from '../components/RangerPicker';
 
 import color from '../config/colors';
 
