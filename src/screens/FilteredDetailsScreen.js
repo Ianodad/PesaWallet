@@ -19,9 +19,9 @@ class FilteredDetailsScreen extends Component {
     // console.log(props.route.params);
     this.state = {
       data: [],
-      id: props.route.params.id,
-      title: props.route.params.title,
-      phoneNo: props.route.params.phoneNo,
+      id: props.route.params.id || '',
+      title: props.route.params.title || '',
+      phoneNo: props.route.params.phoneNo || '',
     };
   }
 

@@ -6,6 +6,7 @@ import TypeList from '../components/TypeList';
 import TransactionList from '../components/TransactionList';
 import VisualChart from '../components/VisualChart';
 import RangePicker from '../components/RangerPicker';
+import SwipeAction from '../components/SwipeAction';
 
 import color from '../config/colors';
 
@@ -114,6 +115,9 @@ class SourceDetailsScreen extends Component {
 
     return (
       <Screen navigation={navigation} style={styles.screen} menu>
+        <View style={styles.action}>
+          <SwipeAction style={styles.swipeaction} />
+        </View>
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
           <RangePicker
             data={types}
@@ -163,9 +167,14 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: color.white,
-    flex: 5,
+    flex: 5 ,
     flexDirection: 'column',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
+  },
+  swipeaction: {},
+  action: {
+    alignItems: 'center',
+    marginRight: 50,
   },
 });

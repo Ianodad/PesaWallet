@@ -3,10 +3,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Defs, LinearGradient, Stop} from 'react-native-svg';
 import {LineChart, Grid} from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 class LineCharts extends Component {
   render() {
-        const {data, colors} = this.props;
+    const {data, colors} = this.props;
     // const data = [
     //   500,
     //   100,
@@ -51,7 +55,7 @@ class LineCharts extends Component {
     return (
       <View style={styles.container}>
         <LineChart
-          style={{height: 220}}
+          style={{height: responsiveHeight(30)}}
           data={data}
           showGrid={false}
           contentInset={{top: 20, bottom: 20}}
