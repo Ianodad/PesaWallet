@@ -3,12 +3,16 @@ import Text from '../Text';
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import colors from '../../config/colors';
 import Info from './Info';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const IconButton = ({
   image,
   style,
   imageStyle,
   info,
+  iconStyle,
+  icon,
+  iconSize,
   color = 'primary',
   onPress,
 }) => {
@@ -17,6 +21,10 @@ const IconButton = ({
     <TouchableOpacity
       style={[styles.button, style, {backgroundColor: colors[color]}]}
       onPress={onPress}>
+      {icon && (
+        <Icon style={[styles.icon, iconStyle]} name={icon} size={iconSize} />
+      )}
+
       {image && (
         <Image
           style={[styles.logo, imageStyle]}

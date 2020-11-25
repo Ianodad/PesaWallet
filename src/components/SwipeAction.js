@@ -1,18 +1,26 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Text from './Text'
+import {StyleSheet, View} from 'react-native';
+import IconButton from './Button/IconButton';
 
-const leftIcon = <Icon name="angle-left" size={30} color="#900" />
-const myIcon2 = <Icon name="c" size={30} color="#900" solid />;
-const rightIcon = <Icon name="angle-right" size={30} color="#900" light />; 
-
-
-const SwipeAction = () => {
+const SwipeAction = ({onPress}) => {
   return (
     <View style={styles.container}>
-      <Text>{leftIcon} </Text>
-      <Text>Oct 1 - Oct 7</Text>
-      <Text>{rightIcon}</Text>
+      <IconButton
+        onPress={onPress}
+        style={styles.button}
+        iconStyle={styles.icon}
+        color=""
+        icon={'angle-left'}
+        iconSize={20}
+      />
+      <Text>September</Text>
+      <IconButton
+        onPress={onPress}
+        iconStyle={styles.icon}
+        icon={'angle-right'}
+        iconSize={30}
+      />
     </View>
   );
 };
@@ -25,8 +33,16 @@ const styles = StyleSheet.create({
     zIndex: 4,
     position: 'absolute',
     // alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flexDirection: 'row',
-    marginTop: 20
+    marginTop: 20,
+    width: 200,
+  },
+  button: {
+    // width: 40,
+  },
+  icon: {
+    width: 16,
+    color: 'white',
   },
 });
