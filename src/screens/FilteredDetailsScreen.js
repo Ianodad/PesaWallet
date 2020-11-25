@@ -26,7 +26,7 @@ class FilteredDetailsScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({data: getMessages(this.state.id)});
+    this.setState({data: this.props.route.params.data || getMessages(this.state.id)});
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }
 

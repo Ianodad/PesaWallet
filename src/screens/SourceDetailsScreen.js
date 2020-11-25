@@ -145,6 +145,7 @@ class SourceDetailsScreen extends Component {
           <TransactionList
             flatList={true}
             navigation={navigation}
+            title={selectedType || "All"}
             data={fullFiltered ? fullFiltered : fullData}
           />
         </View>

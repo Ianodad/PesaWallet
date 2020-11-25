@@ -9,7 +9,7 @@ import DateLineSeparator from '../components/DateLineSeparator';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
 
-const TransactionList = ({navigation, data, flatList, sectionList}) => {
+const TransactionList = ({navigation, data, flatList, title, sectionList}) => {
   // console.log(messages)
   return (
     <View style={styles.container}>
@@ -18,7 +18,7 @@ const TransactionList = ({navigation, data, flatList, sectionList}) => {
         {navigation && (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('FilteredDetailsScreen', data[0].item)
+              navigation.navigate('FilteredDetailsScreen', {data:data, title: title})
             }>
             <Text style={styles.ShowAll}>Show All</Text>
           </TouchableOpacity>
