@@ -3,11 +3,11 @@ import Text from './Text'
 import {StyleSheet, View} from 'react-native';
 import IconButton from './Button/IconButton';
 
-const SwipeAction = ({onPress}) => {
+const SwipeAction = ({setNextData, setPrevData}) => {
   return (
     <View style={styles.container}>
       <IconButton
-        onPress={onPress}
+        onPress={setPrevData}
         style={styles.button}
         iconStyle={styles.icon}
         color=""
@@ -16,8 +16,9 @@ const SwipeAction = ({onPress}) => {
       />
       <Text>September</Text>
       <IconButton
-        onPress={onPress}
+        onPress={setNextData}
         iconStyle={styles.icon}
+        color=''
         icon={'angle-right'}
         iconSize={30}
       />

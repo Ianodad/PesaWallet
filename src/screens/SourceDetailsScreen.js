@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
 import LinearGradient from 'react-native-linear-gradient';
 import Screen from '../components/Screen';
 import TypeList from '../components/TypeList';
@@ -24,10 +26,11 @@ class SourceDetailsScreen extends Component {
     this.state = {
       fullData: [],
       types: [],
+      setDataIndex:0,
       selectedType: '',
-      typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
-      selectedRange: 'month',
       selectedDate: '',
+      selectedRange: 'month',
+      typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
     };
   }
 
@@ -67,7 +70,7 @@ class SourceDetailsScreen extends Component {
         return f.AMOUNT;
       }
     });
-    return _.map(data, 'AMOUNT');
+    // return _.map(data, 'AMOUNT');
   };
 
   filterType = (data) => {
@@ -93,6 +96,30 @@ class SourceDetailsScreen extends Component {
       return NumberCommas(summed[0]);
     }
   };
+    onSwipe(gestureName, gestureState) {
+    const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+    this.setState({gestureName: gestureName});
+    switch (gestureName) {
+      case SWIPE_LEFT:
+        this.setState({backgroundColor: 'blue'});
+        break;
+      case SWIPE_RIGHT:
+        this.setState({backgroundColor: 'yellow'});
+        break;
+    }
+  }
+  onSetNextData=()=>{
+    if (!this.state.setDataIndex +1)
+    console.log(this.state.setDataIndex+1)
+    this.setState({setDataIndex: this.state.setDataIndex+1})
+    }
+  onSetPrevData=()=>{
+    if (!this.state.setDataIndex-1 < 0){
+      console.log(this.state.setDataIndex-1)
+      this.setState({setDataIndex: this.state.setDataIndex-1})
+    }
+  }
+
 
   render() {
     const {navigation, route} = this.props;
@@ -112,11 +139,15 @@ class SourceDetailsScreen extends Component {
 
     const graphData = this.getGraphData(fullFiltered);
     const typesSummed = this.filterType(filter);
-
+    
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
     return (
       <Screen navigation={navigation} style={styles.screen} menu>
         <View style={styles.action}>
-          <SwipeAction style={styles.swipeaction} />
+          <SwipeAction style={styles.swipeaction} setNextData={this.onSetNextData} setPrevData={this.onSetPrevData}  />
         </View>
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
           <RangePicker
@@ -125,15 +156,24 @@ class SourceDetailsScreen extends Component {
             onSetRange={this.setRange}
           />
         </View>
-        <LinearGradient
+      <LinearGradient
           start={{x: 0, y: 0.8}}
           end={{x: 0.5, y: 0.1}}
           style={styles.header}
           colors={['#8387f9', '#5a60f8']}>
+        <GestureRecognizer
+        // onSwipe={(direction, state) => this.onSwipe(direction, state)}
+        onSwipeLeft={() => this.onSetPrevData()}
+        onSwipeRight={() => this.onSetNextData()}
+        config={config}
+        style={{height:"100%"}}
+        > 
           <VisualChart
             data={graphData ? graphData : fullData}
             colors={typeColors}
           />
+
+        </GestureRecognizer>
         </LinearGradient>
         <View style={styles.body}>
           <TypeList

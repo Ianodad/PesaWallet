@@ -26,6 +26,19 @@ const VisualChart = ({data, colors}) => {
       <LineCharts data={data} colors={colors} />
       {/* <View style={styles.chartButton}><RangeList /></View> */}
     </View>
+    // <View style={styles.container}>
+    //   <GestureRecognizer
+    //     // onSwipe={(direction, state) => this.onSwipe(direction, state)}
+    //     onSwipeLeft={() => this.onSetPrevData()}
+    //     onSwipeRight={() => this.onSetNextData()}
+    //     config={config}
+    //     style={{height:"100%"}}
+    //     >
+    //        <LineCharts data={data} colors={colors} />
+    //   </GestureRecognizer>
+    // </View>
+
+
   );
 };
 
