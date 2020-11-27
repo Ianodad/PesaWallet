@@ -1,5 +1,7 @@
 var dayjs = require('dayjs');
 var isBetween = require('dayjs/plugin/isBetween');
+var _ = require('lodash');
+
 dayjs.extend(isBetween);
 
 const today = dayjs(dayjs(new Date())).format('MM/DD/YY');
@@ -7,7 +9,7 @@ const today = dayjs(dayjs(new Date())).format('MM/DD/YY');
 const filterPoint = (dataNew, startDate, endDate) => {
   const result = dataNew.filter((a) => {
     const date = a.DATE;
-    return dayjs(date).isBetween(startDate, endDate, null, '[]')
+    return dayjs(date).isBetween(startDate, endDate, null, '[]');
     // console.log(date >= startDate && date <= endDate);
     // return date >= startDate && date <= endDate;
   });
@@ -51,20 +53,19 @@ const weekGroup = (data) => {
 };
 
 const monthGroup = (data) => {
-    let title
-    let month
+  let title;
+  let month;
   const DATA = Object.values(
     data.reduce((acc, item) => {
-      
-  const title = dayjs(item.DATE).format("MMMM YYYY")
-  const month = dayjs(item.DATE).format("MMMM")
+      const title = dayjs(item.DATE).format('MMMM YYYY');
+      const month = dayjs(item.DATE).format('MMMM');
       if (!acc[title]) {
         acc[title] = {
           dateTitle: title,
           month: month,
           data: [],
-          };     
-        }
+        };
+      }
       acc[title].data.push(item);
       return acc;
     }, {}),
@@ -73,19 +74,18 @@ const monthGroup = (data) => {
 };
 
 const yearGroup = (data) => {
-    let title
-    let year
+  let title;
+  let year;
   const DATA = Object.values(
     data.reduce((acc, item) => {
-      
-  const title = dayjs(item.DATE).format("YYYY")
-  // const month = dayjs(item.DATE).format("MMMM")
+      const title = dayjs(item.DATE).format('YYYY');
+      // const month = dayjs(item.DATE).format("MMMM")
       if (!acc[title]) {
         acc[title] = {
           yearTitle: title,
           data: [],
-          };     
-        }
+        };
+      }
       acc[title].data.push(item);
       return acc;
     }, {}),
@@ -93,7 +93,7 @@ const yearGroup = (data) => {
   return DATA;
 };
 
-export const DateFilter = (dataNew, range, date, time) => {
+export const DateFilter = (dataNew, range) => {
   // console.log(range);
   switch (range) {
     case 'hour':
@@ -102,12 +102,15 @@ export const DateFilter = (dataNew, range, date, time) => {
       return dataNew.filter((a) => a.DATE === today);
     case 'week':
       const startWeek = dayjs(today).subtract(1, 'Week').format('MM/DD/YYYY');
-      // return weekGroup(dataNew)
-      return filterPoint(dataNew, startWeek, today);
+      // const week = weekGroup(dataNew);
+      // console.log(_.get(week,'[0].data'))
+      return weekGroup(dataNew);
+    // return filterPoint(dataNew, startWeek, today);
     case 'month':
       const startMonth = dayjs(today).subtract(1, 'Month').format('MM/DD/YYYY');
-      // console.log(filterPoint(dataNew, startMonth, today));
-      return filterPoint(dataNew, startMonth, today);
+      return monthGroup(dataNew);
+    // console.log(filterPoint(dataNew, startMonth, today));
+    // return filterPoint(dataNew, startMonth, today);
     case 'threeMonths':
       const start3Months = dayjs(today)
         .subtract(3, 'Month')
@@ -121,7 +124,8 @@ export const DateFilter = (dataNew, range, date, time) => {
     case 'year':
       // const startYear = dayjs(today).startOf('year');
       const startYear = dayjs(today).subtract(1, 'Year').format('MM/DD/YYYY');
-      return filterPoint(dataNew, startYear, today);
+      return yearGroup(dataNew);
+    // return filterPoint(dataNew, startYear, today);
     case 'max':
       return dataNew;
     default:

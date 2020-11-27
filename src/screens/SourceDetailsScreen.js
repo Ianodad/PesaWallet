@@ -26,10 +26,11 @@ class SourceDetailsScreen extends Component {
     this.state = {
       fullData: [],
       types: [],
-      setDataIndex:0,
+      setDataIndex: 0,
+      dataIndexLength: '',
       selectedType: '',
       selectedDate: '',
-      selectedRange: 'month',
+      selectedRange: 'year',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
     };
   }
@@ -50,15 +51,22 @@ class SourceDetailsScreen extends Component {
 
   filterMessages = (data, range, type) => {
     if (type) {
-      const filter = DateFilter(data, range);
+      const intialfilter = DateFilter(data, range);
+      let datalength = intialfilter.length;
+      const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
       // console.log(filter);
       const fullFiltered = _.filter(filter, {TYPE: type});
+      console.log(datalength);
       // console.log(filtered);
-      return {fullFiltered, filter};
+      return {fullFiltered, filter, datalength};
     } else {
-      const filter = DateFilter(data, range);
+      const intialfilter = DateFilter(data, range);
+      let datalength = intialfilter.length;
 
-      return {fullFiltered: data, filter};
+      const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+      // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
+      // this.setState({dataIndexLength: intialfilter.length});
+      return {fullFiltered: filter, filter, datalength};
     }
   };
 
@@ -96,7 +104,7 @@ class SourceDetailsScreen extends Component {
       return NumberCommas(summed[0]);
     }
   };
-    onSwipe(gestureName, gestureState) {
+  onSwipe(gestureName, gestureState) {
     const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
     this.setState({gestureName: gestureName});
     switch (gestureName) {
@@ -108,18 +116,20 @@ class SourceDetailsScreen extends Component {
         break;
     }
   }
-  onSetNextData=()=>{
-    if (!this.state.setDataIndex +1)
-    console.log(this.state.setDataIndex+1)
-    this.setState({setDataIndex: this.state.setDataIndex+1})
+  onSetNextData = (datalength) => {
+    // console.log(datalength);
+    if (this.state.setDataIndex < datalength) {
+      console.log(this.state.setDataIndex + 1);
+      this.setState({setDataIndex: this.state.setDataIndex + 1});
     }
-  onSetPrevData=()=>{
-    if (!this.state.setDataIndex-1 < 0){
-      console.log(this.state.setDataIndex-1)
-      this.setState({setDataIndex: this.state.setDataIndex-1})
-    }
-  }
+  };
 
+  onSetPrevData = () => {
+    if (!this.state.setDataIndex - 1 < 0) {
+      console.log(this.state.setDataIndex - 1);
+      this.setState({setDataIndex: this.state.setDataIndex - 1});
+    }
+  };
 
   render() {
     const {navigation, route} = this.props;
@@ -131,23 +141,28 @@ class SourceDetailsScreen extends Component {
       typeColors,
     } = this.state;
 
-    const {fullFiltered, filter} = this.filterMessages(
+    const {fullFiltered, filter, datalength} = this.filterMessages(
       fullData,
       selectedRange,
       selectedType,
     );
 
+    // console.log(fullFiltered);
     const graphData = this.getGraphData(fullFiltered);
     const typesSummed = this.filterType(filter);
-    
+
     const config = {
       velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80
+      directionalOffsetThreshold: 80,
     };
     return (
       <Screen navigation={navigation} style={styles.screen} menu>
         <View style={styles.action}>
-          <SwipeAction style={styles.swipeaction} setNextData={this.onSetNextData} setPrevData={this.onSetPrevData}  />
+          <SwipeAction
+            style={styles.swipeaction}
+            setNextData={() => this.onSetNextData(datalength)}
+            setPrevData={() => this.onSetPrevData()}
+          />
         </View>
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
           <RangePicker
@@ -156,24 +171,22 @@ class SourceDetailsScreen extends Component {
             onSetRange={this.setRange}
           />
         </View>
-      <LinearGradient
+        <LinearGradient
           start={{x: 0, y: 0.8}}
           end={{x: 0.5, y: 0.1}}
           style={styles.header}
           colors={['#8387f9', '#5a60f8']}>
-        <GestureRecognizer
-        // onSwipe={(direction, state) => this.onSwipe(direction, state)}
-        onSwipeLeft={() => this.onSetPrevData()}
-        onSwipeRight={() => this.onSetNextData()}
-        config={config}
-        style={{height:"100%"}}
-        > 
-          <VisualChart
-            data={graphData ? graphData : fullData}
-            colors={typeColors}
-          />
-
-        </GestureRecognizer>
+          <GestureRecognizer
+            onSwipe={(direction, state) => this.onSwipe(direction, state)}
+            onSwipeRight={() => this.onSetNextData(datalength)}
+            onSwipeLeft={() => this.onSetPrevData()}
+            config={config}
+            style={{flex:1}}>
+            <VisualChart
+              data={graphData ? graphData : fullData}
+              colors={typeColors}
+            />
+          </GestureRecognizer>
         </LinearGradient>
         <View style={styles.body}>
           <TypeList
@@ -185,7 +198,7 @@ class SourceDetailsScreen extends Component {
           <TransactionList
             flatList={true}
             navigation={navigation}
-            title={selectedType || "All"}
+            title={selectedType || 'All'}
             data={fullFiltered ? fullFiltered : fullData}
           />
         </View>
@@ -208,7 +221,7 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: color.white,
-    flex: 5 ,
+    flex: 5,
     flexDirection: 'column',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
