@@ -7,13 +7,13 @@ import {sub} from 'react-native-reanimated';
 import Info from './Button/Info';
 
 
-const Type = ({image, title, amount, onSetType}) => {
+const Type = ({image, title, amount, onSetType, selectColor}) => {
   return (
     <IconButton
       style={styles.button}
       image={image}
       imageStyle={styles.image}
-      color={title}
+      color={selectColor || title}
       onPress={onSetType}
       info={<Info style={styles.info} subTitle={title} detail={amount} />}
     />

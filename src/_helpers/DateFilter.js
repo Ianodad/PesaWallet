@@ -17,6 +17,24 @@ const filterPoint = (dataNew, startDate, endDate) => {
   return result;
 };
 
+export const dayGroup = (data) => {
+  const DATA = Object.values(
+    data.reduce((acc, item) => {
+    //   console.log(acc);
+      if (!acc[item.DATE]) {
+        acc[item.DATE] = {
+          title: dayjs(item.DATE).format('MMM D'),
+          data: [],
+        };
+      }
+      acc[item.DATE].data.push(item);
+    //   console.log(acc);
+      return acc;
+    }, {}),
+  );
+  return DATA;
+};
+
 const weekGroup = (data) => {
   let startWeek;
   let endWeek;
@@ -27,8 +45,8 @@ const weekGroup = (data) => {
       startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
       endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
       // console.log()
-      titleStart = dayjs(item.DATE).day(0).format('MMM D YY');
-      titleEnd = dayjs(item.DATE).day(6).format('MMM D YY');
+      titleStart = dayjs(item.DATE).day(0).format('MMM D');
+      titleEnd = dayjs(item.DATE).day(6).format('MMM D');
       title = `${titleStart}-${titleEnd}`;
       const between = dayjs(item.DATE).isBetween(
         startWeek,
@@ -39,7 +57,7 @@ const weekGroup = (data) => {
 
       if (!acc[title] && between) {
         acc[title] = {
-          dateTitle: title,
+          title: title,
           startWeek: dayjs(titleStart).format('MMM D'),
           endWeek: dayjs(titleEnd).format('MMM D'),
           data: [],
@@ -57,11 +75,11 @@ const monthGroup = (data) => {
   let month;
   const DATA = Object.values(
     data.reduce((acc, item) => {
-      const title = dayjs(item.DATE).format('MMMM YYYY');
-      const month = dayjs(item.DATE).format('MMMM');
+      title = dayjs(item.DATE).format('MMMM YYYY');
+      month = dayjs(item.DATE).format('MMMM');
       if (!acc[title]) {
         acc[title] = {
-          dateTitle: title,
+          title: title,
           month: month,
           data: [],
         };
@@ -82,7 +100,7 @@ const yearGroup = (data) => {
       // const month = dayjs(item.DATE).format("MMMM")
       if (!acc[title]) {
         acc[title] = {
-          yearTitle: title,
+          title: title,
           data: [],
         };
       }
@@ -99,7 +117,8 @@ export const DateFilter = (dataNew, range) => {
     case 'hour':
       break;
     case 'day':
-      return dataNew.filter((a) => a.DATE === today);
+      return dayGroup(dataNew)
+      // return dataNew.filter((a) => a.DATE === today);
     case 'week':
       const startWeek = dayjs(today).subtract(1, 'Week').format('MM/DD/YYYY');
       // const week = weekGroup(dataNew);

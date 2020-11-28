@@ -29,6 +29,7 @@ class SourceDetailsScreen extends Component {
       setDataIndex: 0,
       dataIndexLength: '',
       selectedType: '',
+      selectColor: '',
       selectedDate: '',
       selectedRange: 'year',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
@@ -43,30 +44,46 @@ class SourceDetailsScreen extends Component {
   setType = (selectedType, typeColors) => {
     this.setState({selectedType});
     this.setState({typeColors});
+    this.setState({selectColor: "white"})
   };
 
   setRange = (selectedRange) => {
     this.setState({selectedRange});
+    this.setState({setDataIndex: 0});
   };
 
   filterMessages = (data, range, type) => {
     if (type) {
-      const intialfilter = DateFilter(data, range);
-      let datalength = intialfilter.length;
-      const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
-      // console.log(filter);
-      const fullFiltered = _.filter(filter, {TYPE: type});
-      console.log(datalength);
-      // console.log(filtered);
-      return {fullFiltered, filter, datalength};
-    } else {
-      const intialfilter = DateFilter(data, range);
-      let datalength = intialfilter.length;
+      if (range == 'max') {
+        const filter = _.filter(data, {TYPE: type});
 
-      const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
-      // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
-      // this.setState({dataIndexLength: intialfilter.length});
-      return {fullFiltered: filter, filter, datalength};
+        return {fullFiltered: filter, filter, datalength: 0, title: 'Max'};
+      } else {
+        const intialfilter = DateFilter(data, range);
+        let datalength = intialfilter.length;
+        const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+        const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
+        console.log(title);
+        // console.log(filter);
+        const fullFiltered = _.filter(filter, {TYPE: type});
+        // console.log(datalength);
+        // console.log(filtered);
+        return {fullFiltered, filter, datalength, title};
+      }
+    } else {
+      if (range === 'max') {
+        return {fullFiltered: data, filter: data, datalength: 0, title: 'Max'};
+      } else {
+        const intialfilter = DateFilter(data, range);
+        let datalength = intialfilter.length;
+
+        const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+        const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
+        console.log(title);
+        // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
+        // this.setState({dataIndexLength: intialfilter.length});
+        return {fullFiltered: filter, filter, datalength, title};
+      }
     }
   };
 
@@ -118,7 +135,7 @@ class SourceDetailsScreen extends Component {
   }
   onSetNextData = (datalength) => {
     // console.log(datalength);
-    if (this.state.setDataIndex < datalength) {
+    if (this.state.setDataIndex < datalength - 1) {
       console.log(this.state.setDataIndex + 1);
       this.setState({setDataIndex: this.state.setDataIndex + 1});
     }
@@ -141,7 +158,7 @@ class SourceDetailsScreen extends Component {
       typeColors,
     } = this.state;
 
-    const {fullFiltered, filter, datalength} = this.filterMessages(
+    const {fullFiltered, filter, datalength, title} = this.filterMessages(
       fullData,
       selectedRange,
       selectedType,
@@ -159,6 +176,7 @@ class SourceDetailsScreen extends Component {
       <Screen navigation={navigation} style={styles.screen} menu>
         <View style={styles.action}>
           <SwipeAction
+            title={title}
             style={styles.swipeaction}
             setNextData={() => this.onSetNextData(datalength)}
             setPrevData={() => this.onSetPrevData()}
@@ -181,7 +199,7 @@ class SourceDetailsScreen extends Component {
             onSwipeRight={() => this.onSetNextData(datalength)}
             onSwipeLeft={() => this.onSetPrevData()}
             config={config}
-            style={{flex:1}}>
+            style={{flex: 1}}>
             <VisualChart
               data={graphData ? graphData : fullData}
               colors={typeColors}
@@ -192,6 +210,7 @@ class SourceDetailsScreen extends Component {
           <TypeList
             data={types}
             typesSummed={typesSummed}
+            selectColor={this.selectColor}
             onSetType={this.setType}
             onGetSummedTotal={this.getSummedTotal}
           />

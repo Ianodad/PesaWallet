@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const RangePicker = ({range, onSetRange}) => {
-  const [selectedValue, setSelectedValue] = useState('month');
+  const [selectedValue, setSelectedValue] = useState(range);
 
   // console.log(selectedValue);
   const setValue = (value) => {
