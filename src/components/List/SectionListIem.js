@@ -16,7 +16,7 @@ const SectionListIem = ({data, navigation}) => {
   }
 
   //   console.log(data);
-  const sectionHeader = ({section}) => {
+  const sectionHeader = ({section, renderScrollComponent}) => {
     return (
       <View style={styles.headerStyle}>
         <Text>{DateConverter(section.dateTitle, 'full')}</Text>
@@ -47,6 +47,7 @@ const SectionListIem = ({data, navigation}) => {
             navigation={navigation}
           />
         )}
+        renderScrollComponent
       />
     </>
   );

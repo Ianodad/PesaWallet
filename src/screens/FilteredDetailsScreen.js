@@ -1,7 +1,24 @@
 /* eslint-disable no-undef */
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, ScrollView, Image} from 'react-native';
-import ParallaxScroll from '@monterosa/react-native-parallax-scroll';
+import {
+  Text,
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+  Dimensions,
+  FlatList,
+  PixelRatio,
+} from 'react-native';
+// import ParallaxScroll from '@monterosa/react-native-parallax-scroll';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Transaction from '../components/Transaction';
+import {nameTitleCase} from '../_helpers/NameTitleCase';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
+
 import HeaderFixed from '../components/HeaderFixed';
 import TitleHeader from '../components/TitleHeader';
 import TransactionList from '../components/TransactionList';
@@ -21,6 +38,19 @@ class FilteredDetailsScreen extends Component {
       id: props.route.params.id || '',
       title: props.route.params.title || '',
       phoneNo: props.route.params.phoneNo || '',
+      dataSource: [
+        'Simplicity Matters',
+        'Hammock Driven Development',
+        'Value of Values',
+        'Are We There Yet?',
+        'The Language of the System',
+        'Design, Composition, and Performance',
+        'Clojure core.async',
+        'The Functional Database',
+        'Deconstructing the Database',
+        'Hammock Driven Development',
+        'Value of Values',
+      ],
     };
   }
 
@@ -59,7 +89,7 @@ class FilteredDetailsScreen extends Component {
   }
 
   render() {
-    const {navigation, route} = this.props;
+    const {navigation, route, onScroll = () => {}} = this.props;
     const {data, title, phoneNo} = this.state;
     const {creditSum, creditLength, debitSum, debitLength} = this.getFinance(
       data,
@@ -67,7 +97,60 @@ class FilteredDetailsScreen extends Component {
 
     return (
       <Screen navigation={navigation} style={styles.container} menu>
-        <ParallaxScroll
+        <FlatList
+          data={data}
+          keyExtractor={(type) => type.ID.toString()}
+          renderItem={({item}) => (
+            <Transaction
+              style={styles.transaction}
+              id={item.ID}
+              phoneNo={item.PHONENO}
+              type={item.TYPE}
+              name={nameTitleCase(item.NAME)}
+              date={item.DATE}
+              time={item.TIME}
+              cost={item.COST}
+              amount={item.AMOUNT}
+              finance={item.FINANCE}
+              navigation={navigation}
+            />
+          )}
+          renderScrollComponent={(props) => (
+            <ParallaxScrollView
+              style={{flex: 1, backgroundColor: 'hotpink', overflow: 'hidden'}}
+              onScroll={onScroll}
+              headerBackgroundColor={colors.white}
+              backgroundColor={colors.primary}
+              contentBackgroundColor="white"
+              stickyHeaderHeight={responsiveHeight(10)}
+              parallaxHeaderHeight={responsiveHeight(25)}
+              backgroundSpeed={10}
+              renderBackground={() => <View style={styles.background} />}
+              renderForeground={() => (
+                <TitleHeader
+                  title={title}
+                  phoneNo={phoneNo}
+                  debitSum={debitSum}
+                  creditSum={creditSum}
+                  debitLength={debitLength}
+                  creditLength={creditLength}
+                  style={styles.backgroundHeader}
+                  filter="filter"
+                />
+              )}
+              renderStickyHeader={() => (
+                <View style={styles.header}>
+                  <HeaderFixed
+                    style={styles.stickyHeader}
+                    textStyle={styles.stickyTitle}
+                    title={title}
+                  />
+                </View>
+              )}
+            />
+          )}
+        />
+        {/* <ParallaxScroll
           renderHeader={({animatedValue}) => (
             <HeaderFixed title={title} animatedValue={animatedValue} />
           )}
@@ -104,29 +187,36 @@ class FilteredDetailsScreen extends Component {
             navigation={navigation}
             data={data}
           />
-        </ParallaxScroll>
+        </ParallaxScroll> */}
       </Screen>
     );
   }
 }
+
 export default FilteredDetailsScreen;
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
   },
-  backgroundContainer: {
-    backgroundColor: colors.primary,
+  stickyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: colors.white,
   },
-  backgroundHeader: {
-    backgroundColor: colors.primary,
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+  header: {
+    flex: 1,
+    marginLeft: 60,
+    marginTop: 40,
+    backgroundColor: colors.white,
   },
-  foreGroundHeader: {
-    // height: 180,
-    backgroundColor: colors.primary,
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+  stickyTitle: {
+    fontSize: 36,
+    marginVertical: 30,
+  },
+  background: {
+    height: 400,
+    backgroundColor: colors.white,
   },
 });
