@@ -9,13 +9,21 @@ import DateLineSeparator from '../components/DateLineSeparator';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
 
-const TransactionList = ({navigation, data, flatList, title, sectionList}) => {
-  // console.log(messages)
+const TransactionList = ({
+  navigation,
+  data,
+  flatList,
+  title,
+  sectionList,
+  renderScrollComponent,
+  header,
+}) => {
+  // console.log(data.length)
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
-        <Text style={styles.header}>Transactions</Text>
-        {navigation && (
+        {header && <Text style={styles.header}>Transactions</Text>}
+        {header && (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate('FilteredDetailsScreen', {
@@ -28,7 +36,13 @@ const TransactionList = ({navigation, data, flatList, title, sectionList}) => {
         )}
       </View>
       {flatList && <FlatListItem data={data} navigation={navigation} />}
-      {sectionList && <SectionListItem data={data} navigation={navigation} />}
+      {sectionList && (
+        <SectionListItem
+          data={data}
+          navigation={navigation}
+          renderScrollComponent={renderScrollComponent}
+        />
+      )}
     </View>
   );
 };
@@ -38,7 +52,7 @@ export default TransactionList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 5,
+    // margin: 5,
     // backgroundColor:colors.primary
   },
   transaction: {

@@ -38,19 +38,6 @@ class FilteredDetailsScreen extends Component {
       id: props.route.params.id || '',
       title: props.route.params.title || '',
       phoneNo: props.route.params.phoneNo || '',
-      dataSource: [
-        'Simplicity Matters',
-        'Hammock Driven Development',
-        'Value of Values',
-        'Are We There Yet?',
-        'The Language of the System',
-        'Design, Composition, and Performance',
-        'Clojure core.async',
-        'The Functional Database',
-        'Deconstructing the Database',
-        'Hammock Driven Development',
-        'Value of Values',
-      ],
     };
   }
 
@@ -97,24 +84,11 @@ class FilteredDetailsScreen extends Component {
 
     return (
       <Screen navigation={navigation} style={styles.container} menu>
-        <FlatList
+        <TransactionList
+          header={false}
+          sectionList={true}
+          navigation={navigation}
           data={data}
-          keyExtractor={(type) => type.ID.toString()}
-          renderItem={({item}) => (
-            <Transaction
-              style={styles.transaction}
-              id={item.ID}
-              phoneNo={item.PHONENO}
-              type={item.TYPE}
-              name={nameTitleCase(item.NAME)}
-              date={item.DATE}
-              time={item.TIME}
-              cost={item.COST}
-              amount={item.AMOUNT}
-              finance={item.FINANCE}
-              navigation={navigation}
-            />
-          )}
           renderScrollComponent={(props) => (
             <ParallaxScrollView
               style={{flex: 1, backgroundColor: 'hotpink', overflow: 'hidden'}}
