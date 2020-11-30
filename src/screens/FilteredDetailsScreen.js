@@ -12,7 +12,6 @@ import colors from '../config/colors';
 
 var _ = require('lodash');
 
-
 class FilteredDetailsScreen extends Component {
   constructor(props) {
     super(props);
@@ -26,21 +25,23 @@ class FilteredDetailsScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({data: this.props.route.params.data || getMessages(this.state.id)});
+    this.setState({
+      data: this.props.route.params.data || getMessages(this.state.id),
+    });
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }
 
   getFinance = (data) => {
-    const credit = _.filter(data, {FINANCE: 'Credit'}).map((t) => t.AMOUNT)
-    const creditSum = _.sum(credit)
-    const creditLength = _.size(credit)
-    const debit = _.filter(data, {FINANCE: 'Debit'}).map((t) => t.AMOUNT)
-    const debitSum = _.sum(debit)
-    const debitLength = _.size(debit)
+    const credit = _.filter(data, {FINANCE: 'Credit'}).map((t) => t.AMOUNT);
+    const creditSum = _.sum(credit);
+    const creditLength = _.size(credit);
+    const debit = _.filter(data, {FINANCE: 'Debit'}).map((t) => t.AMOUNT);
+    const debitSum = _.sum(debit);
+    const debitLength = _.size(debit);
     // // console.log(debitSum, creditSum)
     // console.log(credit, debit)
     // console.log(creditLength, debitLength)
-    return {creditSum, creditLength, debitSum, debitLength}
+    return {creditSum, creditLength, debitSum, debitLength};
   };
   renderHeader() {
     return (
@@ -60,7 +61,9 @@ class FilteredDetailsScreen extends Component {
   render() {
     const {navigation, route} = this.props;
     const {data, title, phoneNo} = this.state;
-    const {creditSum, creditLength, debitSum, debitLength} = this.getFinance(data)
+    const {creditSum, creditLength, debitSum, debitLength} = this.getFinance(
+      data,
+    );
 
     return (
       <Screen navigation={navigation} style={styles.container} menu>
@@ -69,15 +72,17 @@ class FilteredDetailsScreen extends Component {
             <HeaderFixed title={title} animatedValue={animatedValue} />
           )}
           // onChangeHeaderVisibility={this.renderHeader}
+          // headerHeight={70}
+          isHeaderFixed
           headerHeight={70}
-          isHeaderFixed={true}
           parallaxHeight={180}
           // useNativeDriver={true}
           headerFixedTransformY={10}
           fadeOutParallaxBackground={true}
           isBackgroundScalable={true}
           // nested
-          headerFixedBackgroundColor={colors.primary}
+          headerFixedBackgroundColor={'transparent'}
+          // headerFixedBackgroundColor={colors.primary}
           // renderParallaxBackground={this.renderBackground}
           renderParallaxForeground={({animatedValue}) => (
             <TitleHeader
@@ -93,7 +98,7 @@ class FilteredDetailsScreen extends Component {
             />
           )}
           parallaxBackgroundScrollSpeed={5}
-          parallaxForegroundScrollSpeed={4.5}>
+          parallaxForegroundScrollSpeed={2}>
           <TransactionList
             sectionList={true}
             navigation={navigation}

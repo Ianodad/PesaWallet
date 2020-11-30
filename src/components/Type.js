@@ -6,7 +6,6 @@ import colors from '../config/colors';
 import {sub} from 'react-native-reanimated';
 import Info from './Button/Info';
 
-
 const Type = ({image, title, amount, onSetType, selectColor}) => {
   return (
     <IconButton
@@ -15,7 +14,7 @@ const Type = ({image, title, amount, onSetType, selectColor}) => {
       imageStyle={styles.image}
       color={selectColor || title}
       onPress={onSetType}
-      info={<Info style={styles.info} subTitle={title} detail={amount} />}
+      info={<Info style={styles.info} subTitle={title} subStyle={styles.subStyle} detailStyle={styles.detailStyle} detail={amount} />}
     />
   );
 };
@@ -36,17 +35,25 @@ const styles = StyleSheet.create({
   },
   info: {
     position: 'absolute',
-    color:colors.white
+    // color: colors.white,
+    fontWeight: 'bold',
+    textShadowRadius: 1,
+    textShadowOffset: {width: 0, height: 1},
+    textShadowColor: '#D3D3D3',
   },
   image: {
     // position: 'absolute',
     // zIndex: 1,
   },
-  subStyle: {
-    position: 'relative',
-    marginBottom: 60,
+  // subStyle: {
+  //   position: 'relative',
+  //   marginBottom: 60,
+  // },
+  detailStyle: {
+    textShadowRadius: 2,
+    textShadowOffset: {width: 0, height: 1},
+    textShadowColor: 'black',
   },
-  detailStyle: {},
   info: {},
   // detail:{
   //   position:"absolute",

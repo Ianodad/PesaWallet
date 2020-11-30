@@ -18,7 +18,10 @@ const TransactionList = ({navigation, data, flatList, title, sectionList}) => {
         {navigation && (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('FilteredDetailsScreen', {data:data, title: title})
+              navigation.navigate('FilteredDetailsScreen', {
+                data: data,
+                title: title,
+              })
             }>
             <Text style={styles.ShowAll}>Show All</Text>
           </TouchableOpacity>
@@ -51,10 +54,10 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
   },
   ShowAll: {
-    marginRight:2,
+    marginRight: 2,
     fontSize: 18,
     color: colors.primary,
     fontWeight: 'bold',

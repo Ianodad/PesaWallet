@@ -1,7 +1,11 @@
 import React from 'react';
-import Text from './Text'
+import Text from './Text';
 import {StyleSheet, View} from 'react-native';
 import IconButton from './Button/IconButton';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 
 const SwipeAction = ({setNextData, setPrevData, title}) => {
   return (
@@ -12,13 +16,13 @@ const SwipeAction = ({setNextData, setPrevData, title}) => {
         iconStyle={styles.icon}
         color=""
         icon={'angle-left'}
-        iconSize={20}
+        iconSize={30}
       />
-      <Text>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
       <IconButton
         onPress={setNextData}
         iconStyle={styles.icon}
-        color=''
+        color=""
         icon={'angle-right'}
         iconSize={30}
       />
@@ -37,10 +41,32 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 20,
-    width: 200,
+    width: responsiveWidth(40),
   },
   button: {
     // width: 40,
+  },
+  icon: {
+    shadowColor: 'blue',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 3,
+    shadowRadius: 3,
+
+    elevation: 3,
+  },
+  title: {
+    marginHorizontal: 10,
+    alignItems: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textShadowColor: 'blue',
+    textShadowOffset: {width: -1, height: 0},
+    textShadowRadius: 1,
+    // color: 'white',
+    // width: responsiveWidth(20)
   },
   icon: {
     width: 16,

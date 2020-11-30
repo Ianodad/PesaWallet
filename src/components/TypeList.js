@@ -18,7 +18,7 @@ const TypeList = ({data, typesSummed, onSetType, onGetSummedTotal, selectColor})
             image={item.image}
             title={item.title}
             selectColor={selectColor}
-            amount={onGetSummedTotal(typesSummed, item.title) ? "K"+onGetSummedTotal(typesSummed, item.title): undefined }
+            amount={onGetSummedTotal(typesSummed, item.title) ? onGetSummedTotal(typesSummed, item.title): undefined }
             onSetType={() => onSetType(item.value, item.colors)}
           />
         )}

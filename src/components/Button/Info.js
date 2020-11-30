@@ -7,7 +7,7 @@ const Info = ({style, subTitle, subStyle, detail, detailStyle}) => {
   return (
     <View style={[styles.container, style]}>
       {subTitle && <Text style={[styles.subTitle, subStyle]}>{subTitle}</Text>}
-      {detail && <Text style={[styles.detailStyle]}>{detail}</Text>}
+      {detail && <Text style={[styles.detailStyle, detailStyle]}>{detail}</Text>}
     </View>
   );
 };
