@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, SectionList} from 'react-native';
+import {StyleSheet, Text, View, SectionList, ScrollView} from 'react-native';
 import Transaction from '../Transaction';
 import {DataModifier} from '../../_helpers/DataModifier';
 import {nameTitleCase} from '../../_helpers/NameTitleCase';

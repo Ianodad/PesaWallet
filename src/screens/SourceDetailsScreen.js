@@ -215,6 +215,7 @@ class SourceDetailsScreen extends Component {
             onGetSummedTotal={this.getSummedTotal}
           />
           <TransactionList
+            header
             flatList={true}
             navigation={navigation}
             title={selectedType || 'All'}

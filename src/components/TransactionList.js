@@ -9,13 +9,13 @@ import DateLineSeparator from '../components/DateLineSeparator';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
 
-const TransactionList = ({navigation, data, flatList, title, sectionList}) => {
+const TransactionList = ({navigation, data, flatList, title, sectionList, header}) => {
   // console.log(messages)
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
-        <Text style={styles.header}>Transactions</Text>
-        {navigation && (
+        {header && (<Text style={styles.header}>Transactions</Text>)}
+        {header && (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate('FilteredDetailsScreen', {
