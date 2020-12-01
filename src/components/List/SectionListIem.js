@@ -7,19 +7,20 @@ import {nameTitleCase} from '../../_helpers/NameTitleCase';
 // import {DateConverter} from '../../_helpers/DateConverter';
 var dayjs = require('dayjs');
 
-const SectionListIem = ({data, navigation}) => {
-  function DateConverter(date, type) {
+const SectionListIem = ({data, navigation, renderScrollComponent}) => {
+  console.log(data.length);
+  const dateConverter = (date, type) => {
     if (type == 'full') {
       return dayjs(date, 'MM/DD/YY').format('dddd D MMMM YYYY');
     }
     return dayjs(date, 'MM/DD/YY').format('D MMM YYYY');
-  }
+  };
 
   //   console.log(data);
   const sectionHeader = ({section}) => {
     return (
       <View style={styles.headerStyle}>
-        <Text>{DateConverter(section.dateTitle, 'full')}</Text>
+        <Text>{dateConverter(section.dateTitle, 'full')}</Text>
       </View>
     );
   };
@@ -38,7 +39,7 @@ const SectionListIem = ({data, navigation}) => {
             phoneNo={item.PHONENO}
             type={item.TYPE}
             name={nameTitleCase(item.NAME)}
-            date={DateConverter(item.DATE)}
+            date={dateConverter(item.DATE)}
             // date={item.DATE}
             time={item.TIME}
             cost={item.COST}
@@ -47,6 +48,7 @@ const SectionListIem = ({data, navigation}) => {
             navigation={navigation}
           />
         )}
+        renderScrollComponent={renderScrollComponent}
       />
     </>
   );

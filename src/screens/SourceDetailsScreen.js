@@ -44,7 +44,7 @@ class SourceDetailsScreen extends Component {
   setType = (selectedType, typeColors) => {
     this.setState({selectedType});
     this.setState({typeColors});
-    this.setState({selectColor: "white"})
+    this.setState({selectColor: 'white'});
   };
 
   setRange = (selectedRange) => {
@@ -168,10 +168,12 @@ class SourceDetailsScreen extends Component {
     const graphData = this.getGraphData(fullFiltered);
     const typesSummed = this.filterType(filter);
 
+    // console.log(fullFiltered)
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80,
     };
+
     return (
       <Screen navigation={navigation} style={styles.screen} menu>
         <View style={styles.action}>
@@ -217,6 +219,7 @@ class SourceDetailsScreen extends Component {
           <TransactionList
             header
             flatList={true}
+            header={true}
             navigation={navigation}
             title={selectedType || 'All'}
             data={fullFiltered ? fullFiltered : fullData}
