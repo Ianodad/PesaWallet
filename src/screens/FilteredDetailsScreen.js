@@ -76,7 +76,7 @@ class FilteredDetailsScreen extends Component {
   }
 
   render() {
-    const {navigation, route, onScroll = () => {}} = this.props;
+    const {navigation, route, onScroll = () => {console.log("try")}} = this.props;
     const {data, title, phoneNo} = this.state;
     const {creditSum, creditLength, debitSum, debitLength} = this.getFinance(
       data,
@@ -84,46 +84,44 @@ class FilteredDetailsScreen extends Component {
 
     return (
       <Screen navigation={navigation} style={styles.container} menu>
-        <TransactionList
-          header={false}
-          sectionList={true}
-          navigation={navigation}
-          data={data}
-          renderScrollComponent={(props) => (
-            <ParallaxScrollView
-              style={{flex: 1, backgroundColor: 'hotpink', overflow: 'hidden'}}
-              onScroll={onScroll}
-              headerBackgroundColor={colors.white}
-              backgroundColor={colors.primary}
-              contentBackgroundColor="white"
-              stickyHeaderHeight={responsiveHeight(10)}
-              parallaxHeaderHeight={responsiveHeight(25)}
-              backgroundSpeed={10}
-              renderBackground={() => <View style={styles.background} />}
-              renderForeground={() => (
-                <TitleHeader
-                  title={title}
-                  phoneNo={phoneNo}
-                  debitSum={debitSum}
-                  creditSum={creditSum}
-                  debitLength={debitLength}
-                  creditLength={creditLength}
-                  style={styles.backgroundHeader}
-                  filter="filter"
-                />
-              )}
-              renderStickyHeader={() => (
-                <View style={styles.header}>
-                  <HeaderFixed
-                    style={styles.stickyHeader}
-                    textStyle={styles.stickyTitle}
-                    title={title}
-                  />
-                </View>
-              )}
+        <ParallaxScrollView
+          style={{flex: 1, backgroundColor: 'hotpink', overflow: 'hidden'}}
+          onScroll={onScroll}
+          headerBackgroundColor={colors.white}
+          backgroundColor={colors.primary}
+          contentBackgroundColor="white"
+          stickyHeaderHeight={responsiveHeight(7)}
+          parallaxHeaderHeight={responsiveHeight(25)}
+          backgroundSpeed={10}
+          renderBackground={() => <View style={styles.background} />}
+          renderForeground={() => (
+            <TitleHeader
+              title={title}
+              phoneNo={phoneNo}
+              debitSum={debitSum}
+              creditSum={creditSum}
+              debitLength={debitLength}
+              creditLength={creditLength}
+              style={styles.backgroundHeader}
+              filter="filter"
             />
           )}
-        />
+          renderStickyHeader={() => (
+            <View style={styles.header}>
+              <HeaderFixed
+                style={styles.stickyHeader}
+                textStyle={styles.stickyTitle}
+                title={title}
+              />
+            </View>
+          )}>
+          <TransactionList
+            header={false}
+            sectionList={true}
+            navigation={navigation}
+            data={data}
+          />
+        </ParallaxScrollView>
         {/* <ParallaxScroll
           renderHeader={({animatedValue}) => (
             <HeaderFixed title={title} animatedValue={animatedValue} />
