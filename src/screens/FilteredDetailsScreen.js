@@ -90,7 +90,7 @@ class FilteredDetailsScreen extends Component {
           headerBackgroundColor={colors.white}
           backgroundColor={colors.primary}
           contentBackgroundColor="white"
-          stickyHeaderHeight={responsiveHeight(7)}
+          stickyHeaderHeight={responsiveHeight(8)}
           parallaxHeaderHeight={responsiveHeight(25)}
           backgroundSpeed={10}
           renderBackground={() => <View style={styles.background} />}
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     marginLeft: 60,
-    marginTop: 40,
+    marginTop: 30,
     backgroundColor: colors.white,
   },
   stickyTitle: {

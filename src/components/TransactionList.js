@@ -9,29 +9,12 @@ import DateLineSeparator from '../components/DateLineSeparator';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
 
-<<<<<<< HEAD
 const TransactionList = ({navigation, data, flatList, title, sectionList, header}) => {
   // console.log(messages)
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
         {header && (<Text style={styles.header}>Transactions</Text>)}
-=======
-const TransactionList = ({
-  navigation,
-  data,
-  flatList,
-  title,
-  sectionList,
-  renderScrollComponent,
-  header,
-}) => {
-  // console.log(data.length)
-  return (
-    <View style={styles.container}>
-      <View style={styles.transaction}>
-        {header && <Text style={styles.header}>Transactions</Text>}
->>>>>>> Swipenew
         {header && (
           <TouchableOpacity
             onPress={() =>
@@ -49,7 +32,6 @@ const TransactionList = ({
         <SectionListItem
           data={data}
           navigation={navigation}
-          renderScrollComponent={renderScrollComponent}
         />
       )}
     </View>

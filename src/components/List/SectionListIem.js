@@ -48,7 +48,6 @@ const SectionListIem = ({data, navigation, renderScrollComponent}) => {
             navigation={navigation}
           />
         )}
-        renderScrollComponent={renderScrollComponent}
       />
     </>
   );
