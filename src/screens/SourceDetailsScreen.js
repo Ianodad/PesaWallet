@@ -17,6 +17,7 @@ import {NumberCommas} from '../_helpers/NumberCommas';
 
 import {messages} from '../services/messagesCollection';
 import {typesData} from '../services/typeData';
+import defaultStyles from '../../config/styles';
 
 var _ = require('lodash');
 

@@ -26,6 +26,7 @@ import {messages, getMessages} from '../services/messagesCollection';
 import Screen from '../components/Screen';
 import {LogBox} from 'react-native';
 import colors from '../config/colors';
+import defaultStyles from '../../config/styles';
 
 var _ = require('lodash');
 
@@ -87,8 +88,8 @@ class FilteredDetailsScreen extends Component {
         <ParallaxScrollView
           style={{flex: 1, backgroundColor: 'hotpink', overflow: 'hidden'}}
           onScroll={onScroll}
-          headerBackgroundColor={colors.white}
-          backgroundColor={colors.primary}
+          headerBackgroundColor={defaultStyles.colors.white}
+          backgroundColor={defaultStyles.colors.primary}
           contentBackgroundColor="white"
           stickyHeaderHeight={responsiveHeight(8)}
           parallaxHeaderHeight={responsiveHeight(25)}
@@ -103,6 +104,7 @@ class FilteredDetailsScreen extends Component {
               debitLength={debitLength}
               creditLength={creditLength}
               style={styles.backgroundHeader}
+              color='primary'
               filter="filter"
             />
           )}
@@ -169,19 +171,19 @@ export default FilteredDetailsScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: defaultStyles.colors.primary,
   },
   stickyHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: colors.white,
+    backgroundColor: defaultStyles.colors.white,
   },
   header: {
     flex: 1,
     marginLeft: 60,
     marginTop: 30,
-    backgroundColor: colors.white,
+    backgroundColor: defaultStyles.colors.white,
   },
   stickyTitle: {
     fontSize: 36,
@@ -189,6 +191,6 @@ const styles = StyleSheet.create({
   },
   background: {
     height: 400,
-    backgroundColor: colors.white,
+    backgroundColor: defaultStyles.colors.white,
   },
 });

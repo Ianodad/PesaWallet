@@ -20,7 +20,9 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {sources} from "../services/sources"
+import {sources} from "../services/sources";
+import defaultStyles from '../../config/styles';
+
 
 
 
@@ -28,7 +30,7 @@ export class home extends Component {
   render() {
     const {navigation} = this.props;
     return (
-      <Screen navigation={navigation} style={styles.screen} menu>
+      <Screen navigation={navigation} style={styles.screen} menu Gradient>
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>
@@ -93,13 +95,13 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   header: {
-    backgroundColor: color.primary,
+    // backgroundColor: color.primary,
     // paddingTop:30,
     paddingHorizontal: 16,
     flex: 1.5,
     //  position: "relative",
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    // borderBottomLeftRadius: 50,
+    // borderBottomRightRadius: 50,
     overflow: 'scroll',
     // height:110
   },

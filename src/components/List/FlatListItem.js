@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Transaction from '../Transaction';
 import {nameTitleCase} from '../../_helpers/NameTitleCase';
+import defaultStyles from '../../config/styles';
 
 const FlatListItem = ({data, navigation}) => {
   return (

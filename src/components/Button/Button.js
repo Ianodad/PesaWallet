@@ -3,7 +3,7 @@ import Text from '../Text';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Neomorph} from 'react-native-neomorph-shadows';
 
-import colors from '../../config/colors';
+import defaultStyles from '../../config/styles';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -26,14 +26,14 @@ const AppButton = ({
         <TouchableOpacity onPress={onPress}>
           <Neomorph
             darkShadowColor={'#00008B'}
-            lightShadowColor={color.white}
+            lightShadowColor={defaultStyles.colors.white}
             // inner
             swapShadows
             style={{
               ...style,
               ...styles.neomorphStyle,
               ...styles.button,
-              backgroundColor: colors[color],
+              backgroundColor: defaultStyles.colors[color],
             }}
           >
             {image && (
@@ -48,7 +48,7 @@ const AppButton = ({
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
-          style={[styles.button, style, {backgroundColor: colors[color]}]}
+          style={[styles.button, style, {backgroundColor: defaultStyles.colors[color]}]}
           onPress={onPress}>
           {image && (
             <Image
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
   },
   text: {
-    color: colors.white,
+    color: defaultStyles.colors[color],
     textTransform: 'uppercase',
     fontWeight: 'bold',
   },

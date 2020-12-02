@@ -2,6 +2,8 @@ import React from 'react';
 import Text from '../Text';
 import {StyleSheet, View} from 'react-native';
 import {color} from 'react-native-reanimated';
+import defaultStyles from '../../config/styles';
+
 
 const Info = ({style, subTitle, subStyle, detail, detailStyle}) => {
   return (

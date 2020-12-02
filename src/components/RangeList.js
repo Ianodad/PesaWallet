@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Button from './Button/Button';
 import colors from '../config/colors';
+import defaultStyles from '../../config/styles';
 
 const data = [
   {
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 15,
     marginHorizontal: 2,
-    backgroundColor: colors.medium,
+    backgroundColor: defaultStyles.colors.medium,
     shadowColor: '#FFFFFF',
     shadowOffset: {width: 1, height: 2},
     shadowOpacity: 0.1,

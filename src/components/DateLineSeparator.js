@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Text from './Text';
 import {StyleSheet, View} from 'react-native';
 import colors from '../config/colors';
+import defaultStyles from '../../config/styles';
+
 // import styles from '../config/styles';
 
 class DateLineSeparator extends Component {
@@ -46,6 +48,6 @@ const styles = StyleSheet.create({
   separator: {
     width: '30%',
     height: 2,
-    backgroundColor: colors.medium,
+    backgroundColor:defaultStyles.colors.medium,
   },
 });

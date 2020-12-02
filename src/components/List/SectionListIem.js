@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, SectionList, ScrollView} from 'react-native';
 import Transaction from '../Transaction';
 import {DataModifier} from '../../_helpers/DataModifier';
 import {nameTitleCase} from '../../_helpers/NameTitleCase';
-
+import defaultStyles from '../../config/styles';
 // import {DateConverter} from '../../_helpers/DateConverter';
 var dayjs = require('dayjs');
 

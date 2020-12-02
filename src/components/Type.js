@@ -5,6 +5,7 @@ import IconButton from './Button/IconButton';
 import colors from '../config/colors';
 import {sub} from 'react-native-reanimated';
 import Info from './Button/Info';
+import defaultStyles from '../../config/styles';
 
 const Type = ({image, title, amount, onSetType, selectColor}) => {
   return (
@@ -14,7 +15,15 @@ const Type = ({image, title, amount, onSetType, selectColor}) => {
       imageStyle={styles.image}
       color={selectColor || title}
       onPress={onSetType}
-      info={<Info style={styles.info} subTitle={title} subStyle={styles.subStyle} detailStyle={styles.detailStyle} detail={amount} />}
+      info={
+        <Info
+          style={styles.info}
+          subTitle={title}
+          subStyle={styles.subStyle}
+          detailStyle={styles.detailStyle}
+          detail={amount}
+        />
+      }
     />
   );
 };

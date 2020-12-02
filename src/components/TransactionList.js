@@ -8,13 +8,21 @@ import colors from '../config/colors';
 import DateLineSeparator from '../components/DateLineSeparator';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
+import defaultStyles from '../../config/styles';
 
-const TransactionList = ({navigation, data, flatList, title, sectionList, header}) => {
+const TransactionList = ({
+  navigation,
+  data,
+  flatList,
+  title,
+  sectionList,
+  header,
+}) => {
   // console.log(messages)
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>
-        {header && (<Text style={styles.header}>Transactions</Text>)}
+        {header && <Text style={styles.header}>Transactions</Text>}
         {header && (
           <TouchableOpacity
             onPress={() =>
@@ -28,12 +36,7 @@ const TransactionList = ({navigation, data, flatList, title, sectionList, header
         )}
       </View>
       {flatList && <FlatListItem data={data} navigation={navigation} />}
-      {sectionList && (
-        <SectionListItem
-          data={data}
-          navigation={navigation}
-        />
-      )}
+      {sectionList && <SectionListItem data={data} navigation={navigation} />}
     </View>
   );
 };

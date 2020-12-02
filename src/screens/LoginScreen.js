@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import {AppForm, AppFormField, SubmitButton} from '../components/Forms';
 import colors from '../config/colors';
 // import { Formik } from "formik";
+import defaultStyles from '../../config/styles';
 
 //
 

@@ -10,6 +10,7 @@ import {
 import IconButton from './Button/IconButton';
 import colors from '../config/colors';
 import {NumberCommas} from '../_helpers/NumberCommas';
+import defaultStyles from '../../config/styles';
 
 // import DateLineSeparator from './DateLineSeparator';
 
