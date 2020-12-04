@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.reactnativecommunity.art.ARTPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -27,6 +28,8 @@ import org.unimodules.core.interfaces.SingletonModule;
 
 import com.react.SmsPackage;
 import com.tkporter.sendsms.SendSMSPackage;
+
+import com.airbnb.android.react.lottie.LottiePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -51,6 +54,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ModuleRegistryAdapter(mModuleRegistryProvider)
           );
           packages.addAll(unimodules);
+          // packages.add(new LottiePackage());
+
           return packages;
         }
 

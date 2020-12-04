@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Text from './Text';
 import {StyleSheet, View} from 'react-native';
 import colors from '../config/colors';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 // import styles from '../config/styles';
 

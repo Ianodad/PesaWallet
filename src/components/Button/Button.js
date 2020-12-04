@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
   },
   text: {
-    color: defaultStyles.colors[color],
+    color: defaultStyles.colors.white,
     textTransform: 'uppercase',
     fontWeight: 'bold',
   },

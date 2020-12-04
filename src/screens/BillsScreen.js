@@ -6,7 +6,8 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import {color} from 'react-native-reanimated';
 import Card from '../components/Card';
 import {bills} from '../services/billingSource';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 import {messages} from '../services/messagesCollection';
 import TransactionList from '../components/TransactionList';

@@ -5,7 +5,8 @@ import IconButton from './Button/IconButton';
 import colors from '../config/colors';
 import {sub} from 'react-native-reanimated';
 import Info from './Button/Info';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 const Type = ({image, title, amount, onSetType, selectColor}) => {
   return (

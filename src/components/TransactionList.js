@@ -8,7 +8,8 @@ import colors from '../config/colors';
 import DateLineSeparator from '../components/DateLineSeparator';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 const TransactionList = ({
   navigation,

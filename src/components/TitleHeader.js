@@ -3,7 +3,8 @@ import Text from '../components/Text';
 import {StyleSheet, View} from 'react-native';
 import colors from '../config/colors';
 import {NumberCommas} from '../_helpers/NumberCommas';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 const TitleHeader = ({
   home,

@@ -7,7 +7,7 @@ import Screen from '../components/Screen';
 import Modal from 'react-native-modal';
 
 import {Dimensions} from 'react-native';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
 
 const {width, height} = Dimensions.get('window');
 

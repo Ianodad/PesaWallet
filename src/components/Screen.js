@@ -9,7 +9,7 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {getRandomInt} from "../_helpers/getRandomInt"
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
 
 
 const Screen = ({

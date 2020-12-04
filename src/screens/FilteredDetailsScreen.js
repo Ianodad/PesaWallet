@@ -26,7 +26,8 @@ import {messages, getMessages} from '../services/messagesCollection';
 import Screen from '../components/Screen';
 import {LogBox} from 'react-native';
 import colors from '../config/colors';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 var _ = require('lodash');
 

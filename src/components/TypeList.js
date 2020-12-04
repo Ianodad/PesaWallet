@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Type from './Type';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 const TypeList = ({
   data,

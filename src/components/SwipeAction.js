@@ -6,7 +6,8 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 const SwipeAction = ({setNextData, setPrevData, title}) => {
   return (

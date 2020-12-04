@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import Button from './Button/Button';
 import colors from '../config/colors';
-import defaultStyles from '../../config/styles';
+import defaultStyles from '../config/styles';
+
 
 const data = [
   {

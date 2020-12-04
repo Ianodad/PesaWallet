@@ -20,17 +20,43 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {sources} from "../services/sources";
-import defaultStyles from '../../config/styles';
+import {sources} from '../services/sources';
+import defaultStyles from '../config/styles';
+import commentsApi from '../api/comments';
 
+import ActivityIndicator from '../components/ActivityIndicator';
 
+class HomeScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: [],
+      loading: false,
+      error: '',
+    };
+  }
 
+  componentDidMount = () => {
+    this.loadComments();
+  };
 
-export class home extends Component {
+  loadComments = async () => {
+    this.setState({loading: true});
+
+    const {data, ok} = await commentsApi.getComments();
+
+    if (!ok) {
+      return this.setState({error: true});
+    }
+    // console.log(JSON.stringify(data), '/t')
+    this.setState({comments: data});
+    this.setState({error: false});
+  };
   render() {
     const {navigation} = this.props;
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
+        <ActivityIndicator visible={this.state.loading} />
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>
@@ -72,7 +98,7 @@ const mapDispatchToProps = {storeMessages};
 // gradinetColors={['#ff5251', '#ff5252', '#ff7d7d']}
 // gradinetColors={['#fed304', '#fed304', '#fedd42']}
 
-export default connect(mapStateToProps, mapDispatchToProps)(home);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   screen: {
