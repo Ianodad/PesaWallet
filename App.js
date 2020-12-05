@@ -26,7 +26,7 @@ import RNBootSplash from 'react-native-bootsplash';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {auth: true};
+    this.state = {auth: false};
   }
 
   componentDidMount() {

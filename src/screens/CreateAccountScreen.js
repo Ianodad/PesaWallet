@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import Screen from '../components/Screen';
 import {AppForm, AppFormField, SubmitButton} from '../components/Forms';
 import * as Yup from 'yup';
+import {Auth} from "../firebase/config"
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -21,6 +22,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const CreateAccountScreen = () => {
+  console.log(Auth)
   return (
     <Screen style={styles.container} Gradient>
      <View style={styles.header}>
