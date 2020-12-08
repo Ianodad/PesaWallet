@@ -2,6 +2,7 @@
 
 import firebase from '@react-native-firebase/app';
 import Auth from '@react-native-firebase/auth';
+import analytics from '@react-native-firebase/analytics';
 // import firestore from '@react-native/firestore';
 
 // console.log(firebase)
@@ -17,8 +18,13 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  if (firebase.app().utils().isRunningInTestLab) {
+    analytics().setAnalyticsCollectionEnabled(false);
+  } else {
+    analytics().setAnalyticsCollectionEnabled(true);
+  }
+  
 }
 // firebase.initializeApp(firebaseConfig);
 
-export {firebase, Auth};
+export {firebase, Auth, analytics};

@@ -7,7 +7,7 @@ import {useFormikContext} from 'formik';
 import Button from '../Button/Button';
 import colors from '../../config/colors';
 
-const SubmitButton = ({title, submitStyle, buttonColor, width, buttonType}) => {
+const SubmitButton = ({title, submitStyle, buttonColor, width, buttonType, handleAnalytics}) => {
   const [textColor, setTextButton] = useState('');
 
   useEffect(() => {

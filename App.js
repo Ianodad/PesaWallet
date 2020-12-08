@@ -22,22 +22,65 @@ import {
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import RNBootSplash from 'react-native-bootsplash';
+import {Auth, analytics} from './src/firebase/config';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {auth: false};
+    this.state = {auth: false, initializing: true, user: ''};
   }
+  onAuthStateChanged = (user) => {
+    this.setState({user});
+    if (this.state.initializing) {
+      this.setState({initializing: false});
+    }
+  };
+  anonymousSignIn = () => {
+    Auth()
+      .signInAnonymously()
+      .then(() => {
+        console.log('User signed in anonymously');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/operation-not-allowed') {
+          console.log('Enable anonymous in your firebase console.');
+        }
 
-  componentDidMount() {
+        console.error(error);
+      });
+  };
+
+  signOut = () => {
+    Auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
+
+  subscriberAuth = () => {
+    const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
+    return subscriber;
+  };
+  componentDidMount = () => {
     RNBootSplash.hide({duration: 250});
-  }
+    const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
+    return subscriber;
+    // this.subscriberAuth();
+    // this.signOut();
+    // this.anonymousSignIn();
+  };
+
+  // onAuthStateChanged = (user) => {
+  //   this.setState({user})
+  //   if (this.state.initializing) {
+  //     this.setState({initializing: false});
+  //   }
+  // };
 
   render() {
     return (
       <>
         <NavigationContainer>
-          {this.state.auth ? <SideMenuNavigation /> : <AuthNavigator />}
+          {this.state.user ? <SideMenuNavigation /> : <AuthNavigator />}
         </NavigationContainer>
       </>
     );
