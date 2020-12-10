@@ -22,9 +22,7 @@ const AppNavigator = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarColor: '#009387',
-          tabBarIcon: ({color}) => (
-            <Icon name="home" color={color} size={26} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
         }}
       />
       <Tab.Screen
