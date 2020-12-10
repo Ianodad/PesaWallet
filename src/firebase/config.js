@@ -2,7 +2,7 @@
 
 import firebase from '@react-native-firebase/app';
 import Auth from '@react-native-firebase/auth';
-// import firestore from '@react-native/firestore';
+import firestore from '@react-native/firestore';
 
 // console.log(firebase)
 const firebaseConfig = {
@@ -21,4 +21,4 @@ if (!firebase.apps.length) {
 }
 // firebase.initializeApp(firebaseConfig);
 
-export {firebase, Auth};
+export {firebase, Auth, firestore};

@@ -31,7 +31,10 @@ import com.tkporter.sendsms.SendSMSPackage;
 
 import com.airbnb.android.react.lottie.LottiePackage;
 
-public class MainApplication extends Application implements ReactApplication {
+// ... all your other imports here
+import androidx.multidex.MultiDexApplication;
+
+public class MainApplication extends MultiDexApplication implements ReactApplication {
 
     private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
 
