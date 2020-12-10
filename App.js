@@ -67,8 +67,8 @@ class App extends Component {
     // const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
     // return subscriber;
     // this.anonymousSignIn();
-    // this.signOut();
     this.subscriberAuth();
+    // this.signOut();
   };
 
   onAuthStateChanged = (user) => {
