@@ -66,9 +66,9 @@ class App extends Component {
     RNBootSplash.hide({duration: 250});
     // const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
     // return subscriber;
-    this.anonymousSignIn();
-    this.subscriberAuth();
+    // this.anonymousSignIn();
     // this.signOut();
+    this.subscriberAuth();
   };
 
   onAuthStateChanged = (user) => {
