@@ -26,15 +26,23 @@ import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 
+import {firestore, firebase} from '../firebase/config';
+
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
+    this.getUser();
     this.state = {
       comments: [],
       loading: false,
       error: '',
     };
   }
+
+  getUser = async () => {
+    const userDocument = await firestore().collection('users').doc('pNwlt65zlQPwFfeg7Tc8').get();
+    console.log(userDocument.data.name);
+  };
 
   componentDidMount = () => {
     this.loadComments();

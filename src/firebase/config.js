@@ -2,7 +2,7 @@
 
 import firebase from '@react-native-firebase/app';
 import Auth from '@react-native-firebase/auth';
-import firestore from '@react-native/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 // console.log(firebase)
 const firebaseConfig = {
