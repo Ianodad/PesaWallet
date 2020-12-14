@@ -27,6 +27,7 @@
     "@react-navigation/stack": "^5.9.3",
     "apisauce": "^2.0.0",
     "dayjs": "^1.9.5",
+    "expo-screen-orientation": "^2.1.0",
     "formik": "^2.2.4",
     "fusioncharts": "^3.15.3",
     "lodash": "^4.17.20",
