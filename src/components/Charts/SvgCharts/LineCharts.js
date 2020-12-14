@@ -11,38 +11,6 @@ import {
 class LineCharts extends Component {
   render() {
     const {data, colors} = this.props;
-    // const data = [
-    //   500,
-    //   100,
-    //   4000,
-    //   950,
-    //   40,
-    //   240,
-    //   857,
-    //   910,
-    //   357,
-    //   536,
-    //   530,
-    //   249,
-    //   509,
-    //   20000,
-    //   8000,
-    //   500,
-    //   100,
-    //   4000,
-    //   950,
-    //   40,
-    //   240,
-    //   857,
-    //   910,
-    //   357,
-    //   536,
-    //   530,
-    //   249,
-    //   509,
-    //   20000,
-    //   8000,
-    // ];
     const Gradient = () => (
       <Defs key={'gradient'}>
         <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
