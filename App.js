@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {
   SafeAreaView,
@@ -30,10 +32,21 @@ class App extends Component {
     this.state = {auth: false, initializing: true, user: ''};
   }
 
-  onAuthStateChanged = (user) => {
+  onAuthStateChanged = async (user) => {
     this.setState({user});
+    // console.log(user);
+    this.storeUserData(user);
     if (this.state.initializing) {
       this.setState({initializing: false});
+    }
+  };
+
+  storeUserData = async (user) => {
+    try {
+      // console.log(user);
+      await AsyncStorage.setItem('USER', JSON.stringify(user));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -62,14 +75,26 @@ class App extends Component {
     const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
     return subscriber;
   };
-  componentDidMount = () => {
+  componentDidMount = async () => {
     RNBootSplash.hide({duration: 250});
-    // const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
-    // return subscriber;
+    // const unsubscribe = NetInfo.addEventListener((netInfo) => {
+    // console.log(netInfo);
+
     // this.anonymousSignIn();
     this.subscriberAuth();
     // this.signOut();
   };
+
+  // componentWillUnmount = async () => {
+  //   await this.storeUserData();
+
+  //   // this.signOut();
+  //   // unsubscribe()
+  // };
+
+  componentDidUpdate = async () => {
+    this.storeUserData(this.state.user);
+  }
 
   onAuthStateChanged = (user) => {
     this.setState({user});
@@ -79,6 +104,8 @@ class App extends Component {
   };
 
   render() {
+    // {console.log(this.state.user)}
+
     return (
       <>
         <NavigationContainer>

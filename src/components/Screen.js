@@ -38,9 +38,16 @@ const Screen = ({
           <LinearGradient
             start={{x: 0.25, y: 0.75}}
             end={{x: 0.75, y: 0.2}}
-            style={[styles.circle, {width: width, height: width}]}
+            style={styles.circleTwo}
             opacity={0.2}
-            colors={colors}
+            colors={['#fff', '#fff', '#fff']}
+          />
+          <LinearGradient
+            start={{x: 0.25, y: 0.75}}
+            end={{x: 0.75, y: 0.2}}
+            style={styles.circle}
+            opacity={0.2}
+            colors={['#fff', '#fff', '#fff']}
           />
           <LinearGradient
             start={{x: 0.5, y: 0.75}}
@@ -58,6 +65,11 @@ const Screen = ({
 };
 
 export default Screen;
+
+const circleWidth = responsiveWidth(getRandomInt(20, 55));
+const circleTwoWidth = responsiveWidth(getRandomInt(30, 60));
+
+const circleThreeWidth = responsiveWidth(getRandomInt(25, 155));
 
 const styles = StyleSheet.create({
   screen: {
@@ -80,12 +92,25 @@ const styles = StyleSheet.create({
     position: 'absolute',
     overflow: 'hidden',
     // backgroundColor: 'white',
-    // width: circleWidth,
-    // height: circleWidth,
+    width: circleWidth,
+    height: circleWidth,
     zIndex: 1,
     borderRadius: 180 / 1,
     // backgroundColor: 'white',
     top: -100 / 3,
     right: -60,
   },
+  circleTwo:{
+    position: 'absolute',
+    overflow: 'hidden',
+    // backgroundColor: 'white',
+    width: circleTwoWidth,
+    height: circleTwoWidth,
+    zIndex: 0.5,
+    borderRadius: 180 / 1,
+    // backgroundColor: 'white',
+    top: 100 / 3,
+    left: -100,
+    
+  }
 });

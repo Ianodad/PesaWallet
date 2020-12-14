@@ -25,6 +25,7 @@ import defaultStyles from '../config/styles';
 import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {firestore, firebase} from '../firebase/config';
 
@@ -33,6 +34,7 @@ class HomeScreen extends Component {
     super(props);
     this.getUser();
     this.state = {
+      username: '',
       comments: [],
       loading: false,
       error: '',
@@ -40,12 +42,33 @@ class HomeScreen extends Component {
   }
 
   getUser = async () => {
-    const userDocument = await firestore().collection('users').doc('pNwlt65zlQPwFfeg7Tc8').get();
+    const userDocument = await firestore()
+      .collection('users')
+      .doc('pNwlt65zlQPwFfeg7Tc8')
+      .get();
     console.log(userDocument.data.name);
   };
 
   componentDidMount = () => {
     this.loadComments();
+    this.retrieveUser();
+  };
+
+  retrieveUser = async () => {
+    try {
+      const value = await AsyncStorage.getItem('USER');
+      if (value !== null) {
+        // We have data!!
+        console.log('this here');
+        const userInfo = JSON.parse(value);
+        // console.log(userInfo.email)
+        this.setState({username: userInfo.email});
+
+        console.log(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
   };
 
   loadComments = async () => {
@@ -68,7 +91,11 @@ class HomeScreen extends Component {
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>
-              <TitleHeader style={styles.title} home={'home'} />
+              <TitleHeader
+                style={styles.title}
+                home={'home'}
+                title={this.state.username}
+              />
             </View>
           </View>
           <View swapShadows inner style={styles.sources}>
@@ -157,6 +184,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     flex: 6,
     overflow: 'visible',
+    zIndex:2
     // borderRadiu    paddingTop: 15,
   },
 });
