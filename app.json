@@ -1,4 +1,7 @@
 {
   "name": "PesaSite",
-  "displayName": "PesaSite"
+  "displayName": "PesaSite",
+  "requireFullScreen": true,
+  // "orientation": "landscape"
+  "orientation": "portrait"
 }

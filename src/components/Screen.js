@@ -19,10 +19,11 @@ const Screen = ({
   Gradient,
   colors = ['#5a60f8', '#5a60f8', '#5a60f8'],
   menu,
+  onLayout,
   width = responsiveWidth(getRandomInt(20, 30)),
 }) => {
   return (
-    <SafeAreaView style={[styles.screen, style]}>
+    <SafeAreaView style={[styles.screen, style]} onLayout={onLayout}>
       {menu && (
         <Button
           style={styles.button}

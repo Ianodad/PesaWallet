@@ -8,6 +8,7 @@ import {
   View,
   FlatList,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {NumberCommas} from '../_helpers/NumberCommas';
@@ -38,15 +39,24 @@ class HomeScreen extends Component {
       comments: [],
       loading: false,
       error: '',
+      screenHeight: null,
+      screenWidth: null,
     };
   }
+  onLayout = (e) => {
+    console.log('Screen oriantion changed....');
+    this.setState({
+      screenWidth: Dimensions.get('window').width,
+      screenHeight: Dimensions.get('window').height,
+    });
+  };
 
   getUser = async () => {
     const userDocument = await firestore()
       .collection('users')
       .doc('pNwlt65zlQPwFfeg7Tc8')
       .get();
-    console.log(userDocument.data.name);
+    // console.log(userDocument.data.name);
   };
 
   componentDidMount = () => {
@@ -59,12 +69,12 @@ class HomeScreen extends Component {
       const value = await AsyncStorage.getItem('USER');
       if (value !== null) {
         // We have data!!
-        console.log('this here');
+        // console.log('this here');
         const userInfo = JSON.parse(value);
         // console.log(userInfo.email)
         this.setState({username: userInfo.email});
 
-        console.log(value);
+        // console.log(value);
       }
     } catch (error) {
       // Error retrieving data
@@ -184,7 +194,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     flex: 6,
     overflow: 'visible',
-    zIndex:2
+    zIndex: 2,
     // borderRadiu    paddingTop: 15,
   },
 });

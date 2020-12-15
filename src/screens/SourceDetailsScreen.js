@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import Orientation from 'react-native-orientation';
 
 import LinearGradient from 'react-native-linear-gradient';
 import Screen from '../components/Screen';
@@ -19,7 +20,6 @@ import {messages} from '../services/messagesCollection';
 import {typesData} from '../services/typeData';
 import defaultStyles from '../config/styles';
 
-
 var _ = require('lodash');
 
 class SourceDetailsScreen extends Component {
@@ -35,12 +35,25 @@ class SourceDetailsScreen extends Component {
       selectedDate: '',
       selectedRange: 'year',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
+      orientation: '',
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.setState({fullData: messages});
     this.setState({types: typesData});
+    // this.onLayout();
+    // const initial = Orientation.getInitialOrientation();
+    // console.log(initial);
+    // if (initial === 'PORTRAIT') {
+    //   // do something
+    // } else {
+    //   // do something else
+    // }
+  };
+  componentWillUnmount=()=> {
+    // Remember to remove listener
+    Orientation.removeOrientationListener(this.onLayout);
   }
 
   setType = (selectedType, typeColors) => {
@@ -81,7 +94,7 @@ class SourceDetailsScreen extends Component {
 
         const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
         const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
-        console.log(title);
+        // console.log(title);
         // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
         // this.setState({dataIndexLength: intialfilter.length});
         return {fullFiltered: filter, filter, datalength, title};
@@ -123,6 +136,7 @@ class SourceDetailsScreen extends Component {
       return NumberCommas(summed[0]);
     }
   };
+
   onSwipe(gestureName, gestureState) {
     const {SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
     this.setState({gestureName: gestureName});
@@ -138,7 +152,7 @@ class SourceDetailsScreen extends Component {
   onSetNextData = (datalength) => {
     // console.log(datalength);
     if (this.state.setDataIndex < datalength - 1) {
-      console.log(this.state.setDataIndex + 1);
+      // console.log(this.state.setDataIndex + 1);
       this.setState({setDataIndex: this.state.setDataIndex + 1});
     }
   };
@@ -150,6 +164,14 @@ class SourceDetailsScreen extends Component {
     }
   };
 
+  onLayout = (e) => {
+    console.log('Screen oriantion changed....');
+    console.log(this.state.orientation);
+    const initial = Orientation.getInitialOrientation();
+    console.log(initial);
+    this.setState({orientation: initial});
+  };
+
   render() {
     const {navigation, route} = this.props;
     const {
@@ -158,6 +180,7 @@ class SourceDetailsScreen extends Component {
       selectedRange,
       selectedType,
       typeColors,
+      orientation,
     } = this.state;
 
     const {fullFiltered, filter, datalength, title} = this.filterMessages(
@@ -176,57 +199,71 @@ class SourceDetailsScreen extends Component {
       directionalOffsetThreshold: 80,
     };
 
+    const pl = orientation === 'PORTRAIT';
+
     return (
-      <Screen navigation={navigation} style={styles.screen} menu>
-        <View style={styles.action}>
-          <SwipeAction
-            title={title}
-            style={styles.swipeaction}
-            setNextData={() => this.onSetNextData(datalength)}
-            setPrevData={() => this.onSetPrevData()}
-          />
-        </View>
-        <View style={{alignItems: 'flex-end', marginRight: 10}}>
-          <RangePicker
-            data={types}
-            range={selectedRange}
-            onSetRange={this.setRange}
-          />
-        </View>
-        <LinearGradient
-          start={{x: 0, y: 0.8}}
-          end={{x: 0.5, y: 0.1}}
-          style={styles.header}
-          colors={['#8387f9', '#5a60f8']}>
-          <GestureRecognizer
-            onSwipe={(direction, state) => this.onSwipe(direction, state)}
-            onSwipeRight={() => this.onSetNextData(datalength)}
-            onSwipeLeft={() => this.onSetPrevData()}
-            config={config}
-            style={{flex: 1}}>
-            <VisualChart
-              data={graphData ? graphData : fullData}
-              colors={typeColors}
-            />
-          </GestureRecognizer>
-        </LinearGradient>
-        <View style={styles.body}>
-          <TypeList
-            data={types}
-            typesSummed={typesSummed}
-            selectColor={this.selectColor}
-            onSetType={this.setType}
-            onGetSummedTotal={this.getSummedTotal}
-          />
-          <TransactionList
-            header
-            flatList={true}
-            header={true}
-            navigation={navigation}
-            title={selectedType || 'All'}
-            data={fullFiltered ? fullFiltered : fullData}
-          />
-        </View>
+      <Screen
+        navigation={navigation}
+        style={styles.screen}
+        onLayout={this.onLayout}
+        menu>
+        {pl ? (
+          <>
+            <View style={styles.action}>
+              <SwipeAction
+                title={title}
+                style={styles.swipeaction}
+                setNextData={() => this.onSetNextData(datalength)}
+                setPrevData={() => this.onSetPrevData()}
+              />
+            </View>
+            <View style={{alignItems: 'flex-end', marginRight: 10}}>
+              <RangePicker
+                data={types}
+                range={selectedRange}
+                onSetRange={this.setRange}
+              />
+            </View>
+            <LinearGradient
+              start={{x: 0, y: 0.8}}
+              end={{x: 0.5, y: 0.1}}
+              style={styles.header}
+              colors={['#8387f9', '#5a60f8']}>
+              <GestureRecognizer
+                onSwipe={(direction, state) => this.onSwipe(direction, state)}
+                onSwipeRight={() => this.onSetNextData(datalength)}
+                onSwipeLeft={() => this.onSetPrevData()}
+                config={config}
+                style={{flex: 1}}>
+                <VisualChart
+                  data={graphData ? graphData : fullData}
+                  colors={typeColors}
+                />
+              </GestureRecognizer>
+            </LinearGradient>
+            <View style={styles.body}>
+              <TypeList
+                data={types}
+                typesSummed={typesSummed}
+                selectColor={this.selectColor}
+                onSetType={this.setType}
+                onGetSummedTotal={this.getSummedTotal}
+              />
+              <TransactionList
+                header
+                flatList={true}
+                header={true}
+                navigation={navigation}
+                title={selectedType || 'All'}
+                data={fullFiltered ? fullFiltered : fullData}
+              />
+            </View>
+          </>
+        ) : (
+          <View>
+            <Text>This is the landscape</Text>
+          </View>
+        )}
       </Screen>
     );
   }
