@@ -97,7 +97,7 @@ class HomeScreen extends Component {
     const {navigation} = this.props;
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
-        <ActivityIndicator visible={this.state.loading} />
+        {/* <ActivityIndicator visible={this.state.loading} /> */}
         <View style={styles.container}>
           <View style={styles.header}>
             <View style={styles.headerLeft}>

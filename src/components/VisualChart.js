@@ -19,19 +19,24 @@ import LineCharts from './Charts/SvgCharts/LineCharts.js';
 import DecoratorCharts from './Charts/SvgCharts/DecoratorCharts';
 import LineChartsV2 from './Charts/SvgCharts/LineChartsV2';
 import LineChartV3 from './Charts/SvgCharts/LineChartsV3';
+import PieCharts from './Charts/SvgCharts/PieCharts';
+import PieChartsV2 from './Charts/SvgCharts/PieChartsV2';
 import StackedBar from './Charts/SvgCharts/StackedBar'
-const VisualChart = ({data, colors}) => {
+const VisualChart = ({data, colors, height, orientation}) => {
   return (
     <View style={styles.container}>
+
       {/* <PieChartVicrort/> */}
-      {/* <BrushZoom/> */}
-      {/* <LineChartVictory /> */}
+      {/* <PieCharts data={data} orientation={orientation}/> */}
+      {/* <PieChartsV2 data={data} orientation={orientation} /> */}
+      {/**** * <BrushZoom/> */}
+      {/***<LineChartVictory /> */}
       {/* <LineChartsV2/> */}
       {/* <DecoratorCharts /> */}
       {/* <LineChartV3 /> */}
-
+    {/* <LineChartFusionTwo/> */}
       {/* <LineCharts data={data} colors={colors} /> */}
-      <StackedBar/>
+      <StackedBar data={data} orientation={orientation}/>
       {/* <View style={styles.chartButton}><RangeList /></View> */}
     </View>
     // <View style={styles.container}>
@@ -55,7 +60,7 @@ export default VisualChart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 45,
+    paddingTop: 10,
   },
   chartButton: {
     // justifyContent: 'center',

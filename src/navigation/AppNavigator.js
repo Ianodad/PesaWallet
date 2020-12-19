@@ -22,6 +22,7 @@ const AppNavigator = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarColor: '#009387',
+          tabBarVisible: false,
           tabBarIcon: ({color}) => <Icon name="home" color={color} size={26} />,
         }}
       />

@@ -1,38 +1,85 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-import {StackedBarChart, XAxis, Grid} from 'react-native-svg-charts';
-import { Dimensions } from 'react-native';
-
+import {View, Text, StyleSheet} from 'react-native';
+import {StackedBarChart, XAxis, YAxis, Grid} from 'react-native-svg-charts';
+import {Dimensions} from 'react-native';
 
 const data = [
   {
-    month: 'Jan',
-    apples: 3840,
-    bananas: 1920,
-    cherries: 960,
-    dates: 400,
-    oranges: 400,
+    Moment: 'Mon',
+    Sent: 9760,
+    Receive: 960,
+    Deposit: 400,
+    Withdraw: 400,
+    Paybill: 300,
+    BuyGoods: 900,
+    Airtime: 300,
+    Reverse: 100,
   },
   {
-    month: 'Feb',
-    apples: 1600,
-    bananas: 1440,
-    cherries: 960,
-    dates: 400,
+    Moment: 'Tue',
+    Sent: 200,
+    Receive: 960,
+    Deposit: 400,
+    Withdraw: 400,
+    Paybill: 400,
+    BuyGoods: 900,
+    Airtime: 900,
+    Reverse: 0,
   },
   {
-    month: 'March',
-    apples: 640,
-    bananas: 960,
-    cherries: 3640,
-    dates: 400,
+    Moment: 'Wed',
+    Sent: 19230,
+    Receive: 960,
+    Deposit: 400,
+    Withdraw: 800,
+    Paybill: 400,
+    BuyGoods: 900,
+    Airtime: 300,
+    Reverse: 800,
   },
   {
-    month: 'April',
-    apples: 3320,
-    bananas: 480,
-    cherries: 640,
-    dates: 400,
+    Moment: 'Thu',
+    Sent: 1000,
+    Receive: 960,
+    Deposit: 400,
+    Withdraw: 600,
+    Paybill: 400,
+    BuyGoods: 900,
+    Airtime: 200,
+    Reverse: 100,
+  },
+  {
+    Moment: 'Fri',
+    Sent: 820,
+    Receive: 360,
+    Deposit: 400,
+    Withdraw: 400,
+    Paybill: 400,
+    BuyGoods: 900,
+    Airtime: 100,
+    Reverse: 700,
+  },
+  {
+    Moment: 'Sat',
+    Sent: 1940,
+    Receive: 960,
+    Deposit: 400,
+    Withdraw: 400,
+    Paybill: 100,
+    BuyGoods: 900,
+    Airtime: 300,
+    Reverse: 0,
+  },
+  {
+    Moment: 'Sun',
+    Sent: 3320,
+    Receive: 960,
+    Deposit: 400,
+    Withdraw: 400,
+    Paybill: 400,
+    BuyGoods: 900,
+    Airtime: 900,
+    Reverse: 800,
   },
 ];
 class StackedBar extends Component {
@@ -41,32 +88,67 @@ class StackedBar extends Component {
     this.state = {};
   }
 
-
   render() {
-    const colors = ['#ff7d7d', '#65cd73', '#848ac2', '#f1925b'];
-    const keys = ['apples', 'bananas', 'cherries', 'dates'];
+    const {orientation} = this.props;
+    const colors = [
+      '#ff5252',
+      '#39b54b',
+      '#5b64ae',
+      '#ed6e25',
+      '#fed304',
+      '#880085',
+      '#f33c7E',
+      '#9c5518',
+    ];
+    const keys = [
+      'Sent',
+      'Receive',
+      'Deposit',
+      'Withdraw',
+      'Paybill',
+      'BuyGoods',
+      'Airtime',
+      'Reverse',
+    ];
     return (
-      <>
+      <View style={styles.container}>
         <StackedBarChart
-          style={{height: 200}}
+          style={{height: orientation ?  250 : 305}}
           keys={keys}
           colors={colors}
           data={data}
           showGrid={false}
           contentInset={{top: 30, bottom: 10}}
-          valueAccessor={({item, key}) => item[key].value || item[key]}
-        />
-        {/* <Grid /> */}
+          valueAccessor={({item, key}) => item[key].value || item[key]}>
+          <Grid />
+        </StackedBarChart>
         <XAxis
-          style={{marginHorizontal: 10}}
+          style={{marginHorizontal: 5}}
           data={data}
-          formatLabel={(value, index) => data[index].month}
-          contentInset={{left: 12, right: 12}}
-          svg={{fontSize: 10, fill: 'black'}}
+          formatLabel={(value, index) => data[index].Moment}
+          contentInset={{left: 10, right: 10}}
+          svg={{fontSize: 16, fill: 'black', alignItems: 'center'}}
         />
-      </>
+        <YAxis
+          style={{width: 30}}
+          data={data}
+          contentInset={{left: 20}}
+          svg={{fontSize: 12, fontWeight: '700'}}
+          formatLabel={(value, index) => data[index].Moment}
+          // scale={scale.scaleBand}
+        />
+      </View>
     );
-  };
+  }
 }
 
 export default StackedBar;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop:20,
+    marginLeft: 10,
+    paddingHorizontal:4
+  },
+});
+

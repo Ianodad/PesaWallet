@@ -39,9 +39,19 @@ class SourceDetailsScreen extends Component {
     };
   }
 
+  // componentWillMount() {
+  //   const initial = Orientation.getInitialOrientation();
+  //   this.setState({orientation: initial});
+  // }
+
   componentDidMount = () => {
     this.setState({fullData: messages});
     this.setState({types: typesData});
+    const initial = Orientation.getInitialOrientation();
+    this.setState({orientation: initial});
+    Orientation.addOrientationListener(this._orientationDidChange);
+    // this.props.route.params.data
+    console.log(this.props.navigation.setOptions({ tabBarVisible: false, }));
     // this.onLayout();
     // const initial = Orientation.getInitialOrientation();
     // console.log(initial);
@@ -51,10 +61,18 @@ class SourceDetailsScreen extends Component {
     //   // do something else
     // }
   };
-  componentWillUnmount=()=> {
+  _orientationDidChange = (orientation) => {
+    console.log(orientation);
+    this.setState({orientation: orientation});
+  };
+
+  componentWillUnmount = () => {
+    Orientation.getOrientation((err, orientation) => {
+      console.log(`Current Device Orientation: ${orientation}`);
+    });
     // Remember to remove listener
-    Orientation.removeOrientationListener(this.onLayout);
-  }
+    Orientation.removeOrientationListener(this._orientationDidChange);
+  };
 
   setType = (selectedType, typeColors) => {
     this.setState({selectedType});
@@ -174,6 +192,8 @@ class SourceDetailsScreen extends Component {
 
   render() {
     const {navigation, route} = this.props;
+    // console.log(navigation.setOptions({ tabBarVisible: false }));
+    // navigation.setOptions()
     const {
       fullData,
       types,
@@ -199,15 +219,15 @@ class SourceDetailsScreen extends Component {
       directionalOffsetThreshold: 80,
     };
 
-    const pl = orientation === 'PORTRAIT';
+    const portraitOrientation = orientation === 'PORTRAIT';
 
     return (
       <Screen
         navigation={navigation}
         style={styles.screen}
-        onLayout={this.onLayout}
+        // onLayout={this.onLayout}
         menu>
-        {pl ? (
+        { portraitOrientation ? (
           <>
             <View style={styles.action}>
               <SwipeAction
@@ -236,7 +256,10 @@ class SourceDetailsScreen extends Component {
                 config={config}
                 style={{flex: 1}}>
                 <VisualChart
-                  data={graphData ? graphData : fullData}
+                  orientation={portraitOrientation}
+                  height={200}
+                  data={fullFiltered}
+                  // data={graphData ? graphData : fullData}
                   colors={typeColors}
                 />
               </GestureRecognizer>
@@ -260,9 +283,43 @@ class SourceDetailsScreen extends Component {
             </View>
           </>
         ) : (
-          <View>
-            <Text>This is the landscape</Text>
-          </View>
+          <>
+            <View style={styles.action}>
+              <SwipeAction
+                title={title}
+                style={styles.swipeaction}
+                setNextData={() => this.onSetNextData(datalength)}
+                setPrevData={() => this.onSetPrevData()}
+              />
+            </View>
+            <View style={{alignItems: 'flex-end', marginRight: 10}}>
+              <RangePicker
+                data={types}
+                range={selectedRange}
+                onSetRange={this.setRange}
+              />
+            </View>
+            <LinearGradient
+              start={{x: 0, y: 0.8}}
+              end={{x: 0.5, y: 0.1}}
+              style={[styles.header]}
+              colors={['#8387f9', '#5a60f8']}>
+              <GestureRecognizer
+                onSwipe={(direction, state) => this.onSwipe(direction, state)}
+                onSwipeRight={() => this.onSetNextData(datalength)}
+                onSwipeLeft={() => this.onSetPrevData()}
+                config={config}
+                style={[{flex: 1}, styles.landscape]}>
+                <VisualChart
+                  orientation={portraitOrientation}
+                  height={305}
+                  data={fullFiltered}
+                  // data={graphData ? graphData : fullData}
+                  colors={typeColors}
+                />
+              </GestureRecognizer>
+            </LinearGradient>
+          </>
         )}
       </Screen>
     );
@@ -288,9 +345,17 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
   },
-  swipeaction: {},
   action: {
     alignItems: 'center',
     marginRight: 50,
+  },
+  landscape: {
+    flex: 1,
+    // marginTop:40,
+    flexGrow: 1,
+    // flexDirection: 'column',
+    // alignItems: 'flex-end',
+    // justifyContent: 'flex-start',
+    // marginBottom: -10,
   },
 });
