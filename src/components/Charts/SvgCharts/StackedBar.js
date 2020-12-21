@@ -5,6 +5,7 @@ import {Dimensions} from 'react-native';
 var _ = require('lodash');
 var dayjs = require('dayjs');
 
+
 class StackedBar extends Component {
   constructor(props) {
     super(props);
@@ -19,21 +20,103 @@ class StackedBar extends Component {
         return {
           Moment:
             range == 'week' ? dayjs(key).format('ddd') : dayjs(key).format('D'),
-          Sent: _.sumBy(_.filter(objs, {TYPE: 'Sent'}), 'AMOUNT'),
-          Receive: _.sumBy(_.filter(objs, {TYPE: 'Receive'}), 'AMOUNT'),
-          Deposit: _.sumBy(_.filter(objs, {TYPE: 'Deposit'}), 'AMOUNT'),
-          Withdraw: _.sumBy(_.filter(objs, {TYPE: 'Withdraw'}), 'AMOUNT'),
-          PayBill: _.sumBy(_.filter(objs, {TYPE: 'PayBill'}), 'AMOUNT'),
-          BuyGoods: _.sumBy(_.filter(objs, {TYPE: 'BuyGoods'}), 'AMOUNT'),
-          Airtime: _.sumBy(_.filter(objs, {TYPE: 'Airtime'}), 'AMOUNT'),
-          Reverse: _.sumBy(_.filter(objs, {TYPE: 'Reverse'}), 'AMOUNT'),
-          svg: {
-            onPress: () => console.log('onPress'),
+          Sent: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'Sent'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `Sent-${_.sumBy(_.filter(objs, {TYPE: 'Sent'}), 'AMOUNT')}`,
+                ),
+            },
+          },
+          Receive: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'Receive'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `Receive-${_.sumBy(
+                    _.filter(objs, {TYPE: 'Receive'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
+          },
+          Deposit: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'Deposit'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `Deposit-${_.sumBy(
+                    _.filter(objs, {TYPE: 'Deposit'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
+          },
+          Withdraw: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'Withdraw'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `Withdraw-${_.sumBy(
+                    _.filter(objs, {TYPE: 'Withdraw'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
+          },
+          PayBill: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'PayBill'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `PayBill-${_.sumBy(
+                    _.filter(objs, {TYPE: 'PayBill'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
+          },
+          BuyGoods: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'BuyGoods'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `BuyGoods-${_.sumBy(
+                    _.filter(objs, {TYPE: 'BuyGoods'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
+          },
+          Airtime: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'Airtime'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `Airtime-${_.sumBy(
+                    _.filter(objs, {TYPE: 'Airtime'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
+          },
+          Reverse: {
+            value: _.sumBy(_.filter(objs, {TYPE: 'Reverse'}), 'AMOUNT'),
+            svg: {
+              onPress: () =>
+                console.log(
+                  `Reverse-${_.sumBy(
+                    _.filter(objs, {TYPE: 'Reverse'}),
+                    'AMOUNT',
+                  )}`,
+                ),
+            },
           },
         };
       })
       .value();
-    console.log(summed);
+    // console.log(summed);
     return summed;
     // console.log(this.props.datas);
   };
