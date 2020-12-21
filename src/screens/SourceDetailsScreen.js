@@ -33,7 +33,7 @@ class SourceDetailsScreen extends Component {
       selectedType: '',
       selectColor: '',
       selectedDate: '',
-      selectedRange: 'year',
+      selectedRange: 'week',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
       orientation: '',
     };
@@ -258,6 +258,7 @@ class SourceDetailsScreen extends Component {
                 <VisualChart
                   orientation={portraitOrientation}
                   height={200}
+                  range={this.state.selectedRange}
                   data={fullFiltered}
                   // data={graphData ? graphData : fullData}
                   colors={typeColors}

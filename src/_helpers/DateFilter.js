@@ -44,7 +44,7 @@ const weekGroup = (data) => {
     data.reduce((acc, item) => {
       startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
       endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
-      // console.log()
+      // console.log(startWeek, endWeek);
       titleStart = dayjs(item.DATE).day(0).format('MMM D');
       titleEnd = dayjs(item.DATE).day(6).format('MMM D');
       title = `${titleStart}-${titleEnd}`;

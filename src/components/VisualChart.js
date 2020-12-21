@@ -22,7 +22,7 @@ import LineChartV3 from './Charts/SvgCharts/LineChartsV3';
 import PieCharts from './Charts/SvgCharts/PieCharts';
 import PieChartsV2 from './Charts/SvgCharts/PieChartsV2';
 import StackedBar from './Charts/SvgCharts/StackedBar'
-const VisualChart = ({data, colors, height, orientation}) => {
+const VisualChart = ({data, range, colors, height, orientation}) => {
   return (
     <View style={styles.container}>
 
@@ -36,7 +36,7 @@ const VisualChart = ({data, colors, height, orientation}) => {
       {/* <LineChartV3 /> */}
     {/* <LineChartFusionTwo/> */}
       {/* <LineCharts data={data} colors={colors} /> */}
-      <StackedBar data={data} orientation={orientation}/>
+      <StackedBar datas={data} range={range} orientation={orientation}/>
       {/* <View style={styles.chartButton}><RangeList /></View> */}
     </View>
     // <View style={styles.container}>

@@ -2,94 +2,44 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {StackedBarChart, XAxis, YAxis, Grid} from 'react-native-svg-charts';
 import {Dimensions} from 'react-native';
+var _ = require('lodash');
+var dayjs = require('dayjs');
 
-const data = [
-  {
-    Moment: 'Mon',
-    Sent: 9760,
-    Receive: 960,
-    Deposit: 400,
-    Withdraw: 400,
-    Paybill: 300,
-    BuyGoods: 900,
-    Airtime: 300,
-    Reverse: 100,
-  },
-  {
-    Moment: 'Tue',
-    Sent: 200,
-    Receive: 960,
-    Deposit: 400,
-    Withdraw: 400,
-    Paybill: 400,
-    BuyGoods: 900,
-    Airtime: 900,
-    Reverse: 0,
-  },
-  {
-    Moment: 'Wed',
-    Sent: 19230,
-    Receive: 960,
-    Deposit: 400,
-    Withdraw: 800,
-    Paybill: 400,
-    BuyGoods: 900,
-    Airtime: 300,
-    Reverse: 800,
-  },
-  {
-    Moment: 'Thu',
-    Sent: 1000,
-    Receive: 960,
-    Deposit: 400,
-    Withdraw: 600,
-    Paybill: 400,
-    BuyGoods: 900,
-    Airtime: 200,
-    Reverse: 100,
-  },
-  {
-    Moment: 'Fri',
-    Sent: 820,
-    Receive: 360,
-    Deposit: 400,
-    Withdraw: 400,
-    Paybill: 400,
-    BuyGoods: 900,
-    Airtime: 100,
-    Reverse: 700,
-  },
-  {
-    Moment: 'Sat',
-    Sent: 1940,
-    Receive: 960,
-    Deposit: 400,
-    Withdraw: 400,
-    Paybill: 100,
-    BuyGoods: 900,
-    Airtime: 300,
-    Reverse: 0,
-  },
-  {
-    Moment: 'Sun',
-    Sent: 3320,
-    Receive: 960,
-    Deposit: 400,
-    Withdraw: 400,
-    Paybill: 400,
-    BuyGoods: 900,
-    Airtime: 900,
-    Reverse: 800,
-  },
-];
 class StackedBar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
+  setData = (datas, range) => {
+    // range
+    let summed = _(datas)
+      .groupBy('DATE')
+      .map((objs, key) => {
+        return {
+          Moment:
+            range == 'week' ? dayjs(key).format('ddd') : dayjs(key).format('D'),
+          Sent: _.sumBy(_.filter(objs, {TYPE: 'Sent'}), 'AMOUNT'),
+          Receive: _.sumBy(_.filter(objs, {TYPE: 'Receive'}), 'AMOUNT'),
+          Deposit: _.sumBy(_.filter(objs, {TYPE: 'Deposit'}), 'AMOUNT'),
+          Withdraw: _.sumBy(_.filter(objs, {TYPE: 'Withdraw'}), 'AMOUNT'),
+          PayBill: _.sumBy(_.filter(objs, {TYPE: 'PayBill'}), 'AMOUNT'),
+          BuyGoods: _.sumBy(_.filter(objs, {TYPE: 'BuyGoods'}), 'AMOUNT'),
+          Airtime: _.sumBy(_.filter(objs, {TYPE: 'Airtime'}), 'AMOUNT'),
+          Reverse: _.sumBy(_.filter(objs, {TYPE: 'Reverse'}), 'AMOUNT'),
+          svg: {
+            onPress: () => console.log('onPress'),
+          },
+        };
+      })
+      .value();
+    console.log(summed);
+    return summed;
+    // console.log(this.props.datas);
+  };
+
   render() {
-    const {orientation} = this.props;
+    const {orientation, datas, range} = this.props;
     const colors = [
       '#ff5252',
       '#39b54b',
@@ -105,15 +55,17 @@ class StackedBar extends Component {
       'Receive',
       'Deposit',
       'Withdraw',
-      'Paybill',
+      'PayBill',
       'BuyGoods',
       'Airtime',
       'Reverse',
     ];
+    const data = this.setData(datas, range);
+    // {console.log(datas)}
     return (
       <View style={styles.container}>
         <StackedBarChart
-          style={{height: orientation ?  250 : 305}}
+          style={{height: orientation ? 250 : 305}}
           keys={keys}
           colors={colors}
           data={data}
@@ -146,9 +98,8 @@ export default StackedBar;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:20,
+    marginTop: 20,
     marginLeft: 10,
-    paddingHorizontal:4
+    paddingHorizontal: 4,
   },
 });
-
