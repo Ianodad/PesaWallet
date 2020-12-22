@@ -5,7 +5,6 @@ import {Dimensions} from 'react-native';
 var _ = require('lodash');
 var dayjs = require('dayjs');
 
-
 class StackedBar extends Component {
   constructor(props) {
     super(props);
@@ -13,13 +12,23 @@ class StackedBar extends Component {
   }
 
   setData = (datas, range) => {
-    // range
-    let summed = _(datas)
-      .groupBy('DATE')
+    // console.log(datas);
+    // console.log(range);
+
+    var result = _.chain(datas)
+      .groupBy((datum) =>
+        range == 'year' || range == 'max'
+          ? dayjs(datum.DATE).format('MMM').toLocaleUpperCase()
+          : datum.DATE,
+      )
       .map((objs, key) => {
         return {
           Moment:
-            range == 'week' ? dayjs(key).format('ddd') : dayjs(key).format('D'),
+            range == 'year'
+              ? key
+              : range == 'week'
+              ? dayjs(key).format('ddd')
+              : dayjs(key).format('D'),
           Sent: {
             value: _.sumBy(_.filter(objs, {TYPE: 'Sent'}), 'AMOUNT'),
             svg: {
@@ -116,8 +125,9 @@ class StackedBar extends Component {
         };
       })
       .value();
-    // console.log(summed);
-    return summed;
+
+    // range
+    return  result;
     // console.log(this.props.datas);
   };
 
