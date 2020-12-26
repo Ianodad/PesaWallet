@@ -6,10 +6,14 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+var _ = require('lodash');
+
+import colors from '../../../config/colors';
 
 class PieCharts extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       selectedSlice: {
         label: '',
@@ -19,30 +23,56 @@ class PieCharts extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log(this.props);
+    const label = this.props.selectedType ? this.props.selectedType : 'All'
+    this.setState({selectedSlice: {label: label}});
+  }
+  setData = (datas, label) => {
+    var result = _.chain(datas)
+      .groupBy('TYPE')
+      .map((objs, key) => {
+        const value = _.sumBy(_.filter(objs, {TYPE: key}), 'AMOUNT');
+        return {
+          key,
+          value,
+          svg: {fill: colors[key]},
+          arc: {
+            outerRadius: label === key ? 110 + '%' : '100%',
+            padAngle: label === key ? 0.1 : 0,
+          },
+          onPress: () => this.setState({selectedSlice: {label: key, value}}),
+        };
+      })
+      .value();
+
+    return result;
+  };
+
+  componentDidUpdate(prevProps) {
+    if (!(this.props.selectedType === prevProps.selectedType)) {
+      const label = this.props.selectedType ? this.props.selectedType : 'All'
+      const value = _.sumBy( this.props.datas, 'AMOUNT');
+      console.log(value)
+      this.setState({selectedSlice: {label, value}});
+    }
+  }
+
   render() {
     const {labelWidth, selectedSlice} = this.state;
+    const {orientation, datas, range, selectedType} = this.props;
+
     const {label, value} = selectedSlice;
-    const keys = ['google', 'facebook', 'linkedin', 'youtube', 'Twitter'];
-    const values = [15, 25, 35, 45, 55];
-    const colors = ['#600080', '#9900cc', '#c61aff', '#d966ff', '#ecb3ff'];
-    const data = keys.map((key, index) => {
-      return {
-        key,
-        value: values[index],
-        svg: {fill: colors[index]},
-        arc: {
-          outerRadius: 70 + values[index] + '%',
-          padAngle: label === key ? 0.1 : 0,
-        },
-        onPress: () =>
-          this.setState({selectedSlice: {label: key, value: values[index]}}),
-      };
-    });
+
+    const data = this.setData(datas, label);
+
     const deviceWidth = Dimensions.get('window').width;
+    console.log(selectedSlice.label);
+    console.log(selectedType);
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {marginTop: responsiveHeight(24)}]}>
         <PieChart
-          style={{height: 250}}
+          style={{height: responsiveHeight(42)}}
           outerRadius={'80%'}
           innerRadius={'45%'}
           data={data}
@@ -59,6 +89,7 @@ class PieCharts extends Component {
             position: 'absolute',
             left: deviceWidth / 2 - labelWidth / 2,
             textAlign: 'center',
+            color: 'white',
           }}>
           {`${label} \n ${value}`}
         </Text>
@@ -71,7 +102,6 @@ export default PieCharts;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:responsiveHeight(25),
     justifyContent: 'center',
     flex: 1,
   },

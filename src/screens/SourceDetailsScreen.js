@@ -51,7 +51,7 @@ class SourceDetailsScreen extends Component {
     this.setState({orientation: initial});
     Orientation.addOrientationListener(this._orientationDidChange);
     // this.props.route.params.data
-    console.log(this.props.navigation.setOptions({ tabBarVisible: false, }));
+    // console.log(this.props.navigation.setOptions({ tabBarVisible: false, }));
     // this.onLayout();
     // const initial = Orientation.getInitialOrientation();
     // console.log(initial);
@@ -68,7 +68,7 @@ class SourceDetailsScreen extends Component {
 
   componentWillUnmount = () => {
     Orientation.getOrientation((err, orientation) => {
-      console.log(`Current Device Orientation: ${orientation}`);
+      // console.log(`Current Device Orientation: ${orientation}`);
     });
     // Remember to remove listener
     Orientation.removeOrientationListener(this._orientationDidChange);
@@ -177,16 +177,16 @@ class SourceDetailsScreen extends Component {
 
   onSetPrevData = () => {
     if (!this.state.setDataIndex - 1 < 0) {
-      console.log(this.state.setDataIndex - 1);
+      // console.log(this.state.setDataIndex - 1);
       this.setState({setDataIndex: this.state.setDataIndex - 1});
     }
   };
 
   onLayout = (e) => {
     console.log('Screen oriantion changed....');
-    console.log(this.state.orientation);
+    // console.log(this.state.orientation);
     const initial = Orientation.getInitialOrientation();
-    console.log(initial);
+    // console.log(initial);
     this.setState({orientation: initial});
   };
 
@@ -220,7 +220,7 @@ class SourceDetailsScreen extends Component {
     };
 
     const portraitOrientation = orientation === 'PORTRAIT';
-
+    // console.log(selectedType)
     return (
       <Screen
         navigation={navigation}
@@ -258,7 +258,8 @@ class SourceDetailsScreen extends Component {
                 <VisualChart
                   orientation={portraitOrientation}
                   height={200}
-                  range={this.state.selectedRange}
+                  range={selectedRange}
+                  selectedType={selectedType}
                   data={fullFiltered}
                   // data={graphData ? graphData : fullData}
                   colors={typeColors}
@@ -315,6 +316,7 @@ class SourceDetailsScreen extends Component {
                   orientation={portraitOrientation}
                   height={305}
                   data={fullFiltered}
+                  selectedType={selectedType}
                   // data={graphData ? graphData : fullData}
                   colors={typeColors}
                 />

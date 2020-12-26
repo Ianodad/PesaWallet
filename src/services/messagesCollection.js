@@ -17,7 +17,7 @@ export const messages = [
   },
   {
     ID: 'OH41BLIEUH',
-    AMOUNT: 72000000,
+    AMOUNT: 720,
     NAME: 'SAFARICOM GALLERIA 2',
     PHONENO: undefined,
     TIME: '1:05 PM',

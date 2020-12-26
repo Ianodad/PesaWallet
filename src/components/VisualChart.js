@@ -7,7 +7,7 @@ import BarChart from '../components/Charts/Fusion/BarChart';
 import {Dimensions} from 'react-native';
 import RangeList from './RangeList';
 
-// Chart imports 
+// Chart imports
 // react-native-fusioncharts
 import LineChartFusionTwo from './Charts/Fusion/LineChartFusionTwo';
 // victory-native
@@ -21,23 +21,36 @@ import LineChartsV2 from './Charts/SvgCharts/LineChartsV2';
 import LineChartV3 from './Charts/SvgCharts/LineChartsV3';
 import PieCharts from './Charts/SvgCharts/PieCharts';
 import PieChartsV2 from './Charts/SvgCharts/PieChartsV2';
-import StackedBar from './Charts/SvgCharts/StackedBar'
-const VisualChart = ({data, range, colors, height, orientation}) => {
+import StackedBar from './Charts/SvgCharts/StackedBar';
+
+const VisualChart = ({
+  data,
+  range,
+  colors,
+  height,
+  orientation,
+  selectedType,
+}) => {
+  console.log("hapa"+selectedType)
   return (
     <View style={styles.container}>
-
       {/* <PieChartVicrort/> */}
-      {/* <PieCharts data={data} orientation={orientation}/> */}
-      {/* <PieChartsV2 data={data} orientation={orientation} /> */}
       {/**** * <BrushZoom/> */}
       {/***<LineChartVictory /> */}
       {/* <LineChartsV2/> */}
       {/* <DecoratorCharts /> */}
       {/* <LineChartV3 /> */}
-    {/* <LineChartFusionTwo/> */}
+      {/* <LineChartFusionTwo/> */}
       {/* <LineCharts data={data} colors={colors} /> */}
-      <StackedBar datas={data} range={range} orientation={orientation}/>
       {/* <View style={styles.chartButton}><RangeList /></View> */}
+
+      <PieCharts
+        datas={data}
+        selectedType={selectedType}
+        orientation={orientation}
+      />
+      {/* <PieChartsV2 data={data} orientation={orientation} /> */}
+      {/* <StackedBar datas={data} range={range} orientation={orientation}/> */}
     </View>
     // <View style={styles.container}>
     //   <GestureRecognizer
@@ -50,8 +63,6 @@ const VisualChart = ({data, range, colors, height, orientation}) => {
     //        <LineCharts data={data} colors={colors} />
     //   </GestureRecognizer>
     // </View>
-
-
   );
 };
 
