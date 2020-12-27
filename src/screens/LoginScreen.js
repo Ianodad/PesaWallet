@@ -29,7 +29,7 @@ class LoginScreen extends Component {
   }
 
   handleLoginUser = ({email, password}) => {
-    console.log(email, password)
+    // console.log(email, password)
     Auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
