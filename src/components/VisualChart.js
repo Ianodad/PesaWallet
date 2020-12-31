@@ -31,7 +31,7 @@ const VisualChart = ({
   orientation,
   selectedType,
 }) => {
-  console.log("hapa"+selectedType)
+  // console.log("hapa"+selectedType)
   return (
     <View style={styles.container}>
       {/* <PieChartVicrort/> */}

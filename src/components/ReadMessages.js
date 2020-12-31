@@ -3,7 +3,7 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import SmsAndroid from 'react-native-get-sms-android';
-import { ReadAllMessages} from "../_helpers/ReadAllMessages"
+// import { ReadAllMessages} from "../_helpers/ReadAllMessages"
 import {storeMessages} from '../_actions/index';
 import * as allActionTypes from '../_actions/types';
 
@@ -27,7 +27,7 @@ const ReadAllMessages = ({collection, storeMessages}) => {
       },
       (count, smsList) => {
         // if (!count) return null
-        // console.log('Count: ', count);
+        console.log('Count: ', count);
         // console.log('List: ', smsList);
         var arr = JSON.parse(smsList);
         callback(address, arr);

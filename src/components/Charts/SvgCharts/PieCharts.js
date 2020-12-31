@@ -65,14 +65,13 @@ class PieCharts extends Component {
     const {label, value} = selectedSlice;
 
     const data = this.setData(datas, label);
-
     const deviceWidth = Dimensions.get('window').width;
     console.log(selectedSlice.label);
     console.log(selectedType);
     return (
-      <View style={[styles.container, {marginTop: responsiveHeight(24)}]}>
+      <View style={[styles.container, {marginTop: orientation ? responsiveHeight(24) : responsiveHeight(10)}]}>
         <PieChart
-          style={{height: responsiveHeight(42)}}
+          style={{height: orientation ? responsiveHeight(42) : responsiveHeight(90) }}
           outerRadius={'80%'}
           innerRadius={'45%'}
           data={data}

@@ -9,7 +9,7 @@ import  _  from 'lodash';
 
 export const storeMessages = (address, messages) => async (dispatch) => {
   const i = await processMpesa(messages);
-  console.log(i)
+  // console.log(i)
 
   return {
     type: STORE_MESSAGES,

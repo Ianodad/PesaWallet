@@ -25,6 +25,7 @@ import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import RNBootSplash from 'react-native-bootsplash';
 import {Auth, analytics} from './src/firebase/config';
+import {ReadMessages} from './src/components/ReadMessages'
 
 class App extends Component {
   constructor(props) {
@@ -108,6 +109,7 @@ class App extends Component {
 
     return (
       <>
+        {/* <ReadMessages/> */}
         <NavigationContainer>
           {this.state.user ? <SideMenuNavigation /> : <AuthNavigator />}
         </NavigationContainer>

@@ -62,7 +62,7 @@ class SourceDetailsScreen extends Component {
     // }
   };
   _orientationDidChange = (orientation) => {
-    console.log(orientation);
+    // console.log(orientation);
     this.setState({orientation: orientation});
   };
 
@@ -96,7 +96,7 @@ class SourceDetailsScreen extends Component {
         let datalength = intialfilter.length;
         const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
         const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
-        console.log(title);
+        // console.log(title);
         // console.log(filter);
         const fullFiltered = _.filter(filter, {TYPE: type});
         // console.log(datalength);
