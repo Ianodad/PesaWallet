@@ -20,6 +20,10 @@ import {messages} from '../services/messagesCollection';
 import {typesData} from '../services/typeData';
 import defaultStyles from '../config/styles';
 
+import {storeMessages} from '../_actions/index';
+import {connect} from 'react-redux';
+
+
 var _ = require('lodash');
 
 class SourceDetailsScreen extends Component {
@@ -45,7 +49,8 @@ class SourceDetailsScreen extends Component {
   // }
 
   componentDidMount = () => {
-    this.setState({fullData: messages});
+    console.log(this.props.collection[1])
+    this.setState({fullData: this.props.collection});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
     this.setState({orientation: initial});
@@ -86,12 +91,14 @@ class SourceDetailsScreen extends Component {
   };
 
   filterMessages = (data, range, type) => {
+    console.log(type)
     if (type) {
       if (range == 'max') {
         const filter = _.filter(data, {TYPE: type});
 
         return {fullFiltered: filter, filter, datalength: 0, title: 'Max'};
       } else {
+        console.log("here", data)
         const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
         const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
@@ -104,6 +111,7 @@ class SourceDetailsScreen extends Component {
         return {fullFiltered, filter, datalength, title};
       }
     } else {
+      // console.log(data)
       if (range === 'max') {
         return {fullFiltered: data, filter: data, datalength: 0, title: 'Max'};
       } else {
@@ -183,7 +191,7 @@ class SourceDetailsScreen extends Component {
   };
 
   onLayout = (e) => {
-    console.log('Screen oriantion changed....');
+    console.log('Screen orientation changed....');
     // console.log(this.state.orientation);
     const initial = Orientation.getInitialOrientation();
     // console.log(initial);
@@ -202,7 +210,7 @@ class SourceDetailsScreen extends Component {
       typeColors,
       orientation,
     } = this.state;
-
+    // console.log(fullData)
     const {fullFiltered, filter, datalength, title} = this.filterMessages(
       fullData,
       selectedRange,
@@ -328,8 +336,17 @@ class SourceDetailsScreen extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  const {SmsCollected} = state;
+  return {
+    collection: SmsCollected.collection,
+  };
+}
+const mapDispatchToProps = {storeMessages};
 
-export default SourceDetailsScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(SourceDetailsScreen);
+
+// export default SourceDetailsScreen;
 
 const styles = StyleSheet.create({
   screen: {

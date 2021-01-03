@@ -1,3 +1,5 @@
+const stringifyObject = require('stringify-object');
+
 const sent = 'sent';
 const receive = 'receive';
 const accountPaid = 'account';
@@ -25,15 +27,21 @@ export const processMpesa = (mpesaData) => {
   let airtimeData = [];
   // // holds all reversed transactions
   let reversedData = [];
+  // hold all proccessed messages
+  let allData = []
 
   mpesaData.map((textMessage) => {
     const {body} = textMessage;
     if (body.includes(sent) && !body.includes(accountPaid)) {
-      //   console.log(body);
-        sentData = [...sentData, (processSent(body, sent))]
+        // console.log(body);
+        sentData = [...sentData, processSent(body, sent)]
+        // console.log(processSent(body, sent))
+        allData = [...allData, processSent(body, sent)];
+        // return processSent(body, sent)
     } else if (body.includes(receive)) {
       // console.log(body)
-      receiveData = [...receiveData, processReceived(body, receive)];
+      // receiveData = [...receiveData, processReceived(body, receive)];
+      allData = [...allData, processReceived(body, receive)];
     } else if (
       body.includes(accountPaid) &&
       !body.includes(reverse) &&
@@ -44,22 +52,28 @@ export const processMpesa = (mpesaData) => {
       !body.includes('Failed.')
     ) {
     //   console.log(body)
-      accountData = [...accountData, processAccountPaid(body, accountPaid)]
+      // accountData = [...accountData, processAccountPaid(body, accountPaid)]
+      allData = [...allData, processAccountPaid(body, accountPaid)];
     } else if (body.includes(goodsPaid)) {
       //console.log(body)
-      goodsPaidData = [...goodsPaidData, processGoodsPaid(body, goodsPaid)];
+      // goodsPaidData = [...goodsPaidData, processGoodsPaid(body, goodsPaid)];
+      allData = [...allData, processAccountPaid(body, accountPaid)];
     } else if (body.includes(deposit)) {
       //console.log(body)
-      depositData = [...depositData, processDeposit(body, deposit)]
+      // depositData = [...depositData, processDeposit(body, deposit)]
+      allData = [...allData, processAccountPaid(body, accountPaid)];
     } else if (withdraw.some((word) => body.includes(word))) {
       //console.log(body)
-      withdrawData = [...withdrawData, processWithdraw(body, withdraw)]
+      // withdrawData = [...withdrawData, processWithdraw(body, withdraw)]
+      allData = [...allData, processWithdraw(body, withdraw)];
     } else if (body.includes(airtime)) {
       //console.log(body)
-      airtimeData =  [...airtimeData, processAirtime(body, airtime)]
+      // airtimeData =  [...airtimeData, processAirtime(body, airtime)]
+      allData = [...allData, processAirtime(body, airtime)];
     } else if (body.includes(reverse)) {
       //console.log(body)
-       reversedData = [...reversedData, processReversed(body, reverse)]
+      //  reversedData = [...reversedData, processReversed(body, reverse)]
+       allData = [...allData, processReversed(body, reverse)];
     } else {
       // console.log(body)
       // console.log("message cant be processed")
@@ -74,17 +88,27 @@ export const processMpesa = (mpesaData) => {
 //   console.log(depositData);
 //   console.log(airtimeData);
 //   console.log(reversedData);
-  const processData = {
-    sentData,
-    receiveData,
-    accountData,
-    goodsPaidData,
-    withdrawData,
-    depositData,
-    airtimeData,
-    reversedData,
-  } 
-  return processData
+  // const processData = {
+  //   sentData,
+  //   receiveData,
+  //   accountData,
+  //   goodsPaidData,
+  //   withdrawData,
+  //   depositData,
+  //   airtimeData,
+  //   reversedData,
+  // } 
+  const processData = stringifyObject(allData, {
+	// indent: '  ',
+	singleQuotes: false
+});
+
+  // console.log(pretty)
+  // console.log(allData.map((each)=>{return JSON.parse(each)}));
+  // return allData.map((each)=>{return JSON.parse(each)});
+
+  return allData;
+
 };
 
 // This is function takes in message and type message to processed and cleaned
@@ -121,19 +145,21 @@ function processReversed(message, reverse) {
 }
 
 function cleanedSend(clean) {
+  const TYPE = "Sent"
+  const FINANCE = 'Debit'
   const ID = cleanSwitch(clean, 'ID');
   let PHONENO = cleanSwitch(clean, 'PHONENO');
-  const DATE = cleanSwitch(clean, 'DATE');
+  let DATE = cleanSwitch(clean, 'DATE');
 
-  const SENTMONEY = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
   const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
 
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
 
-  let FULLNAME;
+  let NAME;
   if (PHONENO) {
-    FULLNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -142,7 +168,7 @@ function cleanedSend(clean) {
         .join(' '),
     );
   } else {
-    FULLNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -150,34 +176,39 @@ function cleanedSend(clean) {
         )
         .join(' '),
     );
-    PHONENO = NaN;
+    PHONENO = ""
   }
+  DATE = dateConverter(DATE)
 
-  const data = {
+  const data =  {
     ID,
-    SENTMONEY,
-    FULLNAME,
+    AMOUNT,
+    NAME,
     PHONENO,
     TIME,
     DATE,
     BALANCE,
     COST,
-  };
+    TYPE,
+    FINANCE
+  }
   // console.log(data)
   return data;
 }
 
 function cleanedReceive(clean) {
+  const TYPE = "Receive"
+  const FINANCE =  'Credit'
   const ID = cleanSwitch(clean, 'ID');
   let PHONENO = cleanSwitch(clean, 'PHONENO');
-  const DATE = cleanSwitch(clean, 'DATE');
-  const RECEIVEMONEY = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
+  let DATE = cleanSwitch(clean, 'DATE');
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
 
-  let FULLNAME;
+  let NAME;
   if (PHONENO) {
-    FULLNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -186,7 +217,7 @@ function cleanedReceive(clean) {
         .join(' '),
     );
   } else {
-    FULLNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -194,34 +225,40 @@ function cleanedReceive(clean) {
         )
         .join(' '),
     );
-    PHONENO = NaN;
+    PHONENO = "";
   }
 
-  const data = {
+  DATE = dateConverter(DATE)
+
+ const data =  {
     ID,
-    RECEIVEMONEY,
-    FULLNAME,
+    AMOUNT,
+    NAME,
     PHONENO,
     TIME,
     DATE,
     BALANCE,
-  };
+    TYPE,
+    FINANCE
+  }
   return data
 }
 
 function cleanedAccountPaid(clean) {
+  const TYPE = "PayBill"
+  const FINANCE = 'Debit'
   const ID = cleanSwitch(clean, 'ID');
-  const DATE = cleanSwitch(clean, 'DATE');
+  let DATE = cleanSwitch(clean, 'DATE');
   let PHONENO = cleanSwitch(clean, 'PHONENO');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
-  const PAIDAMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
   const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
 
-  let ACCOUNTNAME;
+  let NAME;
 
   if (PHONENO) {
-    ACCOUNTNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -230,7 +267,7 @@ function cleanedAccountPaid(clean) {
         .join(' '),
     );
   } else {
-    ACCOUNTNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -239,63 +276,75 @@ function cleanedAccountPaid(clean) {
         .join(' '),
     );
   }
+  DATE = dateConverter(DATE)
 
-  const data = {
+   const data =  {
     ID,
-    PAIDAMOUNT,
-    ACCOUNTNAME,
+    AMOUNT,
+    NAME,
+    PHONENO,
     TIME,
     DATE,
     BALANCE,
     COST,
-  };
+    TYPE,
+    FINANCE
+  }
   return data
 }
 
 function cleanedGoodsPaid(clean){
+  const TYPE = "BuyGoods"
+  const FINANCE = 'Debit'
   const ID = cleanSwitch(clean, 'ID')
-  const DATE = cleanSwitch(clean, 'DATE')
+  let DATE = cleanSwitch(clean, 'DATE')
   let PHONENO = cleanSwitch(clean, 'PHONENO')
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM').match(/^[AM|PM]{2}/).join('')}`
-  const PAIDAMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0])
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0])
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1])
   const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2])
 
-  let ACCOUNTNAME
+  let NAME
   
   if (PHONENO) {
-    ACCOUNTNAME = nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(PHONENO) ).join(' '));
+    NAME = nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(PHONENO) ).join(' '));
   } else {
-    ACCOUNTNAME =  nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(DATE)).join(' '))
+    NAME =  nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(DATE)).join(' '))
   }
 
   // console.log(ACCOUNTNAME)
-  
+  DATE = dateConverter(DATE)
+
   const data =  {
     ID,
-    PAIDAMOUNT,
-    ACCOUNTNAME,
+    AMOUNT,
+    NAME,
+    PHONENO,
     TIME,
     DATE,
     BALANCE,
-    COST
-  };
+    COST,
+    TYPE,
+    FINANCE
+  }
 //   console.log(data)
   return data
 }
 
 function cleanedDeposit(clean) {
+  const TYPE = "Deposit"
+  const FINANCE = 'Credit'
   const ID = cleanSwitch(clean, 'ID');
-  const DATE = cleanSwitch(clean, 'DATE');
+  let DATE = cleanSwitch(clean, 'DATE');
   let PHONENO = cleanSwitch(clean, 'PHONENO');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
-  const DEPOSITEDMONEY = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
 
-  let AGENTNAME;
+  let NAME;
 
   if (PHONENO) {
-    AGENTNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -304,7 +353,7 @@ function cleanedDeposit(clean) {
         .join(' '),
     );
   } else {
-    AGENTNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -314,31 +363,38 @@ function cleanedDeposit(clean) {
     );
   }
 
-  const data = {
+  DATE = dateConverter(DATE)
+
+   const data = {
     ID,
-    DEPOSITEDMONEY,
-    AGENTNAME,
+    AMOUNT,
+    NAME,
+    PHONENO,
     TIME,
     DATE,
     BALANCE,
-  };
+    TYPE,
+    FINANCE
+  }
   return data
 }
 
 function cleanedWithdraw(clean) {
+  const TYPE  = "Withdraw"
+  const FINANCE = 'Debit'
   const ID = cleanSwitch(clean, 'ID');
-  const DATE = cleanSwitch(clean, 'DATE');
+  let DATE = cleanSwitch(clean, 'DATE');
   let PHONENO = cleanSwitch(clean, 'PHONENO');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')
     .match(/^[AM|PM]{2}/)
     .join('')}`;
-  const WITHDRAWNMONEY = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
   const AGENTNO = clean[clean.indexOf('-') - 1];
 
-  let AGENTNAME
+  let NAME
   if (PHONENO) {
-    AGENTNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0]) + 1,
@@ -347,7 +403,7 @@ function cleanedWithdraw(clean) {
         .join(' '),
     );
   } else {
-    AGENTNAME = nameCapitalize(
+    NAME = nameCapitalize(
       clean
         .slice(
           clean.indexOf('-') + 1,
@@ -358,62 +414,76 @@ function cleanedWithdraw(clean) {
   }
 
   // console.log(AGENTNAME)
+  DATE = dateConverter(DATE)
 
   const data = {
     ID,
-    WITHDRAWNMONEY,
+    AMOUNT,
     AGENTNO,
-    AGENTNAME,
+    NAME,
     TIME,
     DATE,
     BALANCE,
-  };
-//   console.log(data);
+    TYPE,
+    FINANCE
+  }
+  // console.log(data);
     return data
 }
 
 function cleanedAirtime(clean) {
+  const TYPE = "Airtime"
   const ID = cleanSwitch(clean, 'ID');
-  const DATE = cleanSwitch(clean, 'DATE');
+  let DATE = cleanSwitch(clean, 'DATE');
   let PHONENO = cleanSwitch(clean, 'PHONENO');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')
     .match(/^[AM|PM]{2}/)
     .join('')}`;
-  const AMOUNTBOUGHT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
   const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
+  const FINANCE = 'Debit'
 
-  console.log(COST);
+  // console.log(COST);
 
-  const data = {
+  DATE = dateConverter(DATE)
+
+ const data = {
     ID,
-    AMOUNTBOUGHT,
+    AMOUNT,
     PHONENO,
     TIME,
     DATE,
     BALANCE,
     COST,
-  };
+    TYPE,
+    FINANCE
+  }
   // console.log(data)
   return data
 }
 
 function cleanReverse(clean) {
+  const TYPE = "Reverse"
+  const FINANCE = 'Credit'
   const ID = cleanSwitch(clean, 'ALLIDS')[0];
   const TRANSACTION_ID = cleanSwitch(clean, 'ALLIDS')[1];
-  const DATE = cleanSwitch(clean, 'DATE');
+  let DATE = cleanSwitch(clean, 'DATE');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
-  const REVERSALAMOUNT = cleanSwitch(clean, 'ALLCASH')[0];
+  const AMOUNT = cleanSwitch(clean, 'ALLCASH')[0];
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
 
+  DATE = dateConverter(DATE)
   const data = {
     ID,
     TRANSACTION_ID,
     DATE,
     TIME,
-    REVERSALAMOUNT,
+    AMOUNT,
     BALANCE,
-  };
+    TYPE,
+    FINANCE  
+   }
 
 //   console.log(data);
   return data
@@ -593,6 +663,13 @@ function currencyToNumber(cash) {
     return NaN;
   }
 }
+
+function dateConverter(date){
+  var neWdate = date.split('/');
+  return (neWdate[1]+'/'+neWdate[0]+'/'+neWdate[2]);
+}
+
+
 // function nameTitleCase(names){
 //   return _.startCase(_.toLower(names));
 // }

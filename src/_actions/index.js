@@ -8,11 +8,11 @@ import  _  from 'lodash';
 // Global regex variables
 
 export const storeMessages = (address, messages) => async (dispatch) => {
-  const i = await processMpesa(messages);
-  // console.log(i)
+  const  messagesProcesses = await processMpesa(messages);
+  // console.log(messagesProcesses)
 
-  return {
+  dispatch ({
     type: STORE_MESSAGES,
-    payload: messages,
-  };
+    payload: messagesProcesses,
+  });
 };

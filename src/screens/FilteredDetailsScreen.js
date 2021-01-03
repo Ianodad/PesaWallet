@@ -22,15 +22,16 @@ import {
 import HeaderFixed from '../components/HeaderFixed';
 import TitleHeader from '../components/TitleHeader';
 import TransactionList from '../components/TransactionList';
-import {messages, getMessages} from '../services/messagesCollection';
-import Screen from '../components/Screen';
+// rimport Screen from '../components/Screen';
 import {LogBox} from 'react-native';
+import {connect} from 'react-redux';
+import {storeMessages} from '../_actions/index';
+
 import colors from '../config/colors';
 import defaultStyles from '../config/styles';
 
 
 var _ = require('lodash');
-
 class FilteredDetailsScreen extends Component {
   constructor(props) {
     super(props);
@@ -43,9 +44,20 @@ class FilteredDetailsScreen extends Component {
     };
   }
 
+  getMessages=(messages, id)=> {
+  // console.log(id)
+  // console.log(_.filter(messages, (message) => message.PHONENO == id || message.NAME == id.toUpperCase()));
+  return _.filter(
+    messages,
+    (message) => message.PHONENO == id || nameTitleCase(message.NAME) == id,
+  );
+  // return messages.filter((message) => message);
+}
+
   componentDidMount() {
+    const messages = this.props.collection
     this.setState({
-      data: this.props.route.params.data || getMessages(this.state.id),
+      data: this.props.route.params.data || getMessages(messages ,this.state.id),
     });
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }
@@ -167,8 +179,16 @@ class FilteredDetailsScreen extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  const {SmsCollected} = state;
+  return {
+    collection: SmsCollected.collection,
+  };
+};
+const mapDispatchToProps = {storeMessages};
 
-export default FilteredDetailsScreen;
+export default connect(mapStateToProps, mapDispatchToProps)(FilteredDetailsScreen);
+
 
 const styles = StyleSheet.create({
   container: {
