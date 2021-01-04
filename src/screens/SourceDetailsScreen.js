@@ -17,6 +17,7 @@ import {DateFilter} from '../_helpers/DateFilter.js';
 import {NumberCommas} from '../_helpers/NumberCommas';
 
 import {messages} from '../services/messagesCollection';
+// import {messages} from '../services/messageCollections'
 import {typesData} from '../services/typeData';
 import defaultStyles from '../config/styles';
 
@@ -49,8 +50,12 @@ class SourceDetailsScreen extends Component {
   // }
 
   componentDidMount = () => {
-    console.log(this.props.collection[1])
-    this.setState({fullData: this.props.collection});
+    collection = this.props.collection
+    console.log(collection)
+    // console.log(collection.slice(-10))
+    // console.log(messages.slice(-10))
+    this.setState({fullData: messages.slice(-10)});
+    // this.setState({fullData: collection.slice(-10)});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
     this.setState({orientation: initial});
@@ -210,7 +215,7 @@ class SourceDetailsScreen extends Component {
       typeColors,
       orientation,
     } = this.state;
-    // console.log(fullData)
+    console.log(fullData)
     const {fullFiltered, filter, datalength, title} = this.filterMessages(
       fullData,
       selectedRange,

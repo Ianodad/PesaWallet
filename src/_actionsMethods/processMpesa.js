@@ -98,15 +98,15 @@ export const processMpesa = (mpesaData) => {
   //   airtimeData,
   //   reversedData,
   // } 
-  const processData = stringifyObject(allData, {
-	// indent: '  ',
-	singleQuotes: false
-});
+//   const processData = stringifyObject(allData, {
+// 	// indent: '  ',
+// 	singleQuotes: false
+// });
 
-  // console.log(pretty)
+  // console.log(allData)
   // console.log(allData.map((each)=>{return JSON.parse(each)}));
   // return allData.map((each)=>{return JSON.parse(each)});
-
+  // return processData
   return allData;
 
 };
@@ -176,7 +176,8 @@ function cleanedSend(clean) {
         )
         .join(' '),
     );
-    PHONENO = ""
+    PHONENO =null
+
   }
   DATE = dateConverter(DATE)
 
@@ -225,7 +226,7 @@ function cleanedReceive(clean) {
         )
         .join(' '),
     );
-    PHONENO = "";
+    PHONENO = null;
   }
 
   DATE = dateConverter(DATE)
@@ -275,6 +276,7 @@ function cleanedAccountPaid(clean) {
         )
         .join(' '),
     );
+    PHONENO = null;
   }
   DATE = dateConverter(DATE)
 
@@ -310,6 +312,7 @@ function cleanedGoodsPaid(clean){
     NAME = nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(PHONENO) ).join(' '));
   } else {
     NAME =  nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(DATE)).join(' '))
+    PHONENO = null;
   }
 
   // console.log(ACCOUNTNAME)
@@ -361,6 +364,7 @@ function cleanedDeposit(clean) {
         )
         .join(' '),
     );
+    PHONENO = null;
   }
 
   DATE = dateConverter(DATE)
@@ -411,6 +415,7 @@ function cleanedWithdraw(clean) {
         )
         .join(' '),
     );
+    PHONENO = null;
   }
 
   // console.log(AGENTNAME)
@@ -443,7 +448,7 @@ function cleanedAirtime(clean) {
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
   const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
   const FINANCE = 'Debit'
-
+  // PHONENO = null;
   // console.log(COST);
 
   DATE = dateConverter(DATE)
@@ -472,6 +477,7 @@ function cleanReverse(clean) {
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
   const AMOUNT = cleanSwitch(clean, 'ALLCASH')[0];
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
+  const PHONENO = null;
 
   DATE = dateConverter(DATE)
   const data = {
@@ -480,6 +486,7 @@ function cleanReverse(clean) {
     DATE,
     TIME,
     AMOUNT,
+    PHONENO,
     BALANCE,
     TYPE,
     FINANCE  

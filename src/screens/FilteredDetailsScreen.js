@@ -22,7 +22,7 @@ import {
 import HeaderFixed from '../components/HeaderFixed';
 import TitleHeader from '../components/TitleHeader';
 import TransactionList from '../components/TransactionList';
-// rimport Screen from '../components/Screen';
+import Screen from '../components/Screen';
 import {LogBox} from 'react-native';
 import {connect} from 'react-redux';
 import {storeMessages} from '../_actions/index';
@@ -57,7 +57,7 @@ class FilteredDetailsScreen extends Component {
   componentDidMount() {
     const messages = this.props.collection
     this.setState({
-      data: this.props.route.params.data || getMessages(messages ,this.state.id),
+      data: this.props.route.params.data || this.getMessages(messages ,this.state.id),
     });
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }

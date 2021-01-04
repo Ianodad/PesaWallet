@@ -40,36 +40,44 @@ const weekGroup = (data) => {
   let endWeek;
   let title;
   let between;
-  // console.log(data)
-  const DATA = Object.values(
-    data.reduce((acc, item) => {
-      startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
-      endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
-      // console.log(startWeek, endWeek);
-      let titleStart = dayjs(item.DATE).day(0).format('MMM D');
-      let titleEnd = dayjs(item.DATE).day(6).format('MMM D');
-      title = `${titleStart}-${titleEnd}`;
-      console.log(title)
-      const between = dayjs(item.DATE).isBetween(
-        startWeek,
-        dayjs(endWeek),
-        null,
-        '[]',
-      );
-      if (!acc[title] && between) {
-        console.log(acc[title])
-        acc[title] = {
-          title: title,
-          startWeek: dayjs(titleStart).format('MMM D'),
-          endWeek: dayjs(titleEnd).format('MMM D'),
-          data: [],
-        };
-      } 
-      acc[title].data.push(item);
-      return acc;
-    }, {}),
-  );
-  return DATA;
+  console.log(data)
+  // const DATA = Object.values(
+  //   data.reduce((acc, item) => {
+  //     // console.log(item)
+  //     startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
+  //     endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
+  //     console.log(startWeek, endWeek);
+  //     let titleStart = dayjs(item.DATE).day(0).format('MMM D');
+  //     let titleEnd = dayjs(item.DATE).day(6).format('MMM D');
+  //     title = `${titleStart}-${titleEnd}`;
+      // console.log(title)
+    //   const between = dayjs(item.DATE).isBetween(
+    //     startWeek,
+    //     dayjs(endWeek),
+    //     null,
+    //     '[]',
+    //   );
+    //   // console.log(between)
+    //   // console.log(acc[title])
+    //   try {
+    //   if (!acc[title] && between) {
+    //     console.log(acc[title])
+    //     acc[title] = {
+    //       title: title,
+    //       startWeek: dayjs(titleStart).format('MMM D'),
+    //       endWeek: dayjs(titleEnd).format('MMM D'),
+    //       data: [],
+    //     };
+    //   } 
+    //     acc[title].data.push(item);
+    //     return acc;
+    //   } catch (error) {
+    //     console.log(error)
+    // }
+
+  //   }, {}),
+  // );
+  // return DATA;
 };
 
 const monthGroup = (data) => {
