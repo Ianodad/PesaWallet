@@ -54,7 +54,7 @@ class SourceDetailsScreen extends Component {
     console.log(collection)
     // console.log(collection.slice(-10))
     // console.log(messages.slice(-10))
-    this.setState({fullData: messages.slice(-10)});
+    this.setState({fullData: this.props.collection});
     // this.setState({fullData: collection.slice(-10)});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
@@ -71,6 +71,7 @@ class SourceDetailsScreen extends Component {
     //   // do something else
     // }
   };
+
   _orientationDidChange = (orientation) => {
     // console.log(orientation);
     this.setState({orientation: orientation});
@@ -215,7 +216,9 @@ class SourceDetailsScreen extends Component {
       typeColors,
       orientation,
     } = this.state;
+
     console.log(fullData)
+
     const {fullFiltered, filter, datalength, title} = this.filterMessages(
       fullData,
       selectedRange,

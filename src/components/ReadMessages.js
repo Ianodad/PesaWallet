@@ -16,7 +16,7 @@ const ReadAllMessages = ({collection, storeMessages}) => {
       address:'MPESA', // sender's phone number
       // body: , // content to match
       // the next 2 filters can be used for pagination
-      indexFrom: 0, // start from index 0
+      indexFrom: 900, // start from index 0
       // maxCount: 10, // count of SMS to return each time
     };
 
