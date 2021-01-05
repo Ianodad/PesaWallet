@@ -139,7 +139,7 @@ function processWithdraw(message, withdraw) {
 
 function processAirtime(message, airtime) {
   return cleanedAirtime(filterContent(message, airtime), airtime);
-}
+}PHONENO = ""
 function processReversed(message, reverse) {
   return cleanReverse(filterContent(message, reverse), reverse);
 }
@@ -176,7 +176,7 @@ function cleanedSend(clean) {
         )
         .join(' '),
     );
-    PHONENO = ""
+    PHONENO = null
   }
   DATE = dateConverter(DATE)
 
@@ -225,7 +225,7 @@ function cleanedReceive(clean) {
         )
         .join(' '),
     );
-    PHONENO = "";
+    PHONENO = null
   }
 
   DATE = dateConverter(DATE)
@@ -275,6 +275,7 @@ function cleanedAccountPaid(clean) {
         )
         .join(' '),
     );
+    PHONENO = null
   }
   DATE = dateConverter(DATE)
 
@@ -310,6 +311,7 @@ function cleanedGoodsPaid(clean){
     NAME = nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(PHONENO) ).join(' '));
   } else {
     NAME =  nameCapitalize(clean.slice(clean.indexOf(cleanSwitch(clean, 'ALLCASH')[0])+1, clean.indexOf(DATE)).join(' '))
+    PHONENO = null
   }
 
   // console.log(ACCOUNTNAME)
@@ -361,6 +363,7 @@ function cleanedDeposit(clean) {
         )
         .join(' '),
     );
+    PHONENO = null
   }
 
   DATE = dateConverter(DATE)
@@ -411,6 +414,7 @@ function cleanedWithdraw(clean) {
         )
         .join(' '),
     );
+    PHONENO = null
   }
 
   // console.log(AGENTNAME)
@@ -419,6 +423,7 @@ function cleanedWithdraw(clean) {
   const data = {
     ID,
     AMOUNT,
+    PHONENO,
     AGENTNO,
     NAME,
     TIME,
