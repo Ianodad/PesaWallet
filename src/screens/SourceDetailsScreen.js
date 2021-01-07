@@ -22,6 +22,7 @@ import defaultStyles from '../config/styles';
 
 import {storeMessages} from '../_actions/index';
 import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 var _ = require('lodash');
@@ -50,6 +51,7 @@ class SourceDetailsScreen extends Component {
 
   componentDidMount = () => {
     console.log(this.props.collection[1])
+    this.loadCollection()
     this.setState({fullData: this.props.collection});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
@@ -65,6 +67,24 @@ class SourceDetailsScreen extends Component {
     // } else {
     //   // do something else
     // }
+  };
+
+  loadCollection = async () => {
+    try {
+      const collection = await AsyncStorage.getItem('COLLECTION');
+      if (collection !== null) {
+        // We have data!!
+        // console.log('this here');
+        const data = JSON.parse(collection);
+  
+        // console.log(data)
+        this.setState({fullData: data});
+
+        // console.log(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
   };
   _orientationDidChange = (orientation) => {
     // console.log(orientation);
@@ -210,7 +230,7 @@ class SourceDetailsScreen extends Component {
       typeColors,
       orientation,
     } = this.state;
-    // console.log(fullData)
+    console.log(fullData)
     const {fullFiltered, filter, datalength, title} = this.filterMessages(
       fullData,
       selectedRange,

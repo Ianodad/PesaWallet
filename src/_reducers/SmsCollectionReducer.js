@@ -1,19 +1,22 @@
-import  {POPULATE_DATA, STORE_MESSAGES } from "../_actions/types";
+import  {POPULATE_DATA, STORE_MESSAGES, GET_COLLECTION } from "../_actions/types";
 
 const initialState = {
-    collection: []
+    collection: [],
+    collectionState: false,
 }
 
 const SmsCollectionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case STORE_MESSAGES:
-      
-      // const object = action.payload
-      // console.log(JSON.stringify(action.payload, null, "  "));
+    case GET_COLLECTION:
       return {
         ...state,
         collection: action.payload,
       };
+    case STORE_MESSAGES:
+      return {
+        ...state,
+        collection: action.payload,
+      }
     default:
       return state;
   }

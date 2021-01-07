@@ -52,7 +52,7 @@ class FilteredDetailsScreen extends Component {
     (message) => message.PHONENO == id || nameTitleCase(message.NAME) == id,
   );
   // return messages.filter((message) => message);
-}
+  }
 
   componentDidMount() {
     const messages = this.props.collection
@@ -74,6 +74,7 @@ class FilteredDetailsScreen extends Component {
     // console.log(creditLength, debitLength)
     return {creditSum, creditLength, debitSum, debitLength};
   };
+
   renderHeader() {
     return (
       <View style={styles.backgroundHeader}>
@@ -81,6 +82,7 @@ class FilteredDetailsScreen extends Component {
       </View>
     );
   }
+
   foreBackground() {
     return (
       <View style={styles.foreGroundHeader}>

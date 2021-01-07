@@ -105,8 +105,8 @@ const yearGroup = (data) => {
           title: title,
           data: [],
         };
+        acc[title].data.push(item);
       }
-      acc[title].data.push(item);
       return acc;
     }, {}),
   );

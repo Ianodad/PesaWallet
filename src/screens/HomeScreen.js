@@ -13,7 +13,7 @@ import {
 import {connect} from 'react-redux';
 import {NumberCommas} from '../_helpers/NumberCommas';
 import ReadMessages from '../_helpers/ReadMessages';
-import {storeMessages} from '../_actions';
+import {storeMessages, getCollection} from '../_actions';
 import color from '../config/colors';
 import TitleHeader from '../components/TitleHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
@@ -30,13 +30,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import {firestore, firebase} from '../firebase/config';
 
+
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.getUser();
     this.state = {
       username: '',
-      comments: [],
+      collection: [],
       loading: false,
       error: '',
       screenHeight: null,
@@ -60,19 +61,20 @@ class HomeScreen extends Component {
   };
 
   componentDidMount = () => {
-    this.loadComments();
-    this.retrieveUser();
+    this.loadCollection();
+    // this.retrieveUser();
   };
 
-  retrieveUser = async () => {
+  loadCollection = async () => {
     try {
-      const value = await AsyncStorage.getItem('USER');
-      if (value !== null) {
+      const collection = await AsyncStorage.getItem('COLLECTION');
+      if (collection !== null) {
         // We have data!!
         // console.log('this here');
-        const userInfo = JSON.parse(value);
-        // console.log(userInfo.email)
-        this.setState({username: userInfo.email});
+        const data = JSON.parse(collection);
+  
+        // console.log(data)
+        this.setState({collection: data});
 
         // console.log(value);
       }
@@ -81,18 +83,20 @@ class HomeScreen extends Component {
     }
   };
 
-  loadComments = async () => {
-    this.setState({loading: true});
+  // loadCollection = async () => {
+  //   this.setState({loading: true});
+  //   const collection = JSON.parse(this.props.collection)
+  //   // const {data, ok} = await commentsApi.getComments();
+  //   console.log(collection)
+    
+  //   if (!collection) {
+  //     return this.setState({error: true});
+  //   }
+  //   // console.log(JSON.stringify(data), '/t')
+  //   this.setState({collection});
+  //   this.setState({error: false});
+  // };
 
-    const {data, ok} = await commentsApi.getComments();
-
-    if (!ok) {
-      return this.setState({error: true});
-    }
-    // console.log(JSON.stringify(data), '/t')
-    this.setState({comments: data});
-    this.setState({error: false});
-  };
   render() {
     const {navigation} = this.props;
     return (
@@ -131,12 +135,14 @@ class HomeScreen extends Component {
   }
 }
 const mapStateToProps = (state) => {
+  // console.log(state)
   const {SmsCollected} = state;
   return {
     collection: SmsCollected.collection,
   };
 };
-const mapDispatchToProps = {storeMessages};
+
+const mapDispatchToProps = {getCollection};
 
 // gradinetColors={['#5a60f8', '#5a60f8', '#8387f9']}
 // gradinetColors={['#39b54b', '#39b54b', '#65cd73']}

@@ -5,9 +5,9 @@ import HomeScreen from '../screens/HomeScreen';
 import AppNavigator from './AppNavigator';
 import ViewNavigator from "./ViewNavigator";
 import Settings from "../components/Settings";
-import SettingsScreen from "../screens/SettingScreen"
+import SettingsScreen from "../screens/SettingScreen";
 // import {ReadAllMessages} from '../components/ReadAllMessages'
-import ReadAllMessages from '../components/ReadMessages'
+import ReadMessages from '../components/ReadMessages';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +16,7 @@ const SideMenuNavigation = () => {
     return (
       <>
       {/* <ReadAllMessages/> */}
-      <ReadAllMessages/>
+      <ReadMessages/>
       <Drawer.Navigator>
         <Drawer.Screen name="Home" component={AppNavigator} />
         <Drawer.Screen name="Settings" component={SettingsScreen} />

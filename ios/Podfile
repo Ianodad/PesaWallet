@@ -22,6 +22,8 @@ target 'PesaSite' do
 
   pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
   target 'PesaSiteTests' do
     inherit! :complete
     # Pods for testing
