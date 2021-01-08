@@ -5,10 +5,11 @@ import {nameTitleCase} from '../../_helpers/NameTitleCase';
 import defaultStyles from '../../config/styles';
 
 const FlatListItem = ({data, navigation}) => {
+  // {console.log(data)}
   return (
     <FlatList
       data={data}
-      keyExtractor={(type) => type.ID.toString()}
+      keyExtractor={(type) => type.ID}
       renderItem={({item}) => (
         <Transaction
           style={styles.transaction}

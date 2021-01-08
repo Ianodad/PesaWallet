@@ -35,41 +35,75 @@ export const dayGroup = (data) => {
   return DATA;
 };
 
-const weekGroup = (data) => {
-  let startWeek;
-  let endWeek;
-  let title;
-  let between;
-  // console.log(data)
-  const DATA = Object.values(
-    data.reduce((acc, item) => {
-      startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
-      endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
+const weekGroup =  (data) => {
+  const groups =  data.reduce((acc, item) => {
+
+  startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
+  endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
       // console.log(startWeek, endWeek);
-      let titleStart = dayjs(item.DATE).day(0).format('MMM D');
-      let titleEnd = dayjs(item.DATE).day(6).format('MMM D');
-      title = `${titleStart}-${titleEnd}`;
-      console.log(title)
-      const between = dayjs(item.DATE).isBetween(
-        startWeek,
-        dayjs(endWeek),
-        null,
-        '[]',
-      );
-      if (!acc[title] && between) {
-        console.log(acc[title])
-        acc[title] = {
+  let titleStart = dayjs(item.DATE).day(0).format('MMM D');
+  let titleEnd = dayjs(item.DATE).day(6).format('MMM D');
+  let year = dayjs(item.DATE).format('YY');
+  title = `${titleStart}-${titleEnd}/${year}`;
+  // console.log(title)
+  // const between = dayjs(item.DATE).isBetween(
+  //       startWeek,
+  //       dayjs(endWeek),
+  //       null,
+  //       '[]',
+  //     );
+  
+  // add this key as a property to the result object
+  if (!acc[title]) {
+    acc[title] = {
           title: title,
           startWeek: dayjs(titleStart).format('MMM D'),
           endWeek: dayjs(titleEnd).format('MMM D'),
           data: [],
-        };
-      } 
-      acc[title].data.push(item);
-      return acc;
-    }, {}),
-  );
-  return DATA;
+      };
+    } 
+  //  acc[title].data = [...item]  
+  acc[title].data.push(item);
+  return acc;
+
+  }, {});
+
+//  console.log(groups)
+ return Object.values(groups)
+  // let startWeek;
+  // let endWeek;
+  // let title;
+  // let between;
+  // // console.log(data)
+  // const DATA = Object.values(
+  //   data.reduce((acc, item) => {
+  //     startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
+  //     endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
+  //     // console.log(startWeek, endWeek);
+  //     let titleStart = dayjs(item.DATE).day(0).format('MMM D');
+  //     let titleEnd = dayjs(item.DATE).day(6).format('MMM D');
+  //     title = `${titleStart}-${titleEnd}`;
+  //     console.log(title)
+  //     const between = dayjs(item.DATE).isBetween(
+  //       startWeek,
+  //       dayjs(endWeek),
+  //       null,
+  //       '[]',
+  //     );
+  //     if (!acc[title] && between) {
+  //       console.log(acc[title])
+  //       acc[title] = {
+  //         title: title,
+  //         startWeek: dayjs(titleStart).format('MMM D'),
+  //         endWeek: dayjs(titleEnd).format('MMM D'),
+  //         data: [],
+  //       };
+  //     } 
+  //     acc[title].data.push(item);
+  //     return acc;
+  //   }, {}),
+  // );
+  // return DATA;
 };
 
 const monthGroup = (data) => {
@@ -122,13 +156,13 @@ export const DateFilter = (dataNew, range) => {
       return dayGroup(dataNew)
       // return dataNew.filter((a) => a.DATE === today);
     case 'week':
-      const startWeek = dayjs(today).subtract(1, 'Week').format('MM/DD/YYYY');
+      // const startWeek = dayjs(today).subtract(1, 'Week').format('MM/DD/YYYY');
       // const week = weekGroup(dataNew);
       // console.log(_.get(week,'[0].data'))
       return weekGroup(dataNew);
     // return filterPoint(dataNew, startWeek, today);
     case 'month':
-      const startMonth = dayjs(today).subtract(1, 'Month').format('MM/DD/YYYY');
+      // const startMonth = dayjs(today).subtract(1, 'Month').format('MM/DD/YYYY');
       return monthGroup(dataNew);
     // console.log(filterPoint(dataNew, startMonth, today));
     // return filterPoint(dataNew, startMonth, today);

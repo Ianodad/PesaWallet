@@ -50,9 +50,9 @@ class SourceDetailsScreen extends Component {
   // }
 
   componentDidMount = () => {
-    console.log(this.props.collection[1])
+    // console.log(this.props.collection)
     this.loadCollection()
-    this.setState({fullData: this.props.collection});
+    // this.setState({fullData: this.props.collection});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
     this.setState({orientation: initial});
@@ -110,16 +110,16 @@ class SourceDetailsScreen extends Component {
     this.setState({setDataIndex: 0});
   };
 
-  filterMessages = (data, range, type) => {
-    console.log(type)
+  filterMessages = async (data, range, type) => {
+    // console.log(type)
     if (type) {
       if (range == 'max') {
         const filter = _.filter(data, {TYPE: type});
 
         return {fullFiltered: filter, filter, datalength: 0, title: 'Max'};
       } else {
-        console.log("here", data)
-        const intialfilter = DateFilter(data, range);
+        // console.log(data)
+        const intialfilter = await DateFilter(data, range);
         let datalength = intialfilter.length;
         const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
         const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
@@ -127,7 +127,7 @@ class SourceDetailsScreen extends Component {
         // console.log(filter);
         const fullFiltered = _.filter(filter, {TYPE: type});
         // console.log(datalength);
-        // console.log(filtered);
+        console.log(fullFiltered);
         return {fullFiltered, filter, datalength, title};
       }
     } else {
@@ -135,15 +135,20 @@ class SourceDetailsScreen extends Component {
       if (range === 'max') {
         return {fullFiltered: data, filter: data, datalength: 0, title: 'Max'};
       } else {
-        const intialfilter = DateFilter(data, range);
+        const intialfilter = await DateFilter(data, range);
+        // console.log(intialfilter[0].data)
         let datalength = intialfilter.length;
 
-        const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+        const fullFiltered = await _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+        // console.log(this.state.setDataIndex)
         const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
         // console.log(title);
         // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
         // this.setState({dataIndexLength: intialfilter.length});
-        return {fullFiltered: filter, filter, datalength, title};
+        console.log(fullFiltered)
+        console.log(title)
+        console.log(datalength)
+        return {fullFiltered, fullFiltered, datalength, title};
       }
     }
   };
@@ -230,16 +235,19 @@ class SourceDetailsScreen extends Component {
       typeColors,
       orientation,
     } = this.state;
-    console.log(fullData)
+    // console.log(fullData)
     const {fullFiltered, filter, datalength, title} = this.filterMessages(
       fullData,
       selectedRange,
       selectedType,
     );
 
-    // console.log(fullFiltered);
-    const graphData = this.getGraphData(fullFiltered);
-    const typesSummed = this.filterType(filter);
+    console.log(fullFiltered);
+    console.log(filter)
+    console.log(datalength)
+    console.log(title)
+    // const graphData = this.getGraphData(fullFiltered);
+    const typesSummed = this.filterType(fullFiltered);
 
     // console.log(fullFiltered)
     const config = {
@@ -249,6 +257,7 @@ class SourceDetailsScreen extends Component {
 
     const portraitOrientation = orientation === 'PORTRAIT';
     // console.log(selectedType)
+    if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
     return (
       <Screen
         navigation={navigation}

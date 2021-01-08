@@ -34,7 +34,7 @@ export const processMpesa = (mpesaData) => {
     const {body} = textMessage;
     if (body.includes(sent) && !body.includes(accountPaid)) {
         // console.log(body);
-        sentData = [...sentData, processSent(body, sent)]
+        // sentData = [...sentData, processSent(body, sent)]
         // console.log(processSent(body, sent))
         allData = [...allData, processSent(body, sent)];
         // return processSent(body, sent)
@@ -57,13 +57,13 @@ export const processMpesa = (mpesaData) => {
     } else if (body.includes(goodsPaid)) {
       //console.log(body)
       // goodsPaidData = [...goodsPaidData, processGoodsPaid(body, goodsPaid)];
-      allData = [...allData, processAccountPaid(body, accountPaid)];
+      allData = [...allData, processGoodsPaid(body, goodsPaid)];
     } else if (body.includes(deposit)) {
       //console.log(body)
       // depositData = [...depositData, processDeposit(body, deposit)]
-      allData = [...allData, processAccountPaid(body, accountPaid)];
+      allData = [...allData, processDeposit(body, deposit)];
     } else if (withdraw.some((word) => body.includes(word))) {
-      //console.log(body)
+      // console.log(body)
       // withdrawData = [...withdrawData, processWithdraw(body, withdraw)]
       allData = [...allData, processWithdraw(body, withdraw)];
     } else if (body.includes(airtime)) {
@@ -98,15 +98,16 @@ export const processMpesa = (mpesaData) => {
   //   airtimeData,
   //   reversedData,
   // } 
-  const processData = stringifyObject(allData, {
-	// indent: '  ',
-	singleQuotes: false
-});
+//   const processData = stringifyObject(allData, {
+// 	// indent: '  ',
+// 	singleQuotes: false
+// });
 
   // console.log(pretty)
   // console.log(allData.map((each)=>{return JSON.parse(each)}));
   // return allData.map((each)=>{return JSON.parse(each)});
 
+  // console.log(allData)
   return allData;
 
 };
@@ -139,7 +140,7 @@ function processWithdraw(message, withdraw) {
 
 function processAirtime(message, airtime) {
   return cleanedAirtime(filterContent(message, airtime), airtime);
-}PHONENO = ""
+}
 function processReversed(message, reverse) {
   return cleanReverse(filterContent(message, reverse), reverse);
 }
@@ -245,10 +246,12 @@ function cleanedReceive(clean) {
 }
 
 function cleanedAccountPaid(clean) {
+  // console.log(clean)
   const TYPE = "PayBill"
   const FINANCE = 'Debit'
   const ID = cleanSwitch(clean, 'ID');
   let DATE = cleanSwitch(clean, 'DATE');
+  // console.log(DATE)
   let PHONENO = cleanSwitch(clean, 'PHONENO');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
   const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
@@ -498,7 +501,7 @@ function cleanSwitch(clean, type) {
   const regexID = /[0-9a-zA-Z]{10}/; // get ID
   const regexPhoneNo = /^[07|+254|254][0-9]{9}/; // Phone number
   const regexName = /([A-Z])\w+/;
-  const regexDate = /\//;
+  const regexDate = /^(\d{1,2})\/(\d{1,2})\/(\d{2})$/;
   const regexTime = /:[0-5][0-9]/;
   const regexKsh = /Ksh[0-9]/g;
   const regexAMPM = /(?:^|\W)(AM|PM|PMWithdraw|AMWithdraw)(?:$|\W)/;
@@ -581,7 +584,7 @@ function filterContent(message, type) {
     'day',
   ];
 
-  const accountPaidFilter = [...sentFilter, 'cost', 'account', 'for'];
+  const accountPaidFilter = [...sentFilter, 'cost', 'account', 'for', "paid",  'Dial', '*234*1#', 'manage', 'your', 'bills.',];
 
   const reverseFilter = [
     ...accountPaidFilter,

@@ -13,7 +13,7 @@ import colors from '../../../config/colors';
 class PieCharts extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     this.state = {
       selectedSlice: {
         label: '',
@@ -53,7 +53,7 @@ class PieCharts extends Component {
     if (!(this.props.selectedType === prevProps.selectedType)) {
       const label = this.props.selectedType ? this.props.selectedType : 'All'
       const value = _.sumBy( this.props.datas, 'AMOUNT');
-      console.log(value)
+      // console.log(value)
       this.setState({selectedSlice: {label, value}});
     }
   }
@@ -66,8 +66,8 @@ class PieCharts extends Component {
 
     const data = this.setData(datas, label);
     const deviceWidth = Dimensions.get('window').width;
-    console.log(selectedSlice.label);
-    console.log(selectedType);
+    // console.log(selectedSlice.label);
+    // console.log(selectedType);
     return (
       <View style={[styles.container, {marginTop: orientation ? responsiveHeight(24) : responsiveHeight(10)}]}>
         <PieChart
