@@ -41,34 +41,50 @@ class SourceDetailsScreen extends Component {
       selectedRange: 'week',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
       orientation: '',
+      collectionFiltered:[],
+      typesSummed:0
+      // filter: [],
+      // datalength:'',
+      // title:''
     };
+
+    // let filtered, initialFilter, datalength, title;
   }
 
   // componentWillMount() {
   //   const initial = Orientation.getInitialOrientation();
   //   this.setState({orientation: initial});
   // }
-
-  componentDidMount = () => {
+  
+  componentDidMount = async () => {
     // console.log(this.props.collection)
-    this.loadCollection()
+    // this.filterMessages(this.props.collection, this.state.)
+    // const fullData = JSON.parse(this.props.collection)
+    await this.loadCollection()
+
+    // console.log(this.fullData)
     // this.setState({fullData: this.props.collection});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
     this.setState({orientation: initial});
     Orientation.addOrientationListener(this._orientationDidChange);
-    // this.props.route.params.data
-    // console.log(this.props.navigation.setOptions({ tabBarVisible: false, }));
-    // this.onLayout();
-    // const initial = Orientation.getInitialOrientation();
-    // console.log(initial);
-    // if (initial === 'PORTRAIT') {
-    //   // do something
-    // } else {
-    //   // do something else
-    // }
   };
 
+  componentDidUpdate = async(prevProps, prevState)=>{
+    if (prevState.selectedType !== this.state.selectedType || prevState.selectedRange !== this.state.selectedRange ||  prevState.setDataIndex !== this.state.setDataIndex || this.state.typeColors !== this.state.typeColors ) {
+    console.log('collectionFiltered state has changed.')
+
+    this.filterCollection(this.state.fullData, this.state.selectedRange, this.state.selectedType, this.state.setDataIndex);
+
+  }
+
+  }
+
+  // shouldComponentUpdate(nextProps, nextState){
+
+  // }
+
+  
   loadCollection = async () => {
     try {
       const collection = await AsyncStorage.getItem('COLLECTION');
@@ -76,21 +92,79 @@ class SourceDetailsScreen extends Component {
         // We have data!!
         // console.log('this here');
         const data = JSON.parse(collection);
-  
+        
         // console.log(data)
-        this.setState({fullData: data});
+        // const typesSummed = await this.filterType(data);
+        // console.log(typesSummed)
+        this.setState({fullData: data})
+        await this.filterCollection(data, this.state.selectedRange, this.state.selectedType, this.state.setDataIndex);
 
+        
         // console.log(value);
       }
     } catch (error) {
       // Error retrieving data
     }
   };
+
+  filterCollection = async (data, range, type, setDataIndex) => {
+    // console.log("here")
+    // console.log(data)
+    // console.log(range)
+    // console.log(data)
+    // console.log(type)
+    if (type) {
+      console.log(type)
+      if (range=='max'){
+        const collectionFiltered = await _.filter(data, {TYPE: type})
+        const typesSummed = await this.filterType(collectionFiltered);
+        // console.log(collectionFiltered)
+         this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
+      } else {
+        const intialfilter = await DateFilter(data, range);
+        let datalength = intialfilter.length;
+        const filter = await _.get(intialfilter, `[${setDataIndex}].data`);
+        const title = await _.get(intialfilter, `[${setDataIndex}].title`);
+        // console.log(title);
+        console.log(filter);
+        const collectionFiltered = await _.filter(filter, {TYPE: type});
+        const typesSummed = await this.filterType(collectionFiltered);
+        console.log(collectionFiltered);
+        this.setState({collectionFiltered, datalength, title, typesSummed})
+      }
+      // this.setState({fullFiltered:newData})
+      // console.log(newData)
+    } else {
+      console.log(range)
+      console.log(type)
+      if (range=="max"){
+          const collectionFiltered = await _.filter(data, {TYPE: type});
+          const typesSummed = await this.filterType(collectionFiltered);
+          this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
+      } else {
+        const intialfilter = await DateFilter(data, range);
+        console.log(intialfilter)
+        let datalength = intialfilter.length;
+
+        const collectionFiltered = await _.get(intialfilter, `[${setDataIndex}].data`);
+        // console.log(this.state.setDataIndex)
+        const title = await _.get(intialfilter, `[${setDataIndex}].title`);
+        // console.log(title);
+        // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
+        console.log(collectionFiltered)
+        // console.log(title)
+        // console.log(datalength)
+        const typesSummed = await this.filterType(collectionFiltered);
+        this.setState({collectionFiltered, datalength, title, typesSummed})
+      }
+    }
+  }
+
   _orientationDidChange = (orientation) => {
     // console.log(orientation);
     this.setState({orientation: orientation});
   };
-
+  
   componentWillUnmount = () => {
     Orientation.getOrientation((err, orientation) => {
       // console.log(`Current Device Orientation: ${orientation}`);
@@ -100,14 +174,22 @@ class SourceDetailsScreen extends Component {
   };
 
   setType = (selectedType, typeColors) => {
+    // const {
+    //   fullData,
+    //   selectedRange,
+    // } = this.state;
     this.setState({selectedType});
     this.setState({typeColors});
     this.setState({selectColor: 'white'});
+    // this.filterCollection(this.state.fulldata, this.state.selectedRange, selectedType, this.state.setDataIndex);
+    // this.filterCollection(fullData,  selectedRange, selectedType)
   };
 
   setRange = (selectedRange) => {
     this.setState({selectedRange});
     this.setState({setDataIndex: 0});
+    // this.filterCollection(this.state.fullData, selectedRange, this.state.selectedType, this.state.setDataIndex);
+
   };
 
   filterMessages = async (data, range, type) => {
@@ -127,7 +209,7 @@ class SourceDetailsScreen extends Component {
         // console.log(filter);
         const fullFiltered = _.filter(filter, {TYPE: type});
         // console.log(datalength);
-        console.log(fullFiltered);
+        // console.log(fullFiltered);
         return {fullFiltered, filter, datalength, title};
       }
     } else {
@@ -144,10 +226,10 @@ class SourceDetailsScreen extends Component {
         const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
         // console.log(title);
         // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
-        // this.setState({dataIndexLength: intialfilter.length});
-        console.log(fullFiltered)
-        console.log(title)
-        console.log(datalength)
+        // console.log(fullFiltered)
+        // console.log(title)
+        // console.log(datalength)
+
         return {fullFiltered, fullFiltered, datalength, title};
       }
     }
@@ -205,6 +287,7 @@ class SourceDetailsScreen extends Component {
     if (this.state.setDataIndex < datalength - 1) {
       // console.log(this.state.setDataIndex + 1);
       this.setState({setDataIndex: this.state.setDataIndex + 1});
+      // this.filterCollection(this.state.fullData, this.state.selectedRange, this.state.selectedType, this.state.setDataIndex+1);
     }
   };
 
@@ -212,6 +295,7 @@ class SourceDetailsScreen extends Component {
     if (!this.state.setDataIndex - 1 < 0) {
       // console.log(this.state.setDataIndex - 1);
       this.setState({setDataIndex: this.state.setDataIndex - 1});
+      // this.filterCollection(this.state.fullData, this.state.selectedRange, this.state.selectedType, this.state.setDataIndex-1);
     }
   };
 
@@ -234,20 +318,28 @@ class SourceDetailsScreen extends Component {
       selectedType,
       typeColors,
       orientation,
+      collectionFiltered,
+      datalength,
+      title,
+      typesSummed
     } = this.state;
-    // console.log(fullData)
-    const {fullFiltered, filter, datalength, title} = this.filterMessages(
-      fullData,
-      selectedRange,
-      selectedType,
-    );
 
-    console.log(fullFiltered);
-    console.log(filter)
-    console.log(datalength)
-    console.log(title)
+    // const {fullFiltered, filter, datalength, title} = this.filterMessages(
+    //   fullData,
+    //   selectedRange,
+    //   selectedType,
+    // );
+
+    // console.log(collectionFiltered)
+    // console.log(fullFiltered);
+    // console.log(filter)
+    // console.log(datalength)
+    // console.log(title)
     // const graphData = this.getGraphData(fullFiltered);
-    const typesSummed = this.filterType(fullFiltered);
+    // const typesSummed = this.filterType(collectionFiltered);
+
+    console.log("type color", typeColors)
+    console.log("Selected type", selectedType )
 
     // console.log(fullFiltered)
     const config = {
@@ -257,7 +349,7 @@ class SourceDetailsScreen extends Component {
 
     const portraitOrientation = orientation === 'PORTRAIT';
     // console.log(selectedType)
-    if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
+    // if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
     return (
       <Screen
         navigation={navigation}
@@ -297,7 +389,7 @@ class SourceDetailsScreen extends Component {
                   height={200}
                   range={selectedRange}
                   selectedType={selectedType}
-                  data={fullFiltered}
+                  data={collectionFiltered}
                   // data={graphData ? graphData : fullData}
                   colors={typeColors}
                 />
@@ -317,7 +409,7 @@ class SourceDetailsScreen extends Component {
                 header={true}
                 navigation={navigation}
                 title={selectedType || 'All'}
-                data={fullFiltered ? fullFiltered : fullData}
+                data={collectionFiltered ? collectionFiltered : fullData}
               />
             </View>
           </>
@@ -352,7 +444,7 @@ class SourceDetailsScreen extends Component {
                 <VisualChart
                   orientation={portraitOrientation}
                   height={305}
-                  data={fullFiltered}
+                  data={collectionFiltered}
                   selectedType={selectedType}
                   // data={graphData ? graphData : fullData}
                   colors={typeColors}

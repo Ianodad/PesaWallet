@@ -19,7 +19,7 @@ export const storeMessages = (address, messages) => async (dispatch) => {
     await AsyncStorage.setItem('COLLECTION', messageCollection)
     dispatch ({
       type: STORE_MESSAGES,
-      payload: messageCollection,
+      payload: JSON.parse(messageCollection),
     });
   } catch (e) {
     console.log(e)

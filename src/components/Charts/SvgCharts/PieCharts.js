@@ -24,7 +24,7 @@ class PieCharts extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    // console.log(this.props);
     const label = this.props.selectedType ? this.props.selectedType : 'All'
     this.setState({selectedSlice: {label: label}});
   }

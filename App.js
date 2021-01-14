@@ -77,7 +77,7 @@ class App extends Component {
     return subscriber;
   };
   componentDidMount = async () => {
-    RNBootSplash.hide({duration: 20});
+    RNBootSplash.hide({duration: 250});
     // const unsubscribe = NetInfo.addEventListener((netInfo) => {
     // console.log(netInfo);
 
