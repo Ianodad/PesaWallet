@@ -9,6 +9,8 @@ import * as allActionTypes from '../_actions/types';
 
 // eslint-disable-next-line no-shadow
 const ReadAllMessages = ({collection, storeMessages}) => {
+  
+
   const ReadMessages = useCallback((address, callback) => {
     let filter = {
       box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all

@@ -10,6 +10,7 @@ import {
   View,
   Text,
   StatusBar,
+  PermissionsAndroid,
 } from 'react-native';
 
 import {
@@ -76,8 +77,20 @@ class App extends Component {
     const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
     return subscriber;
   };
+  
   componentDidMount = async () => {
+    
     RNBootSplash.hide({duration: 250});
+    
+    const granted = await PermissionsAndroid.check( PermissionsAndroid.PERMISSIONS.READ_SMS);
+    
+    if (granted) {
+      console.log( "You can use the ACCESS_FINE_LOCATION" )
+    } 
+    else {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_SMS)    
+      console.log( "ACCESS_FINE_LOCATION permission denied" )
+    }
     // const unsubscribe = NetInfo.addEventListener((netInfo) => {
     // console.log(netInfo);
 

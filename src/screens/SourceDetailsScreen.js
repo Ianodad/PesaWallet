@@ -70,7 +70,7 @@ class SourceDetailsScreen extends Component {
     Orientation.addOrientationListener(this._orientationDidChange);
   };
 
-  componentDidUpdate = async(prevProps, prevState)=>{
+  componentDidUpdate = async(prevProps, prevState) => {
     if (prevState.selectedType !== this.state.selectedType || prevState.selectedRange !== this.state.selectedRange ||  prevState.setDataIndex !== this.state.setDataIndex || this.state.typeColors !== this.state.typeColors ) {
     console.log('collectionFiltered state has changed.')
 
@@ -79,8 +79,13 @@ class SourceDetailsScreen extends Component {
   }
 
   }
+  // componentWillUpdate = async(nextProps, nextState)=> {
+  //   if (nextState.selectedType != this.state.selectedType || nextState.selectedRange != this.state.selectedRange || nextState.setDataIndex != this.state.setDataIndex || nextState.typeColors != this.state.typeColors ){
+  //     // console.log(nextState.selectedType)
+  //     // console.log(this.state.selectedType)
+  //     this.filterCollection(nextState.fullData, nextState.selectedRange, nextState.selectedType, nextState.setDataIndex);
 
-  // shouldComponentUpdate(nextProps, nextState){
+  //   }
 
   // }
 
@@ -114,7 +119,7 @@ class SourceDetailsScreen extends Component {
     // console.log(data)
     // console.log(type)
     if (type) {
-      console.log(type)
+      // console.log(type)
       if (range=='max'){
         const collectionFiltered = await _.filter(data, {TYPE: type})
         const typesSummed = await this.filterType(collectionFiltered);
@@ -126,24 +131,24 @@ class SourceDetailsScreen extends Component {
         const filter = await _.get(intialfilter, `[${setDataIndex}].data`);
         const title = await _.get(intialfilter, `[${setDataIndex}].title`);
         // console.log(title);
-        console.log(filter);
+        // console.log(filter);
         const collectionFiltered = await _.filter(filter, {TYPE: type});
         const typesSummed = await this.filterType(collectionFiltered);
-        console.log(collectionFiltered);
+        // console.log(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }
       // this.setState({fullFiltered:newData})
       // console.log(newData)
     } else {
-      console.log(range)
-      console.log(type)
+      // console.log(range)
+      // console.log(type)
       if (range=="max"){
           const collectionFiltered = await _.filter(data, {TYPE: type});
           const typesSummed = await this.filterType(collectionFiltered);
           this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
       } else {
         const intialfilter = await DateFilter(data, range);
-        console.log(intialfilter)
+        // console.log(intialfilter)
         let datalength = intialfilter.length;
 
         const collectionFiltered = await _.get(intialfilter, `[${setDataIndex}].data`);
@@ -151,7 +156,7 @@ class SourceDetailsScreen extends Component {
         const title = await _.get(intialfilter, `[${setDataIndex}].title`);
         // console.log(title);
         // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
-        console.log(collectionFiltered)
+        // console.log(collectionFiltered)
         // console.log(title)
         // console.log(datalength)
         const typesSummed = await this.filterType(collectionFiltered);
@@ -264,7 +269,7 @@ class SourceDetailsScreen extends Component {
     const summed = _.filter(data, {TYPE: title}).map((t) => t.AMOUNT);
     // console.log(summed.length);
     if (!summed[0]) {
-      return undefined;
+      return undefined
     } else {
       return NumberCommas(summed[0]);
     }
@@ -330,7 +335,7 @@ class SourceDetailsScreen extends Component {
     //   selectedType,
     // );
 
-    // console.log(collectionFiltered)
+    console.log(collectionFiltered)
     // console.log(fullFiltered);
     // console.log(filter)
     // console.log(datalength)
@@ -338,9 +343,9 @@ class SourceDetailsScreen extends Component {
     // const graphData = this.getGraphData(fullFiltered);
     // const typesSummed = this.filterType(collectionFiltered);
 
-    console.log("type color", typeColors)
-    console.log("Selected type", selectedType )
-
+    // console.log("type color", typeColors)
+    // console.log("Selected type", selectedType )
+    // console.log(typesSummed)
     // console.log(fullFiltered)
     const config = {
       velocityThreshold: 0.3,

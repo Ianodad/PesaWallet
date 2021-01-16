@@ -44,6 +44,7 @@ class HomeScreen extends Component {
       screenWidth: null,
     };
   }
+  
   onLayout = (e) => {
     console.log('Screen oriantion changed....');
     this.setState({

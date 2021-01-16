@@ -23,10 +23,12 @@ class PieCharts extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async() => {
     // console.log(this.props);
     const label = this.props.selectedType ? this.props.selectedType : 'All'
-    this.setState({selectedSlice: {label: label}});
+    // // console.log(this.datas)
+    const value = await _.sumBy( this.props.datas, 'AMOUNT');
+    this.setState({selectedSlice: {label: label, value}});
   }
   setData = (datas, label) => {
     var result = _.chain(datas)
@@ -48,13 +50,33 @@ class PieCharts extends Component {
 
     return result;
   };
+  
+  // componentWillUpdate = async (nextProps, nextState)=>{
+  //   if (nextProps.selectedType !== this.props.selectedType){
+  //     // const label = nextProps.selectedType ? nextProps.selectedType : 'All'
+  //     // const value = await _.sumBy( nextProps.datas, 'AMOUNT');
+  //     console.log(value)
+  //     // console.log(label)
+  //     // console.log(nextProps.datas)
+  //     this.setState({selectedSlice: {label, value:0}});
+  //   }
+  //   // console.log(this.props.selectedType)
+  //   // console.log(nextProps.selectedType)
+  //   // console.log(nextProps.datas)
+  // }
+  // shouldComponentUpdate (nextProps) {
+  //   // console.log(nextProps.selectedType)
+  //    return nextProps !== this.props
+  // }
 
-  componentDidUpdate(prevProps) {
-    if (!(this.props.selectedType === prevProps.selectedType)) {
-      const label = this.props.selectedType ? this.props.selectedType : 'All'
-      const value = _.sumBy( this.props.datas, 'AMOUNT');
-      // console.log(value)
-      this.setState({selectedSlice: {label, value}});
+  componentDidUpdate = async(prevProps, prevState)=> {
+    if ((this.props.selectedType !== prevProps.selectedType)) {
+      // const label = this.props.selectedType ? this.props.selectedType : 'All'
+      // console.log(label)
+      // const value = label != "All" ? await _.sumBy(_.filter(this.props.datas, {TYPE: label}), 'AMOUNT') : await _.sumBy( this.props.datas, 'AMOUNT');
+      console.log(value)
+      // console.log(this.props.datas)
+      this.setState({selectedSlice: {label, value:0}});
     }
   }
 
