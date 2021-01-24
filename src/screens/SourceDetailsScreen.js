@@ -38,7 +38,7 @@ class SourceDetailsScreen extends Component {
       selectedType: '',
       selectColor: '',
       selectedDate: '',
-      selectedRange: 'week',
+      selectedRange: 'max',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
       orientation: '',
       collectionFiltered:[],
@@ -112,54 +112,61 @@ class SourceDetailsScreen extends Component {
     }
   };
 
-  filterCollection = async (data, range, type, setDataIndex) => {
+  filterCollection = (data, range, type, setDataIndex) => {
     // console.log("here")
     // console.log(data)
     // console.log(range)
     // console.log(data)
-    // console.log(type)
     if (type) {
-      // console.log(type)
+      console.log(type)
       if (range=='max'){
-        const collectionFiltered = await _.filter(data, {TYPE: type})
-        const typesSummed = await this.filterType(collectionFiltered);
+        const collectionFiltered =  _.filter(data, {TYPE: type})
+        const typesSummed = this.filterType(collectionFiltered);
+        console.log(collectionFiltered)
+        console.log(data)
+        console.log(type)
         // console.log(collectionFiltered)
          this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
       } else {
-        const intialfilter = await DateFilter(data, range);
+        console.log("here")
+        const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
-        const filter = await _.get(intialfilter, `[${setDataIndex}].data`);
-        const title = await _.get(intialfilter, `[${setDataIndex}].title`);
+        const filter =  _.get(intialfilter, `[${setDataIndex}].data`);
+        const title =  _.get(intialfilter, `[${setDataIndex}].title`);
         // console.log(title);
         // console.log(filter);
-        const collectionFiltered = await _.filter(filter, {TYPE: type});
-        const typesSummed = await this.filterType(collectionFiltered);
+        const collectionFiltered = _.filter(filter, {TYPE: type});
+        const typesSummed =  this.filterType(collectionFiltered);
         // console.log(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }
       // this.setState({fullFiltered:newData})
       // console.log(newData)
     } else {
-      // console.log(range)
-      // console.log(type)
-      if (range=="max"){
-          const collectionFiltered = await _.filter(data, {TYPE: type});
-          const typesSummed = await this.filterType(collectionFiltered);
-          this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
+      console.log(!type)
+      console.log(range=="max")
+      console.log(type)
+      if (range === "max"){
+        // const collectionFiltered = _.filter(data, {TYPE: type});
+          const typesSummed =  this.filterType(data);
+         
+          this.setState({collectionFiltered: data, datalength: 0, title: 'Max', typesSummed})
       } else {
-        const intialfilter = await DateFilter(data, range);
+        const intialfilter = DateFilter(data, range);                  
+        console.log(type)
+
         // console.log(intialfilter)
         let datalength = intialfilter.length;
 
-        const collectionFiltered = await _.get(intialfilter, `[${setDataIndex}].data`);
+        const collectionFiltered = _.get(intialfilter, `[${setDataIndex}].data`);
         // console.log(this.state.setDataIndex)
-        const title = await _.get(intialfilter, `[${setDataIndex}].title`);
+        const title = _.get(intialfilter, `[${setDataIndex}].title`);
         // console.log(title);
         // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
         // console.log(collectionFiltered)
         // console.log(title)
         // console.log(datalength)
-        const typesSummed = await this.filterType(collectionFiltered);
+        const typesSummed =  this.filterType(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }
     }
@@ -197,48 +204,48 @@ class SourceDetailsScreen extends Component {
 
   };
 
-  filterMessages = async (data, range, type) => {
-    // console.log(type)
-    if (type) {
-      if (range == 'max') {
-        const filter = _.filter(data, {TYPE: type});
+  // filterMessages = async (data, range, type) => {
+  //   // console.log(type)
+  //   if (type) {
+  //     if (range == 'max') {
+  //       const filter = _.filter(data, {TYPE: type});
 
-        return {fullFiltered: filter, filter, datalength: 0, title: 'Max'};
-      } else {
-        // console.log(data)
-        const intialfilter = await DateFilter(data, range);
-        let datalength = intialfilter.length;
-        const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
-        const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
-        // console.log(title);
-        // console.log(filter);
-        const fullFiltered = _.filter(filter, {TYPE: type});
-        // console.log(datalength);
-        // console.log(fullFiltered);
-        return {fullFiltered, filter, datalength, title};
-      }
-    } else {
-      // console.log(data)
-      if (range === 'max') {
-        return {fullFiltered: data, filter: data, datalength: 0, title: 'Max'};
-      } else {
-        const intialfilter = await DateFilter(data, range);
-        // console.log(intialfilter[0].data)
-        let datalength = intialfilter.length;
+  //       return {fullFiltered: filter, filter, datalength: 0, title: 'Max'};
+  //     } else {
+  //       // console.log(data)
+  //       const intialfilter = await DateFilter(data, range);
+  //       let datalength = intialfilter.length;
+  //       const filter = _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+  //       const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
+  //       // console.log(title);
+  //       // console.log(filter);
+  //       const fullFiltered = _.filter(filter, {TYPE: type});
+  //       // console.log(datalength);
+  //       // console.log(fullFiltered);
+  //       return {fullFiltered, filter, datalength, title};
+  //     }
+  //   } else {
+  //     // console.log(data)
+  //     if (range === 'max') {
+  //       return {fullFiltered: data, filter: data, datalength: 0, title: 'Max'};
+  //     } else {
+  //       const intialfilter = await DateFilter(data, range);
+  //       // console.log(intialfilter[0].data)
+  //       let datalength = intialfilter.length;
 
-        const fullFiltered = await _.get(intialfilter, `[${this.state.setDataIndex}].data`);
-        // console.log(this.state.setDataIndex)
-        const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
-        // console.log(title);
-        // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
-        // console.log(fullFiltered)
-        // console.log(title)
-        // console.log(datalength)
+  //       const fullFiltered = await _.get(intialfilter, `[${this.state.setDataIndex}].data`);
+  //       // console.log(this.state.setDataIndex)
+  //       const title = _.get(intialfilter, `[${this.state.setDataIndex}].title`);
+  //       // console.log(title);
+  //       // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
+  //       // console.log(fullFiltered)
+  //       // console.log(title)
+  //       // console.log(datalength)
 
-        return {fullFiltered, fullFiltered, datalength, title};
-      }
-    }
-  };
+  //       return {fullFiltered, fullFiltered, datalength, title};
+  //     }
+  //   }
+  // };
 
   getGraphData = (data) => {
     return _.map(data, function (f) {
@@ -335,7 +342,6 @@ class SourceDetailsScreen extends Component {
     //   selectedType,
     // );
 
-    console.log(collectionFiltered)
     // console.log(fullFiltered);
     // console.log(filter)
     // console.log(datalength)
