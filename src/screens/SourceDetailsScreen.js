@@ -113,41 +113,26 @@ class SourceDetailsScreen extends Component {
   };
 
   filterCollection = (data, range, type, setDataIndex) => {
-    // console.log("here")
-    // console.log(data)
-    // console.log(range)
-    // console.log(data)
     if (type) {
       console.log(type)
       if (range=='max'){
         const collectionFiltered =  _.filter(data, {TYPE: type})
         const typesSummed = this.filterType(collectionFiltered);
-        console.log(collectionFiltered)
-        console.log(data)
-        console.log(type)
-        // console.log(collectionFiltered)
          this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
       } else {
-        console.log("here")
         const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
         const filter =  _.get(intialfilter, `[${setDataIndex}].data`);
         const title =  _.get(intialfilter, `[${setDataIndex}].title`);
-        // console.log(title);
-        // console.log(filter);
         const collectionFiltered = _.filter(filter, {TYPE: type});
         const typesSummed =  this.filterType(collectionFiltered);
-        // console.log(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }
-      // this.setState({fullFiltered:newData})
-      // console.log(newData)
     } else {
       console.log(!type)
       console.log(range=="max")
       console.log(type)
       if (range === "max"){
-        // const collectionFiltered = _.filter(data, {TYPE: type});
           const typesSummed =  this.filterType(data);
          
           this.setState({collectionFiltered: data, datalength: 0, title: 'Max', typesSummed})
@@ -155,17 +140,10 @@ class SourceDetailsScreen extends Component {
         const intialfilter = DateFilter(data, range);                  
         console.log(type)
 
-        // console.log(intialfilter)
         let datalength = intialfilter.length;
 
         const collectionFiltered = _.get(intialfilter, `[${setDataIndex}].data`);
-        // console.log(this.state.setDataIndex)
         const title = _.get(intialfilter, `[${setDataIndex}].title`);
-        // console.log(title);
-        // const dataFilter = _.get(data, `[${this.state.setDataIndex}].data`);
-        // console.log(collectionFiltered)
-        // console.log(title)
-        // console.log(datalength)
         const typesSummed =  this.filterType(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }

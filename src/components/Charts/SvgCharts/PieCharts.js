@@ -23,17 +23,24 @@ class PieCharts extends Component {
     };
   }
 
-  componentDidMount = async() => {
+  componentDidMount = () => {
     // console.log(this.props);
     const label = this.props.selectedType ? this.props.selectedType : 'All'
     // // console.log(this.datas)
-    const value = await _.sumBy( this.props.datas, 'AMOUNT');
+    const value = _.sumBy( this.props.datas, 'AMOUNT');
     this.setState({selectedSlice: {label: label, value}});
   }
+
+  onSegmentChange=(key, value) =>{
+
+    this.setState({selectedSlice: {label: key, value}})
+  }
+
   setData = (datas, label) => {
     var result = _.chain(datas)
       .groupBy('TYPE')
       .map((objs, key) => {
+        console.log(objs)
         const value = _.sumBy(_.filter(objs, {TYPE: key}), 'AMOUNT');
         return {
           key,
@@ -43,7 +50,7 @@ class PieCharts extends Component {
             outerRadius: label === key ? 110 + '%' : '100%',
             padAngle: label === key ? 0.1 : 0,
           },
-          onPress: () => this.setState({selectedSlice: {label: key, value}}),
+          onPress: () => this.onSegmentChange(key,value),
         };
       })
       .value();
@@ -69,14 +76,11 @@ class PieCharts extends Component {
   //    return nextProps !== this.props
   // }
 
-  componentDidUpdate = async(prevProps, prevState)=> {
+  componentDidUpdate = (prevProps, prevState)=> {
     if ((this.props.selectedType !== prevProps.selectedType)) {
-      // const label = this.props.selectedType ? this.props.selectedType : 'All'
-      // console.log(label)
-      // const value = label != "All" ? await _.sumBy(_.filter(this.props.datas, {TYPE: label}), 'AMOUNT') : await _.sumBy( this.props.datas, 'AMOUNT');
-      console.log(value)
-      // console.log(this.props.datas)
-      this.setState({selectedSlice: {label, value:0}});
+      const label = this.props.selectedType ? this.props.selectedType : 'All'
+      // const value = label === "All" ? _.sumBy( this.props.datas, 'AMOUNT') : _.sumBy(_.filter(this.props.datas, {TYPE: label}), 'AMOUNT');
+      this.onSegmentChange(label)
     }
   }
 
@@ -98,6 +102,7 @@ class PieCharts extends Component {
           innerRadius={'45%'}
           data={data}
         />
+        
         <Text
           onLayout={({
             nativeEvent: {
@@ -112,7 +117,7 @@ class PieCharts extends Component {
             textAlign: 'center',
             color: 'white',
           }}>
-          {`${label} \n ${value}`}
+            { !value ? `${label}` : `${label} \n ${value}`}
         </Text>
       </View>
     );
