@@ -98,7 +98,7 @@ const Transaction = ({
                 </Text>
               )}
               <View style={styles.dateTime}>
-                <Text>
+                <Text style={styles.dateTime}>
                   {date} - {time}
                 </Text>
               </View>
@@ -119,7 +119,7 @@ export default Transaction;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: defaultStyles.colors.white,
     flexDirection: 'row',
     overflow: 'hidden',
     height: 60,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   leftCard: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: defaultStyles.colors.white,
     alignItems: 'center',
   },
   center: {
@@ -174,16 +174,15 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: defaultStyles.textLarge.fontSize,
     marginVertical: 1,
   },
   dateTime: {
-    color: colors.medium,
-    fontSize: 14,
+    color: defaultStyles.colors.medium,
+    fontSize: defaultStyles.textSmall.fontSize,
     marginVertical: 1,
   },
   amount: {
-    fontSize: 16,
     borderRadius: 10,
     fontWeight: 'bold',
     // color: colors.white,

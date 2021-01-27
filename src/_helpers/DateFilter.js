@@ -59,6 +59,7 @@ const weekGroup =  (data) => {
           title: title,
           startWeek: dayjs(titleStart).format('MMM D'),
           endWeek: dayjs(titleEnd).format('MMM D'),
+          year: dayjs(item.DATE).format('YYYY'),
           data: [],
       };
     } 

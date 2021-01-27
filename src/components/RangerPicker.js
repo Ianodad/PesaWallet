@@ -2,6 +2,8 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import defaultStyles from '../config/styles';
+
 
 const RangePicker = ({range, onSetRange}) => {
   const [selectedValue, setSelectedValue] = useState(range);
@@ -28,7 +30,8 @@ const RangePicker = ({range, onSetRange}) => {
           justifyContent: 'flex-start',
         }}
         labelStyle={{
-          fontSize: 14,
+          fontSize: defaultStyles.textSmall.fontSize,
+          // fontSize: 14,
           fontWeight: 'bold',
           textAlign: 'left',
           color: '#000',

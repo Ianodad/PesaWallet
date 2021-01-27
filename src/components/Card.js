@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
   },
   title: {
     // marginBottom: 5,
-    fontSize: 24,
+    fontSize: defaultStyles.header.fontSize,
+    // fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
     textShadowColor: 'gray',
@@ -198,7 +199,8 @@ const styles = StyleSheet.create({
   },
   balance: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: defaultStyles.text.fontSize,
+    // fontSize: 18,
     marginBottom: 5,
     textShadowColor: 'white',
     textShadowOffset: {width: 0.5, height: -0.5},

@@ -124,7 +124,7 @@ class App extends Component {
       <>
         {/* <ReadMessages/> */}
         <NavigationContainer>
-          {this.state.user ? <SideMenuNavigation /> : <AuthNavigator />}
+          { true ? <SideMenuNavigation /> : <AuthNavigator />}
         </NavigationContainer>
       </>
     );

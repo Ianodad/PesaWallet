@@ -114,11 +114,10 @@ class SourceDetailsScreen extends Component {
 
   filterCollection = (data, range, type, setDataIndex) => {
     if (type) {
-      console.log(type)
       if (range=='max'){
         const collectionFiltered =  _.filter(data, {TYPE: type})
         const typesSummed = this.filterType(collectionFiltered);
-         this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
+        this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
       } else {
         const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
@@ -129,19 +128,12 @@ class SourceDetailsScreen extends Component {
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }
     } else {
-      console.log(!type)
-      console.log(range=="max")
-      console.log(type)
       if (range === "max"){
           const typesSummed =  this.filterType(data);
-         
           this.setState({collectionFiltered: data, datalength: 0, title: 'Max', typesSummed})
       } else {
         const intialfilter = DateFilter(data, range);                  
-        console.log(type)
-
         let datalength = intialfilter.length;
-
         const collectionFiltered = _.get(intialfilter, `[${setDataIndex}].data`);
         const title = _.get(intialfilter, `[${setDataIndex}].title`);
         const typesSummed =  this.filterType(collectionFiltered);

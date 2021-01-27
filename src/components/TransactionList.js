@@ -61,13 +61,14 @@ const styles = StyleSheet.create({
     // JustifyContent: 'space-between',
   },
   header: {
+   fontSize:defaultStyles.textLarge.fontSize,
     flex: 1,
     fontWeight: 'bold',
-    fontSize: 20,
+    // fontSize: 20,
   },
   ShowAll: {
     marginRight: 2,
-    fontSize: 18,
+    fontSize:defaultStyles.textLarge.fontSize,
     color: colors.primary,
     fontWeight: 'bold',
   },

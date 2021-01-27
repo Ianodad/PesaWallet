@@ -478,7 +478,7 @@ function cleanReverse(clean) {
   const TRANSACTION_ID = cleanSwitch(clean, 'ALLIDS')[1];
   let DATE = cleanSwitch(clean, 'DATE');
   const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
-  const AMOUNT = cleanSwitch(clean, 'ALLCASH')[0];
+  const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
   const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
 
   DATE = dateConverter(DATE)

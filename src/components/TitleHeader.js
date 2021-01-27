@@ -21,7 +21,7 @@ const TitleHeader = ({
     <View style={[styles.container, {backgroundColor: colors[color]}]}>
       <View style={styles.Title}>
         {home && <Text style={styles.greeting}>Hello</Text>}
-        <Text style={styles.name}>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
         {/* <Text>{caller}</Text> */}
         {filter && <Text style={styles.number}>{phoneNo}</Text>}
       </View>
@@ -29,7 +29,7 @@ const TitleHeader = ({
         <View style={styles.details}>
           <View style={styles.sentNo}>
             <Text style={{fontWeight: 'bold', color: '#848ac2'}}>
-              Sent {creditLength}
+              Received {creditLength}
             </Text>
             <Text style={[styles.credit, {color: colors.Credit}]}>
               {NumberCommas(creditSum) + '/='}
@@ -37,7 +37,7 @@ const TitleHeader = ({
           </View>
           <View style={styles.receiveNo}>
             <Text style={{fontWeight: 'bold', color: '#848ac2'}}>
-              Received {debitLength}
+              Sent {debitLength}
             </Text>
             <Text style={[styles.debit, {color: colors.Debit}]}>
               {NumberCommas(debitSum) + '/='}
@@ -66,8 +66,9 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
     fontWeight: 'bold',
   },
-  name: {
-    fontSize: 30,
+  title: {
+    fontSize: defaultStyles.headerLarge.fontSize,
+    // fontSize: 30,
     color: 'white',
     textShadowColor: 'blue',
     textShadowOffset: {width: 1, height: -1.3},
@@ -85,7 +86,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   credit: {
-    fontSize: 20,
+    fontSize: defaultStyles.textLarge.fontSize,
+    // fontSize: 20,
     fontWeight: 'bold',
     textShadowColor: 'green',
     textShadowOffset: {width: 0.7, height: -0.7},

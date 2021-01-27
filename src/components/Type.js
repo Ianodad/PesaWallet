@@ -55,11 +55,14 @@ const styles = StyleSheet.create({
     // position: 'absolute',
     // zIndex: 1,
   },
-  // subStyle: {
-  //   position: 'relative',
-  //   marginBottom: 60,
-  // },
+  subStyle: {
+    fontSize:defaultStyles.textSmall.fontSize,
+    position: 'relative',
+    fontWeight: 'bold',
+    // marginBottom: 60,
+  },
   detailStyle: {
+    fontSize:defaultStyles.text.fontSize,
     textShadowRadius: 2,
     textShadowOffset: {width: 0, height: 1},
     textShadowColor: 'black',

@@ -9,6 +9,8 @@ import {
 var _ = require('lodash');
 
 import colors from '../../../config/colors';
+import {NumberCommas} from '../../../_helpers/NumberCommas';
+
 
 class PieCharts extends Component {
   constructor(props) {
@@ -40,7 +42,6 @@ class PieCharts extends Component {
     var result = _.chain(datas)
       .groupBy('TYPE')
       .map((objs, key) => {
-        console.log(objs)
         const value = _.sumBy(_.filter(objs, {TYPE: key}), 'AMOUNT');
         return {
           key,
@@ -117,7 +118,7 @@ class PieCharts extends Component {
             textAlign: 'center',
             color: 'white',
           }}>
-            { !value ? `${label}` : `${label} \n ${value}`}
+            { !value ? `${label}` : `${label} \n ${ NumberCommas(value)}`}
         </Text>
       </View>
     );
