@@ -13,16 +13,16 @@ const SwipeAction = ({setNextData, setPrevData, title}) => {
   return (
     <View style={styles.container}>
       <IconButton
-        onPress={setPrevData}
+        onPress={setNextData}
         style={styles.button}
         iconStyle={styles.icon}
         color=""
         icon={'angle-left'}
         iconSize={30}
-      />
+        />
       <Text style={styles.title}>{title}</Text>
       <IconButton
-        onPress={setNextData}
+        onPress={setPrevData}
         iconStyle={styles.icon}
         color=""
         icon={'angle-right'}

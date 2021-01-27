@@ -38,7 +38,7 @@ class SourceDetailsScreen extends Component {
       selectedType: '',
       selectColor: '',
       selectedDate: '',
-      selectedRange: 'max',
+      selectedRange: 'year',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
       orientation: '',
       collectionFiltered:[],
@@ -121,8 +121,8 @@ class SourceDetailsScreen extends Component {
       } else {
         const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
-        const filter =  _.get(intialfilter, `[${setDataIndex}].data`);
-        const title =  _.get(intialfilter, `[${setDataIndex}].title`);
+        const filter =  _.get(intialfilter, `[${datalength -setDataIndex-1}].data`);
+        const title =  _.get(intialfilter, `[${datalength - setDataIndex-1}].name`);
         const collectionFiltered = _.filter(filter, {TYPE: type});
         const typesSummed =  this.filterType(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
@@ -134,8 +134,8 @@ class SourceDetailsScreen extends Component {
       } else {
         const intialfilter = DateFilter(data, range);                  
         let datalength = intialfilter.length;
-        const collectionFiltered = _.get(intialfilter, `[${setDataIndex}].data`);
-        const title = _.get(intialfilter, `[${setDataIndex}].title`);
+        const collectionFiltered = _.get(intialfilter, `[${datalength-setDataIndex-1}].data`);
+        const title = _.get(intialfilter, `[${datalength-setDataIndex-1}].name`);
         const typesSummed =  this.filterType(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed})
       }
@@ -361,8 +361,8 @@ class SourceDetailsScreen extends Component {
               colors={['#8387f9', '#5a60f8']}>
               <GestureRecognizer
                 onSwipe={(direction, state) => this.onSwipe(direction, state)}
-                onSwipeRight={() => this.onSetNextData(datalength)}
-                onSwipeLeft={() => this.onSetPrevData()}
+                onSwipeRight={() => this.onSetPrevData() }
+                onSwipeLeft={() => this.onSetNextData(datalength) }
                 config={config}
                 style={{flex: 1}}>
                 <VisualChart

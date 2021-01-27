@@ -30,8 +30,8 @@ const RangePicker = ({range, onSetRange}) => {
           justifyContent: 'flex-start',
         }}
         labelStyle={{
-          fontSize: defaultStyles.textSmall.fontSize,
-          // fontSize: 14,
+          // fontSize: defaultStyles.textSmall.fontSize,
+          fontSize: 14,
           fontWeight: 'bold',
           textAlign: 'left',
           color: '#000',

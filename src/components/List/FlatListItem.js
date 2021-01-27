@@ -10,6 +10,7 @@ const FlatListItem = ({data, navigation}) => {
     <FlatList
       data={data}
       keyExtractor={(type) => type.ID}
+      // inverted={true}
       renderItem={({item}) => (
         <Transaction
           style={styles.transaction}
