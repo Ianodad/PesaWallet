@@ -163,14 +163,12 @@ class SourceDetailsScreen extends Component {
     this.setState({selectedType});
     this.setState({typeColors});
     this.setState({selectColor: 'white'});
-    this.setState({setDataIndex: 0});
     // this.filterCollection(this.state.fulldata, this.state.selectedRange, selectedType, this.state.setDataIndex);
     // this.filterCollection(fullData,  selectedRange, selectedType)
   };
 
   setRange = (selectedRange) => {
     this.setState({selectedRange});
-    this.setState({selectedType: ''});
     this.setState({setDataIndex: 0});
     // this.filterCollection(this.state.fullData, selectedRange, this.state.selectedType, this.state.setDataIndex);
 

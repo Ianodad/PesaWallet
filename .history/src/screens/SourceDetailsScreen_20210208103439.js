@@ -170,8 +170,8 @@ class SourceDetailsScreen extends Component {
 
   setRange = (selectedRange) => {
     this.setState({selectedRange});
-    this.setState({selectedType: ''});
     this.setState({setDataIndex: 0});
+    this.setState({selectedType: 'All'});
     // this.filterCollection(this.state.fullData, selectedRange, this.state.selectedType, this.state.setDataIndex);
 
   };

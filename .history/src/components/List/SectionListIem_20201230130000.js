@@ -8,6 +8,7 @@ import defaultStyles from '../../config/styles';
 var dayjs = require('dayjs');
 
 const SectionListIem = ({data, navigation, renderScrollComponent}) => {
+  console.log(data.length);
   const dateConverter = (date, type) => {
     if (type == 'full') {
       return dayjs(date, 'MM/DD/YY').format('dddd D MMMM YYYY');

@@ -115,6 +115,7 @@ const yearGroup = (data) => {
     data.reduce((acc, item) => {
       title = dayjs(item.DATE).format('YYYY');
       id = dayjs(title).unix()
+      console.log(id)
       // const month = dayjs(item.DATE).format("MMMM")
       if (!acc[id]) {
         acc[id] = {

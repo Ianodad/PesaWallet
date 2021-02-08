@@ -78,7 +78,7 @@ class PieCharts extends Component {
   // }
 
   componentDidUpdate = (prevProps, prevState)=> {
-    if ((this.props.selectedType !== prevProps.selectedType || this.props.selectedRange !== prevProps.selectedRange )) {
+    if ((this.props.selectedType !== prevProps.selectedType || this.props.selectedRange !== prevProps.selectedType )) {
       const label = this.props.selectedType ? this.props.selectedType : 'All'
       // const value = label === "All" ? _.sumBy( this.props.datas, 'AMOUNT') : _.sumBy(_.filter(this.props.datas, {TYPE: label}), 'AMOUNT');
       this.onSegmentChange(label)

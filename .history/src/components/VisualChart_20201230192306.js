@@ -46,7 +46,6 @@ const VisualChart = ({
 
       <PieCharts
         datas={data}
-        selectedRange={range}
         selectedType={selectedType}
         orientation={orientation}
       />
