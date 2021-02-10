@@ -6,6 +6,7 @@ import com.tkporter.sendsms.SendSMSPackage;
 import com.zoontek.rnbootsplash.RNBootSplash;
 import android.content.Intent; // <--- import
 import android.content.res.Configuration; // <
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 public class MainActivity extends ReactActivity {
 

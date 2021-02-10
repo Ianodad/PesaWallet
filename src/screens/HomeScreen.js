@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {NumberCommas} from '../_helpers/NumberCommas';
+import {getFromAsyncStorage} from '../_helpers/AsyncStorage';
 import ReadMessages from '../_helpers/ReadMessages';
 import {storeMessages, getCollection} from '../_actions';
 import color from '../config/colors';
@@ -26,10 +27,9 @@ import defaultStyles from '../config/styles';
 import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 import {firestore, firebase} from '../firebase/config';
-
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class HomeScreen extends Component {
       screenWidth: null,
     };
   }
-  
+
   onLayout = (e) => {
     console.log('Screen oriantion changed....');
     this.setState({
@@ -67,20 +67,16 @@ class HomeScreen extends Component {
   };
 
   loadCollection = async () => {
-    try {
-      const collection = await AsyncStorage.getItem('COLLECTION');
-      if (collection !== null) {
-        // We have data!!
-        // console.log('this here');
-        const data = JSON.parse(collection);
-  
-        // console.log(data)
-        this.setState({collection: data});
+    const collection = await getFromAsyncStorage();
+    if (collection !== null) {
+      // We have data!!
+      // console.log('this here');
+      const data = JSON.parse(collection);
 
-        // console.log(value);
-      }
-    } catch (error) {
-      // Error retrieving data
+      // console.log(data)
+      this.setState({collection: data});
+
+      // console.log(value);
     }
   };
 
@@ -89,7 +85,7 @@ class HomeScreen extends Component {
   //   const collection = JSON.parse(this.props.collection)
   //   // const {data, ok} = await commentsApi.getComments();
   //   console.log(collection)
-    
+
   //   if (!collection) {
   //     return this.setState({error: true});
   //   }

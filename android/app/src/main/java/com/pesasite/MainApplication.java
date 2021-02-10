@@ -7,6 +7,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
@@ -54,14 +55,14 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          
           // Add unimodules
           List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
             new ModuleRegistryAdapter(mModuleRegistryProvider)
-          );
-          packages.addAll(unimodules);
-          // packages.add(new LottiePackage());
-
+            );
+            packages.addAll(unimodules);
+            // packages.add(new LottiePackage());
+            // packages.add(new AsyncStoragePackage());
+          
           return packages;
         }
 

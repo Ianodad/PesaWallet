@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button/> Rendering with snapshot should match to snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with buttonType begin false 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with buttonType true 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with function props 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with image 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with image and button true 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with title snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with with passed props 1`] = `ShallowWrapper {}`;

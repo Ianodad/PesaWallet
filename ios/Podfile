@@ -24,6 +24,8 @@ target 'PesaSite' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
   target 'PesaSiteTests' do
     inherit! :complete
     # Pods for testing

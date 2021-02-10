@@ -34,8 +34,7 @@ const AppButton = ({
               ...styles.neomorphStyle,
               ...styles.button,
               backgroundColor: defaultStyles.colors[color],
-            }}
-          >
+            }}>
             {image && (
               <Image
                 style={[styles.icon, iconStyle]}
@@ -48,7 +47,11 @@ const AppButton = ({
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
-          style={[styles.button, style, {backgroundColor: defaultStyles.colors[color]}]}
+          style={[
+            styles.button,
+            style,
+            {backgroundColor: defaultStyles.colors[color]},
+          ]}
           onPress={onPress}>
           {image && (
             <Image
