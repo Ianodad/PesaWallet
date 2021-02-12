@@ -2,6 +2,11 @@ import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock';
 
+import React from 'react';
+import toJson from 'enzyme-to-json';
+import {configure, shallow, mount, render} from 'enzyme';
+import renderer from 'react-test-renderer';
+
 // import 'react-native-gesture-handler/jestSetup';
 
 jest.mock('react-native-reanimated', () => {
@@ -19,6 +24,12 @@ jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 // point to mock fir async-storage
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
-jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter');
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({adapter: new Adapter()});
+
+global.React = React;
+global.shallow = shallow;
+global.render = render;
+global.toJson = toJson;
+global.renderer = renderer;

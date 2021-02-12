@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Text/> Rendering should match to snapshot 1`] = `ShallowWrapper {}`;
+exports[`<Info/> Rendering with snapshot should match children snapshot with crashing 1`] = `ShallowWrapper {}`;
 
-exports[`<Text/> Rendering should render with children 1`] = `ShallowWrapper {}`;
+exports[`<Info/> Rendering with snapshot should match text snapshot with crashing 1`] = `ShallowWrapper {}`;
 
-exports[`<Text/> Rendering should render with style 1`] = `ShallowWrapper {}`;
-
-exports[`<Text/> Rendering should render with title snapshot 1`] = `ShallowWrapper {}`;
+exports[`<Info/> Rendering with snapshot should match to snapshot with crashing 1`] = `ShallowWrapper {}`;

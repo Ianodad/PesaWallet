@@ -1,6 +1,10 @@
+/* eslint-disable no-undef */
 import React from 'react';
-import {shallow} from 'enzyme';
 import Button from '../src/components/Button/Button';
+import renderer from 'react-test-renderer';
+import {Text} from 'react-native';
+
+import toJson from 'enzyme-to-json';
 
 const defaultProps = {
   title: 'title',
@@ -69,6 +73,15 @@ describe('<Button/>', () => {
     it('should render with with passed props', () => {
       const component = shallow(<Button {...defaultProps} />);
       expect(component).toMatchSnapshot();
+    });
+  });
+
+  describe('Rendering with unit testing', () => {
+    it('find Element', () => {
+      let component = renderer.create(<Button title={'Submit'} />);
+      // get  the passed props from the component
+      let instanceProps = component.root.findByType(Text).props.children;
+      expect(instanceProps).toEqual('Submit');
     });
   });
 });

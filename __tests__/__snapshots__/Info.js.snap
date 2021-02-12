@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button/> Rendering with snapshot should match detail snapshot with crashing 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should match subTitle snapshot with crashing 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should match to snapshot with crashing 1`] = `ShallowWrapper {}`;
+
+exports[`<Button/> Rendering with snapshot should render with title snapshot 1`] = `ShallowWrapper {}`;

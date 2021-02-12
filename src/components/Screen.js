@@ -8,9 +8,8 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {getRandomInt} from "../_helpers/getRandomInt"
+import {getRandomInt} from '../_helpers/getRandomInt';
 import defaultStyles from '../config/styles';
-
 
 const Screen = ({
   children,
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     top: -100 / 3,
     right: -60,
   },
-  circleTwo:{
+  circleTwo: {
     position: 'absolute',
     overflow: 'hidden',
     // backgroundColor: 'white',
@@ -112,6 +111,5 @@ const styles = StyleSheet.create({
     // backgroundColor: 'white',
     top: 100 / 3,
     left: -100,
-    
-  }
+  },
 });

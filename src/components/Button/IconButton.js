@@ -1,9 +1,9 @@
 import React from 'react';
 import Text from '../Text';
 import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
-import colors from '../../config/colors';
+// import colors from '../../config/colors';
 import defaultStyles from '../../config/styles';
-import Info from './Info';
+// import Info from './Info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const IconButton = ({

@@ -26,7 +26,7 @@ import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import RNBootSplash from 'react-native-bootsplash';
 import {Auth, analytics} from './src/firebase/config';
-import {ReadMessages} from './src/components/ReadMessages'
+import {ReadMessages} from './src/components/ReadMessages';
 
 class App extends Component {
   constructor(props) {
@@ -77,19 +77,19 @@ class App extends Component {
     const subscriber = Auth().onAuthStateChanged(this.onAuthStateChanged);
     return subscriber;
   };
-  
+
   componentDidMount = async () => {
-    
     RNBootSplash.hide({duration: 250});
-    
-    const granted = await PermissionsAndroid.check( PermissionsAndroid.PERMISSIONS.READ_SMS);
-    
+
+    const granted = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.READ_SMS,
+    );
+
     if (granted) {
-      console.log( "You can use the ACCESS_FINE_LOCATION" )
-    } 
-    else {
-      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_SMS)    
-      console.log( "ACCESS_FINE_LOCATION permission denied" )
+      console.log('You can use the ACCESS_FINE_LOCATION');
+    } else {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_SMS);
+      console.log('ACCESS_FINE_LOCATION permission denied');
     }
     // const unsubscribe = NetInfo.addEventListener((netInfo) => {
     // console.log(netInfo);
@@ -108,7 +108,7 @@ class App extends Component {
 
   componentDidUpdate = async () => {
     this.storeUserData(this.state.user);
-  }
+  };
 
   onAuthStateChanged = (user) => {
     this.setState({user});
@@ -124,7 +124,7 @@ class App extends Component {
       <>
         {/* <ReadMessages/> */}
         <NavigationContainer>
-          { true ? <SideMenuNavigation /> : <AuthNavigator />}
+          {true ? <SideMenuNavigation /> : <AuthNavigator />}
         </NavigationContainer>
       </>
     );
