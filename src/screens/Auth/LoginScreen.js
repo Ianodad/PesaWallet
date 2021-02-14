@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import Text from '../components/Text';
-import Screen from '../components/Screen';
+import Text from '../../components/Text';
+import Screen from '../../components/Screen';
 import * as Yup from 'yup';
-import {AppForm, AppFormField, SubmitButton} from '../components/Forms';
-import colors from '../config/colors';
+import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
+// import colors from '../config/colors';
 // import { Formik } from "formik";
-import defaultStyles from '../config/styles';
-import {Auth, analytics} from '../firebase/config';
+import defaultStyles from '../../config/styles';
+import {Auth, analytics} from '../../firebase/config';
 
 //
 

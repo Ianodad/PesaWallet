@@ -36,7 +36,7 @@ import com.airbnb.android.react.lottie.LottiePackage;
 
 // ... all your other imports here
 import androidx.multidex.MultiDexApplication;
-
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 public class MainApplication extends MultiDexApplication implements ReactApplication {
 
     private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(new BasePackageList().getPackageList(), null);
@@ -61,7 +61,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
           );
           packages.addAll(unimodules);
           // packages.add(new LottiePackage());
-
+          // packages.add(new RNGoogleSigninPackage())
           return packages;
         }
 

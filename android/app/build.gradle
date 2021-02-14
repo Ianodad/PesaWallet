@@ -202,6 +202,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     // When using the BoM, don't specify versions in Firebase dependencies
     // implementation project(':lottie-react-native')
+    // implementation(project(":react-native-community_google-signin")) 
     
     addUnimodulesDependencies()
 
