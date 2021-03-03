@@ -8,6 +8,7 @@ import Modal from 'react-native-modal';
 
 import {Dimensions} from 'react-native';
 import defaultStyles from '../config/styles';
+import SocialLogin from './Auth/SocialLoginScreen';
 
 const {width, height} = Dimensions.get('window');
 
@@ -31,10 +32,11 @@ const WelcomeScreen = ({navigation}) => {
         <Image
           style={styles.logo}
           resizeMode="contain"
-          source={require('../assets/logo/logos2.png')}
+          source={require('../assets/logo/logoW.png')}
         />
       </View>
-      <View style={styles.authButtons}>
+      <SocialLogin navigation={navigation}/>
+      {/* <View style={styles.authButtons}>
         <Button
           buttonType
           style={styles.login}
@@ -53,7 +55,7 @@ const WelcomeScreen = ({navigation}) => {
           onPress={toggleCreateModal}
           onPress={() => navigation.navigate('Create')}
         />
-      </View>
+      </View> */}
       <Modal isVisible={isLoginModalVisible}>
         <View style={{flex: 1}}>
           <Text>Login In </Text>
@@ -105,7 +107,6 @@ const styles = StyleSheet.create({
     width: '80%',
     marginVertical: 10,
     alignItems: 'center',
-
   },
   text: {
     color: 'blue',
