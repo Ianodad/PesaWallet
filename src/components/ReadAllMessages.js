@@ -3,14 +3,15 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import SmsAndroid from 'react-native-get-sms-android';
-// import { ReadMessages} from "../_helpers/ReadMessages"
-import {storeMessages} from '../_actions/index';
+// import { ReadMessages} from "../_helpers/ReadMessages
 import * as allActionTypes from '../_actions/types';
 
+// import {storeMessages} from '../_actions/index';
+import {messageActions} from '../_actions';
+
+const {storeMessages} = messageActions;
 // eslint-disable-next-line no-shadow
 const ReadAllMessages = ({collection, storeMessages}) => {
-  
-
   const ReadMessages = useCallback((address, callback) => {
     let filter = {
       box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all

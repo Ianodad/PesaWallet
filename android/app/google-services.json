@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "538828734422-e74g7vcemm3e098n1k7h1tff32v65tk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pesasite",
+            "certificate_hash": "cb01251ee37a4d017beac5f5a4b0b07e507d57d7"
+          }
+        },
+        {
+          "client_id": "538828734422-issinu6dtgufjcbc8q1qbqggbr0hkvrt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pesasite",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "538828734422-3mhii9g58c6roq2hgp75dirtj13qafq3.apps.googleusercontent.com",
           "client_type": 3
         }

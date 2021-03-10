@@ -4,7 +4,7 @@ import Text from '../../components/Text';
 import Screen from '../../components/Screen';
 import * as Yup from 'yup';
 import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
-import InputOTP from '../../components/InputOTP';
+import InputOTP from '../../components/Auth/InputOTP';
 // import colors from '../config/colors';
 // import { Formik } from "formik";
 import defaultStyles from '../../config/styles';
@@ -18,7 +18,7 @@ class OTPLoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      confirmCode: '',
+      confirmations: '',
       user: '',
       phoneNumberValidation: '',
     };
@@ -35,7 +35,7 @@ class OTPLoginScreen extends Component {
     phoneNumber: Yup.string()
       .required()
       .min(7, 'Phone Number is to short')
-      .matches(phoneRegExp, 'Phone number is not valid')
+      // .matches(phoneRegExp, 'Phone number is not valid')
       .label('phoneNumber'),
   });
 
@@ -43,23 +43,28 @@ class OTPLoginScreen extends Component {
     console.log(phoneNumber);
     try {
       if (phoneNumber) {
-        // const confirmations = await Auth().signInWithPhoneNumber(phoneNumberr);
+        const confirmations = await Auth().signInWithPhoneNumber('+254724619212');
+        console.log(confirmations);
+        this.setState({confirmations});
         this.setState({phoneValidation: true});
       }
     } catch (error) {}
     // console.log(confirmations);
   };
 
-  confirmCode = async(code)=> {
+  confirmCode = async (code) => {
+    console.log(code);
     try {
       // await confirm.confirm(code);
-      if (code =="1234"){
-        
+      if (this.state.confirmations) {
+        await this.state.confirmations.confirm(code);
+        this.setState({confirmations: null});
+        console.log('success');
       }
     } catch (error) {
       console.log('Invalid code.');
     }
-  }
+  };
 
   render() {
     const {user, phoneValidation} = this.state;
@@ -91,7 +96,9 @@ class OTPLoginScreen extends Component {
               />
             </AppForm>
           )}
-          {phoneValidation && <InputOTP confirmCode={this.confirmCode}/>}
+          {phoneValidation && (
+            <InputOTP confirmCode={(val) => this.confirmCode(val)} />
+          )}
         </View>
       </Screen>
     );

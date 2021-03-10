@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 
-export default function InputOTPScreen({navigation, route}) {
+export default function InputOTPScreen({navigation, route, confirmCode }) {
   const defaultCountdown = 30;
   let clockCall = null;
   const [internalVal, setInternalVal] = useState('');
@@ -24,12 +24,13 @@ export default function InputOTPScreen({navigation, route}) {
     setInternalVal(val);
     setVerificationCode(val);
     try {
-      if (verificationCode.length === 6) {
-        if (authResult) {
-          this.props.confirmCode(verificationCode)
+      console.log(val.length)
+      if (val.length === 6) {
+        confirmCode(val)
+        // if (authResult) {
 
-          Alert.alert('Phone authentication successful!');
-        }
+        //   Alert.alert('Phone authentication successful!');
+        // }
         // signUp();
       } else {
         Alert.alert('Please enter a 6 digit OTP code.');
