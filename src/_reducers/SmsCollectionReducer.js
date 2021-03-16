@@ -16,7 +16,7 @@ const SmsCollectionReducer = (state = initialState, action) => {
       return {
         ...state,
         collection: action.payload,
-      }
+      };
     default:
       return state;
   }

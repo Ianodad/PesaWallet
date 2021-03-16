@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
+import * as Yup from 'yup';
+import {connect} from 'react-redux';
 import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+
+// component import
 import Text from '../../components/Text';
 import Screen from '../../components/Screen';
-import * as Yup from 'yup';
 import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
 import InputOTP from '../../components/Auth/InputOTP';
 // import colors from '../config/colors';
 // import { Formik } from "formik";
+
+// default styles and configs
 import defaultStyles from '../../config/styles';
 import {Auth, analytics} from '../../firebase/config';
-import AsyncStorage from '@react-native-community/async-storage';
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+
+// actions for redux implementation
+import {authActions} from '../../_actions';
+const {signInWithGoogle, signOut, signInWithPhoneNumber} = authActions;
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -18,9 +27,10 @@ class OTPLoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      confirmations: '',
       user: '',
-      phoneNumberValidation: '',
+      confirmations: '',
+      userPhoneNumber: '',
+      phoneNumberValidation: false,
     };
   }
 
@@ -40,13 +50,17 @@ class OTPLoginScreen extends Component {
   });
 
   signInWithPhoneNumber = async ({phoneNumber}) => {
-    console.log(phoneNumber);
+    const userPhoneNumber = `+254${phoneNumber}`;
+    console.log(userPhoneNumber)
     try {
-      if (phoneNumber) {
-        const confirmations = await Auth().signInWithPhoneNumber('+254724619212');
+      if (userPhoneNumber) {
+        const confirmations = await Auth().signInWithPhoneNumber(
+          userPhoneNumber,
+        );
         console.log(confirmations);
         this.setState({confirmations});
-        this.setState({phoneValidation: true});
+        this.setState({userPhoneNumber});
+        this.setState({phoneNumberValidation: true});
       }
     } catch (error) {}
     // console.log(confirmations);
@@ -59,7 +73,8 @@ class OTPLoginScreen extends Component {
       if (this.state.confirmations) {
         await this.state.confirmations.confirm(code);
         this.setState({confirmations: null});
-        console.log('success');
+        this.signInWithPhoneNumber(this.state.userPhoneNumber);
+        console.log('Success Code validation');
       }
     } catch (error) {
       console.log('Invalid code.');
@@ -67,14 +82,14 @@ class OTPLoginScreen extends Component {
   };
 
   render() {
-    const {user, phoneValidation} = this.state;
+    const {user, phoneNumberValidation} = this.state;
     return (
       <Screen style={styles.container} Gradient>
         <View style={styles.header}>
           <Text style={styles.title}>Add Phone No</Text>
         </View>
         <View style={styles.form}>
-          {!phoneValidation && (
+          {!phoneNumberValidation && (
             <AppForm
               initialValues={{password: ''}}
               validationSchema={this.validationSchema}
@@ -105,7 +120,19 @@ class OTPLoginScreen extends Component {
   }
 }
 
-export default OTPLoginScreen;
+const mapStateToProps = (state) => {
+  const {auth} = state;
+  console.log(auth);
+  // console.log(state.gitHubApiData)
+  return {
+    // auth: auth,
+  };
+};
+
+export default connect(mapStateToProps, {
+  signInWithGoogle,
+  signOut,
+})(OTPLoginScreen);
 
 const styles = StyleSheet.create({
   container: {

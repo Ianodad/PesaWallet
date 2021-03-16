@@ -1,15 +1,26 @@
+// react libraries
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {StyleSheet, View} from 'react-native';
-import Text from '../../components/Text';
-import Screen from '../../components/Screen';
-import defaultStyles from '../../config/styles';
-import {Auth, analytics} from '../../firebase/config';
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-import Button from '../../components/Button/Button';
 import {Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 var stringify = require('fast-json-stable-stringify');
 
+// internal components
+import Text from '../../components/Text';
+import Button from '../../components/Button/Button';
+import Screen from '../../components/Screen';
+
+//configure and utils
+import {Auth, analytics} from '../../firebase/config';
+import defaultStyles from '../../config/styles';
+
+// actions for redux implementation
+import {authActions} from '../../_actions';
+const {signInWithGoogle, signOut} = authActions;
+
+// others
 const {width, height} = Dimensions.get('window');
 
 class SocialLoginScreen extends Component {
@@ -20,28 +31,30 @@ class SocialLoginScreen extends Component {
 
   componentDidMount() {
     GoogleSignin.configure();
+    this.props.signOut();
     // this.signOut();
   }
 
-  signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      this.setState({user: ''}); // Remember to remove the user from your app's state as well
-      await AsyncStorage.setItem('User', '');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // signOut = async () => {
+  //   try {
+  //     await GoogleSignin.revokeAccess();
+  //     await GoogleSignin.signOut();
+  //     this.setState({user: ''}); // Remember to remove the user from your app's state as well
+  //     await AsyncStorage.setItem('User', '');
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  signInWithGoogle = async (s) => {
+  signInWithGoogle = async () => {
+    // this.props.signInWithGoogle()
     try {
       await GoogleSignin.hasPlayServices();
-      const {user}= await GoogleSignin.signIn();
-      console.log(user.id)
+      const {user} = await GoogleSignin.signIn();
+      console.log(user.id);
       await AsyncStorage.setItem('User', stringify(user));
       this.setState({user});
-      this.props.navigation.navigate('OTP', {user:user.id});
+      this.props.navigation.navigate('OTP', {user: user.id});
     } catch (error) {
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow
@@ -70,7 +83,7 @@ class SocialLoginScreen extends Component {
               title="Login with Google"
               textStyle={styles.text}
               onPress={() => {
-                this.signInWithGoogle();
+                this.props.signInWithGoogle();
               }}
             />
             {/* <Button
@@ -88,7 +101,19 @@ class SocialLoginScreen extends Component {
   }
 }
 
-export default SocialLoginScreen;
+const mapStateToProps = (state) => {
+  const {auth} = state;
+  console.log(auth);
+  // console.log(state.gitHubApiData)
+  return {
+    authState: auth,
+  };
+};
+
+export default connect(mapStateToProps, {
+  signInWithGoogle,
+  signOut,
+})(SocialLoginScreen);
 
 const styles = StyleSheet.create({
   container: {

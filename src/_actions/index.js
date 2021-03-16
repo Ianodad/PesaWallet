@@ -1,2 +1,2 @@
 export * from './messageActions';
-export * from './authAction';
+export * from './authActions';
