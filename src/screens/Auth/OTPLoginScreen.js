@@ -51,19 +51,21 @@ class OTPLoginScreen extends Component {
 
   signInWithPhoneNumber = async ({phoneNumber}) => {
     const userPhoneNumber = `+254${phoneNumber}`;
-    console.log(userPhoneNumber);
-    console.log(phoneNumber);
+    // console.log(phoneNumber);
     try {
-      if (userPhoneNumber) {
+      if (phoneNumber) {
         const confirmations = await Auth().signInWithPhoneNumber(
           userPhoneNumber,
         );
         console.log(confirmations);
         this.setState({confirmations});
         this.setState({userPhoneNumber});
+        console.log(userPhoneNumber);
         this.setState({phoneNumberValidation: true});
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
     // console.log(confirmations);
   };
 
@@ -73,10 +75,11 @@ class OTPLoginScreen extends Component {
       // await confirm.confirm(code);
       if (this.state.confirmations) {
         await this.state.confirmations.confirm(code);
-        console.log(await this.state.confirmations.confirm(code));
+        // console.log(await this.state.confirmations.confirm(code));
         this.setState({confirmations: null});
         this.signInWithPhoneNumber(this.state.userPhoneNumber);
         console.log('Success Code validation');
+        this.props.navigation.navigate('Home');
       }
     } catch (error) {
       console.log('Invalid code.');

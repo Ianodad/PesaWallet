@@ -137,7 +137,8 @@ class HomeScreen extends Component {
 }
 const mapStateToProps = (state) => {
   // console.log(state)
-  const {SmsCollected} = state;
+  const {SmsCollected, authState} = state;
+  console.log(authState);
   return {
     collection: SmsCollected.collection,
   };
