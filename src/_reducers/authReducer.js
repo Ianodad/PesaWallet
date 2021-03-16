@@ -16,6 +16,7 @@ const initialState = {
   phoneNoVerification: false,
   userVerified: false,
   collectionState: false,
+  signInError: '',
 };
 
 const SmsCollectionReducer = (state = initialState, action) => {
@@ -53,7 +54,7 @@ const SmsCollectionReducer = (state = initialState, action) => {
     case SIGN_IN_ERROR:
       return {
         ...state,
-        state: action.payload,
+        signInError: action.payload,
       };
     default:
       return state;

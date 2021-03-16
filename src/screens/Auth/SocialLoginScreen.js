@@ -52,9 +52,10 @@ class SocialLoginScreen extends Component {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
       console.log(user.id);
-      await AsyncStorage.setItem('User', stringify(user));
-      this.setState({user});
-      this.props.navigation.navigate('OTP', {user: user.id});
+      if (user) {
+        this.props.signInWithGoogle(user);
+        this.props.navigation.navigate('OTP', {user: user.id});
+      }
     } catch (error) {
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow
@@ -69,6 +70,8 @@ class SocialLoginScreen extends Component {
   };
 
   render() {
+    // const {googleVerification} = this.props.auth;
+    // console.log('Google Verification', googleVerification);
     return (
       <Screen style={styles.container} Gradient>
         <View style={styles.header}>
@@ -83,7 +86,7 @@ class SocialLoginScreen extends Component {
               title="Login with Google"
               textStyle={styles.text}
               onPress={() => {
-                this.props.signInWithGoogle();
+                this.signInWithGoogle();
               }}
             />
             {/* <Button
@@ -102,11 +105,11 @@ class SocialLoginScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {auth} = state;
-  console.log(auth);
+  const {authState} = state;
+  console.log(authState);
   // console.log(state.gitHubApiData)
   return {
-    authState: auth,
+    auth: authState,
   };
 };
 

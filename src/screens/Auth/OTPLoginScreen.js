@@ -51,7 +51,8 @@ class OTPLoginScreen extends Component {
 
   signInWithPhoneNumber = async ({phoneNumber}) => {
     const userPhoneNumber = `+254${phoneNumber}`;
-    console.log(userPhoneNumber)
+    console.log(userPhoneNumber);
+    console.log(phoneNumber);
     try {
       if (userPhoneNumber) {
         const confirmations = await Auth().signInWithPhoneNumber(
@@ -72,6 +73,7 @@ class OTPLoginScreen extends Component {
       // await confirm.confirm(code);
       if (this.state.confirmations) {
         await this.state.confirmations.confirm(code);
+        console.log(await this.state.confirmations.confirm(code));
         this.setState({confirmations: null});
         this.signInWithPhoneNumber(this.state.userPhoneNumber);
         console.log('Success Code validation');
@@ -111,7 +113,7 @@ class OTPLoginScreen extends Component {
               />
             </AppForm>
           )}
-          {phoneValidation && (
+          {phoneNumberValidation && (
             <InputOTP confirmCode={(val) => this.confirmCode(val)} />
           )}
         </View>
@@ -121,11 +123,11 @@ class OTPLoginScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {auth} = state;
-  console.log(auth);
+  const {authState} = state;
+  console.log(authState);
   // console.log(state.gitHubApiData)
   return {
-    // auth: auth,
+    auth: authState,
   };
 };
 
