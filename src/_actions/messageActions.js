@@ -10,6 +10,7 @@ var stringify = require('fast-json-stable-stringify');
 // Global regex variables
 
 const storeMessages = (address, messages) => async (dispatch) => {
+  console.log(address)
   const messagesProcesses = await processMpesa(messages);
 
   const messageCollection = await stringify(messagesProcesses);
