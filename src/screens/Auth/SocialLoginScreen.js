@@ -1,23 +1,17 @@
 // react libraries
+import {GoogleSignin} from '@react-native-community/google-signin';
 import React, {Component} from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
-import {StyleSheet, View} from 'react-native';
-import {Dimensions} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-var stringify = require('fast-json-stable-stringify');
-
-// internal components
-import Text from '../../components/Text';
 import Button from '../../components/Button/Button';
 import Screen from '../../components/Screen';
-
-//configure and utils
-import {Auth, analytics} from '../../firebase/config';
-import defaultStyles from '../../config/styles';
-
+// internal components
+import Text from '../../components/Text';
+import {getAllUsers} from '../../graphql/constants';
 // actions for redux implementation
 import {authActions} from '../../_actions';
+var stringify = require('fast-json-stable-stringify');
+
 const {signInWithGoogle, signOut} = authActions;
 
 // others
@@ -51,7 +45,8 @@ class SocialLoginScreen extends Component {
     try {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
-      console.log(user.id);
+      // console.log(user);
+      await getAllUsers();
       if (user) {
         this.props.signInWithGoogle(user);
         this.props.navigation.navigate('OTP', {user: user.id});
@@ -106,7 +101,7 @@ class SocialLoginScreen extends Component {
 
 const mapStateToProps = (state) => {
   const {authState} = state;
-  console.log(authState);
+  // console.log(authState);
   // console.log(state.gitHubApiData)
   return {
     auth: authState,
