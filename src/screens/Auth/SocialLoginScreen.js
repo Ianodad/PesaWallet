@@ -1,6 +1,7 @@
 // react libraries
+import {useQuery} from '@apollo/client';
 import {GoogleSignin} from '@react-native-community/google-signin';
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import Button from '../../components/Button/Button';
@@ -8,8 +9,10 @@ import Screen from '../../components/Screen';
 // internal components
 import Text from '../../components/Text';
 import {getAllUsers} from '../../graphql/constants';
+import {allUsers} from '../../graphql/queries';
 // actions for redux implementation
 import {authActions} from '../../_actions';
+
 var stringify = require('fast-json-stable-stringify');
 
 const {signInWithGoogle, signOut} = authActions;
@@ -17,17 +20,23 @@ const {signInWithGoogle, signOut} = authActions;
 // others
 const {width, height} = Dimensions.get('window');
 
-class SocialLoginScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const SocialLoginScreen = (props) => {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {};
+  // }
 
-  componentDidMount() {
+  useEffect(() => {
+    // Your code here
     GoogleSignin.configure();
-    this.props.signOut();
-    // this.signOut();
-  }
+    props.signOut();
+  }, []);
+
+  // componentDidMount() {
+  //   GoogleSignin.configure();
+  //   this.props.signOut();
+  //   // this.signOut();
+  // }
 
   // signOut = async () => {
   //   try {
@@ -40,7 +49,7 @@ class SocialLoginScreen extends Component {
   //   }
   // };
 
-  signInWithGoogle = async () => {
+  const SignInWithGoogle = async () => {
     // this.props.signInWithGoogle()
     try {
       await GoogleSignin.hasPlayServices();
@@ -48,8 +57,8 @@ class SocialLoginScreen extends Component {
       // console.log(user);
       await getAllUsers();
       if (user) {
-        this.props.signInWithGoogle(user);
-        this.props.navigation.navigate('OTP', {user: user.id});
+        props.signInWithGoogle(user);
+        props.navigation.navigate('OTP', {user: user.id});
       }
     } catch (error) {
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -63,28 +72,29 @@ class SocialLoginScreen extends Component {
       // }
     }
   };
-
-  render() {
-    // const {googleVerification} = this.props.auth;
-    // console.log('Google Verification', googleVerification);
-    return (
-      <Screen style={styles.container} Gradient>
-        <View style={styles.header}>
-          <Text style={styles.title}>Login Screen</Text>
-        </View>
-        <View style={styles.form}>
-          <View style={styles.authButtons}>
-            <Button
-              buttonType
-              style={styles.googlelogin}
-              color={'white'}
-              title="Login with Google"
-              textStyle={styles.text}
-              onPress={() => {
-                this.signInWithGoogle();
-              }}
-            />
-            {/* <Button
+  const {loading, error, data} = useQuery(allUsers);
+  console.log(data, error);
+  // render() {
+  // const {googleVerification} = this.props.auth;
+  // console.log('Google Verification', googleVerification);
+  return (
+    <Screen style={styles.container} Gradient>
+      <View style={styles.header}>
+        <Text style={styles.title}>Login Screen</Text>
+      </View>
+      <View style={styles.form}>
+        <View style={styles.authButtons}>
+          <Button
+            buttonType
+            style={styles.googlelogin}
+            color={'white'}
+            title="Login with Google"
+            textStyle={styles.text}
+            onPress={() => {
+              SignInWithGoogle();
+            }}
+          />
+          {/* <Button
           buttonType
           style={styles.create}
           textStyle={styles.text}
@@ -92,12 +102,12 @@ class SocialLoginScreen extends Component {
           title="Create Account"
           onPress={}
         /> */}
-          </View>
         </View>
-      </Screen>
-    );
-  }
-}
+      </View>
+    </Screen>
+  );
+  // }
+};
 
 const mapStateToProps = (state) => {
   const {authState} = state;

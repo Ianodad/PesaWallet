@@ -1,19 +1,24 @@
-import {AppRegistry} from 'react-native';
+import {ApolloProvider} from '@apollo/client';
 import React from 'react';
-import App from './App';
-import {name as appName} from './app.json';
-import {createStore} from 'redux';
+import {AppRegistry} from 'react-native';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
+import App from './App';
+import {name as appName} from './app.json';
+import client from './src/graphql/apolloClient';
+import {persister, store} from './src/_store/configurestore';
 
-import {store, persister} from './src/_store/configurestore';
 
 const ReactNative = () => (
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persister}>
-      <App />
-    </PersistGate>
-  </Provider>
+  <>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persister}>
+          <App />
+        </PersistGate>
+      </Provider>
+    </ApolloProvider>
+  </>
 );
 
 AppRegistry.registerComponent(appName, () => ReactNative);

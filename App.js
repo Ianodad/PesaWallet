@@ -8,7 +8,6 @@ import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
-
 class App extends Component {
   constructor(props) {
     super(props);
