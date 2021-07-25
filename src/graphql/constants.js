@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {allUsers} from './queries';
 
 export const getAllUsers = async () => {
   // let response = await graphql.post('graphql', {query: allUsers});
@@ -7,7 +8,7 @@ export const getAllUsers = async () => {
   // console.log(response);
   // console.log(data);
   await axios({
-    url: 'http://localhost:5000/api/graphql',
+    url: 'http://10.0.2.2:5000/api/graphql',
     method: 'post',
     mode: 'cors',
     headers: {
@@ -19,7 +20,7 @@ export const getAllUsers = async () => {
     withCredentials: true,
     // credentials: 'same-origin',
     data: {
-      query: `
+      query: allUsers`
     {
      allUsers{
       name
@@ -29,9 +30,13 @@ export const getAllUsers = async () => {
     },
   })
     .then((res) => {
-      console.log(res.data.data.allUsers);
+      console.log(res);
     })
     .catch((err) => {
       console.log(err.message);
     });
 };
+
+export const createUserWithGoogleSign = async () => {
+  
+}

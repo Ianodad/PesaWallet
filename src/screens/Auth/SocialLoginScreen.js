@@ -1,19 +1,16 @@
 // react libraries
-import {useQuery} from '@apollo/client';
-import {GoogleSignin} from '@react-native-community/google-signin';
-import React, {useEffect} from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
-import {connect} from 'react-redux';
+import { useMutation, useQuery } from '@apollo/client';
+import { GoogleSignin } from '@react-native-community/google-signin';
+import React, { useEffect } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 import Button from '../../components/Button/Button';
 import Screen from '../../components/Screen';
 // internal components
 import Text from '../../components/Text';
-import {getAllUsers} from '../../graphql/constants';
-import {allUsers} from '../../graphql/queries';
+import { checkUserGoogleId, SIGNUP_WITH_GOOGLE } from '../../graphql/queries';
 // actions for redux implementation
-import {authActions} from '../../_actions';
-
-var stringify = require('fast-json-stable-stringify');
+import { authActions } from '../../_actions';
 
 const {signInWithGoogle, signOut} = authActions;
 
@@ -25,7 +22,9 @@ const SocialLoginScreen = (props) => {
   //   super(props);
   //   this.state = {};
   // }
+  const [googleSignIn, {loading}] = useMutation(SIGNUP_WITH_GOOGLE);
 
+  const [checkId, {data}] = useQuery(checkUserGoogleId);
   useEffect(() => {
     // Your code here
     GoogleSignin.configure();
@@ -48,19 +47,37 @@ const SocialLoginScreen = (props) => {
   //     console.error(error);
   //   }
   // };
-
   const SignInWithGoogle = async () => {
     // this.props.signInWithGoogle()
     try {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
+      const {id, name, email, givenName, familyName, photo} = user;
+      checkId({variables: {id: id}});
+      // console.log(id, name, email, givenName, familyName, photo);
       // console.log(user);
-      await getAllUsers();
+      // CHECK IS USER EXIST BY QUERYING USER
+      // IF EXIST LOGININ AND MOVE TO OPT
+      // ELSE ADD USER AND LOGIN WITH OPT
       if (user) {
+        const res = await googleSignIn({
+          variables: {id, name, email, givenName, familyName, photo},
+          onError(err) {
+            console.log(err);
+          },
+        });
+        console.log(res);
+        console.log({data, loading, error});
         props.signInWithGoogle(user);
         props.navigation.navigate('OTP', {user: user.id});
       }
-    } catch (error) {
+    } catch (err) {
+      console.log(err);
+      console.log(typeof err);
+      let obj = JSON.parse(JSON.stringify(err));
+      console.log(obj);
+      const {Error} = err;
+      console.log(Error);
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow
       // } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -72,8 +89,14 @@ const SocialLoginScreen = (props) => {
       // }
     }
   };
-  const {loading, error, data} = useQuery(allUsers);
-  console.log(data, error);
+
+  console.log(data);
+  // console.log(error);
+  // const error =
+  //   data?.authenticateUserWithPassword.__typename ===
+  //   'UserAuthenticationWithPasswordFailure'
+  //     ? data?.authenticateUserWithPassword
+  //     : undefined;
   // render() {
   // const {googleVerification} = this.props.auth;
   // console.log('Google Verification', googleVerification);
@@ -82,6 +105,9 @@ const SocialLoginScreen = (props) => {
       <View style={styles.header}>
         <Text style={styles.title}>Login Screen</Text>
       </View>
+      {/* <View>
+        <Text>{error}</Text>
+      </View> */}
       <View style={styles.form}>
         <View style={styles.authButtons}>
           <Button

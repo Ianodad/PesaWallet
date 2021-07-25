@@ -35,7 +35,7 @@ const WelcomeScreen = ({navigation}) => {
           source={require('../assets/logo/logoW.png')}
         />
       </View>
-      <SocialLogin navigation={navigation}/>
+      <SocialLogin navigation={navigation} />
       {/* <View style={styles.authButtons}>
         <Button
           buttonType
