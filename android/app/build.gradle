@@ -1,5 +1,4 @@
 apply plugin: "com.android.application"
-apply plugin: 'com.google.gms.google-services'
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 import com.android.build.OutputFile
@@ -199,7 +198,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     // Import the Firebase BoM
     implementation 'com.google.firebase:firebase-analytics'
-    implementation platform('com.google.firebase:firebase-bom:26.1.1')
+    implementation platform('com.google.firebase:firebase-bom:28.3.0')
     implementation 'com.google.firebase:firebase-auth'
     implementation 'androidx.browser:browser:1.2.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'

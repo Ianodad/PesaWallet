@@ -84,6 +84,7 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+.history
 
 ### ReactNative.Node Stack ###
 # Logs
