@@ -145,8 +145,8 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  signInWithGoogle,
-  signOut,
+  // signInWithGoogle,
+  // signOut,
 })(SocialLoginScreen);
 
 const styles = StyleSheet.create({
