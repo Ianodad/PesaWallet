@@ -51,9 +51,9 @@ const SocialLoginScreen = (props) => {
     // this.props.signInWithGoogle()
     try {
       await GoogleSignin.hasPlayServices();
-      const {user} = await GoogleSignin.signIn();
-      const {id, name, email, givenName, familyName, photo} = user;
-      checkId({variables: {id: id}});
+      // const {user} = await GoogleSignin.signIn();
+      // const {id, name, email, givenName, familyName, photo} = user;
+      // checkId({variables: {id: id}});
       // console.log(id, name, email, givenName, familyName, photo);
       // console.log(user);
       // CHECK IS USER EXIST BY QUERYING USER

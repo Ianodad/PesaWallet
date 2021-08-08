@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, StyleSheet, View} from 'react-native';
-import BarChart from '../components/Charts/Fusion/BarChart';
+// import BarChart from '../components/Charts/Fusion/BarChart';
 // import LineChart from '../components/Charts/Fusion/LineChartFusion';
 
 // import LineChart from './Charts/Victory/LineChart';
@@ -9,7 +9,7 @@ import RangeList from './RangeList';
 
 // Chart imports
 // react-native-fusioncharts
-import LineChartFusionTwo from './Charts/Fusion/LineChartFusionTwo';
+// import LineChartFusionTwo from './Charts/Fusion/LineChartFusionTwo';
 // victory-native
 import LineChartVictory from './Charts/Victory/LineChart';
 import PieChartVicrort from './Charts/Victory/PieChartVictory';
