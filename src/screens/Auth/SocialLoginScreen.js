@@ -24,11 +24,11 @@ const SocialLoginScreen = (props) => {
   // }
   const [googleSignIn, {loading}] = useMutation(SIGNUP_WITH_GOOGLE);
 
-  const [checkId, {data}] = useQuery(checkUserGoogleId);
+  // const [checkId, {data}] = useQuery(checkUserGoogleId);
   useEffect(() => {
     // Your code here
     GoogleSignin.configure();
-    props.signOut();
+    // props.signOut();
   }, []);
 
   // componentDidMount() {
@@ -51,11 +51,11 @@ const SocialLoginScreen = (props) => {
     // this.props.signInWithGoogle()
     try {
       await GoogleSignin.hasPlayServices();
-      // const {user} = await GoogleSignin.signIn();
+      const {user} = await GoogleSignin.signIn();
       // const {id, name, email, givenName, familyName, photo} = user;
       // checkId({variables: {id: id}});
       // console.log(id, name, email, givenName, familyName, photo);
-      // console.log(user);
+      console.log(user);
       // CHECK IS USER EXIST BY QUERYING USER
       // IF EXIST LOGININ AND MOVE TO OPT
       // ELSE ADD USER AND LOGIN WITH OPT
@@ -67,7 +67,7 @@ const SocialLoginScreen = (props) => {
           },
         });
         console.log(res);
-        console.log({data, loading, error});
+        // console.log({data, loading, error});
         props.signInWithGoogle(user);
         props.navigation.navigate('OTP', {user: user.id});
       }
@@ -90,7 +90,7 @@ const SocialLoginScreen = (props) => {
     }
   };
 
-  console.log(data);
+  // console.log(data);
   // console.log(error);
   // const error =
   //   data?.authenticateUserWithPassword.__typename ===
@@ -145,8 +145,8 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  // signInWithGoogle,
-  // signOut,
+  signInWithGoogle,
+  signOut,
 })(SocialLoginScreen);
 
 const styles = StyleSheet.create({
