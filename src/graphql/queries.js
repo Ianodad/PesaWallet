@@ -7,13 +7,16 @@ export const allUsers = gql`
   }
 `;
 
-export const checkUserGoogleId = gql`
-  query checkId($id: String) {
+export const CHECK_USER_GOOGLE_ID = gql`
+  query CHECK_USER_GOOGLE_ID($id: String) {
     allUsers(where: {googleId: $id}) {
       googleId
+      id
+      name
     }
   }
 `;
+
 
 // photo: null
 // email: "valormedia254@gmail.com"

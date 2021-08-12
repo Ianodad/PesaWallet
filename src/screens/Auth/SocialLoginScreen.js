@@ -1,14 +1,14 @@
 // react libraries
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
 import { GoogleSignin } from '@react-native-community/google-signin';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from '../../components/Button/Button';
 import Screen from '../../components/Screen';
 // internal components
 import Text from '../../components/Text';
-import { checkUserGoogleId, SIGNUP_WITH_GOOGLE } from '../../graphql/queries';
+import { CHECK_USER_GOOGLE_ID, SIGNUP_WITH_GOOGLE } from '../../graphql/queries';
 // actions for redux implementation
 import { authActions } from '../../_actions';
 
@@ -22,13 +22,24 @@ const SocialLoginScreen = (props) => {
   //   super(props);
   //   this.state = {};
   // }
-  const [googleSignIn, {loading}] = useMutation(SIGNUP_WITH_GOOGLE);
+  // getUserVerification=(id)=>{
+  //   console.log(id)
+  //   console.log(data, error, loading)
+  // }
+  
+  const [gId, setGoogeleId] = useState('')
 
-  // const [checkId, {data}] = useQuery(checkUserGoogleId);
+  const [googleSignIn, {loading:loadingSignIn}] = useMutation(SIGNUP_WITH_GOOGLE);
+
+  const {data:checkdata, error: checkError, loading:checkLoading } = useQuery(CHECK_USER_GOOGLE_ID, {
+  variables: { id:gId }
+  })
+
   useEffect(() => {
     // Your code here
     GoogleSignin.configure();
     // props.signOut();
+    console.log(checkdata, checkError)
   }, []);
 
   // componentDidMount() {
@@ -52,25 +63,31 @@ const SocialLoginScreen = (props) => {
     try {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
-      // const {id, name, email, givenName, familyName, photo} = user;
-      // checkId({variables: {id: id}});
-      // console.log(id, name, email, givenName, familyName, photo);
-      console.log(user);
+      const {id, name, email, givenName, familyName, photo} = user;
+      // getUserVerification(id)
+      // await checkId({variables: {id: id}});
+      setGoogeleId(id)
+      console.log(id, name, email, givenName, familyName, photo);
+      // console.log(user);
       // CHECK IS USER EXIST BY QUERYING USER
-      // IF EXIST LOGININ AND MOVE TO OPT
-      // ELSE ADD USER AND LOGIN WITH OPT
-      if (user) {
-        const res = await googleSignIn({
-          variables: {id, name, email, givenName, familyName, photo},
-          onError(err) {
-            console.log(err);
-          },
-        });
-        console.log(res);
-        // console.log({data, loading, error});
-        props.signInWithGoogle(user);
-        props.navigation.navigate('OTP', {user: user.id});
+      // IF  EXIST LOGININ AND MOVE TO OPT
+      console.log(checkLoading)
+      if (!checkLoading){
+        console.log(checkdata.id, checkError, gId)
       }
+      // ELSE ADD USER AND LOGIN WITH OPT
+      // if (user) {
+      //   const res = await googleSignIn({
+      //     variables: {id, name, email, givenName, familyName, photo},
+      //     onError(err) {
+      //       console.log(err);
+      //     },
+      //   });
+      //   console.log(res);
+      //   // console.log({data, loading, error});
+      //   props.signInWithGoogle(user);
+      //   props.navigation.navigate('OTP', {user: user.id});
+      // }
     } catch (err) {
       console.log(err);
       console.log(typeof err);
@@ -100,6 +117,7 @@ const SocialLoginScreen = (props) => {
   // render() {
   // const {googleVerification} = this.props.auth;
   // console.log('Google Verification', googleVerification);
+
   return (
     <Screen style={styles.container} Gradient>
       <View style={styles.header}>
