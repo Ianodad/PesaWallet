@@ -22,31 +22,25 @@ const SocialLoginScreen = (props) => {
   //   super(props);
   //   this.state = {};
   // }
+  
+  const [gId, setGoogeleId] = useState(null)
+  
+  const [signUpWithGoogle, {loading:loadingSignIn}] = useMutation(SIGNUP_WITH_GOOGLE);
+  
+  const {data:checkdata, error: checkError, loading:checkLoading } = useQuery(CHECK_USER_GOOGLE_ID, {
+    variables: { id:gId }
+  })
+  
   // getUserVerification=(id)=>{
-  //   console.log(id)
+  //   checkId({variables: {id: id}});
   //   console.log(data, error, loading)
   // }
-  
-  const [gId, setGoogeleId] = useState('')
-
-  const [googleSignIn, {loading:loadingSignIn}] = useMutation(SIGNUP_WITH_GOOGLE);
-
-  const {data:checkdata, error: checkError, loading:checkLoading } = useQuery(CHECK_USER_GOOGLE_ID, {
-  variables: { id:gId }
-  })
-
   useEffect(() => {
     // Your code here
     GoogleSignin.configure();
     // props.signOut();
-    console.log(checkdata, checkError)
   }, []);
 
-  // componentDidMount() {
-  //   GoogleSignin.configure();
-  //   this.props.signOut();
-  //   // this.signOut();
-  // }
 
   // signOut = async () => {
   //   try {
@@ -59,42 +53,44 @@ const SocialLoginScreen = (props) => {
   //   }
   // };
   const SignInWithGoogle = async () => {
-    // this.props.signInWithGoogle()
+    let gUser={}
     try {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
-      const {id, name, email, givenName, familyName, photo} = user;
+      let {id, name, email , givenName, familyName, photo} = user;
       // getUserVerification(id)
-      // await checkId({variables: {id: id}});
-      setGoogeleId(id)
+      // checkId({variables: {id: id}});
+      // setGoogeleId(id)
+      
       console.log(id, name, email, givenName, familyName, photo);
-      // console.log(user);
-      // CHECK IS USER EXIST BY QUERYING USER
-      // IF  EXIST LOGININ AND MOVE TO OPT
-      console.log(checkLoading)
-      if (!checkLoading){
-        console.log(checkdata.id, checkError, gId)
+
+        if (user) {
+        gUser ={id, name, email, givenName, familyName, photo}
+        const res = await signUpWithGoogle({
+          variables: {id, name, email, givenName, familyName, photo},
+        });
+        if (res){
+          console.log(res)
+          console.log("New User Created")
+          props.signInWithGoogle(user);
+          props.navigation.navigate('OTP', {user: user.id});
+        }
+        // console.log({data, loading, error});
       }
-      // ELSE ADD USER AND LOGIN WITH OPT
-      // if (user) {
-      //   const res = await googleSignIn({
-      //     variables: {id, name, email, givenName, familyName, photo},
-      //     onError(err) {
-      //       console.log(err);
-      //     },
-      //   });
-      //   console.log(res);
-      //   // console.log({data, loading, error});
-      //   props.signInWithGoogle(user);
-      //   props.navigation.navigate('OTP', {user: user.id});
-      // }
     } catch (err) {
-      console.log(err);
-      console.log(typeof err);
       let obj = JSON.parse(JSON.stringify(err));
-      console.log(obj);
-      const {Error} = err;
-      console.log(Error);
+      // console.log(obj);
+      let { graphQLErrors } = obj
+      let { extensions :{ exception: {code, keyValue:{email, id}} }} = graphQLErrors[0];
+
+      console.log(code, email)
+      if (code === 11000 && email ||id){
+        console.log('Email Exist proceed google signin')
+        console.log(gUser)
+        props.signInWithGoogle(gUser);
+        props.navigation.navigate('OTP', {user: gUser.id});
+
+      }
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow
       // } else if (error.code === statusCodes.IN_PROGRESS) {
