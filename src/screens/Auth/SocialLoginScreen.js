@@ -1,36 +1,41 @@
 // react libraries
-import { useMutation, useQuery, useLazyQuery } from '@apollo/client';
-import { GoogleSignin } from '@react-native-community/google-signin';
-import React, { useEffect, useState } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-import { connect } from 'react-redux';
+import {useMutation, useQuery, useLazyQuery} from '@apollo/client';
+import {GoogleSignin} from '@react-native-community/google-signin';
+import React, {useEffect, useState} from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
+import {connect} from 'react-redux';
 import Button from '../../components/Button/Button';
 import Screen from '../../components/Screen';
 // internal components
 import Text from '../../components/Text';
-import { CHECK_USER_GOOGLE_ID, SIGNUP_WITH_GOOGLE } from '../../graphql/queries';
+import {CHECK_USER_GOOGLE_ID, SIGNUP_WITH_GOOGLE} from '../../graphql/queries';
 // actions for redux implementation
-import { authActions } from '../../_actions';
+import {authActions} from '../../_actions';
 
 const {signInWithGoogle, signOut} = authActions;
 
 // others
 const {width, height} = Dimensions.get('window');
 
-const SocialLoginScreen = (props) => {
+const SocialLoginScreen = props => {
   // constructor(props) {
   //   super(props);
   //   this.state = {};
   // }
-  
-  const [gId, setGoogeleId] = useState(null)
-  
-  const [signUpWithGoogle, {loading:loadingSignIn}] = useMutation(SIGNUP_WITH_GOOGLE);
-  
-  const {data:checkdata, error: checkError, loading:checkLoading } = useQuery(CHECK_USER_GOOGLE_ID, {
-    variables: { id:gId }
-  })
-  
+
+  const [gId, setGoogeleId] = useState(null);
+
+  const [signUpWithGoogle, {loading: loadingSignIn}] =
+    useMutation(SIGNUP_WITH_GOOGLE);
+
+  const {
+    data: checkdata,
+    error: checkError,
+    loading: checkLoading,
+  } = useQuery(CHECK_USER_GOOGLE_ID, {
+    variables: {id: gId},
+  });
+
   // getUserVerification=(id)=>{
   //   checkId({variables: {id: id}});
   //   console.log(data, error, loading)
@@ -40,7 +45,6 @@ const SocialLoginScreen = (props) => {
     GoogleSignin.configure();
     // props.signOut();
   }, []);
-
 
   // signOut = async () => {
   //   try {
@@ -53,25 +57,25 @@ const SocialLoginScreen = (props) => {
   //   }
   // };
   const SignInWithGoogle = async () => {
-    let gUser={}
+    let gUser = {};
     try {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
-      let {id, name, email , givenName, familyName, photo} = user;
+      let {id, name, email, givenName, familyName, photo} = user;
       // getUserVerification(id)
       // checkId({variables: {id: id}});
       // setGoogeleId(id)
-      
-      console.log(id, name, email, givenName, familyName, photo);
 
-        if (user) {
-        gUser ={id, name, email, givenName, familyName, photo}
+      // console.log(id, name, email, givenName, familyName, photo);
+
+      if (user) {
+        gUser = {id, name, email, givenName, familyName, photo};
         const res = await signUpWithGoogle({
           variables: {id, name, email, givenName, familyName, photo},
         });
-        if (res){
-          console.log(res)
-          console.log("New User Created")
+        if (res) {
+          console.log(res);
+          console.log('New User Created' + name);
           props.signInWithGoogle(user);
           props.navigation.navigate('OTP', {user: user.id});
         }
@@ -80,16 +84,22 @@ const SocialLoginScreen = (props) => {
     } catch (err) {
       let obj = JSON.parse(JSON.stringify(err));
       // console.log(obj);
-      let { graphQLErrors } = obj
-      let { extensions :{ exception: {code, keyValue:{email, id}} }} = graphQLErrors[0];
+      let {graphQLErrors} = obj;
+      let {
+        extensions: {
+          exception: {
+            code,
+            keyValue: {email, id},
+          },
+        },
+      } = graphQLErrors[0];
 
-      console.log(code, email)
-      if (code === 11000 && email ||id){
-        console.log('Email Exist proceed google signin')
-        console.log(gUser)
+      console.log(code, email);
+      if ((code === 11000 && email) || id) {
+        console.log('Email exist for' + gUser.name + 'proceed google signin');
+        console.log(gUser);
         props.signInWithGoogle(gUser);
         props.navigation.navigate('OTP', {user: gUser.id});
-
       }
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow
@@ -149,7 +159,7 @@ const SocialLoginScreen = (props) => {
   // }
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const {authState} = state;
   // console.log(authState);
   // console.log(state.gitHubApiData)
