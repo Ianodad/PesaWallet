@@ -8,7 +8,8 @@ import Button from '../../components/Button/Button';
 import Screen from '../../components/Screen';
 // internal components
 import Text from '../../components/Text';
-import {CHECK_USER_GOOGLE_ID, SIGNUP_WITH_GOOGLE} from '../../graphql/queries';
+import {SIGNUP_WITH_GOOGLE} from '../../graphql/mutation';
+import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
 // actions for redux implementation
 import {authActions} from '../../_actions';
 
@@ -32,7 +33,7 @@ const SocialLoginScreen = props => {
     data: checkdata,
     error: checkError,
     loading: checkLoading,
-  } = useQuery(CHECK_USER_GOOGLE_ID, {
+  } = useQuery(GET_USER_WITH_GOOGLE_ID, {
     variables: {id: gId},
   });
 
@@ -70,14 +71,18 @@ const SocialLoginScreen = props => {
 
       if (user) {
         gUser = {id, name, email, givenName, familyName, photo};
-        const res = await signUpWithGoogle({
+        const {data} = await signUpWithGoogle({
           variables: {id, name, email, givenName, familyName, photo},
         });
-        if (res) {
-          console.log(res);
+
+        if (data) {
+          console.log(data?.createUser);
           console.log('New User Created' + name);
           props.signInWithGoogle(user);
-          props.navigation.navigate('OTP', {user: user.id});
+          props.navigation.navigate('OTP', {
+            googleId: user.id,
+            userId: data?.createUser?.id,
+          });
         }
         // console.log({data, loading, error});
       }
@@ -99,7 +104,7 @@ const SocialLoginScreen = props => {
         console.log('Email exist for' + gUser.name + 'proceed google signin');
         console.log(gUser);
         props.signInWithGoogle(gUser);
-        props.navigation.navigate('OTP', {user: gUser.id});
+        props.navigation.navigate('OTP', {googleId: gUser.id, userId: ''});
       }
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow

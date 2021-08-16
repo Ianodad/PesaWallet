@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useMutation, useQuery} from '@apollo/client';
 import * as Yup from 'yup';
 import {connect} from 'react-redux';
 import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
@@ -17,6 +18,9 @@ import InputOTP from '../../components/Auth/InputOTP';
 import defaultStyles from '../../config/styles';
 import {Auth, analytics} from '../../firebase/config';
 
+import {UPDATE_USER_PHONE_NO} from '../../graphql/mutation';
+import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
+
 // actions for redux implementation
 import {authActions} from '../../_actions';
 const {signInWithGoogle, signOut, signInWithPhoneNumber} = authActions;
@@ -24,7 +28,12 @@ const {signInWithGoogle, signOut, signInWithPhoneNumber} = authActions;
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-const OTPLoginScreen = props => {
+const OTPLoginScreen = ({
+  navigation,
+  route: {
+    params: {googleId, userId},
+  },
+}) => {
   // constructor(props) {
   //   super(props);
   //   this.state = {
@@ -40,11 +49,22 @@ const OTPLoginScreen = props => {
   const [userPhoneNumber, setUserPhoneNumber] = useState('');
   const [phoneNumberValidation, setPhoneNumberValidation] = useState(false);
 
+  const [updateUser, {loading: loadingUserUpdate}] =
+    useMutation(UPDATE_USER_PHONE_NO);
+
+  const {error: userError, loading: userLoading} = useQuery(
+    GET_USER_WITH_GOOGLE_ID,
+    {
+      variables: {id: googleId},
+      onCompleted: data => setUser(data),
+    },
+  );
+
   useEffect(() => {
     // Your code here
     // GoogleSignin.configure();
     // props.signOut();
-    setUser(props.route.params.user);
+    // setUser(googleId);
   }, []);
 
   // componentDidMount() {
@@ -91,14 +111,21 @@ const OTPLoginScreen = props => {
         // console.log(await this.state.confirmations.confirm(code));
         setConfirmations(null);
         signInWithPhoneNumber(userPhoneNumber);
-        
+        const userID = user?.allUsers[0]?.id;
+        await updateUser({
+          variables: {id: userID, phoneNumber: userPhoneNumber},
+        });
         console.log('Success Code validation');
-        props.navigation.navigate('Home');
+        navigation.navigate('Home');
       }
     } catch (error) {
       console.log('Invalid code.');
     }
   };
+
+  // console.log(userData?.allUsers[0]?.id);
+  // console.log(googleId);
+  console.log(user);
   return (
     <Screen style={styles.container} Gradient>
       <View style={styles.header}>

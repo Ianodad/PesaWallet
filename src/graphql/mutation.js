@@ -1,5 +1,15 @@
+import {gql} from '@apollo/client';
+
+export const UPDATE_USER_PHONE_NO = gql`
+  mutation UPDATE_USER_PHONE_NO($id: ID!, $phoneNo: String) {
+    updateUser(id: $id, data: {phoneNo: $phoneNo}) {
+      id
+    }
+  }
+`;
+
 export const SIGNUP_WITH_GOOGLE = gql`
-  mutation UPDATE_USER_DETAILS = (
+  mutation SIGNUP_WITH_GOOGLE(
     $photo: String
     $email: String!
     $familyName: String!
@@ -17,6 +27,7 @@ export const SIGNUP_WITH_GOOGLE = gql`
         photo: $photo
       }
     ) {
+      id
       googleId
       name
       firstName

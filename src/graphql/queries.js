@@ -7,16 +7,24 @@ export const allUsers = gql`
   }
 `;
 
-export const CHECK_USER_GOOGLE_ID = gql`
-  query CHECK_USER_GOOGLE_ID($id: String) {
+export const GET_USER_WITH_GOOGLE_ID = gql`
+  query GET_USER_WITH_GOOGLE_ID($id: String) {
     allUsers(where: {googleId: $id}) {
-      googleId
       id
+      googleId
       name
     }
   }
 `;
-
+export const GET_USER_WITH_ID = gql`
+  query GET_USER_WITH_ID($id: ID!) {
+    User(where: {id: $id}) {
+      id
+      googleId
+      name
+    }
+  }
+`;
 
 // photo: null
 // email: "valormedia254@gmail.com"
@@ -25,31 +33,3 @@ export const CHECK_USER_GOOGLE_ID = gql`
 // name: "Valor Media"
 // id: "102670389862157858936"
 
-export const SIGNUP_WITH_GOOGLE = gql`
-  mutation SIGNUP_WITH_GOOGLE(
-    $photo: String
-    $email: String!
-    $familyName: String!
-    $givenName: String!
-    $name: String!
-    $id: String!
-  ) {
-    createUser(
-      data: {
-        googleId: $id
-        name: $name
-        firstName: $givenName
-        lastName: $familyName
-        email: $email
-        photo: $photo
-      }
-    ) {
-      googleId
-      name
-      firstName
-      lastName
-      email
-      photo
-    }
-  }
-`;
