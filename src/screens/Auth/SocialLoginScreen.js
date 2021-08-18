@@ -1,5 +1,5 @@
 // react libraries
-import {useMutation, useQuery, useLazyQuery} from '@apollo/client';
+import {useMutation, useQuery} from '@apollo/client';
 import {GoogleSignin} from '@react-native-community/google-signin';
 import React, {useEffect, useState} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
@@ -24,7 +24,7 @@ const SocialLoginScreen = props => {
   //   this.state = {};
   // }
 
-  const [gId, setGoogeleId] = useState(null);
+  const [gId, setGoogeleId] = useState();
 
   const [signUpWithGoogle, {loading: loadingSignIn}] =
     useMutation(SIGNUP_WITH_GOOGLE);
@@ -35,6 +35,7 @@ const SocialLoginScreen = props => {
     loading: checkLoading,
   } = useQuery(GET_USER_WITH_GOOGLE_ID, {
     variables: {id: gId},
+    skip: !gId,
   });
 
   // getUserVerification=(id)=>{
@@ -65,7 +66,7 @@ const SocialLoginScreen = props => {
       let {id, name, email, givenName, familyName, photo} = user;
       // getUserVerification(id)
       // checkId({variables: {id: id}});
-      // setGoogeleId(id)
+      // setGoogeleId(id);
 
       // console.log(id, name, email, givenName, familyName, photo);
 
@@ -74,10 +75,10 @@ const SocialLoginScreen = props => {
         const {data} = await signUpWithGoogle({
           variables: {id, name, email, givenName, familyName, photo},
         });
-
+        // console.log(checkId(data));
         if (data) {
-          console.log(data?.createUser);
-          console.log('New User Created' + name);
+          // console.log(data?.createUser);
+          console.log('New User Created ' + name);
           props.signInWithGoogle(user);
           props.navigation.navigate('OTP', {
             googleId: user.id,
@@ -99,10 +100,8 @@ const SocialLoginScreen = props => {
         },
       } = graphQLErrors[0];
 
-      console.log(code, email);
       if ((code === 11000 && email) || id) {
-        console.log('Email exist for' + gUser.name + 'proceed google signin');
-        console.log(gUser);
+        console.log('Email exist for ' + gUser.name + ' proceed');
         props.signInWithGoogle(gUser);
         props.navigation.navigate('OTP', {googleId: gUser.id, userId: ''});
       }
@@ -117,17 +116,6 @@ const SocialLoginScreen = props => {
       // }
     }
   };
-
-  // console.log(data);
-  // console.log(error);
-  // const error =
-  //   data?.authenticateUserWithPassword.__typename ===
-  //   'UserAuthenticationWithPasswordFailure'
-  //     ? data?.authenticateUserWithPassword
-  //     : undefined;
-  // render() {
-  // const {googleVerification} = this.props.auth;
-  // console.log('Google Verification', googleVerification);
 
   return (
     <Screen style={styles.container} Gradient>

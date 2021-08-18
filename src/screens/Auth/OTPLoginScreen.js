@@ -23,13 +23,15 @@ import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
 
 // actions for redux implementation
 import {authActions} from '../../_actions';
-const {signInWithGoogle, signOut, signInWithPhoneNumber} = authActions;
+const {signInWithGoogle, signOut, OTPPhoneNumberVerified} = authActions;
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const OTPLoginScreen = ({
   navigation,
+  // eslint-disable-next-line no-shadow
+  OTPPhoneNumberVerified,
   route: {
     params: {googleId, userId},
   },
@@ -110,13 +112,13 @@ const OTPLoginScreen = ({
         await confirmations.confirm(code);
         // console.log(await this.state.confirmations.confirm(code));
         setConfirmations(null);
-        signInWithPhoneNumber(userPhoneNumber);
         const userID = user.allUsers[0].id;
         console.log(userID);
         const {data} = await updateUser({
           variables: {id: userID, phoneNo: userPhoneNumber},
         });
         if (data) {
+          OTPPhoneNumberVerified(userPhoneNumber);
           console.log(data);
           console.log('Success Code validation');
           // console.log(navigation)
@@ -134,7 +136,7 @@ const OTPLoginScreen = ({
   // console.log(userData?.allUsers[0]?.id);
   // console.log(googleId);
   // console.log(user);
-  console.log(navigation);
+  // console.log(navigation);
 
   return (
     <Screen style={styles.container} Gradient>
@@ -174,7 +176,7 @@ const OTPLoginScreen = ({
 
 const mapStateToProps = state => {
   const {authState} = state;
-  console.log(authState);
+  // console.log(authState);
   // console.log(state.gitHubApiData)
   return {
     auth: authState,
@@ -182,6 +184,7 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
+  OTPPhoneNumberVerified,
   signInWithGoogle,
   signOut,
 })(OTPLoginScreen);

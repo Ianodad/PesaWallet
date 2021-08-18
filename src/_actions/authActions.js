@@ -9,6 +9,7 @@ import {
   SIGN_IN_ERROR,
   GOOGLE_VERIFICATION,
   PHONE_NO_VERIFICATION,
+  USER_VERIFIED,
 } from './types';
 
 // Global regex variables
@@ -58,7 +59,7 @@ const signInWithGoogle = (user) => async (dispatch) => {
   }
 };
 
-const signInWithPhoneNumber = (phoneNumber) => async (dispatch) => {
+const OTPPhoneNumberVerified = (phoneNumber) => async (dispatch, getState) => {
   dispatch({
     type: PHONE_NO_VERIFICATION,
     payload: true,
@@ -66,6 +67,10 @@ const signInWithPhoneNumber = (phoneNumber) => async (dispatch) => {
   dispatch({
     type: SIGN_IN_WITH_PHONE_NUMBER,
     payload: phoneNumber,
+  });
+  dispatch({
+    type: USER_VERIFIED,
+    payload: true,
   });
 };
 
@@ -81,5 +86,5 @@ export const authActions = {
   signOut,
   signInError,
   signInWithGoogle,
-  signInWithPhoneNumber,
+  OTPPhoneNumberVerified,
 };

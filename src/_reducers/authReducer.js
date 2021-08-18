@@ -6,6 +6,7 @@ import {
   SIGN_IN_WITH_PHONE_NUMBER,
   GOOGLE_VERIFICATION,
   PHONE_NO_VERIFICATION,
+  USER_VERIFIED,
 } from '../_actions/types';
 
 const initialState = {
@@ -50,6 +51,11 @@ const SmsCollectionReducer = (state = initialState, action) => {
       return {
         ...state,
         phoneNoVerification: action.payload,
+      };
+    case USER_VERIFIED:
+      return {
+        ...state,
+        userVerified: action.payload,
       };
     case SIGN_IN_ERROR:
       return {

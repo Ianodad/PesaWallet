@@ -22,6 +22,8 @@ export const GET_USER_WITH_ID = gql`
       id
       googleId
       name
+      phoneNo
+      email
     }
   }
 `;
