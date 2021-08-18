@@ -90,10 +90,10 @@ const OTPLoginScreen = ({
         const phoneNoconfirmations = await Auth().signInWithPhoneNumber(
           userPhoneNumberInput,
         );
-        console.log(phoneNoconfirmations);
+        // console.log(phoneNoconfirmations);
         setConfirmations(phoneNoconfirmations);
         setUserPhoneNumber(userPhoneNumberInput);
-        console.log(userPhoneNumberInput);
+        // console.log(userPhoneNumberInput);
         setPhoneNumberValidation(true);
       }
     } catch (error) {
@@ -111,12 +111,17 @@ const OTPLoginScreen = ({
         // console.log(await this.state.confirmations.confirm(code));
         setConfirmations(null);
         signInWithPhoneNumber(userPhoneNumber);
-        const userID = user?.allUsers[0]?.id;
-        await updateUser({
-          variables: {id: userID, phoneNumber: userPhoneNumber},
+        const userID = user.allUsers[0].id;
+        console.log(userID);
+        const {data} = await updateUser({
+          variables: {id: userID, phoneNo: userPhoneNumber},
         });
-        console.log('Success Code validation');
-        navigation.navigate('Home');
+        if (data) {
+          console.log(data);
+          console.log('Success Code validation');
+          // console.log(navigation)
+          navigation.navigate('SideNavigation');
+        }
       }
     } catch (error) {
       console.log('Invalid code.');
@@ -125,7 +130,9 @@ const OTPLoginScreen = ({
 
   // console.log(userData?.allUsers[0]?.id);
   // console.log(googleId);
-  console.log(user);
+  // console.log(user);
+  console.log(navigation);
+
   return (
     <Screen style={styles.container} Gradient>
       <View style={styles.header}>

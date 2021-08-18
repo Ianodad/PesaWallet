@@ -4,6 +4,8 @@ export const UPDATE_USER_PHONE_NO = gql`
   mutation UPDATE_USER_PHONE_NO($id: ID!, $phoneNo: String) {
     updateUser(id: $id, data: {phoneNo: $phoneNo}) {
       id
+      phoneNo
+      googleId
     }
   }
 `;
