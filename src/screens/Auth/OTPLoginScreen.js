@@ -120,7 +120,10 @@ const OTPLoginScreen = ({
           console.log(data);
           console.log('Success Code validation');
           // console.log(navigation)
-          navigation.navigate('SideNavigation');
+          navigation.navigate('SideNavigation', {
+            screen: 'Home',
+            params: {screen: 'Home'},
+          });
         }
       }
     } catch (error) {

@@ -11,7 +11,7 @@ import SideMenuNavigation from '../navigation/SideMenuNavigation';
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={{headerShown: false}}>
     <Stack.Screen
       name="Welcome"
       screenOptions={{headerShown: false}}
@@ -21,7 +21,11 @@ const AuthNavigator = () => (
     <Stack.Screen name="Create" component={CreateAccountScreen} />
     <Stack.Screen name="OTP" component={OTPLoginScreen} />
     {true && (
-      <Stack.Screen name="SideNavigation" component={SideMenuNavigation} />
+      <Stack.Screen
+        name="SideNavigation"
+        screenOptions={{headerShown: false}}
+        component={SideMenuNavigation}
+      />
     )}
   </Stack.Navigator>
 );
