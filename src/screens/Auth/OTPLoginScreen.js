@@ -92,36 +92,33 @@ const OTPLoginScreen = ({
         const phoneNoconfirmations = await Auth().signInWithPhoneNumber(
           userPhoneNumberInput,
         );
-        // console.log(phoneNoconfirmations);
         setConfirmations(phoneNoconfirmations);
         setUserPhoneNumber(userPhoneNumberInput);
-        // console.log(userPhoneNumberInput);
         setPhoneNumberValidation(true);
       }
     } catch (error) {
       console.log(error);
     }
-    // console.log(confirmations);
   };
 
   const confirmCode = async code => {
     console.log(code);
     try {
-      // await confirm.confirm(code);
       if (confirmations) {
-        await confirmations.confirm(code);
-        // console.log(await this.state.confirmations.confirm(code));
+        const {user: firebaseUser} = await confirmations.confirm(code);
+
         setConfirmations(null);
-        const userID = user.allUsers[0].id;
+        const userID = user?.allUsers[0]?.id;
         console.log(userID);
         const {data} = await updateUser({
           variables: {id: userID, phoneNo: userPhoneNumber},
         });
+
         if (data) {
-          OTPPhoneNumberVerified(userPhoneNumber);
+          await OTPPhoneNumberVerified(userPhoneNumber);
           console.log(data);
           console.log('Success Code validation');
-          // console.log(navigation)
+
           navigation.navigate('SideNavigation', {
             screen: 'Home',
             params: {screen: 'Home'},
@@ -130,6 +127,7 @@ const OTPLoginScreen = ({
       }
     } catch (error) {
       console.log('Invalid code.');
+      console.log(error);
     }
   };
 

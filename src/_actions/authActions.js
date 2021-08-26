@@ -60,18 +60,30 @@ const signInWithGoogle = (user) => async (dispatch) => {
 };
 
 const OTPPhoneNumberVerified = (phoneNumber) => async (dispatch, getState) => {
-  dispatch({
-    type: PHONE_NO_VERIFICATION,
-    payload: true,
-  });
-  dispatch({
-    type: SIGN_IN_WITH_PHONE_NUMBER,
-    payload: phoneNumber,
-  });
-  dispatch({
-    type: USER_VERIFIED,
-    payload: true,
-  });
+  try {
+    let userVerified = true;
+    let userPhoneNumber = phoneNumber;
+
+    let localUserDetails = {...getState().authState, userVerified, userPhoneNumber};
+
+    console.log('localUserDetails', localUserDetails);
+    dispatch({
+      type: PHONE_NO_VERIFICATION,
+      payload: true,
+    });
+    dispatch({
+      type: SIGN_IN_WITH_PHONE_NUMBER,
+      payload: phoneNumber,
+    });
+    dispatch({
+      type: USER_VERIFIED,
+      payload: true,
+    });
+
+  } catch (error) {
+
+    console.error(error);
+  }
 };
 
 const signInError = (error) => async (dispatch) => {
@@ -80,7 +92,7 @@ const signInError = (error) => async (dispatch) => {
     type:   SIGN_IN_ERROR,
     payload: error,
   });
-}
+};
 
 export const authActions = {
   signOut,
