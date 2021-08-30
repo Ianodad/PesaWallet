@@ -87,7 +87,6 @@
     "redux-thunk": "^2.3.0",
     "remote-redux-devtools": "^0.5.16",
     "replace-in-file": "^6.2.0",
-    "stringify-object": "^4.0.0",
     "styled-component": "^2.8.0",
     "uniqid": "^5.4.0",
     "victory-native": "^35.5.4",
