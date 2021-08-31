@@ -3,7 +3,7 @@ import {useMutation, useQuery} from '@apollo/client';
 import * as Yup from 'yup';
 import {connect} from 'react-redux';
 import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 
 // component import

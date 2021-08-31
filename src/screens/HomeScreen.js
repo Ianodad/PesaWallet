@@ -26,7 +26,7 @@ import defaultStyles from '../config/styles';
 import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {firestore, firebase} from '../firebase/config';
 

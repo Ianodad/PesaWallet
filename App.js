@@ -5,7 +5,7 @@
  * @format
  * @flow strict-local
  */
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
 import {PermissionsAndroid, StyleSheet} from 'react-native';

@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 var stringify = require('fast-json-stable-stringify');
 import {
   SIGN_OUT,
