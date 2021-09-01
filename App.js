@@ -21,7 +21,7 @@ class App extends Component {
     this.state = {auth: false, initializing: true, user: ''};
   }
 
-  onAuthStateChanged = async (user) => {
+  onAuthStateChanged = async user => {
     this.setState({user});
     // console.log(user);
     this.storeUserData(user);
@@ -30,7 +30,7 @@ class App extends Component {
     }
   };
 
-  storeUserData = async (user) => {
+  storeUserData = async user => {
     try {
       // console.log(user);
       await AsyncStorage.setItem('USER', JSON.stringify(user));
@@ -45,7 +45,7 @@ class App extends Component {
       .then(() => {
         console.log('User signed in anonymously');
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.code === 'auth/operation-not-allowed') {
           console.log('Enable anonymous in your firebase console.');
         }
@@ -97,7 +97,7 @@ class App extends Component {
     this.storeUserData(this.state.user);
   };
 
-  onAuthStateChanged = (user) => {
+  onAuthStateChanged = user => {
     this.setState({user});
     if (this.state.initializing) {
       this.setState({initializing: false});
