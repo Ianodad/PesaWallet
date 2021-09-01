@@ -6,21 +6,41 @@
  * @flow strict-local
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {connect} from 'react-redux';
+
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
-import {PermissionsAndroid, StyleSheet} from 'react-native';
+import {PermissionsAndroid, StyleSheet, Text} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
+
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
+
+// actions for redux implementation
+import {authActions} from './src/_actions/authActions';
+const {setInitialState} = authActions;
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {auth: false, initializing: true, user: ''};
   }
 
+  setInitialState = async () => {
+    try {
+      const data = await AsyncStorage.getItem('localUserDetails');
+      if (data !== null) {
+        console.log(JSON.parse(data));
+        await this.props.setInitialState(JSON.parse(data));
+        this.setState({auth: true, initializing: false});
+      }
+    } catch (e) {
+      console.log(e);
+      // error reading value
+    }
+  };
   onAuthStateChanged = async user => {
     this.setState({user});
     // console.log(user);
@@ -78,6 +98,7 @@ class App extends Component {
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_SMS);
       console.log('ACCESS_FINE_LOCATION permission denied');
     }
+    this.setInitialState();
     // const unsubscribe = NetInfo.addEventListener((netInfo) => {
     // console.log(netInfo);
 
@@ -106,12 +127,21 @@ class App extends Component {
 
   render() {
     // {console.log(this.state.user)}
+    if (this.state.initializing) {
+      return <Text>Checking state...</Text>;
+    }
 
     return (
       <>
         {/* <ReadMessages/> */}
         <NavigationContainer>
-          {false ? <SideMenuNavigation /> : <AuthNavigator />}
+          {this.state.initializing ? (
+            <Text>Checking state...</Text>
+          ) : this.state.auth ? (
+            <SideMenuNavigation />
+          ) : (
+            <AuthNavigator />
+          )}
         </NavigationContainer>
       </>
     );
@@ -127,5 +157,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
 });
+// export default App;
+const mapStateToProps = state => {
+  // console.log(state.gitHubApiData)
+  return {
+    localUserDetails: state.authState,
+  };
+};
 
-export default App;
+export default connect(mapStateToProps, {
+  setInitialState,
+})(App);

@@ -30,7 +30,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {firestore, firebase} from '../firebase/config';
 
-
 class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -44,8 +43,8 @@ class HomeScreen extends Component {
       screenWidth: null,
     };
   }
-  
-  onLayout = (e) => {
+
+  onLayout = e => {
     console.log('Screen oriantion changed....');
     this.setState({
       screenWidth: Dimensions.get('window').width,
@@ -73,7 +72,7 @@ class HomeScreen extends Component {
         // We have data!!
         // console.log('this here');
         const data = JSON.parse(collection);
-  
+
         // console.log(data)
         this.setState({collection: data});
 
@@ -89,7 +88,7 @@ class HomeScreen extends Component {
   //   const collection = JSON.parse(this.props.collection)
   //   // const {data, ok} = await commentsApi.getComments();
   //   console.log(collection)
-    
+
   //   if (!collection) {
   //     return this.setState({error: true});
   //   }
@@ -116,7 +115,7 @@ class HomeScreen extends Component {
           <View swapShadows inner style={styles.sources}>
             <FlatList
               data={sources}
-              keyExtractor={(source) => source.id.toString()}
+              keyExtractor={source => source.id.toString()}
               renderItem={({item}) => (
                 <Card
                   style={styles.card}
@@ -135,7 +134,7 @@ class HomeScreen extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   // console.log(state)
   const {SmsCollected, authState} = state;
   console.log(authState);

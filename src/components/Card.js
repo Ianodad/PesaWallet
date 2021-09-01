@@ -16,9 +16,8 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {getRandomInt} from "../_helpers/getRandomInt";
+import {getRandomInt} from '../_helpers/getRandomInt';
 import defaultStyles from '../config/styles';
-
 
 // const oval1Width = width * 0.5,
 //   oval2Width = width * 0.7;
@@ -68,12 +67,14 @@ const Card = ({
       </View>
       <View style={styles.rightCard}>
         <View style={styles.cardDetails}>
-          <View style={{flexDirection: 'row', flex: 1, zIndex:3}}>
+          <View style={{flexDirection: 'row', flex: 1, zIndex: 3}}>
             <Text style={styles.title}>{title}</Text>
-            {balance && (<View style={{marginLeft: 20, flex: 1}}>
-              <Text style={styles.bal}>Balance</Text>
-              <Text style={styles.balance}>{balance}</Text>
-            </View>)}
+            {balance && (
+              <View style={{marginLeft: 20, flex: 1}}>
+                <Text style={styles.bal}>Balance</Text>
+                <Text style={styles.balance}>{balance}</Text>
+              </View>
+            )}
           </View>
         </View>
       </View>

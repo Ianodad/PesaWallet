@@ -17,7 +17,7 @@ const AppNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen
-        name="Home"
+        name="HomeBottom"
         component={ViewNavigator}
         options={{
           tabBarLabel: 'Home',

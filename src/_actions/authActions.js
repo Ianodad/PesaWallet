@@ -15,13 +15,14 @@ import {
 
 // Global regex variables
 
-const setInitialState = ()=>async (dispatch)=>{
+
+const setInitialState = (data) =>async (dispatch)=>{
   try {
-    const value = await AsyncStorage.getItem('localUserDetails');
-    if (value !== null) {
+    if (data !== null) {
+      console.log('setInitialState', data);
       dispatch({
         type: SET_INITIAL_USER_STATE,
-        payload: value,
+        payload: data,
       });
     }
 
@@ -35,10 +36,13 @@ const setInitialState = ()=>async (dispatch)=>{
   }
 };
 
-const signOut = () => async (dispatch) => {
+const signOut = (navigation, CommonActions) => async (dispatch) => {
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
+
+    await AsyncStorage.setItem('User', '');
+    await AsyncStorage.setItem('localUserDetails', '');
 
     dispatch({
       type: PHONE_NO_VERIFICATION,
@@ -53,8 +57,6 @@ const signOut = () => async (dispatch) => {
       payload: null,
     });
     // this.setState({user: ''}); // Remember to remove the user from your app's state as well
-    await AsyncStorage.setItem('User', '');
-    await AsyncStorage.setItem('localUserDetails', '');
   } catch (error) {
     dispatch({
       type: SIGN_OUT,
@@ -62,6 +64,12 @@ const signOut = () => async (dispatch) => {
     });
     console.error(error);
   }
+
+  navigation.dispatch(
+    CommonActions.navigate({
+      name: 'Welcome',
+    }),
+  )
 };
 
 
@@ -91,7 +99,7 @@ const OTPPhoneNumberVerified = (phoneNumber) => async (dispatch, getState) => {
 
     let localUserDetails = {...getState().authState, userVerified, userPhoneNumber};
     await AsyncStorage.setItem('localUserDetails', stringify(localUserDetails));
-    console.log('localUserDetails', localUserDetails);
+    // console.log('localUserDetails', localUserDetails);
     dispatch({
       type: PHONE_NO_VERIFICATION,
       payload: true,

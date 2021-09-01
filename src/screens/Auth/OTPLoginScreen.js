@@ -113,18 +113,16 @@ const OTPLoginScreen = ({
         // console.log(await this.state.confirmations.confirm(code));
         setConfirmations(null);
         const userID = user.allUsers[0].id;
-        console.log(userID);
         const {data} = await updateUser({
           variables: {id: userID, phoneNo: userPhoneNumber},
         });
         if (data) {
           OTPPhoneNumberVerified(userPhoneNumber);
-          console.log(data);
           console.log('Success Code validation');
           // console.log(navigation)
           navigation.navigate('SideNavigation', {
-            screen: 'Home',
-            params: {screen: 'Home'},
+            screen: 'HomeMain',
+            params: {screen: 'HomeBottom'},
           });
         }
       }

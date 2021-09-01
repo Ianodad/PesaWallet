@@ -33,7 +33,7 @@ class CreateAccountScreen extends Component {
       .label('Password'),
   });
 
-  checkIfPhoneNoDoesNotExist = async (value) => {
+  checkIfPhoneNoDoesNotExist = async value => {
     // const userRef = await firestore()
     //   .collection('users')
     //   .where('phoneNumber', '==', value.toString())
@@ -95,19 +95,19 @@ class CreateAccountScreen extends Component {
       .collection('users')
       .where('phoneNumber', '==', phoneNumber.toString())
       .get()
-      .then((querySnapshot) => {
+      .then(querySnapshot => {
         // console.log(querySnapshot)
         if (querySnapshot.docs[0].data()) {
           Alert.alert('username is taken');
           //       return userData;
-          console.log("phone exits")
+          console.log('phone exits');
           // console.log(querySnapshot.docs[0].data())
           return querySnapshot.docs[0].data();
           // rest of your code
         } else {
           Auth()
             .createUserWithEmailAndPassword(email, password)
-            .then((user) => {
+            .then(user => {
               // console.log(user);
               // console.log(firebase.auth().currentUser);
               console.log('User account created & signed in!');
@@ -127,7 +127,7 @@ class CreateAccountScreen extends Component {
 
     Auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((user) => {
+      .then(user => {
         // console.log(user);
         // console.log(firebase.auth().currentUser);
         console.log('User account created & signed in!');
@@ -186,7 +186,7 @@ class CreateAccountScreen extends Component {
           <AppForm
             initialValues={{email: '', password: '', fullName: ''}}
             validationSchema={this.validationSchema}
-            onSubmit={(values) => this.handleCreateUser(values)}>
+            onSubmit={values => this.handleCreateUser(values)}>
             <AppFormField
               icon="user"
               name="fullName"
