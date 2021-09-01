@@ -4,8 +4,7 @@ import {processMpesa} from '../_actionsMethods/processMpesa.js';
 /* eslint-disable no-shadow */
 import {STORE_MESSAGES, GET_COLLECTION} from './types';
 import _ from 'lodash';
-import AsyncStorage from '@react-native-community/async-storage';
-var stringify = require('fast-json-stable-stringify');
+import AsyncStorage from '@react-native-async-storage/async-storage';var stringify = require('fast-json-stable-stringify');
 
 // Global regex variables
 

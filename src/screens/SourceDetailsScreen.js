@@ -22,8 +22,7 @@ import defaultStyles from '../config/styles';
 
 import {storeMessages} from '../_actions/index';
 import {connect} from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var _ = require('lodash');
 
