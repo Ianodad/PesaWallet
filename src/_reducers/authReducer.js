@@ -23,9 +23,10 @@ const initialState = {
 const SmsCollectionReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_INITIAL_USER_STATE:
+      console.log(action.payload);
       return {
         ...state,
-        state: action.payload,
+        ...action.payload,
       };
     case SIGN_OUT:
       return {

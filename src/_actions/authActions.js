@@ -56,6 +56,10 @@ const signOut = (navigation, CommonActions) => async (dispatch) => {
       type: SIGN_OUT,
       payload: null,
     });
+    dispatch({
+      type: USER_VERIFIED,
+      payload: false,
+    });
     // this.setState({user: ''}); // Remember to remove the user from your app's state as well
   } catch (error) {
     dispatch({
@@ -65,11 +69,11 @@ const signOut = (navigation, CommonActions) => async (dispatch) => {
     console.error(error);
   }
 
-  navigation.dispatch(
-    CommonActions.navigate({
-      name: 'Welcome',
-    }),
-  )
+  // navigation.dispatch(
+  //   CommonActions.navigate({
+  //     name: 'Welcome',
+  //   }),
+  // )
 };
 
 

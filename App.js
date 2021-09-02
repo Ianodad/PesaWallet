@@ -34,7 +34,7 @@ class App extends Component {
       if (data !== null) {
         console.log(JSON.parse(data));
         await this.props.setInitialState(JSON.parse(data));
-        this.setState({auth: true, initializing: false});
+        this.setState({initializing: false});
       }
     } catch (e) {
       console.log(e);
@@ -137,7 +137,7 @@ class App extends Component {
         <NavigationContainer>
           {this.state.initializing ? (
             <Text>Checking state...</Text>
-          ) : this.state.auth ? (
+          ) : this.props.auth ? (
             <SideMenuNavigation />
           ) : (
             <AuthNavigator />
@@ -159,9 +159,10 @@ const styles = StyleSheet.create({
 });
 // export default App;
 const mapStateToProps = state => {
-  // console.log(state.gitHubApiData)
+  console.log(state.authState.userVerified);
+
   return {
-    localUserDetails: state.authState,
+    auth: state.authState.userVerified,
   };
 };
 
