@@ -1,7 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {Component} from 'react';
-import Screen from '../components/Screen';
 // import SourceDetailsScreen from './SourceDetailsScreen';
-import Card from '../components/Card';
 import {
   StyleSheet,
   SafeAreaView,
@@ -10,25 +9,26 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {connect} from 'react-redux';
-import {NumberCommas} from '../_helpers/NumberCommas';
-import ReadMessages from '../_helpers/ReadMessages';
-import {storeMessages, getCollection} from '../_actions';
-import color from '../config/colors';
-import TitleHeader from '../components/TitleHeader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {sources} from '../services/sources';
-import defaultStyles from '../config/styles';
+import {connect} from 'react-redux';
+import {storeMessages, getCollection} from '../_actions';
+import {NumberCommas} from '../_helpers/NumberCommas';
+import ReadMessages from '../_helpers/ReadMessages';
 import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Card from '../components/Card';
+import Screen from '../components/Screen';
+import TitleHeader from '../components/TitleHeader';
+import color from '../config/colors';
+import defaultStyles from '../config/styles';
 
 import {firestore, firebase} from '../firebase/config';
+import {sources} from '../services/sources';
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class HomeScreen extends Component {
       .collection('users')
       .doc('pNwlt65zlQPwFfeg7Tc8')
       .get();
-    // console.log(userDocument.data.name);
+      // console.log(userDocument.data.name);
   };
 
   componentDidMount = () => {

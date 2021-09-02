@@ -4,7 +4,7 @@ module.exports = {
   extends: [
     '@react-native-community',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended', // uses typescript-specific linting rules
+    // 'plugin:@typescript-eslint/recommended', // uses typescript-specific linting rules
     'plugin:react/recommended', // uses react-specific linting rules
     'prettier/react', // disables react-specific linting rules that conflict with prettier
     'plugin:prettier/recommended', // uses react-specific linting rules
@@ -26,7 +26,6 @@ module.exports = {
     'import/no-unresolved': 'error',
     'import/named': 'error',
     'import/namespace': 'error',
-    'import/default': 'error',
     'import/export': 'error',
     'import/order': [
       'error',
@@ -37,9 +36,8 @@ module.exports = {
         },
       },
     ],
-    "react/prop-types" :off,
-    "indent": ["error", 4],
-
+    'react/prop-types': 0,
+    indent: ['error', 2],
   },
   settings: {
     'import/parsers': {

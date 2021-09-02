@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import {authActions} from '../../_actions';
 import InputOTP from '../../components/Auth/InputOTP';
 import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
+import PhoneNumberInputForm from '../../components/PhoneNumberInputForm';
 import Screen from '../../components/Screen';
 import Text from '../../components/Text';
 // import colors from '../config/colors';
@@ -143,26 +144,10 @@ const OTPLoginScreen = ({
       </View>
       <View style={styles.form}>
         {!phoneNumberValidation && (
-          <AppForm
-            initialValues={{password: ''}}
+          <PhoneNumberInputForm
             validationSchema={validationSchema}
-            onSubmit={values => signInWithPhoneNumber(values)}>
-            <AppFormField
-              icon="mobile"
-              name="phoneNumber"
-              autoCorrect={false}
-              autoCapitalize="none"
-              placeholder="Phone Number"
-              textContentType="telephoneNumber"
-              keyboardType="phone-pad"
-            />
-            <SubmitButton
-              submitStyle={styles.submitButton}
-              title="Submit"
-              buttonColor="white"
-              buttonType="contained"
-            />
-          </AppForm>
+            signInWithPhoneNumber={signInWithPhoneNumber}
+          />
         )}
         {phoneNumberValidation && (
           <InputOTP confirmCode={val => confirmCode(val)} />

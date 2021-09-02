@@ -1,7 +1,7 @@
 import React from 'react';
-import Text from '../components/Text';
 import {StyleSheet} from 'react-native';
 import Screen from '../components/Screen';
+import Text from '../components/Text';
 
 export default function AccountScreen() {
   return (

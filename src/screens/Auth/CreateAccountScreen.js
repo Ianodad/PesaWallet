@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Text from '../../components/Text';
 import {StyleSheet, View} from 'react-native';
-import Screen from '../../components/Screen';
-import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
 import * as Yup from 'yup';
+import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
+import Screen from '../../components/Screen';
+import Text from '../../components/Text';
 import {Auth, firebase, firestore} from '../../firebase/config';
 
 class CreateAccountScreen extends Component {

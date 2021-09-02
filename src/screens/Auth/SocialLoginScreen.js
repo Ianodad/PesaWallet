@@ -4,6 +4,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 import React, {useEffect, useState} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
+import {authActions} from '../../_actions';
 import Button from '../../components/Button/Button';
 import Screen from '../../components/Screen';
 // internal components
@@ -11,7 +12,6 @@ import Text from '../../components/Text';
 import {SIGNUP_WITH_GOOGLE} from '../../graphql/mutation';
 import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
 // actions for redux implementation
-import {authActions} from '../../_actions';
 
 const {signInWithGoogle, signOut} = authActions;
 
