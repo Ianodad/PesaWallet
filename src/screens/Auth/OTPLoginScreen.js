@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import {authActions} from '../../_actions';
 import InputOTP from '../../components/Auth/InputOTP';
 import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
-import PhoneNumberInputForm from '../../components/PhoneNumberInputForm';
+import PhoneNumberInputForm from '../../components/Auth/PhoneNumberInputForm';
 import Screen from '../../components/Screen';
 import Text from '../../components/Text';
 // import colors from '../config/colors';
@@ -22,6 +22,7 @@ import {Auth, analytics} from '../../firebase/config';
 
 import {UPDATE_USER_PHONE_NO} from '../../graphql/mutation';
 import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
+import PhoneNumberInput from '../../components/Auth/PhoneNumberInput';
 
 // actions for redux implementation
 const {signInWithGoogle, signOut, OTPPhoneNumberVerified} = authActions;
@@ -144,10 +145,11 @@ const OTPLoginScreen = ({
       </View>
       <View style={styles.form}>
         {!phoneNumberValidation && (
-          <PhoneNumberInputForm
-            validationSchema={validationSchema}
-            signInWithPhoneNumber={signInWithPhoneNumber}
-          />
+          // <PhoneNumberInputForm
+          //   validationSchema={validationSchema}
+          //   signInWithPhoneNumber={signInWithPhoneNumber}
+          // />
+          <PhoneNumberInput/>
         )}
         {phoneNumberValidation && (
           <InputOTP confirmCode={val => confirmCode(val)} />

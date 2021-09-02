@@ -1,11 +1,10 @@
-const {RefreshControl} = require('react-native');
-
+import {useFormikContext} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useFormikContext} from 'formik';
 
-import Button from '../Button/Button';
 import colors from '../../config/colors';
+import Button from '../Button/Button';
+const {RefreshControl} = require('react-native');
 
 const SubmitButton = ({title, submitStyle, buttonColor, width, buttonType}) => {
   const [textColor, setTextButton] = useState('');

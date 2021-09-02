@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {AppForm, AppFormField, SubmitButton} from '../components/Forms';
+import {AppForm, AppFormField, SubmitButton} from '../Forms';
 
 const PhoneNumberInputForm = ({validationSchema, signInWithPhoneNumber}) => {
   return (

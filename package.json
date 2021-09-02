@@ -64,6 +64,7 @@
     "react-native-parallax-header": "^1.1.4",
     "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-parallax-scroll-view-new": "^0.20.1",
+    "react-native-phone-number-input": "^2.1.0",
     "react-native-reanimated": "^2.2.0",
     "react-native-responsive-dimensions": "^3.1.1",
     "react-native-restart": "^0.0.22",
