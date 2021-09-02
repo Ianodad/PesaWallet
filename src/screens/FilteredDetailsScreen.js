@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
 import React, {Component} from 'react';
 import {
   Text,
@@ -11,25 +11,24 @@ import {
   PixelRatio,
 } from 'react-native';
 // import ParallaxScroll from '@monterosa/react-native-parallax-scroll';
+import {LogBox} from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import Transaction from '../components/Transaction';
-import {nameTitleCase} from '../_helpers/NameTitleCase';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-
-import HeaderFixed from '../components/HeaderFixed';
-import TitleHeader from '../components/TitleHeader';
-import TransactionList from '../components/TransactionList';
-import Screen from '../components/Screen';
-import {LogBox} from 'react-native';
 import {connect} from 'react-redux';
 import {storeMessages} from '../_actions/index';
+import {nameTitleCase} from '../_helpers/NameTitleCase';
+
+import HeaderFixed from '../components/HeaderFixed';
+import Screen from '../components/Screen';
+import TitleHeader from '../components/TitleHeader';
+import Transaction from '../components/Transaction';
+import TransactionList from '../components/TransactionList';
 
 import colors from '../config/colors';
 import defaultStyles from '../config/styles';
-
 
 var _ = require('lodash');
 class FilteredDetailsScreen extends Component {
@@ -44,29 +43,31 @@ class FilteredDetailsScreen extends Component {
     };
   }
 
-  getMessages=(messages, id)=> {
-  // console.log(id)
-  // console.log(_.filter(messages, (message) => message.PHONENO == id || message.NAME == id.toUpperCase()));
-  return _.filter(
-    messages,
-    (message) => message.PHONENO == id || nameTitleCase(message.NAME) == id,
-  );
-  // return messages.filter((message) => message);
-  }
+  getMessages = (messages, id) => {
+    // console.log(id)
+    // console.log(_.filter(messages, (message) => message.PHONENO == id || message.NAME == id.toUpperCase()));
+    return _.filter(
+      messages,
+      message => message.PHONENO == id || nameTitleCase(message.NAME) == id,
+    );
+    // return messages.filter((message) => message);
+  };
 
   componentDidMount() {
-    const messages = this.props.collection
+    const messages = this.props.collection;
     this.setState({
-      data: this.props.route.params.data || this.getMessages(messages ,this.state.id),
+      data:
+        this.props.route.params.data ||
+        this.getMessages(messages, this.state.id),
     });
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }
 
-  getFinance = (data) => {
-    const credit = _.filter(data, {FINANCE: 'Credit'}).map((t) => t.AMOUNT);
+  getFinance = data => {
+    const credit = _.filter(data, {FINANCE: 'Credit'}).map(t => t.AMOUNT);
     const creditSum = _.sum(credit);
     const creditLength = _.size(credit);
-    const debit = _.filter(data, {FINANCE: 'Debit'}).map((t) => t.AMOUNT);
+    const debit = _.filter(data, {FINANCE: 'Debit'}).map(t => t.AMOUNT);
     const debitSum = _.sum(debit);
     const debitLength = _.size(debit);
     // // console.log(debitSum, creditSum)
@@ -92,11 +93,16 @@ class FilteredDetailsScreen extends Component {
   }
 
   render() {
-    const {navigation, route, onScroll = () => {console.log("try")}} = this.props;
+    const {
+      navigation,
+      route,
+      onScroll = () => {
+        console.log('try');
+      },
+    } = this.props;
     const {data, title, phoneNo} = this.state;
-    const {creditSum, creditLength, debitSum, debitLength} = this.getFinance(
-      data,
-    );
+    const {creditSum, creditLength, debitSum, debitLength} =
+      this.getFinance(data);
 
     return (
       <Screen navigation={navigation} style={styles.container} menu>
@@ -119,7 +125,7 @@ class FilteredDetailsScreen extends Component {
               debitLength={debitLength}
               creditLength={creditLength}
               style={styles.backgroundHeader}
-              color='primary'
+              color="primary"
               filter="filter"
             />
           )}
@@ -181,7 +187,7 @@ class FilteredDetailsScreen extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const {SmsCollected} = state;
   return {
     collection: SmsCollected.collection,
@@ -189,8 +195,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {storeMessages};
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilteredDetailsScreen);
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FilteredDetailsScreen);
 
 const styles = StyleSheet.create({
   container: {

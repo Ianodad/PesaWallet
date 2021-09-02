@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import Screen from '../components/Screen';
 import Text from '../components/Text';
-import Screen from '../components/Screen'
 import defaultStyles from '../config/styles';
-
 
 export class ReportsScreen extends Component {
   render() {
     return (
-        <Screen>
+      <Screen>
         <Text> Reports screen</Text>
-        </Screen>
+      </Screen>
     );
   }
 }

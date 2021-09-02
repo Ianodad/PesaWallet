@@ -1,16 +1,15 @@
 import React from 'react';
-import Text from '../components/Text';
-import Screen from '../components/Screen';
-import colors from '../config/colors';
 import {StyleSheet, View, FlatList} from 'react-native';
 import {color} from 'react-native-reanimated';
 import Card from '../components/Card';
-import {bills} from '../services/billingSource';
+import Screen from '../components/Screen';
+import Text from '../components/Text';
+import TransactionList from '../components/TransactionList';
+import colors from '../config/colors';
 import defaultStyles from '../config/styles';
-
+import {bills} from '../services/billingSource';
 
 import {messages} from '../services/messagesCollection';
-import TransactionList from '../components/TransactionList';
 
 const BillsScreen = ({navigation}) => {
   return (
@@ -21,7 +20,7 @@ const BillsScreen = ({navigation}) => {
       <View style={styles.body}>
         <FlatList
           data={bills}
-          keyExtractor={(bill) => bill.id.toString()}
+          keyExtractor={bill => bill.id.toString()}
           renderItem={({item}) => (
             <Card
               style={styles.card}

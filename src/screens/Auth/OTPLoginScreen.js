@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
 import {useMutation, useQuery} from '@apollo/client';
-import * as Yup from 'yup';
-import {connect} from 'react-redux';
-import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
+import {connect} from 'react-redux';
+import * as Yup from 'yup';
 
 // component import
-import Text from '../../components/Text';
-import Screen from '../../components/Screen';
-import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
+import {authActions} from '../../_actions';
 import InputOTP from '../../components/Auth/InputOTP';
+import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
+import Screen from '../../components/Screen';
+import Text from '../../components/Text';
 // import colors from '../config/colors';
 // import { Formik } from "formik";
 
@@ -22,7 +23,6 @@ import {UPDATE_USER_PHONE_NO} from '../../graphql/mutation';
 import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
 
 // actions for redux implementation
-import {authActions} from '../../_actions';
 const {signInWithGoogle, signOut, OTPPhoneNumberVerified} = authActions;
 
 const phoneRegExp =

@@ -45,7 +45,7 @@ class HomeScreen extends Component {
   }
 
   onLayout = e => {
-    console.log('Screen oriantion changed....');
+    console.log('Screen orientation changed....');
     this.setState({
       screenWidth: Dimensions.get('window').width,
       screenHeight: Dimensions.get('window').height,
