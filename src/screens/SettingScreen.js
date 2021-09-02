@@ -1,4 +1,5 @@
 import React from 'react';
+import RNRestart from 'react-native-restart';
 import {connect} from 'react-redux';
 import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import Screen from '../components/Screen';
@@ -15,7 +16,7 @@ const SettingScreen = ({navigation, signOut}) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => signOut(navigation, CommonActions)}>
+        <TouchableOpacity onPress={() => signOut(RNRestart)}>
           <Text>LogOut</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity

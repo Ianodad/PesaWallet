@@ -65,6 +65,7 @@
     "react-native-parallax-scroll-view-new": "^0.20.1",
     "react-native-reanimated": "^2.2.0",
     "react-native-responsive-dimensions": "^3.1.1",
+    "react-native-restart": "^0.0.22",
     "react-native-safe-area-context": "^3.3.0",
     "react-native-screens": "^3.6.0",
     "react-native-sms": "^1.11.0",

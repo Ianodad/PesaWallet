@@ -36,7 +36,7 @@ const setInitialState = (data) =>async (dispatch)=>{
   }
 };
 
-const signOut = (navigation, CommonActions) => async (dispatch) => {
+const signOut = (RNRestart) => async (dispatch) => {
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
@@ -69,11 +69,8 @@ const signOut = (navigation, CommonActions) => async (dispatch) => {
     console.error(error);
   }
 
-  // navigation.dispatch(
-  //   CommonActions.navigate({
-  //     name: 'Welcome',
-  //   }),
-  // )
+  console.log('App logged out');
+  await RNRestart.restart();
 };
 
 

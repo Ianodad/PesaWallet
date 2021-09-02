@@ -24,7 +24,6 @@ const SideMenuNavigation = () => {
           component={AppNavigator}
         />
         <Drawer.Screen name="Settings" component={SettingsScreen} />
-        <Drawer.Screen name=" " component={AuthNavigator} />
         {/* <View>Exit</View> */}
         {/* <Text>Logout</Text> */}
         {/* <Drawer.Screen name="About" component={About} /> */}

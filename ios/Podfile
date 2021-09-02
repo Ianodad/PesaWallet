@@ -23,6 +23,8 @@ target 'PesaSite' do
   pod 'react-native-orientation', :path => '../node_modules/react-native-orientation'
 
 
+  pod 'react-native-restart', :path => '../node_modules/react-native-restart'
+
   target 'PesaSiteTests' do
     inherit! :complete
     # Pods for testing
