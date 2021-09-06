@@ -9,8 +9,9 @@ import * as Yup from 'yup';
 // component import
 import {authActions} from '../../_actions';
 import InputOTP from '../../components/Auth/InputOTP';
-import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
+import PhoneNumberInput from '../../components/Auth/PhoneNumberInput';
 import PhoneNumberInputForm from '../../components/Auth/PhoneNumberInputForm';
+import {AppForm, AppFormField, SubmitButton} from '../../components/Forms';
 import Screen from '../../components/Screen';
 import Text from '../../components/Text';
 // import colors from '../config/colors';
@@ -22,7 +23,6 @@ import {Auth, analytics} from '../../firebase/config';
 
 import {UPDATE_USER_PHONE_NO} from '../../graphql/mutation';
 import {GET_USER_WITH_GOOGLE_ID} from '../../graphql/queries';
-import PhoneNumberInput from '../../components/Auth/PhoneNumberInput';
 
 // actions for redux implementation
 const {signInWithGoogle, signOut, OTPPhoneNumberVerified} = authActions;
@@ -86,17 +86,18 @@ const OTPLoginScreen = ({
       .label('phoneNumber'),
   });
 
-  const signInWithPhoneNumber = async ({phoneNumber}) => {
-    const userPhoneNumberInput = `+254${phoneNumber}`;
-    // console.log(phoneNumber);
+  const signInWithPhoneNumber = async phoneNumber => {
+    console.log(phoneNumber);
+    // const userPhoneNumberInput = `+254${phoneNumber}`;
+    // // console.log(phoneNumber);
     try {
       if (phoneNumber) {
         const phoneNoconfirmations = await Auth().signInWithPhoneNumber(
-          userPhoneNumberInput,
+          phoneNumber,
         );
         // console.log(phoneNoconfirmations);
         setConfirmations(phoneNoconfirmations);
-        setUserPhoneNumber(userPhoneNumberInput);
+        setUserPhoneNumber(phoneNumber);
         // console.log(userPhoneNumberInput);
         setPhoneNumberValidation(true);
       }
@@ -149,7 +150,7 @@ const OTPLoginScreen = ({
           //   validationSchema={validationSchema}
           //   signInWithPhoneNumber={signInWithPhoneNumber}
           // />
-          <PhoneNumberInput/>
+          <PhoneNumberInput onHandleSubmit={signInWithPhoneNumber} />
         )}
         {phoneNumberValidation && (
           <InputOTP confirmCode={val => confirmCode(val)} />

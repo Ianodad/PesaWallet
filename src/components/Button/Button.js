@@ -1,13 +1,13 @@
 import React from 'react';
-import Text from '../Text';
 import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Neomorph} from 'react-native-neomorph-shadows';
 
-import defaultStyles from '../../config/styles';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import defaultStyles from '../../config/styles';
+import Text from '../Text';
 
 const AppButton = ({
   title,
@@ -18,12 +18,13 @@ const AppButton = ({
   textStyle,
   color = 'primary',
   buttonType,
+  disabled,
 }) => {
   // {console.log(style)}
   return (
     <>
       {buttonType ? (
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={onPress} disabled={disabled}>
           <Neomorph
             darkShadowColor={'#00008B'}
             lightShadowColor={defaultStyles.colors.white}
@@ -52,7 +53,8 @@ const AppButton = ({
             style,
             {backgroundColor: defaultStyles.colors[color]},
           ]}
-          onPress={onPress}>
+          onPress={onPress}
+          disabled={disabled}>
           {image && (
             <Image
               style={[styles.icon, iconStyle]}

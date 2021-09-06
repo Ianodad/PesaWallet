@@ -62,6 +62,7 @@ class HomeScreen extends Component {
 
   componentDidMount = () => {
     this.loadCollection();
+
     // this.retrieveUser();
   };
 
@@ -98,7 +99,7 @@ class HomeScreen extends Component {
   // };
 
   render() {
-    const {navigation} = this.props;
+    const {navigation, userDetails} = this.props;
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
         {/* <ActivityIndicator visible={this.state.loading} /> */}
@@ -108,7 +109,7 @@ class HomeScreen extends Component {
               <TitleHeader
                 style={styles.title}
                 home={'home'}
-                title={this.state.username}
+                title={userDetails.givenName}
               />
             </View>
           </View>
@@ -137,9 +138,11 @@ class HomeScreen extends Component {
 const mapStateToProps = state => {
   // console.log(state)
   const {SmsCollected, authState} = state;
-  console.log(authState);
+  console.log("here")
+  console.log(authState.userDetails.givenName);
   return {
     collection: SmsCollected.collection,
+    userDetails: authState.userDetails,
   };
 };
 

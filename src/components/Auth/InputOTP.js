@@ -8,8 +8,7 @@ import {
   View,
 } from 'react-native';
 
-
-export default function InputOTPScreen({navigation, route, confirmCode }) {
+export default function InputOTPScreen({navigation, route, confirmCode}) {
   const defaultCountdown = 30;
   let clockCall = null;
   const [internalVal, setInternalVal] = useState('');
@@ -19,14 +18,14 @@ export default function InputOTPScreen({navigation, route, confirmCode }) {
   let textInput = useRef(null);
   const lengthInput = 6;
 
-  const onChangeText = async (val) => {
+  const onChangeText = async val => {
     console.log('InputOTPScreen -> val', val);
     setInternalVal(val);
     setVerificationCode(val);
     try {
-      console.log(val.length)
+      console.log(val.length);
       if (val.length === 6) {
-        confirmCode(val)
+        confirmCode(val);
         // if (authResult) {
 
         //   Alert.alert('Phone authentication successful!');
@@ -43,6 +42,7 @@ export default function InputOTPScreen({navigation, route, confirmCode }) {
 
   useEffect(() => {
     textInput.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     clockCall = setInterval(() => {
       decrementClock();
     }, 1000);
@@ -84,7 +84,7 @@ export default function InputOTPScreen({navigation, route, confirmCode }) {
         style={styles.containerAvoidingView}>
         <View style={styles.containerInput}>
           <TextInput
-            ref={(input) => (textInput = input)}
+            ref={input => (textInput = input)}
             style={styles.textInput}
             keyboardType="numeric"
             value={internalVal}
@@ -100,6 +100,7 @@ export default function InputOTPScreen({navigation, route, confirmCode }) {
                   key={index}
                   style={[
                     styles.cellView,
+                    // eslint-disable-next-line react-native/no-inline-styles
                     {
                       borderBottomColor:
                         index === internalVal.length ? 'white' : '#244DB7',
@@ -127,6 +128,7 @@ export default function InputOTPScreen({navigation, route, confirmCode }) {
               <Text
                 style={[
                   styles.textResend,
+                  // eslint-disable-next-line react-native/no-inline-styles
                   {color: enableResend ? 'orange' : 'gray'},
                 ]}>
                 Resend OTP ({countdown})

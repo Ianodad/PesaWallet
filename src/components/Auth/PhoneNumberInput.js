@@ -1,4 +1,6 @@
+import {AsYouType, parsePhoneNumberFromString} from 'libphonenumber-js';
 import React, {useState, useRef} from 'react';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,37 +11,64 @@ import {
 } from 'react-native';
 import PhoneInput from 'react-native-phone-number-input';
 import colors from '../../config/colors';
+import defaultStyles from '../../config/styles';
 import Button from '../Button/Button';
 
-const PhoneNumberInput = ({handleSubmit}) => {
+const PhoneNumberInput = ({onHandleSubmit}) => {
   const [value, setValue] = useState('');
-  const [valid, setValid] = useState(false);
+  const [valueChange, setValueChange] = useState('');
+  const [valid, setValid] = useState(true);
+  const [countryCode, setCountryCode] = useState('KE');
   const [showMessage, setShowMessage] = useState(false);
-  const phoneInput = useRef < PhoneInput > null;
+  const phoneInput = useRef(null);
+
+  const onTextChange = number => {
+    const phoneNumber = parsePhoneNumberFromString(number, countryCode);
+
+    if (phoneNumber?.isValid()) {
+      setValid(!phoneNumber.isValid());
+    }
+    console.log('onTextChange', new AsYouType(countryCode).input(number));
+    setValue(new AsYouType(countryCode).input(number));
+  };
+  const submitPhoneNumber = () => {
+    const phoneNumber = parsePhoneNumberFromString(value, countryCode);
+    if (phoneNumber.isValid()) {
+      console.log('phoneNumber', phoneNumber.formatNational());
+      onHandleSubmit(phoneNumber.number);
+    }
+  };
+
   return (
     <>
       <PhoneInput
         ref={phoneInput}
-        defaultValue={value}
-        defaultCode="IN"
-        onChangeFormattedText={text => {
-          setValue(text);
+        // defaultValue={value}
+        defaultCode={countryCode}
+        onChangeText={text => {
+          const change = new AsYouType(countryCode).input(text);
+          setValueChange(change);
         }}
-        withDarkTheme
+        value={valueChange}
+        onChangeFormattedText={text => onTextChange(text)}
+        onChangeCountry={country => setCountryCode(country)}
+        containerStyle={styles.containerStyle}
+        textInputStyle={styles.textInputStyle}
+        // textInputStyle={defaultStyles.textInput}
+        // withDarkTheme
         withShadow
         autoFocus
       />
       <Button
         style={styles.button}
         title={'Request OTP'}
-        // color={buttonColor}
-        // textStyle={styles[textColor]}
+        disabled={valid}
+        color={valid ? '' : 'white'}
+        textStyle={valid ? '' : styles.buttonStyle}
         // width={width}
         buttonType
         onPress={() => {
-          const checkValid = phoneInput.current?.isValidNumber();
-          setValid(checkValid ? checkValid : false);
-          //proceed
+          submitPhoneNumber();
         }}
       />
     </>
@@ -54,5 +83,27 @@ const styles = StyleSheet.create({
   },
   primary: {
     color: colors.primary,
+  },
+  buttonStyle: {
+    color: colors.primary,
+  },
+  containerStyle: {
+    backgroundColor: '#fff',
+    // paddingVertical: 0,
+    // paddingBottom: 9,
+    paddingHorizontal: 25,
+    borderColor: '#ccc',
+    // borderWidth: 2,
+    borderRadius: 45,
+    marginBottom: 10,
+    width: 360,
+    height: 64,
+
+    // fontSize: 16,
+  },
+  textInputStyle: {
+    borderRadius: 45,
+    letterSpacing: 2,
+    padding: 0,
   },
 });
