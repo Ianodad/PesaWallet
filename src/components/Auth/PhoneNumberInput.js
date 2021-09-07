@@ -1,5 +1,5 @@
 import {AsYouType, parsePhoneNumberFromString} from 'libphonenumber-js';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import {
   SafeAreaView,
@@ -20,6 +20,9 @@ const PhoneNumberInput = ({onHandleSubmit}) => {
   const [valid, setValid] = useState(true);
   const [countryCode, setCountryCode] = useState('KE');
   const [showMessage, setShowMessage] = useState(false);
+
+  const [textColor, setTextButton] = useState('white');
+  const [buttonColor, setButtonColor] = useState('primary');
   const phoneInput = useRef(null);
 
   const onTextChange = number => {
@@ -27,6 +30,12 @@ const PhoneNumberInput = ({onHandleSubmit}) => {
 
     if (phoneNumber?.isValid()) {
       setValid(!phoneNumber.isValid());
+      setButtonColor('white');
+      setTextButton('primary');
+    } else {
+      setValid(true);
+      setButtonColor('primary');
+      setTextButton('white');
     }
     console.log('onTextChange', new AsYouType(countryCode).input(number));
     setValue(new AsYouType(countryCode).input(number));
@@ -62,9 +71,10 @@ const PhoneNumberInput = ({onHandleSubmit}) => {
       <Button
         style={styles.button}
         title={'Request OTP'}
+        color={buttonColor}
         disabled={valid}
-        color={valid ? '' : 'white'}
-        textStyle={valid ? '' : styles.buttonStyle}
+        // color={valid ? false : 'white'}
+        textStyle={styles[textColor]}
         // width={width}
         buttonType
         onPress={() => {
@@ -82,9 +92,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   primary: {
-    color: colors.primary,
-  },
-  buttonStyle: {
     color: colors.primary,
   },
   containerStyle: {

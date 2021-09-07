@@ -31,9 +31,9 @@ const AppButton = ({
             // inner
             swapShadows
             style={{
-              ...style,
               ...styles.neomorphStyle,
               ...styles.button,
+              ...style,
               backgroundColor: defaultStyles.colors[color],
             }}>
             {image && (

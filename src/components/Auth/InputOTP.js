@@ -7,8 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import colors from '../../config/colors';
 
-export default function InputOTPScreen({navigation, route, confirmCode}) {
+import Button from '../Button/Button';
+
+export default function InputOTPScreen({
+  navigation,
+  route,
+  confirmCode,
+  onChangeNumber,
+}) {
   const defaultCountdown = 30;
   let clockCall = null;
   const [internalVal, setInternalVal] = useState('');
@@ -62,7 +70,7 @@ export default function InputOTPScreen({navigation, route, confirmCode}) {
     }
   };
 
-  const onChangeNumber = () => {
+  const clearOtp = () => {
     setInternalVal('');
   };
 
@@ -118,12 +126,37 @@ export default function InputOTPScreen({navigation, route, confirmCode}) {
           </View>
         </View>
         <View style={styles.bottomView}>
-          <TouchableOpacity onPress={onChangeNumber}>
+          <Button
+            style={styles.btnChangeNumber}
+            title={'Change Number'}
+            // color={'white'}
+            textStyle={styles.textChange}
+            // width={width}
+            buttonType
+            onPress={onChangeNumber}
+          />
+          {/* <Button
+            style={styles.btnResend}
+            title={`Resend OTP ${countdown}`}
+            textStyle={styles.textResend}
+            // width={width}
+            buttonType
+            onPress={onResendOTP}
+          /> */}
+          <Button
+            style={styles.btnResend}
+            title={'Clear'}
+            textStyle={styles.textResend}
+            // width={width}
+            buttonType
+            onPress={clearOtp}
+          />
+          {/* <TouchableOpacity onPress={onChangeNumber}>
             <View style={styles.btnChangeNumber}>
               <Text style={styles.textChange}>Change Number</Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onResendOTP}>
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity onPress={onResendOTP}>
             <View style={styles.btnResend}>
               <Text
                 style={[
@@ -134,7 +167,7 @@ export default function InputOTPScreen({navigation, route, confirmCode}) {
                 Resend OTP ({countdown})
               </Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </KeyboardAvoidingView>
     </View>
@@ -175,6 +208,7 @@ const styles = StyleSheet.create({
   cellText: {
     textAlign: 'center',
     fontSize: 16,
+    color: 'white',
   },
   bottomView: {
     flexDirection: 'row',
@@ -186,8 +220,9 @@ const styles = StyleSheet.create({
   btnChangeNumber: {
     width: 150,
     height: 50,
-    borderRadius: 10,
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    // color: colors.primary,
+    // alignItems: 'flex-start',
     justifyContent: 'center',
   },
   textChange: {
@@ -196,14 +231,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   btnResend: {
+    marginLeft: 10,
     width: 150,
     height: 50,
-    borderRadius: 10,
-    alignItems: 'flex-end',
+    color: 'white',
+    // borderRadius: 10,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   textResend: {
     alignItems: 'center',
     fontSize: 15,
+    color: 'white',
   },
 });

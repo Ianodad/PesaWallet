@@ -57,7 +57,7 @@ class HomeScreen extends Component {
       .collection('users')
       .doc('pNwlt65zlQPwFfeg7Tc8')
       .get();
-      // console.log(userDocument.data.name);
+    // console.log(userDocument.data.name);
   };
 
   componentDidMount = () => {
@@ -109,7 +109,7 @@ class HomeScreen extends Component {
               <TitleHeader
                 style={styles.title}
                 home={'home'}
-                title={userDetails.givenName}
+                title={userDetails?.givenName}
               />
             </View>
           </View>
@@ -138,8 +138,6 @@ class HomeScreen extends Component {
 const mapStateToProps = state => {
   // console.log(state)
   const {SmsCollected, authState} = state;
-  console.log("here")
-  console.log(authState.userDetails.givenName);
   return {
     collection: SmsCollected.collection,
     userDetails: authState.userDetails,

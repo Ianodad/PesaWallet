@@ -86,6 +86,13 @@ const OTPLoginScreen = ({
       .label('phoneNumber'),
   });
 
+  const changeNumber = () => {
+    console.log('here');
+    setConfirmations('');
+    setUserPhoneNumber('');
+    setPhoneNumberValidation(false);
+  };
+
   const signInWithPhoneNumber = async phoneNumber => {
     console.log(phoneNumber);
     // const userPhoneNumberInput = `+254${phoneNumber}`;
@@ -113,6 +120,10 @@ const OTPLoginScreen = ({
       // await confirm.confirm(code);
       if (confirmations) {
         await confirmations.confirm(code);
+        // console.log(datai)
+        if (datai ==='Invalid code.') {
+          alert('Invalid code');
+        }
         // console.log(await this.state.confirmations.confirm(code));
         setConfirmations(null);
         const userID = user.allUsers[0].id;
@@ -130,7 +141,9 @@ const OTPLoginScreen = ({
         }
       }
     } catch (error) {
+      console.log(error);
       console.log('Invalid code.');
+      alert('Invalid code');
     }
   };
 
@@ -153,7 +166,11 @@ const OTPLoginScreen = ({
           <PhoneNumberInput onHandleSubmit={signInWithPhoneNumber} />
         )}
         {phoneNumberValidation && (
-          <InputOTP confirmCode={val => confirmCode(val)} />
+          <InputOTP
+            confirmCode={val => confirmCode(val)}
+            onChangeNumber={changeNumber}
+            phoneNumber={userPhoneNumber}
+          />
         )}
       </View>
     </Screen>

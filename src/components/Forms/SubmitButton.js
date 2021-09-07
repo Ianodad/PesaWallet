@@ -6,11 +6,18 @@ import colors from '../../config/colors';
 import Button from '../Button/Button';
 const {RefreshControl} = require('react-native');
 
-const SubmitButton = ({title, submitStyle, buttonColor, width, buttonType}) => {
+const SubmitButton = ({
+  title,
+  submitStyle,
+  buttonColor,
+  width,
+  buttonType,
+  onPress,
+}) => {
   const [textColor, setTextButton] = useState('');
 
   useEffect(() => {
-    if (buttonColor == 'white') {
+    if (buttonColor === 'white') {
       setTextButton('primary');
     }
   }, [buttonColor]);
@@ -23,7 +30,7 @@ const SubmitButton = ({title, submitStyle, buttonColor, width, buttonType}) => {
       color={buttonColor}
       textStyle={styles[textColor]}
       // width={width}
-      buttonType
+      buttonType={buttonType}
       onPress={handleSubmit}
     />
   );
