@@ -114,7 +114,7 @@ class HomeScreen extends Component {
             </View>
           </View>
           <View swapShadows inner style={styles.sources}>
-            <FlatList
+            {/* <FlatList
               data={sources}
               keyExtractor={source => source.id.toString()}
               renderItem={({item}) => (
@@ -128,7 +128,7 @@ class HomeScreen extends Component {
                   onPress={() => navigation.navigate('SourceDetails', item)}
                 />
               )}
-            />
+            /> */}
           </View>
         </View>
       </Screen>

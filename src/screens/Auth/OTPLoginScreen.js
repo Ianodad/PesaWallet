@@ -121,9 +121,7 @@ const OTPLoginScreen = ({
       if (confirmations) {
         await confirmations.confirm(code);
         // console.log(datai)
-        if (datai ==='Invalid code.') {
-          alert('Invalid code');
-        }
+
         // console.log(await this.state.confirmations.confirm(code));
         setConfirmations(null);
         const userID = user.allUsers[0].id;
@@ -155,7 +153,16 @@ const OTPLoginScreen = ({
   return (
     <Screen style={styles.container} Gradient>
       <View style={styles.header}>
-        <Text style={styles.title}>Add Phone No</Text>
+        {!phoneNumberValidation && (
+          <Text style={styles.title}>Add Phone No</Text>
+        )}
+        {phoneNumberValidation && (
+          <>
+            <Text style={styles.title}>Verification Code</Text>
+            <Text>Please type the verification code sent to:</Text>
+            <Text>{userPhoneNumber}</Text>
+          </>
+        )}
       </View>
       <View style={styles.form}>
         {!phoneNumberValidation && (
