@@ -24,6 +24,7 @@ import ActivityIndicator from '../components/ActivityIndicator';
 import Card from '../components/Card';
 import Screen from '../components/Screen';
 import TitleHeader from '../components/TitleHeader';
+import VendorCard from '../components/VendorCard';
 import VendorList from '../components/VendorList';
 import color from '../config/colors';
 import defaultStyles from '../config/styles';
@@ -115,7 +116,8 @@ class HomeScreen extends Component {
             </View>
           </View>
           <View swapShadows inner style={styles.sources}>
-            <VendorList navigation={navigation} />
+            <VendorCard />
+            {/* <VendorList navigation={navigation} /> */}
           </View>
         </View>
       </Screen>
