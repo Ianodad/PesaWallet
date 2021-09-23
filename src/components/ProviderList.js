@@ -2,10 +2,10 @@ import React from 'react';
 
 import {StyleSheet, View, FlatList, ScrollView, Dimensions} from 'react-native';
 import {NumberCommas} from '../_helpers/NumberCommas';
-import Card from '../components/Card';
+import Card from './Card';
 import {sources} from '../services/sources';
 
-const VendorList = ({navigation}) => {
+const ProviderList = ({navigation}) => {
   return (
     <>
       <FlatList
@@ -27,7 +27,7 @@ const VendorList = ({navigation}) => {
   );
 };
 
-export default VendorList;
+export default ProviderList;
 
 const styles = StyleSheet.create({
   card: {

@@ -22,10 +22,12 @@ import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 import Card from '../components/Card';
+import ProviderList from '../components/ProviderList';
+import ProviderSlider from '../components/ProviderSlider';
 import Screen from '../components/Screen';
+import Text from '../components/Text';
 import TitleHeader from '../components/TitleHeader';
-import VendorCard from '../components/VendorCard';
-import VendorList from '../components/VendorList';
+// import ProviderCard from '../components/ProviderCard';
 import color from '../config/colors';
 import defaultStyles from '../config/styles';
 
@@ -43,6 +45,7 @@ class HomeScreen extends Component {
       error: '',
       screenHeight: null,
       screenWidth: null,
+      sliderInfo: {},
     };
   }
 
@@ -86,6 +89,9 @@ class HomeScreen extends Component {
     }
   };
 
+  setSliderInfo = async item => {
+    this.setState({sliderInfo: item});
+  };
   // loadCollection = async () => {
   //   this.setState({loading: true});
   //   const collection = JSON.parse(this.props.collection)
@@ -102,6 +108,8 @@ class HomeScreen extends Component {
 
   render() {
     const {navigation, userDetails} = this.props;
+    const {sliderInfo} = this.state;
+
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
         {/* <ActivityIndicator visible={this.state.loading} /> */}
@@ -116,8 +124,16 @@ class HomeScreen extends Component {
             </View>
           </View>
           <View swapShadows inner style={styles.sources}>
-            <VendorCard />
-            {/* <VendorList navigation={navigation} /> */}
+            <Text>{sliderInfo.title}</Text>
+            {/* <VendorCard /> */}
+            {/* <ProviderList navigation={navigation} /> */}
+            <View style={styles.sliderInfo} />
+            <View style={styles.slider}>
+              <ProviderSlider
+                navigation={navigation}
+                onSliderInfo={this.setSliderInfo}
+              />
+            </View>
           </View>
         </View>
       </Screen>
@@ -172,6 +188,12 @@ const styles = StyleSheet.create({
     // borderBottomRightRadius: 50,
     overflow: 'scroll',
     // height:110
+  },
+  slider: {
+    flex: 1,
+  },
+  sliderInfo: {
+    flex: 1.2,
   },
   // headerLeft: {
   //   paddingTop: 50,
