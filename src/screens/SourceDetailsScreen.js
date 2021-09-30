@@ -1,29 +1,26 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-import Orientation from 'react-native-orientation';
-
 import LinearGradient from 'react-native-linear-gradient';
-import Screen from '../components/Screen';
-import TypeList from '../components/TypeList';
-import TransactionList from '../components/TransactionList';
-import VisualChart from '../components/VisualChart';
+import Orientation from 'react-native-orientation';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
+import {connect} from 'react-redux';
+import {storeMessages} from '../_actions/index';
+import {DateFilter} from '../_helpers/DateFilter.js';
+import {NumberCommas} from '../_helpers/NumberCommas';
 import RangePicker from '../components/RangerPicker';
+import Screen from '../components/Screen';
 import SwipeAction from '../components/SwipeAction';
+import TransactionList from '../components/TransactionList';
+import TypeList from '../components/TypeList';
+import VisualChart from '../components/VisualChart';
 
 import color from '../config/colors';
 
-import {DateFilter} from '../_helpers/DateFilter.js';
-import {NumberCommas} from '../_helpers/NumberCommas';
-
+import defaultStyles from '../config/styles';
 import {messages} from '../services/messagesCollection';
 import {typesData} from '../services/typeData';
-import defaultStyles from '../config/styles';
-
-import {storeMessages} from '../_actions/index';
-import {connect} from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 var _ = require('lodash');
 
@@ -41,8 +38,8 @@ class SourceDetailsScreen extends Component {
       selectedRange: 'year',
       typeColors: ['#5a60f8', '#5a60f8', '#8387f9'],
       orientation: '',
-      collectionFiltered:[],
-      typesSummed:0
+      collectionFiltered: [],
+      typesSummed: 0,
       // filter: [],
       // datalength:'',
       // title:''
@@ -55,12 +52,12 @@ class SourceDetailsScreen extends Component {
   //   const initial = Orientation.getInitialOrientation();
   //   this.setState({orientation: initial});
   // }
-  
+
   componentDidMount = async () => {
     // console.log(this.props.collection)
     // this.filterMessages(this.props.collection, this.state.)
     // const fullData = JSON.parse(this.props.collection)
-    await this.loadCollection()
+    await this.loadCollection();
 
     // console.log(this.fullData)
     // this.setState({fullData: this.props.collection});
@@ -70,15 +67,23 @@ class SourceDetailsScreen extends Component {
     Orientation.addOrientationListener(this._orientationDidChange);
   };
 
-  componentDidUpdate = async(prevProps, prevState) => {
-    if (prevState.selectedType !== this.state.selectedType || prevState.selectedRange !== this.state.selectedRange ||  prevState.setDataIndex !== this.state.setDataIndex || this.state.typeColors !== this.state.typeColors ) {
-    console.log('collectionFiltered state has changed.')
+  componentDidUpdate = async (prevProps, prevState) => {
+    if (
+      prevState.selectedType !== this.state.selectedType ||
+      prevState.selectedRange !== this.state.selectedRange ||
+      prevState.setDataIndex !== this.state.setDataIndex ||
+      this.state.typeColors !== this.state.typeColors
+    ) {
+      console.log('collectionFiltered state has changed.');
 
-    this.filterCollection(this.state.fullData, this.state.selectedRange, this.state.selectedType, this.state.setDataIndex);
-
-  }
-
-  }
+      this.filterCollection(
+        this.state.fullData,
+        this.state.selectedRange,
+        this.state.selectedType,
+        this.state.setDataIndex,
+      );
+    }
+  };
   // componentWillUpdate = async(nextProps, nextState)=> {
   //   if (nextState.selectedType != this.state.selectedType || nextState.selectedRange != this.state.selectedRange || nextState.setDataIndex != this.state.setDataIndex || nextState.typeColors != this.state.typeColors ){
   //     // console.log(nextState.selectedType)
@@ -89,7 +94,6 @@ class SourceDetailsScreen extends Component {
 
   // }
 
-  
   loadCollection = async () => {
     try {
       const collection = await AsyncStorage.getItem('COLLECTION');
@@ -97,14 +101,18 @@ class SourceDetailsScreen extends Component {
         // We have data!!
         // console.log('this here');
         const data = JSON.parse(collection);
-        
+
         // console.log(data)
         // const typesSummed = await this.filterType(data);
         // console.log(typesSummed)
-        this.setState({fullData: data})
-        await this.filterCollection(data, this.state.selectedRange, this.state.selectedType, this.state.setDataIndex);
+        this.setState({fullData: data});
+        await this.filterCollection(
+          data,
+          this.state.selectedRange,
+          this.state.selectedType,
+          this.state.setDataIndex,
+        );
 
-        
         // console.log(value);
       }
     } catch (error) {
@@ -114,39 +122,61 @@ class SourceDetailsScreen extends Component {
 
   filterCollection = (data, range, type, setDataIndex) => {
     if (type) {
-      if (range=='max'){
-        const collectionFiltered =  _.filter(data, {TYPE: type})
+      if (range == 'max') {
+        const collectionFiltered = _.filter(data, {TYPE: type});
         const typesSummed = this.filterType(collectionFiltered);
-        this.setState({collectionFiltered, datalength: 0, title: 'Max', typesSummed})
+        this.setState({
+          collectionFiltered,
+          datalength: 0,
+          title: 'Max',
+          typesSummed,
+        });
       } else {
         const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
-        const filter =  _.get(intialfilter, `[${datalength -setDataIndex-1}].data`);
-        const title =  _.get(intialfilter, `[${datalength - setDataIndex-1}].name`);
+        const filter = _.get(
+          intialfilter,
+          `[${datalength - setDataIndex - 1}].data`,
+        );
+        const title = _.get(
+          intialfilter,
+          `[${datalength - setDataIndex - 1}].name`,
+        );
         const collectionFiltered = _.filter(filter, {TYPE: type});
-        const typesSummed =  this.filterType(collectionFiltered);
-        this.setState({collectionFiltered, datalength, title, typesSummed})
+        const typesSummed = this.filterType(collectionFiltered);
+        this.setState({collectionFiltered, datalength, title, typesSummed});
       }
     } else {
-      if (range === "max"){
-          const typesSummed =  this.filterType(data);
-          this.setState({collectionFiltered: data, datalength: 0, title: 'Max', typesSummed})
+      if (range === 'max') {
+        const typesSummed = this.filterType(data);
+        this.setState({
+          collectionFiltered: data,
+          datalength: 0,
+          title: 'Max',
+          typesSummed,
+        });
       } else {
-        const intialfilter = DateFilter(data, range);                  
+        const intialfilter = DateFilter(data, range);
         let datalength = intialfilter.length;
-        const collectionFiltered = _.get(intialfilter, `[${datalength-setDataIndex-1}].data`);
-        const title = _.get(intialfilter, `[${datalength-setDataIndex-1}].name`);
-        const typesSummed =  this.filterType(collectionFiltered);
-        this.setState({collectionFiltered, datalength, title, typesSummed})
+        const collectionFiltered = _.get(
+          intialfilter,
+          `[${datalength - setDataIndex - 1}].data`,
+        );
+        const title = _.get(
+          intialfilter,
+          `[${datalength - setDataIndex - 1}].name`,
+        );
+        const typesSummed = this.filterType(collectionFiltered);
+        this.setState({collectionFiltered, datalength, title, typesSummed});
       }
     }
-  }
+  };
 
-  _orientationDidChange = (orientation) => {
+  _orientationDidChange = orientation => {
     // console.log(orientation);
     this.setState({orientation: orientation});
   };
-  
+
   componentWillUnmount = () => {
     Orientation.getOrientation((err, orientation) => {
       // console.log(`Current Device Orientation: ${orientation}`);
@@ -168,12 +198,11 @@ class SourceDetailsScreen extends Component {
     // this.filterCollection(fullData,  selectedRange, selectedType)
   };
 
-  setRange = (selectedRange) => {
+  setRange = selectedRange => {
     this.setState({selectedRange});
     this.setState({selectedType: ''});
     this.setState({setDataIndex: 0});
     // this.filterCollection(this.state.fullData, selectedRange, this.state.selectedType, this.state.setDataIndex);
-
   };
 
   // filterMessages = async (data, range, type) => {
@@ -219,7 +248,7 @@ class SourceDetailsScreen extends Component {
   //   }
   // };
 
-  getGraphData = (data) => {
+  getGraphData = data => {
     return _.map(data, function (f) {
       if (f.FINANCE == 'Debit') {
         return -f.AMOUNT;
@@ -230,7 +259,7 @@ class SourceDetailsScreen extends Component {
     // return _.map(data, 'AMOUNT');
   };
 
-  filterType = (data) => {
+  filterType = data => {
     let typesSummed = _(data)
       .groupBy('TYPE')
       .map((objs, key) => {
@@ -245,10 +274,10 @@ class SourceDetailsScreen extends Component {
   };
 
   getSummedTotal = (data, title) => {
-    const summed = _.filter(data, {TYPE: title}).map((t) => t.AMOUNT);
+    const summed = _.filter(data, {TYPE: title}).map(t => t.AMOUNT);
     // console.log(summed.length);
     if (!summed[0]) {
-      return undefined
+      return undefined;
     } else {
       return NumberCommas(summed[0]);
     }
@@ -266,7 +295,7 @@ class SourceDetailsScreen extends Component {
         break;
     }
   }
-  onSetNextData = (datalength) => {
+  onSetNextData = datalength => {
     // console.log(datalength);
     if (this.state.setDataIndex < datalength - 1) {
       // console.log(this.state.setDataIndex + 1);
@@ -283,7 +312,7 @@ class SourceDetailsScreen extends Component {
     }
   };
 
-  onLayout = (e) => {
+  onLayout = e => {
     console.log('Screen orientation changed....');
     // console.log(this.state.orientation);
     const initial = Orientation.getInitialOrientation();
@@ -305,7 +334,7 @@ class SourceDetailsScreen extends Component {
       collectionFiltered,
       datalength,
       title,
-      typesSummed
+      typesSummed,
     } = this.state;
 
     // const {fullFiltered, filter, datalength, title} = this.filterMessages(
@@ -339,7 +368,7 @@ class SourceDetailsScreen extends Component {
         style={styles.screen}
         // onLayout={this.onLayout}
         menu>
-        { portraitOrientation ? (
+        {portraitOrientation ? (
           <>
             <View style={styles.action}>
               <SwipeAction
@@ -363,8 +392,8 @@ class SourceDetailsScreen extends Component {
               colors={['#8387f9', '#5a60f8']}>
               <GestureRecognizer
                 onSwipe={(direction, state) => this.onSwipe(direction, state)}
-                onSwipeRight={() => this.onSetPrevData() }
-                onSwipeLeft={() => this.onSetNextData(datalength) }
+                onSwipeRight={() => this.onSetPrevData()}
+                onSwipeLeft={() => this.onSetNextData(datalength)}
                 config={config}
                 style={{flex: 1}}>
                 <VisualChart
@@ -440,15 +469,18 @@ class SourceDetailsScreen extends Component {
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const {SmsCollected} = state;
   return {
     collection: SmsCollected.collection,
   };
-}
+};
 const mapDispatchToProps = {storeMessages};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SourceDetailsScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SourceDetailsScreen);
 
 // export default SourceDetailsScreen;
 
