@@ -22,6 +22,7 @@ import commentsApi from '../api/comments';
 
 import ActivityIndicator from '../components/ActivityIndicator';
 import Card from '../components/Card';
+import ProviderDetail from '../components/ProviderDetail';
 import ProviderList from '../components/ProviderList';
 import ProviderSlider from '../components/ProviderSlider';
 import Screen from '../components/Screen';
@@ -124,10 +125,12 @@ class HomeScreen extends Component {
             </View>
           </View>
           <View swapShadows inner style={styles.sources}>
-            <Text>{sliderInfo.title}</Text>
             {/* <VendorCard /> */}
             {/* <ProviderList navigation={navigation} /> */}
-            <View style={styles.sliderInfo} />
+            <View style={styles.sliderInfo}>
+              <ProviderDetail Title={sliderInfo.title} />
+              {/* <Text>{sliderInfo.title}</Text> */}
+            </View>
             <View style={styles.slider}>
               <ProviderSlider
                 navigation={navigation}
