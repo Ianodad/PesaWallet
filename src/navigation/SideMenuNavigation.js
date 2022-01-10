@@ -1,14 +1,14 @@
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
 import {View, Text} from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import ReadMessages from '../components/ReadMessages';
+import Settings from '../components/Settings';
 import HomeScreen from '../screens/HomeScreen';
+import SettingsScreen from '../screens/SettingScreen';
 import AppNavigator from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
 import ViewNavigator from './ViewNavigator';
-import Settings from '../components/Settings';
-import SettingsScreen from '../screens/SettingScreen';
 // import {ReadAllMessages} from '../components/ReadAllMessages'
-import ReadMessages from '../components/ReadMessages';
 
 const Drawer = createDrawerNavigator();
 

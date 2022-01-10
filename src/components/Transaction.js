@@ -1,17 +1,16 @@
 import React from 'react';
 import DayJS from 'react-dayjs';
-import Text from '../components/Text';
 import {
   StyleSheet,
   View,
   TouchableWithoutFeedback,
   TouchableOpacity,
 } from 'react-native';
-import IconButton from './Button/IconButton';
-import colors from '../config/colors';
 import {NumberCommas} from '../_helpers/NumberCommas';
+import Text from '../components/Text';
+import colors from '../config/colors';
 import defaultStyles from '../config/styles';
-
+import IconButton from './Button/IconButton';
 
 // import DateLineSeparator from './DateLineSeparator';
 
@@ -53,9 +52,9 @@ const Transaction = ({
     }
   };
 
-  if (finance == "Debit"){
-    amount = `-${NumberCommas(amount)}`
-  }else {
+  if (finance == 'Debit') {
+    amount = `-${NumberCommas(amount)}`;
+  } else {
     amount = NumberCommas(amount);
   }
   return (
@@ -79,7 +78,11 @@ const Transaction = ({
               {navigation && (
                 <TouchableOpacity
                   onPress={() =>
-                    navigation.navigate('FilteredDetailsScreen', {'id':phoneNo||name, 'title':name, 'phoneNo': phoneNo })
+                    navigation.navigate('FilteredDetailsScreen', {
+                      id: phoneNo || name,
+                      title: name,
+                      phoneNo: phoneNo,
+                    })
                   }>
                   <Text
                     style={styles.name}
@@ -130,11 +133,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     // width: 130,
-    shadowColor: '#FFFFFF',
-    shadowOffset: {width: 0, height: 8},
-    shadowOpacity: 0.8,
-    shadowRadius: 6,
-    elevation: 16,
+    shadowColor: '#7A7A7A',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.5,
+    shadowRadius: 2.6,
+    elevation: 5,
   },
   leftCard: {
     flex: 1,

@@ -34,7 +34,7 @@ const SectionListIem = ({data, navigation, renderScrollComponent}) => {
         renderItem={({item}) => (
           <Transaction
             style={styles.transaction}
-            id={item.ID}
+            id={item?.ID}
             phoneNo={item.PHONENO}
             type={item.TYPE}
             name={nameTitleCase(item.NAME)}

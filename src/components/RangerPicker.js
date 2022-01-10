@@ -4,26 +4,34 @@ import {View, StyleSheet} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import defaultStyles from '../config/styles';
 
-
 const RangePicker = ({range, onSetRange}) => {
-  const [selectedValue, setSelectedValue] = useState(range);
+  // const [selectedValue, setSelectedValue] = useState(range);
+  const [open, setOpen] = useState(false);
 
-  // console.log(selectedValue);
-  const setValue = (value) => {
-    setSelectedValue(value);
+  const [value, setValue] = useState(range);
+
+  const [items, setItems] = useState([
+    {label: 'DAY', value: 'day', hidden: true},
+    {label: 'WEEK', value: 'week'},
+    {label: 'MONTH', value: 'month'},
+    {label: 'YEAR', value: 'year'},
+    {label: 'MAX', value: 'max'},
+  ]);
+
+  const onSetValue = value => {
+    console.log(value);
+    setValue(value);
     onSetRange(value);
   };
   return (
     <>
       <DropDownPicker
-        items={[
-          {label: 'DAY', value: 'day', hidden: true},
-          {label: 'WEEK', value: 'week'},
-          {label: 'MONTH', value: 'month'},
-          {label: 'YEAR', value: 'year'},
-          {label: 'MAX', value: 'max'},
-        ]}
-        defaultValue={selectedValue}
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
         containerStyle={styles.container}
         style={styles.picker}
         itemStyle={{
@@ -31,13 +39,16 @@ const RangePicker = ({range, onSetRange}) => {
         }}
         labelStyle={{
           // fontSize: defaultStyles.textSmall.fontSize,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: 'bold',
           textAlign: 'left',
           color: '#000',
         }}
-        dropDownStyle={{backgroundColor: '#fafafa'}}
-        onChangeItem={(item) => setValue(item.value)}
+        textStyle={{
+          fontSize: 13,
+        }}
+        dropDownStyle={{backgroundColor: '#fafafa', fontSize: 12}}
+        onChangeValue={value => onSetValue(value)}
       />
     </>
   );

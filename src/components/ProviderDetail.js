@@ -2,36 +2,32 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Text from './Text';
 import TitleHeader from './TitleHeader';
+import {NumberCommas} from '../_helpers/NumberCommas';
+import color from '../config/colors';
 
-const ProviderDetail = ({Title}) => {
+const ProviderDetail = ({Title, AggregatoredData}) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>{Title}</Text>
-      </View>
-      <View style={styles.body}>
-        <View style={styles.row}>
-          <Text style={styles.text}>Balance</Text>
-          <Text style={styles.textPrice}>2000</Text>
+    !!AggregatoredData && (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>
+            {Title?.toUpperCase()}
+            <Text style={{color: 'grey'}}>-Weekly</Text>
+          </Text>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.text}>Total</Text>
-          <Text style={styles.textPrice}>9000</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.text}>Weekly Sent</Text>
-          <Text style={styles.textPrice}>3000</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.text}>Weekly: Received</Text>
-          <Text style={styles.textPrice}>3000</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.text}>Weekly Average</Text>
-          <Text style={styles.textPrice}>3000</Text>
+        <View style={styles.body}>
+          {AggregatoredData.map(data => (
+            <View style={styles.row}>
+              <Text style={styles.text}>{data.TYPE}</Text>
+              <Text style={styles.textPrice}>
+                <Text style={{fontSize: 10}}>Ksh </Text>
+                {NumberCommas(data.AMOUNT)}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
-    </View>
+    )
   );
 };
 
@@ -46,7 +42,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     marginHorizontal: 10,
     borderRadius: 10,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -59,6 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: 300,
     alignItems: 'center',
+    // paddingVertical:5,
     // marginHorizontal: 10,
   },
   header: {
@@ -76,20 +73,23 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: 'bold',
     marginVertical: 10,
     alignItems: 'center',
   },
   textPrice: {
     fontSize: 15,
+    fontWeight: 'bold',
     justifyContent: 'flex-end',
+    color: color.medium,
   },
   text: {
-    color: '#000',
+    color: '#00008B',
     fontSize: 16,
     marginVertical: 10,
     fontWeight: 'bold',
+    // backgroundColor: 'green'
     // marginHorizontal: 25,
   },
 });

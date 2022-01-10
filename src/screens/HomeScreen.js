@@ -15,7 +15,7 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {connect} from 'react-redux';
-import {storeMessages, getCollection} from '../_actions';
+import {storeMessages, getCollection, aggregatorMessageData} from '../_actions';
 import {NumberCommas} from '../_helpers/NumberCommas';
 import ReadMessages from '../_helpers/ReadMessages';
 import commentsApi from '../api/comments';
@@ -68,7 +68,7 @@ class HomeScreen extends Component {
 
   componentDidMount = () => {
     this.loadCollection();
-
+    console.log(this.props.aggregatorMessageData);
     // this.retrieveUser();
   };
 
@@ -108,9 +108,10 @@ class HomeScreen extends Component {
   // };
 
   render() {
-    const {navigation, userDetails} = this.props;
+    const {navigation, userDetails, aggregatoredData} = this.props;
     const {sliderInfo} = this.state;
 
+    // console.log(aggregatoredData);
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
         {/* <ActivityIndicator visible={this.state.loading} /> */}
@@ -128,7 +129,10 @@ class HomeScreen extends Component {
             {/* <VendorCard /> */}
             {/* <ProviderList navigation={navigation} /> */}
             <View style={styles.sliderInfo}>
-              <ProviderDetail Title={sliderInfo.title} />
+              <ProviderDetail
+                AggregatoredData={aggregatoredData}
+                Title={sliderInfo.title}
+              />
               {/* <Text>{sliderInfo.title}</Text> */}
             </View>
             <View style={styles.slider}>
@@ -149,10 +153,11 @@ const mapStateToProps = state => {
   return {
     collection: SmsCollected.collection,
     userDetails: authState.userDetails,
+    aggregatoredData: SmsCollected.aggregatedMessageData,
   };
 };
 
-const mapDispatchToProps = {getCollection};
+const mapDispatchToProps = {getCollection, aggregatorMessageData};
 
 // gradinetColors={['#5a60f8', '#5a60f8', '#8387f9']}
 // gradinetColors={['#39b54b', '#39b54b', '#65cd73']}

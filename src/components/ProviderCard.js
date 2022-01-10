@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginBottom: 15,
-    backgroundColor: 'green',
+    backgroundColor: '#39b54b',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   leftCardBottom: {
     flex: 1,
-    backgroundColor: 'blue',
+    // backgroundColor: 'blue',
   },
   rightCard: {
     // backgroundColor: colors.primary,

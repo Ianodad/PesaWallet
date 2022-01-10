@@ -1,12 +1,11 @@
 import React from 'react';
-import Text from './Text';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import IconButton from './Button/IconButton';
-import colors from '../config/colors';
 import {sub} from 'react-native-reanimated';
-import Info from './Button/Info';
+import colors from '../config/colors';
 import defaultStyles from '../config/styles';
-
+import IconButton from './Button/IconButton';
+import Info from './Button/Info';
+import Text from './Text';
 
 const Type = ({image, title, amount, onSetType, selectColor}) => {
   return (
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 5,
     marginHorizontal: 5,
-    shadowColor: '#FFFFFF',
+    shadowColor: '#7A7A7A',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 3,
@@ -56,13 +55,13 @@ const styles = StyleSheet.create({
     // zIndex: 1,
   },
   subStyle: {
-    fontSize:defaultStyles.textSmall.fontSize,
+    fontSize: defaultStyles.textSmall.fontSize,
     position: 'relative',
     fontWeight: 'bold',
     // marginBottom: 60,
   },
   detailStyle: {
-    fontSize:defaultStyles.text.fontSize,
+    fontSize: defaultStyles.text.fontSize,
     textShadowRadius: 2,
     textShadowOffset: {width: 0, height: 1},
     textShadowColor: 'black',

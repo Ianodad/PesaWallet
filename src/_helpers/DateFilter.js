@@ -7,7 +7,7 @@ dayjs.extend(isBetween);
 const today = dayjs(dayjs(new Date())).format('MM/DD/YY');
 
 const filterPoint = (dataNew, startDate, endDate) => {
-  const result = dataNew.filter((a) => {
+  const result = dataNew.filter(a => {
     const date = a.DATE;
     return dayjs(date).isBetween(startDate, endDate, null, '[]');
     // console.log(date >= startDate && date <= endDate);
@@ -17,15 +17,19 @@ const filterPoint = (dataNew, startDate, endDate) => {
   return result;
 };
 
-export const dayGroup = (data) => {
+export const dayGroup = data => {
+  if (data.length <= 1) {
+    console.log;
+    return data;
+  }
   const DATA = Object.values(
     data.reduce((acc, item) => {
-      let title = dayjs(item.DATE).format('MMM DD YYYY')
-      let id = dayjs(title).unix()
-    //   console.log(acc);
+      let title = dayjs(item.DATE).format('MMM DD YYYY');
+      let id = dayjs(title).unix();
+      //   console.log(acc);
       if (!acc[id]) {
         acc[id] = {
-          id:id,
+          id: id,
           title: dayjs(title).format('MMM D'),
           name: dayjs(title).format('MMM D'),
           year: dayjs(title).format('YYYY'),
@@ -37,59 +41,52 @@ export const dayGroup = (data) => {
       return acc;
     }, {}),
   );
-  console.log(DATA)
+  console.log(DATA);
   return DATA;
 };
 
-const weekGroup =  (data) => {
-  const groups =  data.reduce((acc, item) => {
+const weekGroup = data => {
+  const groups = data.reduce((acc, item) => {
+    startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
+    endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
+    // console.log(startWeek, endWeek);
+    let titleStart = dayjs(item.DATE).day(0).format('MMM D YYYY');
+    let titleEnd = dayjs(item.DATE).day(6).format('MMM DD YYYY');
+    let year = dayjs(item.DATE).format('YYYY');
+    let id = dayjs(titleEnd).unix();
+    title = `${titleStart} to ${titleEnd}/${year}`;
 
-  startWeek = dayjs(item.DATE).day(0).format('DD/MM/YYYY');
-  endWeek = dayjs(item.DATE).day(6).format('DD/MM/YYYY');
-      // console.log(startWeek, endWeek);
-  let titleStart = dayjs(item.DATE).day(0).format('MMM D YYYY');
-  let titleEnd = dayjs(item.DATE).day(6).format('MMM DD YYYY');
-  let year = dayjs(item.DATE).format('YYYY');
-  let id = dayjs(titleEnd).unix()
-  title = `${titleStart} to ${titleEnd}/${year}`;
-  // console.log(title)
-  // const between = dayjs(item.DATE).isBetween(
-  //       startWeek,
-  //       dayjs(endWeek),
-  //       null,
-  //       '[]',
-  //     );
-  
-  // add this key as a property to the result object
-  if (!acc[id]) {
-    acc[id] = {
-          id: id,
-          title: title,
-          name: `${dayjs(titleStart).format('MMM D')} - ${dayjs(titleEnd).format('MMM D')}`,
-          startWeek: dayjs(titleStart).format('MMM D'),
-          endWeek: dayjs(titleEnd).format('MMM D'),
-          year: dayjs(item.DATE).format('YYYY'),
-          data: [],
+    // add this key as a property to the result object
+    if (!acc[id]) {
+      acc[id] = {
+        id: id,
+        title: title,
+        name: `${dayjs(titleStart).format('MMM D')} - ${dayjs(titleEnd).format(
+          'MMM D',
+        )}`,
+        startWeek: dayjs(titleStart).format('MMM D'),
+        endWeek: dayjs(titleEnd).format('MMM D'),
+        year: dayjs(item.DATE).format('YYYY'),
+        data: [],
       };
-    } 
-  //  acc[title].data = [...item]  
-  acc[id].data.push(item);
-  return acc;
-
+    }
+    //  acc[title].data = [...item]
+    acc[id].data.push(item);
+    return acc;
   }, {});
 
-//  console.log(groups)
- return Object.values(groups)
+  //  console.log(groups)
+  return Object.values(groups);
 };
 
-const monthGroup = (data) => {
+const monthGroup = data => {
   let title;
   let month;
   const DATA = Object.values(
     data.reduce((acc, item) => {
       title = dayjs(item.DATE).format('MMM YYYY');
       month = dayjs(item.DATE).format('MMMM');
-      id = dayjs(title).unix()
+      id = dayjs(title).unix();
       if (!acc[id]) {
         acc[id] = {
           id: id,
@@ -108,39 +105,47 @@ const monthGroup = (data) => {
   return DATA;
 };
 
-const yearGroup = (data) => {
+const yearGroup = data => {
   let title;
   let year;
   const DATA = Object.values(
     data.reduce((acc, item) => {
-      title = dayjs(item.DATE).format('YYYY');
-      id = dayjs(title).unix()
-      // const month = dayjs(item.DATE).format("MMMM")
-      if (!acc[id]) {
-        acc[id] = {
-          id: id,
-          title: title,
-          name: title,
-          year: dayjs(title).format('YYYY'),
-          data: [],
-        };
+      if (item != null) {
+        try {
+          // console.log(item.DATE);
+          title = dayjs(item.DATE).format('YYYY');
+          id = dayjs(title).unix();
+          // const month = dayjs(item.DATE).format("MMMM")
+          console.log('check', !acc[id]);
+          if (!acc[id]) {
+            acc[id] = {
+              id: id,
+              title: title,
+              name: title,
+              year: dayjs(title).format('YYYY'),
+              data: [],
+            };
+          }
+          acc[id].data.push(item);
+          return acc;
+        } catch (error) {
+          console.log(error);
+          console.log('item', item.DATE, dayjs(item.DATE).format('YYYY'));
+        }
       }
-      acc[id].data.push(item);
-      return acc;
     }, {}),
   );
-  // console.log(DATA)
   return DATA;
 };
 
 export const DateFilter = (dataNew, range) => {
-  // console.log(range);
+  // console.log(dataNew, range);
   switch (range) {
     case 'hour':
       break;
     case 'day':
-      return dayGroup(dataNew)
-      // return dataNew.filter((a) => a.DATE === today);
+      return dayGroup(dataNew);
+    // return dataNew.filter((a) => a.DATE === today);
     case 'week':
       // const startWeek = dayjs(today).subtract(1, 'Week').format('MM/DD/YYYY');
       // const week = weekGroup(dataNew);

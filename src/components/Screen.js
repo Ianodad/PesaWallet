@@ -1,16 +1,15 @@
 import React from 'react';
-import {Constants} from 'react-native-unimodules';
 import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
-import Button from './Button/Button';
 // import {DrawerActions} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {getRandomInt} from "../_helpers/getRandomInt"
+import {Constants} from 'react-native-unimodules';
+import {getRandomInt} from '../_helpers/getRandomInt';
 import defaultStyles from '../config/styles';
-
+import Button from './Button/Button';
 
 const Screen = ({
   children,
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     top: -100 / 3,
     right: -60,
   },
-  circleTwo:{
+  circleTwo: {
     position: 'absolute',
     overflow: 'hidden',
     // backgroundColor: 'white',
@@ -112,6 +111,5 @@ const styles = StyleSheet.create({
     // backgroundColor: 'white',
     top: 100 / 3,
     left: -100,
-    
-  }
+  },
 });

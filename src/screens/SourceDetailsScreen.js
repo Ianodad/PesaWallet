@@ -6,15 +6,17 @@ import Orientation from 'react-native-orientation';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 import {connect} from 'react-redux';
-import {storeMessages} from '../_actions/index';
+import {messageActions} from '../_actions';
 import {DateFilter} from '../_helpers/DateFilter.js';
 import {NumberCommas} from '../_helpers/NumberCommas';
+// import {filterType} from '../_helpers/filterType';
 import RangePicker from '../components/RangerPicker';
 import Screen from '../components/Screen';
 import SwipeAction from '../components/SwipeAction';
 import TransactionList from '../components/TransactionList';
 import TypeList from '../components/TypeList';
 import VisualChart from '../components/VisualChart';
+import Loaders from '../components/Loaders';
 
 import color from '../config/colors';
 
@@ -23,6 +25,8 @@ import {messages} from '../services/messagesCollection';
 import {typesData} from '../services/typeData';
 
 var _ = require('lodash');
+
+const {getCollection, storeMessages, removeFromStorage} = messageActions;
 
 class SourceDetailsScreen extends Component {
   constructor(props) {
@@ -40,6 +44,8 @@ class SourceDetailsScreen extends Component {
       orientation: '',
       collectionFiltered: [],
       typesSummed: 0,
+      loadingData: true,
+      filterLoad: true,
       // filter: [],
       // datalength:'',
       // title:''
@@ -58,9 +64,10 @@ class SourceDetailsScreen extends Component {
     // this.filterMessages(this.props.collection, this.state.)
     // const fullData = JSON.parse(this.props.collection)
     await this.loadCollection();
+    // console.log("thisCollection",this.collection)
 
     // console.log(this.fullData)
-    // this.setState({fullData: this.props.collection});
+    this.setState({fullData: this.props.collection});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
     this.setState({orientation: initial});
@@ -97,30 +104,36 @@ class SourceDetailsScreen extends Component {
   loadCollection = async () => {
     try {
       const collection = await AsyncStorage.getItem('COLLECTION');
+      // await AsyncStorage.removeItem('COLLECTION');
       if (collection !== null) {
         // We have data!!
         // console.log('this here');
-        const data = JSON.parse(collection);
+        const data = await JSON.parse(collection);
+        console.log('collection', data);
 
         // console.log(data)
         // const typesSummed = await this.filterType(data);
         // console.log(typesSummed)
-        this.setState({fullData: data});
+        this.setState({fullData: data[2]});
         await this.filterCollection(
           data,
           this.state.selectedRange,
           this.state.selectedType,
           this.state.setDataIndex,
         );
+        this.setState({loadingData: false});
 
         // console.log(value);
       }
     } catch (error) {
       // Error retrieving data
+      console.log(error.name);
+      console.log(error.message);
     }
   };
 
   filterCollection = (data, range, type, setDataIndex) => {
+    console.log(data, range, type, setDataIndex);
     if (type) {
       if (range == 'max') {
         const collectionFiltered = _.filter(data, {TYPE: type});
@@ -145,6 +158,8 @@ class SourceDetailsScreen extends Component {
         const collectionFiltered = _.filter(filter, {TYPE: type});
         const typesSummed = this.filterType(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed});
+        this.setState({filterLoad: false});
+        this.setState({loadingData: false});
       }
     } else {
       if (range === 'max') {
@@ -168,6 +183,8 @@ class SourceDetailsScreen extends Component {
         );
         const typesSummed = this.filterType(collectionFiltered);
         this.setState({collectionFiltered, datalength, title, typesSummed});
+        this.setState({filterLoad: false});
+        this.setState({loadingData: false});
       }
     }
   };
@@ -335,6 +352,8 @@ class SourceDetailsScreen extends Component {
       datalength,
       title,
       typesSummed,
+      loadingData,
+      filterLoad,
     } = this.state;
 
     // const {fullFiltered, filter, datalength, title} = this.filterMessages(
@@ -361,6 +380,8 @@ class SourceDetailsScreen extends Component {
 
     const portraitOrientation = orientation === 'PORTRAIT';
     // console.log(selectedType)
+    console.log('loadingData', filterLoad, loadingData);
+    console.log('fuldate', fullData?.length);
     // if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
     return (
       <Screen
@@ -368,7 +389,13 @@ class SourceDetailsScreen extends Component {
         style={styles.screen}
         // onLayout={this.onLayout}
         menu>
-        {portraitOrientation ? (
+        {loadingData ? (
+          <>
+            <View>
+              <Loaders Loader="SourceDetails" />
+            </View>
+          </>
+        ) : portraitOrientation ? (
           <>
             <View style={styles.action}>
               <SwipeAction
@@ -418,7 +445,6 @@ class SourceDetailsScreen extends Component {
               <TransactionList
                 header
                 flatList={true}
-                header={true}
                 navigation={navigation}
                 title={selectedType || 'All'}
                 data={collectionFiltered ? collectionFiltered : fullData}
@@ -475,7 +501,7 @@ const mapStateToProps = state => {
     collection: SmsCollected.collection,
   };
 };
-const mapDispatchToProps = {storeMessages};
+const mapDispatchToProps = {storeMessages, getCollection};
 
 export default connect(
   mapStateToProps,

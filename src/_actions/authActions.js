@@ -19,7 +19,7 @@ import {
 const setInitialState = (data) =>async (dispatch)=>{
   try {
     if (data !== null) {
-      console.log('setInitialState', data);
+      // console.log('setInitialState', data);
       dispatch({
         type: SET_INITIAL_USER_STATE,
         payload: data,

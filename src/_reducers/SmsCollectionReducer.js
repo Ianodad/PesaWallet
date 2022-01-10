@@ -1,9 +1,15 @@
-import  {POPULATE_DATA, STORE_MESSAGES, GET_COLLECTION } from "../_actions/types";
+import {
+  POPULATE_DATA,
+  STORE_MESSAGES,
+  GET_COLLECTION,
+  AGGREGATED_DATA,
+} from '../_actions/types';
 
 const initialState = {
-    collection: [],
-    collectionState: false,
-}
+  collection: [],
+  collectionState: false,
+  aggregatedMessageData: [],
+};
 
 const SmsCollectionReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,6 +22,11 @@ const SmsCollectionReducer = (state = initialState, action) => {
       return {
         ...state,
         collection: action.payload,
+      };
+    case AGGREGATED_DATA:
+      return {
+        ...state,
+        aggregatedMessageData: action.payload,
       };
     default:
       return state;

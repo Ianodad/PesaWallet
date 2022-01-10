@@ -10,7 +10,6 @@ import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
 import defaultStyles from '../config/styles';
 
-
 const TransactionList = ({
   navigation,
   data,
@@ -36,8 +35,15 @@ const TransactionList = ({
           </TouchableOpacity>
         )}
       </View>
-      {flatList && <FlatListItem data={data} navigation={navigation} />}
-      {sectionList && <SectionListItem data={data} navigation={navigation} />}
+      {!!data && (
+        <View>
+          <Text>NO DATA</Text>
+        </View>
+      )}
+      {flatList && data && <FlatListItem data={data} navigation={navigation} />}
+      {sectionList && data && (
+        <SectionListItem data={data} navigation={navigation} />
+      )}
     </View>
   );
 };
@@ -61,14 +67,14 @@ const styles = StyleSheet.create({
     // JustifyContent: 'space-between',
   },
   header: {
-   fontSize:defaultStyles.textLarge.fontSize,
+    fontSize: defaultStyles.textLarge.fontSize,
     flex: 1,
     fontWeight: 'bold',
     // fontSize: 20,
   },
   ShowAll: {
     marginRight: 2,
-    fontSize:defaultStyles.textLarge.fontSize,
+    fontSize: defaultStyles.textLarge.fontSize,
     color: colors.primary,
     fontWeight: 'bold',
   },
