@@ -58,11 +58,9 @@ const aggregatorMessageData = () => async dispatch => {
   );
   let data = [];
   const sent = await _.filter(messageCollection, {TYPE: 'Sent'});
-  // console.log(await DateFilter(sent, 'week'));
   const SentTotal = await filterType(sent);
   data.push({...SentTotal[0], ...{LENGTH: sent.length}});
   // console.log('Sent', typeof SentTotal);
-
   const received = _.filter(messageCollection, {TYPE: 'Receive'});
   const ReceivedTotal = await filterType(received);
   data.push({...ReceivedTotal[0], ...{LENGTH: received.length}});

@@ -10,26 +10,74 @@ import {
 import AnimatedLinearGradient, {
   presetColors,
 } from 'react-native-animated-linear-gradient';
+import defaultStyles from '../config/styles';
 
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {Card} from '../components/Card';
+import LinearGradient from 'react-native-linear-gradient';
+
 import {getRandomInt} from '../_helpers/getRandomInt';
-import defaultStyles from '../config/styles';
 
 import Text from './Text';
-
 
 const ProviderCard = ({
   title,
   balance,
   logo,
   onPress,
+  shape,
+  gradientColors,
   width = responsiveWidth(getRandomInt(20, 70)),
   widthT = responsiveWidth(getRandomInt(55, 85)),
   widthTT = responsiveWidth(getRandomInt(25, 155)),
 }) => {
+  const content = (
+    <>
+      <LinearGradient
+        start={{x: 0.25, y: 0.75}}
+        end={{x: 0.75, y: 0.2}}
+        style={[defaultStyles.circle, {width: width, height: width}]}
+        opacity={0.2}
+        colors={gradientColors}
+      />
+      <LinearGradient
+        start={{x: 0.25, y: 0.75}}
+        end={{x: 0.75, y: 0.2}}
+        style={[defaultStyles.circleTwo, {width: widthT, height: widthT}]}
+        opacity={0.2}
+        colors={gradientColors}
+      />
+      <LinearGradient
+        start={{x: 0.25, y: 0.75}}
+        end={{x: 0.75, y: 0.2}}
+        style={[defaultStyles.circleThree, {width: widthTT, height: widthTT}]}
+        opacity={0.2}
+        colors={gradientColors}
+      />
+      <View style={styles.leftCard}>
+        <View style={styles.leftCardTop}>
+          <Text style={styles.h3}>Vendor Name</Text>
+          <Text style={{...styles.title, ...styles.h1}}>{title}</Text>
+        </View>
+        <View style={styles.leftCardBottom}>
+          <Text style={styles.h3}>Balance</Text>
+          <Text style={styles.balance}>{`KSH ${balance}`}</Text>
+        </View>
+      </View>
+      <View style={styles.rightCard}>
+        <View style={styles.rightCardBottom}>
+          <Text style={styles.h3}>Account/ Tel No</Text>
+          <Text style={{...styles.title, ...styles.h1}}>0712XXXX98</Text>
+        </View>
+        <View style={styles.rightCardTop}>
+          <Text style={{...styles.h3}}>Settings</Text>
+        </View>
+      </View>
+    </>
+  );
   return (
     <>
       <TouchableWithoutFeedback onPress={onPress} style={styles.container}>
@@ -37,35 +85,18 @@ const ProviderCard = ({
           customColors={presetColors.instagram}
           speed={10000}
         /> */}
-        <View style={styles.container}>
-          <View style={styles.leftCard}>
-            <View style={styles.leftCardTop}>
-              <Text style={styles.h3}>Vendor Name</Text>
-              <Text style={{...styles.title, ...styles.h1}}>{title}</Text>
-            </View>
-            <View style={styles.leftCardBottom}>
-              <Text style={styles.h3}>Balance</Text>
-              <Text style={styles.balance}>{`KSH ${balance}`}</Text>
-            </View>
-          </View>
-          <View style={styles.rightCard}>
-            <View style={styles.rightCardBottom}>
-              <Text style={styles.h3}>Account/ Tel No</Text>
-              <Text style={{...styles.title, ...styles.h1}}>0712XXXX98</Text>
-            </View>
-            <View style={styles.rightCardTop}>
-              <Text style={{...styles.h3}}>Settings</Text>
-            </View>
-          </View>
-        </View>
+        <LinearGradient
+          start={{x: 0.25, y: 0.75}}
+          end={{x: 0.75, y: 0.2}}
+          style={[styles.container]}
+          // locations={[0,0.5,0.6]}
+          colors={gradientColors}>
+          {content}
+        </LinearGradient>
       </TouchableWithoutFeedback>
     </>
   );
 };
-
-const circleWidth = responsiveWidth(getRandomInt(20, 70));
-const circleTwoWidth = responsiveWidth(getRandomInt(55, 85));
-const circleThreeWidth = responsiveWidth(getRandomInt(25, 155));
 
 const styles = StyleSheet.create({
   container: {
@@ -131,46 +162,12 @@ const styles = StyleSheet.create({
   balance: {
     fontWeight: 'bold',
     fontSize: defaultStyles.text.fontSize,
+    color: defaultStyles.colors.white,
     // fontSize: 18,
     marginBottom: 5,
     textShadowColor: 'white',
     textShadowOffset: {width: 0.5, height: -0.5},
     textShadowRadius: 1,
-  },
-  circle: {
-    position: 'absolute',
-    overflow: 'hidden',
-    // width: circleWidth,
-    // height: circleWidth,
-    zIndex: 1,
-    borderRadius: 180 / 1,
-    // backgroundColor: 'white',
-    top: -100 / 3,
-    right: -60,
-  },
-  circleTwo: {
-    position: 'absolute',
-    overflow: 'hidden',
-    width: circleTwoWidth,
-    height: circleTwoWidth,
-    zIndex: 1,
-    borderRadius: 190 / 1,
-    backgroundColor: 'white',
-    top: -600 / 3,
-    left: 70,
-    // right: 160
-  },
-  circleThree: {
-    position: 'absolute',
-    overflow: 'hidden',
-    width: circleThreeWidth,
-    height: circleThreeWidth,
-    zIndex: 1,
-    borderRadius: 480 / 1,
-    backgroundColor: 'gray',
-    top: 200 / 3,
-    left: -80,
-    // right: 160
   },
 });
 

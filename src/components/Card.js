@@ -36,27 +36,28 @@ const Card = ({
   width = responsiveWidth(getRandomInt(20, 70)),
   widthT = responsiveWidth(getRandomInt(55, 85)),
   widthTT = responsiveWidth(getRandomInt(25, 155)),
+  children,
 }) => {
   const content = (
     <>
       <LinearGradient
         start={{x: 0.25, y: 0.75}}
         end={{x: 0.75, y: 0.2}}
-        style={[styles.circle, {width: width, height: width}]}
+        style={[defaultStyles.circle, {width: width, height: width}]}
         opacity={0.2}
         colors={gradientColors}
       />
       <LinearGradient
         start={{x: 0.25, y: 0.75}}
         end={{x: 0.75, y: 0.2}}
-        style={[styles.circleTwo, {width: widthT, height: widthT}]}
+        style={[defaultStyles.circleTwo, {width: widthT, height: widthT}]}
         opacity={0.2}
         colors={gradientColors}
       />
       <LinearGradient
         start={{x: 0.25, y: 0.75}}
         end={{x: 0.75, y: 0.2}}
-        style={[styles.circleThree, {width: widthTT, height: widthTT}]}
+        style={[defaultStyles.circleThree, {width: widthTT, height: widthTT}]}
         opacity={0.2}
         colors={gradientColors}
       />
@@ -116,41 +117,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-  },
-  circle: {
-    position: 'absolute',
-    overflow: 'hidden',
-    // width: circleWidth,
-    // height: circleWidth,
-    zIndex: 1,
-    borderRadius: 180 / 1,
-    // backgroundColor: 'white',
-    top: -100 / 3,
-    right: -60,
-  },
-  circleTwo: {
-    position: 'absolute',
-    overflow: 'hidden',
-    width: circleTwoWidth,
-    height: circleTwoWidth,
-    zIndex: 1,
-    borderRadius: 190 / 1,
-    backgroundColor: 'white',
-    top: -600 / 3,
-    left: 70,
-    // right: 160
-  },
-  circleThree: {
-    position: 'absolute',
-    overflow: 'hidden',
-    width: circleThreeWidth,
-    height: circleThreeWidth,
-    zIndex: 1,
-    borderRadius: 480 / 1,
-    backgroundColor: 'gray',
-    top: 200 / 3,
-    left: -80,
-    // right: 160
   },
   leftCard: {
     // backgroundColor: 'white',

@@ -24,8 +24,9 @@ const ProviderSlider = ({navigation, onSliderInfo}) => {
       <ProviderCard
         key={i}
         title={item.title}
+        logo={item.logo}
         balance={item.balance}
-        gradient={item.color}
+        gradientColors={item.color}
         onPress={() => navigation.navigate('SourceDetails', item)}
       />
     );
