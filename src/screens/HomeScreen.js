@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
   },
   sliderInfo: {
     flex: 1.2,
+    position: 'relative',
   },
   // headerLeft: {
   //   paddingTop: 50,

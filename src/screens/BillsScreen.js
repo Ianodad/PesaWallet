@@ -42,7 +42,7 @@ const BillsScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
   },
   header: {
     flex: 1,

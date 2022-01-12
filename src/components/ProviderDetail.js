@@ -1,10 +1,13 @@
 import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
+import {
+  responsiveHeight,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import {NumberCommas} from '../_helpers/NumberCommas';
 import color from '../config/colors';
 import Text from './Text';
 import TitleHeader from './TitleHeader';
-
 const typesImage = {
   Sent: require('../assets/buttons/Sent.png'),
   Receive: require('../assets/buttons/Receive.png'),
@@ -13,6 +16,8 @@ const typesImage = {
   PayBill: require('../assets/buttons/PayBill.png'),
   BuyGoods: require('../assets/buttons/BuyGoods.png'),
 };
+
+responsiveWidth(70);
 const ProviderDetail = ({Title, AggregatoredData}) => {
   return (
     !!AggregatoredData && (
@@ -50,10 +55,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 10,
     paddingVertical: 10,
-    // alignItems: 'center',
     marginHorizontal: 10,
     borderRadius: 10,
-    // backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -62,22 +65,28 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    flex: 1,
     justifyContent: 'space-between',
-    width: 300,
+    width: responsiveWidth(82),
+    height: responsiveWidth(10),
     alignItems: 'center',
-    // paddingVertical:5,
-    // marginHorizontal: 10,
+    marginVertical: 1,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#E0E4E7',
   },
   rowLeft: {
     flexDirection: 'row',
-    marginVertical: 10,
+    alignItems: 'center',
+    // alignItems: 'flex-start',
+
+    marginVertical: 1,
+    marginLeft: 10,
+    // width: 400,
   },
   image: {
-    height: 15,
-    width: 15,
+    height: 13,
+    width: 16,
     marginRight: 10,
-    marginTop: 3,
+    // marginTop: 5,
   },
   header: {
     flexDirection: 'column',
@@ -88,8 +97,8 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    // justifyContent: 'space-between',
+    // alignItems: 'flex-start',
     marginHorizontal: 25,
   },
   title: {
@@ -100,7 +109,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textPrice: {
-    fontSize: 15,
+    // fontSize: 15,
+    fontSize: responsiveWidth(4),
     fontWeight: 'bold',
     justifyContent: 'flex-end',
     color: color.medium,
@@ -108,8 +118,10 @@ const styles = StyleSheet.create({
   text: {
     // color: '#00008B',
     fontSize: 16,
+    // paddingVertical: 1,
     // marginVertical: 10,
     fontWeight: 'bold',
+    // marginBottom: 10,
     // backgroundColor: 'green'
     // marginHorizontal: 25,
   },

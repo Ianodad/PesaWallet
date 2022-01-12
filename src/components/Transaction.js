@@ -122,7 +122,7 @@ export default Transaction;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
     flexDirection: 'row',
     overflow: 'hidden',
     height: 60,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   },
   leftCard: {
     flex: 1,
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
     alignItems: 'center',
   },
   center: {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   amount: {
     borderRadius: 10,
     fontWeight: 'bold',
-    // color: colors.white,
+    // color: colors.offWhite,
     // backgroundColor: colors.primary,
     textShadowRadius: 2,
     textShadowOffset: {width: 0, height: 1},

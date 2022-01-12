@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   info: {
     position: 'absolute',
-    // color: colors.white,
+    // color: colors.offWhite,
     fontWeight: 'bold',
     textShadowRadius: 1,
     textShadowOffset: {width: 0, height: 1},
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     width: 110,
-    backgroundColor: colors.white,
+    backgroundColor: colors.offWhite,
     borderRadius: 10,
   },
   topDetails: {

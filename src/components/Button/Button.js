@@ -27,7 +27,7 @@ const AppButton = ({
         <TouchableOpacity onPress={onPress} disabled={disabled}>
           <Neomorph
             darkShadowColor={'#00008B'}
-            lightShadowColor={defaultStyles.colors.white}
+            lightShadowColor={defaultStyles.colors.offWhite}
             // inner
             swapShadows
             style={{
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
   },
   text: {
-    color: defaultStyles.colors.white,
+    color: defaultStyles.colors.offWhite,
     textTransform: 'uppercase',
     fontWeight: 'bold',
   },
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     shadowRadius: 11,
     marginVertical: 10,
     // padding: 15,
-    // backgroundColor: colors.white,
+    // backgroundColor: colors.offWhite,
     shadowOpacity: 0.9,
     width: responsiveWidth(90),
     height: responsiveWidth(90),

@@ -109,7 +109,7 @@ class FilteredDetailsScreen extends Component {
         <ParallaxScrollView
           style={{flex: 1, backgroundColor: 'hotpink', overflow: 'hidden'}}
           onScroll={onScroll}
-          headerBackgroundColor={defaultStyles.colors.white}
+          headerBackgroundColor={defaultStyles.colors.offWhite}
           backgroundColor={defaultStyles.colors.primary}
           contentBackgroundColor="white"
           stickyHeaderHeight={responsiveHeight(8)}
@@ -208,13 +208,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
   },
   header: {
     flex: 1,
     marginLeft: 60,
     marginTop: 30,
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
   },
   stickyTitle: {
     fontSize: 36,
@@ -222,6 +222,6 @@ const styles = StyleSheet.create({
   },
   background: {
     height: 400,
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
   },
 });

@@ -6,21 +6,20 @@
  * @flow strict-local
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {connect} from 'react-redux';
 
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
 import {PermissionsAndroid, StyleSheet, Text} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {connect} from 'react-redux';
+import colors from './src/config/colors';
+import {authActions} from './src/_actions/authActions';
 import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
-
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 
 // actions for redux implementation
-import {authActions} from './src/_actions/authActions';
 const {setInitialState} = authActions;
 class App extends Component {
   constructor(props) {
@@ -150,7 +149,7 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   body: {
-    backgroundColor: Colors.white,
+    backgroundColor: colors.offWhite,
   },
   container: {
     marginTop: 32,

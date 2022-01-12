@@ -13,7 +13,7 @@ const AppTextInput = ({icon, shadow, ...otherProps}) => {
       {shadow ? (
         <Neomorph
           style={styles.shadowContainer}
-          // lightShadowColor={defaultStyles.colors.white}
+          // lightShadowColor={defaultStyles.colors.offWhite}
           // darkShadowColor={defaultStyles.colors.medium}
           inner
           swapShadows>
@@ -58,7 +58,7 @@ export default AppTextInput;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: defaultStyles.colors.white,
+    backgroundColor: defaultStyles.colors.offWhite,
     borderRadius: 45,
     flexDirection: 'row',
     width: '90%',

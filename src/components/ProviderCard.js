@@ -10,16 +10,16 @@ import {
 import AnimatedLinearGradient, {
   presetColors,
 } from 'react-native-animated-linear-gradient';
-import defaultStyles from '../config/styles';
 
+import LinearGradient from 'react-native-linear-gradient';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-import {Card} from '../components/Card';
-import LinearGradient from 'react-native-linear-gradient';
-
 import {getRandomInt} from '../_helpers/getRandomInt';
+import {Card} from '../components/Card';
+
+import defaultStyles from '../config/styles';
 
 import Text from './Text';
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     // flex: 0.2,
     flexDirection: 'row',
     overflow: 'hidden',
-    height: 210,
+    height: responsiveHeight(27.7),
     borderRadius: 25,
     padding: 10,
     marginTop: 15,
@@ -121,14 +121,17 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
   title: {
-    color: '#fff',
+    color: defaultStyles.colors.white,
   },
   h1: {
     fontSize: responsiveHeight(2.5),
     fontWeight: 'bold',
+    color: 'white',
   },
   h3: {
     fontSize: responsiveHeight(1.5),
+    color: defaultStyles.colors.offWhite,
+    fontWeight: '200',
   },
   leftCard: {
     // backgroundColor: 'white',
