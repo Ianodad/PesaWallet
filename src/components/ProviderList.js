@@ -2,8 +2,8 @@ import React from 'react';
 
 import {StyleSheet, View, FlatList, ScrollView, Dimensions} from 'react-native';
 import {NumberCommas} from '../_helpers/NumberCommas';
-import Card from './Card';
 import {sources} from '../services/sources';
+import Card from './Card';
 
 const ProviderList = ({navigation}) => {
   return (

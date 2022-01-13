@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import {Dimensions} from 'react-native';
-import RangeList from './RangeList';
 import {
   // LineChart,
   BarChart,
@@ -10,6 +9,7 @@ import {
   ContributionGraph,
   StackedBarChart,
 } from 'react-native-chart-kit';
+import RangeList from './RangeList';
 const screenWidth = Dimensions.get('window').width;
 
 class LineChart extends Component {
@@ -38,10 +38,10 @@ const data = {
   ],
   // legend: ['Rainy Days'], // optional
 };
-    render() {
-        return (
-         <View style={styles.container}>
-            <LineChart
+render() {
+  return (
+    <View style={styles.container}>
+      <LineChart
         data={data}
         width={screenWidth}
         height={250}
@@ -49,15 +49,15 @@ const data = {
         chartConfig={chartConfig}
         bezier
       />
-            </View>
-        )
-    }
+    </View>
+  )
+}
 }
 
 
 export default LineChart
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     // alignItems: 'center',

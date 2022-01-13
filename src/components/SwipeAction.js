@@ -1,13 +1,12 @@
 import React from 'react';
-import Text from './Text';
 import {StyleSheet, View} from 'react-native';
-import IconButton from './Button/IconButton';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import defaultStyles from '../config/styles';
-
+import IconButton from './Button/IconButton';
+import Text from './Text';
 
 const SwipeAction = ({setNextData, setPrevData, title}) => {
   return (
@@ -19,7 +18,7 @@ const SwipeAction = ({setNextData, setPrevData, title}) => {
         color=""
         icon={'angle-left'}
         iconSize={30}
-        />
+      />
       <Text style={styles.title}>{title}</Text>
       <IconButton
         onPress={setPrevData}

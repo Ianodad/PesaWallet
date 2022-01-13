@@ -1,23 +1,14 @@
 import React from 'react';
 
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Dimensions,
-} from 'react-native';
-import AnimatedLinearGradient, {
-  presetColors,
-} from 'react-native-animated-linear-gradient';
+import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {NumberCommas} from '../_helpers/NumberCommas';
 import {getRandomInt} from '../_helpers/getRandomInt';
-import {Card} from '../components/Card';
 
 import defaultStyles from '../config/styles';
 
@@ -30,6 +21,7 @@ const ProviderCard = ({
   onPress,
   shape,
   gradientColors,
+  phoneNumber,
   width = responsiveWidth(getRandomInt(20, 70)),
   widthT = responsiveWidth(getRandomInt(55, 85)),
   widthTT = responsiveWidth(getRandomInt(25, 155)),
@@ -64,13 +56,13 @@ const ProviderCard = ({
         </View>
         <View style={styles.leftCardBottom}>
           <Text style={styles.h3}>Balance</Text>
-          <Text style={styles.balance}>{`KSH ${balance}`}</Text>
+          <Text style={styles.balance}>{`KSH ${NumberCommas(balance)}`}</Text>
         </View>
       </View>
       <View style={styles.rightCard}>
         <View style={styles.rightCardBottom}>
           <Text style={styles.h3}>Account/ Tel No</Text>
-          <Text style={{...styles.title, ...styles.h1}}>0712XXXX98</Text>
+          <Text style={{...styles.title, ...styles.h1}}>{phoneNumber}</Text>
         </View>
         <View style={styles.rightCardTop}>
           <Text style={{...styles.h3}}>Settings</Text>

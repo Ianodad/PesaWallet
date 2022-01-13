@@ -1,8 +1,8 @@
-import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
+import FilteredDetailsScreen from '../screens/FilteredDetailsScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SourceDetails from '../screens/SourceDetailsScreen';
-import FilteredDetailsScreen from '../screens/FilteredDetailsScreen';
 // import AppNavigator from './AppNavigator';
 
 const Stack = createStackNavigator();

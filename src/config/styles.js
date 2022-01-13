@@ -1,11 +1,8 @@
 import {Platform} from 'react-native';
 import {responsiveScreenFontSize} from 'react-native-responsive-dimensions';
-import colors from './colors';
-import {
-  responsiveHeight,
-  responsiveWidth,
-} from 'react-native-responsive-dimensions';
+import {responsiveWidth} from 'react-native-responsive-dimensions';
 import {getRandomInt} from '../_helpers/getRandomInt';
+import colors from './colors';
 
 const widthOne = responsiveWidth(getRandomInt(20, 70));
 const widthTwo = responsiveWidth(getRandomInt(55, 85));

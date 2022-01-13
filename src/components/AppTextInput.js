@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 // import {MaterialCommunityIcons} from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Neomorph} from 'react-native-neomorph-shadows';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import defaultStyles from '../config/styles';
-
-import {Neomorph} from 'react-native-neomorph-shadows';
 
 const AppTextInput = ({icon, shadow, ...otherProps}) => {
   return (

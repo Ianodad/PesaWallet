@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import Text from './Text';
 import {StyleSheet, View} from 'react-native';
 import colors from '../config/colors';
 import defaultStyles from '../config/styles';
-
+import Text from './Text';
 
 // import styles from '../config/styles';
 
@@ -18,7 +17,7 @@ class DateLineSeparator extends Component {
 
   // console.log(this.props)
   render() {
-    const setDate = (da) => {
+    const setDate = da => {
       if (!(this.state.currentDate === da)) {
         this.setState({currentDate: da});
         return () => {
@@ -49,6 +48,6 @@ const styles = StyleSheet.create({
   separator: {
     width: '30%',
     height: 2,
-    backgroundColor:defaultStyles.colors.medium,
+    backgroundColor: defaultStyles.colors.medium,
   },
 });

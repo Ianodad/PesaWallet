@@ -108,10 +108,9 @@ class HomeScreen extends Component {
   // };
 
   render() {
-    const {navigation, userDetails, aggregatoredData} = this.props;
+    const {navigation, userDetails, phoneNumber, aggregatoredData} = this.props;
     const {sliderInfo} = this.state;
 
-    // console.log(aggregatoredData);
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
         {/* <ActivityIndicator visible={this.state.loading} /> */}
@@ -130,7 +129,7 @@ class HomeScreen extends Component {
             {/* <ProviderList navigation={navigation} /> */}
             <View style={styles.sliderInfo}>
               <ProviderDetail
-                AggregatoredData={aggregatoredData}
+                aggregatoredData={aggregatoredData}
                 Title={sliderInfo.title}
               />
               {/* <Text>{sliderInfo.title}</Text> */}
@@ -138,6 +137,7 @@ class HomeScreen extends Component {
             <View style={styles.slider}>
               <ProviderSlider
                 navigation={navigation}
+                phoneNumber={phoneNumber}
                 onSliderInfo={this.setSliderInfo}
               />
             </View>
@@ -153,6 +153,7 @@ const mapStateToProps = state => {
   return {
     collection: SmsCollected.collection,
     userDetails: authState.userDetails,
+    phoneNumber: authState.userPhoneNumber,
     aggregatoredData: SmsCollected.aggregatedMessageData,
   };
 };

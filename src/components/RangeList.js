@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
-import Button from './Button/Button';
 import colors from '../config/colors';
 import defaultStyles from '../config/styles';
-
+import Button from './Button/Button';
 
 const data = [
   {
@@ -41,7 +40,7 @@ const RangeList = () => {
       <FlatList
         horizontal
         data={data}
-        keyExtractor={(range) => range.id.toString()}
+        keyExtractor={range => range.id.toString()}
         renderItem={({item}) => (
           <Button
             style={styles.button}

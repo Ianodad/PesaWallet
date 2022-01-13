@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
-import Type from './Type';
 import defaultStyles from '../config/styles';
+import Type from './Type';
 
 const TypeList = ({
   data,
@@ -17,7 +17,7 @@ const TypeList = ({
         data={data}
         contentInset={{margin: 16}}
         horizontal
-        keyExtractor={(icon) => icon.id.toString()}
+        keyExtractor={icon => icon.id.toString()}
         renderItem={({item}) => (
           <Type
             style={styles.type}

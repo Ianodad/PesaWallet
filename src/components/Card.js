@@ -7,17 +7,17 @@ import {
   Dimensions,
 } from 'react-native';
 
-import Text from './Text';
-import colors from '../config/colors';
-import {color} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
-import {commafy} from '../_helpers/Commafy';
+import {color} from 'react-native-reanimated';
 import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {commafy} from '../_helpers/Commafy';
 import {getRandomInt} from '../_helpers/getRandomInt';
+import colors from '../config/colors';
 import defaultStyles from '../config/styles';
+import Text from './Text';
 
 // const oval1Width = width * 0.5,
 //   oval2Width = width * 0.7;

@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-var stringify = require('fast-json-stable-stringify');
+import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 import {
   SIGN_OUT,
   SET_INITIAL_USER_STATE,
@@ -12,11 +11,11 @@ import {
   PHONE_NO_VERIFICATION,
   USER_VERIFIED,
 } from './types';
+var stringify = require('fast-json-stable-stringify');
 
 // Global regex variables
 
-
-const setInitialState = (data) =>async (dispatch)=>{
+const setInitialState = data => async dispatch => {
   try {
     if (data !== null) {
       // console.log('setInitialState', data);
@@ -36,7 +35,7 @@ const setInitialState = (data) =>async (dispatch)=>{
   }
 };
 
-const signOut = (RNRestart) => async (dispatch) => {
+const signOut = RNRestart => async dispatch => {
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
@@ -73,10 +72,7 @@ const signOut = (RNRestart) => async (dispatch) => {
   await RNRestart.restart();
 };
 
-
-
-const signInWithGoogle = (user) => async (dispatch) => {
-
+const signInWithGoogle = user => async dispatch => {
   if (user) {
     await AsyncStorage.setItem('User', stringify(user));
     // await setGoogleVerification();
@@ -92,13 +88,16 @@ const signInWithGoogle = (user) => async (dispatch) => {
   }
 };
 
-const OTPPhoneNumberVerified = (phoneNumber) => async (dispatch, getState) => {
-
+const OTPPhoneNumberVerified = phoneNumber => async (dispatch, getState) => {
   try {
     let userVerified = true;
     let userPhoneNumber = phoneNumber;
 
-    let localUserDetails = {...getState().authState, userVerified, userPhoneNumber};
+    let localUserDetails = {
+      ...getState().authState,
+      userVerified,
+      userPhoneNumber,
+    };
     await AsyncStorage.setItem('localUserDetails', stringify(localUserDetails));
     // console.log('localUserDetails', localUserDetails);
     dispatch({
@@ -113,17 +112,14 @@ const OTPPhoneNumberVerified = (phoneNumber) => async (dispatch, getState) => {
       type: USER_VERIFIED,
       payload: true,
     });
-
   } catch (error) {
-
     console.error(error);
   }
 };
 
-const signInError = (error) => async (dispatch) => {
-
+const signInError = error => async dispatch => {
   dispatch({
-    type:   SIGN_IN_ERROR,
+    type: SIGN_IN_ERROR,
     payload: error,
   });
 };

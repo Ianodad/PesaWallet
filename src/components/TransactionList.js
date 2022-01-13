@@ -1,14 +1,11 @@
 import React from 'react';
 import {StyleSheet, View, FlatList, TouchableOpacity} from 'react-native';
 
-import Text from './Text';
-import Transaction from './Transaction';
-
 import colors from '../config/colors';
-import DateLineSeparator from '../components/DateLineSeparator';
+import defaultStyles from '../config/styles';
 import FlatListItem from './List/FlatListItem';
 import SectionListItem from './List/SectionListIem';
-import defaultStyles from '../config/styles';
+import Text from './Text';
 
 const TransactionList = ({
   navigation,

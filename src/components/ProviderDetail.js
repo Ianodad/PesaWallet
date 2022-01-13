@@ -18,9 +18,9 @@ const typesImage = {
 };
 
 responsiveWidth(70);
-const ProviderDetail = ({Title, AggregatoredData}) => {
+const ProviderDetail = ({Title, aggregatoredData}) => {
   return (
-    !!AggregatoredData && (
+    !!aggregatoredData && (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>
@@ -29,7 +29,7 @@ const ProviderDetail = ({Title, AggregatoredData}) => {
           </Text>
         </View>
         <View style={styles.body}>
-          {AggregatoredData.map((data, key) => (
+          {aggregatoredData.map((data, key) => (
             <View key={key} style={styles.row}>
               <View style={styles.rowLeft}>
                 <Image style={styles.image} source={typesImage[data.TYPE]} />
