@@ -1,13 +1,13 @@
-import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React from 'react';
 
-import Home from '../screens/HomeScreen';
+import Icon from 'react-native-vector-icons/AntDesign';
 import BillingScreen from '../screens/BillsScreen';
-import ReportsScreen from '../screens/ReportsScreen';
+import Home from '../screens/HomeScreen';
 import HomeScreen from '../screens/HomeScreen';
+import ReportsScreen from '../screens/ReportsScreen';
 import SourceDetailsScreen from '../screens/SourceDetailsScreen';
 import ViewNavigator from './ViewNavigator';
-import Icon from 'react-native-vector-icons/AntDesign';
 
 // import Icon from 'react-native-vector-icons/FontAwesome';
 

@@ -21,7 +21,7 @@ const ProviderCard = ({
   onPress,
   shape,
   gradientColors,
-  phoneNumber,
+  accountNo,
   width = responsiveWidth(getRandomInt(20, 70)),
   widthT = responsiveWidth(getRandomInt(55, 85)),
   widthTT = responsiveWidth(getRandomInt(25, 155)),
@@ -62,7 +62,7 @@ const ProviderCard = ({
       <View style={styles.rightCard}>
         <View style={styles.rightCardBottom}>
           <Text style={styles.h3}>Account/ Tel No</Text>
-          <Text style={{...styles.title, ...styles.h1}}>{phoneNumber}</Text>
+          <Text style={{...styles.title, ...styles.h1}}>{accountNo}</Text>
         </View>
         <View style={styles.rightCardTop}>
           <Text style={{...styles.h3}}>Settings</Text>

@@ -4,6 +4,7 @@ export const sources = [
     title: 'Mpesa',
     balance: 11500,
     color: ['#39b54b', '#39b54b', '#65cd73'],
+    accountNo: '+254721123456',
     logo: require('../assets/source/Mpesa.png'),
   },
   {
@@ -11,6 +12,7 @@ export const sources = [
     title: 'Airtel-M',
     balance: 750,
     color: ['#ff5251', '#ff5252', '#ff7d7d'],
+    accountNo: '+254731123456',
     logo: require('../assets/source/AirtelMoneyKe.png'),
   },
   {
@@ -18,6 +20,7 @@ export const sources = [
     title: 'T-Kash',
     balance: 20500,
     color: ['#fed304', '#fed304', '#fedd42'],
+    accountNo: '+254771123456',
     logo: require('../assets/source/T-Kash.png'),
   },
   {
@@ -25,6 +28,7 @@ export const sources = [
     title: 'Co-Op',
     balance: 11500,
     color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    accountNo: '4515284441821618',
     logo: require('../assets/source/Co-opBank.png'),
   },
   {
@@ -32,6 +36,7 @@ export const sources = [
     title: 'Equity',
     balance: 7500,
     color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    accountNo: '4993266238033284',
     logo: require('../assets/source/Equity.png'),
   },
   {
@@ -39,6 +44,7 @@ export const sources = [
     title: 'KCB',
     balance: 2050000,
     color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    accountNo: '4850506103910914',
     logo: require('../assets/source/Kcb.png'),
   },
   {
@@ -46,6 +52,7 @@ export const sources = [
     title: 'NCBA',
     balance: 11500,
     color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    accountNo: '4772011048905850',
     logo: require('../assets/source/Ncba.png'),
   },
   {
@@ -53,6 +60,7 @@ export const sources = [
     title: 'Absa',
     balance: 11500,
     color: ['#5a60f8', '#5a60f8', '#8387f9'],
+    accountNo: '4346828539247733',
     logo: require('../assets/source/Absa.png'),
   },
 ];

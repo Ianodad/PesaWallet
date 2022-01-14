@@ -7,14 +7,17 @@ import {sources} from '../services/sources';
 import {scrollInterpolators, animatedStyles} from '../utils/animations';
 import ProviderCard from './ProviderCard';
 
-const ProviderSlider = ({navigation, onSliderInfo, phoneNumber}) => {
+const ProviderSlider = ({navigation, onSliderInfo, phoneNumber, balances}) => {
   const isCarousel = React.useRef(null);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     onSliderInfo(sources[index]);
   });
-
+  const replaceCode = no => {
+    const reg = /\+?254/;
+    return no.replace(reg, '0');
+  };
   const _renderItem = ({item, index: i}) => {
     return (
       <ProviderCard
@@ -22,7 +25,7 @@ const ProviderSlider = ({navigation, onSliderInfo, phoneNumber}) => {
         title={item.title}
         logo={item.logo}
         balance={item.balance}
-        phoneNumber={item.phoneNumber}
+        accountNo={replaceCode(item.accountNo)}
         gradientColors={item.color}
         onPress={() => navigation.navigate('SourceDetails', item)}
       />
@@ -30,13 +33,15 @@ const ProviderSlider = ({navigation, onSliderInfo, phoneNumber}) => {
   };
 
   const filterChange = data => {
-    const replaceCode = no => {
-      const reg = /\+?254/;
-      return no.replace(reg, '0');
-    };
     const newArr = data.map(source => {
+      console.log(source.title);
+      console.log(balances[source.title]);
       if (source.title === phoneNumberChecker(phoneNumber)) {
-        return {...source, phoneNumber: replaceCode(phoneNumber), balance: 300};
+        return {
+          ...source,
+          accountNo: replaceCode(phoneNumber),
+          balance: balances[source.title],
+        };
       }
 
       return source;

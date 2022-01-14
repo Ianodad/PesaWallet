@@ -1,5 +1,5 @@
-export const phoneNumberChecker = phoneNumber => {
-  const number = phoneNumber;
+export const phoneNumberChecker = accountNumber => {
+  const number = accountNumber;
 
   const safaricomNumberRegexOld =
     /^((?:254|\+254|0)((?<xa>7(?:(?:[01249][0-9])|(?:5[7-9])|(6[8-9]))[0-9]{6})|(?<xb>1(?:(?:[1][0-1]))[0-9]{6})))$/;
@@ -31,5 +31,6 @@ export const phoneNumberChecker = phoneNumber => {
     return 'T-Kash';
   } else {
     console.log('number not supported');
+    return accountNumber;
   }
 };

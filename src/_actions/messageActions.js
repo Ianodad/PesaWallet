@@ -2,10 +2,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash';
 import {processMpesa} from '../_actionsMethods/processMpesa.js';
-import {DateFilter} from '../_helpers/DateFilter';
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
-import {STORE_MESSAGES, GET_COLLECTION, AGGREGATED_DATA} from './types';
+import {
+  STORE_MESSAGES,
+  GET_COLLECTION,
+  AGGREGATED_DATA,
+  GET_BALANCES,
+} from './types';
 var stringify = require('fast-json-stable-stringify');
 
 // Global regex variables
@@ -16,14 +20,16 @@ const storeMessages = (address, messages) => async dispatch => {
   // console.log('messageProcess', messages);
 
   const messageCollection = await stringify(messagesProcesses);
-  // console.log(messageCollection)
+
   try {
     await AsyncStorage.setItem('COLLECTION', messageCollection);
     dispatch({
       type: STORE_MESSAGES,
       payload: JSON.parse(messageCollection),
     });
+
     dispatch(aggregatorMessageData());
+    dispatch(getBalance());
   } catch (e) {
     // console.log(e);
     dispatch({
@@ -107,6 +113,20 @@ const getCollection = () => async dispatch => {
   }
 };
 
+const getBalance = () => async dispatch => {
+  const messageCollection = await AsyncStorage.getItem('COLLECTION');
+
+  let balances = {};
+  let mpesaBalance = {Mpesa: JSON.parse(messageCollection)[0].BALANCE};
+  // console.log([{...mpesaBalance}]);
+  const data = {...mpesaBalance};
+  console.log(balances);
+  dispatch({
+    type: GET_BALANCES,
+    payload: data,
+  });
+};
+
 const removeFromStorage = () => async dispatch => {
   await AsyncStorage.removeItem('COLLECTION');
   dispatch({
@@ -118,5 +138,6 @@ const removeFromStorage = () => async dispatch => {
 export const messageActions = {
   getCollection,
   storeMessages,
+  getBalance,
   removeFromStorage,
 };

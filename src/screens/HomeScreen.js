@@ -108,7 +108,8 @@ class HomeScreen extends Component {
   // };
 
   render() {
-    const {navigation, userDetails, phoneNumber, aggregatoredData} = this.props;
+    const {navigation, userDetails, phoneNumber, aggregatoredData, balances} =
+      this.props;
     const {sliderInfo} = this.state;
 
     return (
@@ -138,6 +139,7 @@ class HomeScreen extends Component {
               <ProviderSlider
                 navigation={navigation}
                 phoneNumber={phoneNumber}
+                balances={balances}
                 onSliderInfo={this.setSliderInfo}
               />
             </View>
@@ -152,6 +154,7 @@ const mapStateToProps = state => {
   const {SmsCollected, authState} = state;
   return {
     collection: SmsCollected.collection,
+    balances: SmsCollected.balances,
     userDetails: authState.userDetails,
     phoneNumber: authState.userPhoneNumber,
     aggregatoredData: SmsCollected.aggregatedMessageData,
