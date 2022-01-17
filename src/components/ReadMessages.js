@@ -35,7 +35,6 @@ const ReadAllMessages = ({collection, storeMessages}) => {
         var arr = JSON.parse(smsList);
         // console.log('sms', arr);
         // console.log(callback);
-        console.log('here');
         callback(address, arr);
       },
     );

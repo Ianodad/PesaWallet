@@ -18,6 +18,7 @@ import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
+import { Constants } from 'react-native-unimodules';
 
 // actions for redux implementation
 const {setInitialState} = authActions;
@@ -31,7 +32,6 @@ class App extends Component {
     try {
       const data = await AsyncStorage.getItem('localUserDetails');
       if (data !== null) {
-        console.log(JSON.parse(data));
         await this.props.setInitialState(JSON.parse(data));
         this.setState({initializing: false});
       }
@@ -104,6 +104,7 @@ class App extends Component {
     // this.anonymousSignIn();
     this.subscriberAuth();
     // this.signOut();
+    console.log(Constants.deviceName);
   };
 
   // componentWillUnmount = async () => {
@@ -158,7 +159,6 @@ const styles = StyleSheet.create({
 });
 // export default App;
 const mapStateToProps = state => {
-  console.log(state.authState.userVerified);
 
   return {
     auth: state.authState.userVerified,

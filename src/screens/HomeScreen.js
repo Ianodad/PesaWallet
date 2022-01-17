@@ -68,7 +68,6 @@ class HomeScreen extends Component {
 
   componentDidMount = () => {
     this.loadCollection();
-    console.log(this.props.aggregatorMessageData);
     // this.retrieveUser();
   };
 

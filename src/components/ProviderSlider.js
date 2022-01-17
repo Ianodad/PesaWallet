@@ -34,8 +34,6 @@ const ProviderSlider = ({navigation, onSliderInfo, phoneNumber, balances}) => {
 
   const filterChange = data => {
     const newArr = data.map(source => {
-      console.log(source.title);
-      console.log(balances[source.title]);
       if (source.title === phoneNumberChecker(phoneNumber)) {
         return {
           ...source,
@@ -46,8 +44,6 @@ const ProviderSlider = ({navigation, onSliderInfo, phoneNumber, balances}) => {
 
       return source;
     });
-
-    console.log(newArr);
     return newArr;
   };
   // const sliderInfoIndex = index => {

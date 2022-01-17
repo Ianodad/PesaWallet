@@ -120,7 +120,6 @@ const getBalance = () => async dispatch => {
   let mpesaBalance = {Mpesa: JSON.parse(messageCollection)[0].BALANCE};
   // console.log([{...mpesaBalance}]);
   const data = {...mpesaBalance};
-  console.log(balances);
   dispatch({
     type: GET_BALANCES,
     payload: data,
