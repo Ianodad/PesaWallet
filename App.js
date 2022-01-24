@@ -9,16 +9,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
-import {PermissionsAndroid, StyleSheet, Text} from 'react-native';
+import {PermissionsAndroid, Text} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {connect} from 'react-redux';
 import {authActions} from './src/_actions/authActions';
-import colors from './src/config/colors';
 import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
-import { Constants } from 'react-native-unimodules';
 
 // actions for redux implementation
 const {setInitialState} = authActions;
@@ -104,7 +102,6 @@ class App extends Component {
     // this.anonymousSignIn();
     this.subscriberAuth();
     // this.signOut();
-    console.log(Constants.deviceName);
   };
 
   // componentWillUnmount = async () => {
@@ -148,18 +145,17 @@ class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  body: {
-    backgroundColor: colors.offWhite,
-  },
-  container: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-});
+// const styles = StyleSheet.create({
+//   body: {
+//     backgroundColor: colors.offWhite,
+//   },
+//   container: {
+//     marginTop: 32,
+//     paddingHorizontal: 24,
+//   },
+// });
 // export default App;
 const mapStateToProps = state => {
-
   return {
     auth: state.authState.userVerified,
   };

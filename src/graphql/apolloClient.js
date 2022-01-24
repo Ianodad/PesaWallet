@@ -1,9 +1,9 @@
 import {ApolloClient, ApolloLink, InMemoryCache} from '@apollo/client';
 import {onError} from 'apollo-link-error';
 import {createUploadLink} from 'apollo-upload-client';
-
-const uri = 'http://10.0.2.2:5000/api/graphql';
-
+import settings from '../config/settings';
+// const uri = 'http://10.0.2.2:5000/api/graphql';
+const uri = settings.API_URL;
 const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({graphQLErrors, networkError}) => {
