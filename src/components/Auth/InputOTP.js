@@ -16,13 +16,14 @@ export default function InputOTPScreen({
   route,
   confirmCode,
   onChangeNumber,
+  clearOTP,
 }) {
   const defaultCountdown = 30;
   let clockCall = null;
   const [internalVal, setInternalVal] = useState('');
   const [enableResend, setEnableResend] = useState(false);
   const [countdown, setCountdown] = useState(defaultCountdown);
-  const [verificationCode, setVerificationCode] = React.useState('');
+  const [verificationCode, setVerificationCode] = useState('');
   let textInput = useRef(null);
   const lengthInput = 6;
 
@@ -72,6 +73,7 @@ export default function InputOTPScreen({
 
   const clearOtp = () => {
     setInternalVal('');
+    clearOTP('');
   };
 
   const decrementClock = () => {

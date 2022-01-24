@@ -69,6 +69,7 @@ const OTPLoginScreen = ({
     // GoogleSignin.configure();
     // props.signOut();
     // setUser(googleId);
+    changeNumber;
   }, []);
 
   // componentDidMount() {
@@ -115,33 +116,44 @@ const OTPLoginScreen = ({
   };
 
   const confirmCode = async code => {
-    console.log(code);
+    console.log(confirmations);
     try {
       // await confirm.confirm(code);
       if (confirmations) {
         await confirmations.confirm(code);
-        // console.log(datai)
+        // console.log(data);
 
-        // console.log(await this.state.confirmations.confirm(code));
-        setConfirmations(null);
-        const userID = user.allUsers[0].id;
-        const {data} = await updateUser({
-          variables: {id: userID, phoneNo: userPhoneNumber},
+        // With backend
+        OTPPhoneNumberVerified(userPhoneNumber);
+        console.log('Success Code validation');
+        // console.log(navigation)
+        navigation.navigate('SideNavigation', {
+          screen: 'HomeMain',
+          params: {screen: 'HomeBottom'},
         });
-        if (data) {
-          OTPPhoneNumberVerified(userPhoneNumber);
-          console.log('Success Code validation');
-          // console.log(navigation)
-          navigation.navigate('SideNavigation', {
-            screen: 'HomeMain',
-            params: {screen: 'HomeBottom'},
-          });
-        }
+        // console.log(await this.state.confirmations.confirm(code));
+        // setConfirmations(null);
+        // const userID = user.allUsers[0].id;
+        // update backend with number
+        // const {data} = await updateUser({
+        //   variables: {id: userID, phoneNo: userPhoneNumber},
+        // });
+        // if (data) {
+        //   OTPPhoneNumberVerified(userPhoneNumber);
+        //   console.log('Success Code validation');
+        //   // console.log(navigation)
+        //   navigation.navigate('SideNavigation', {
+        //     screen: 'HomeMain',
+        //     params: {screen: 'HomeBottom'},
+        //   });
+        // }
       }
     } catch (error) {
       console.log(error);
-      console.log('Invalid code.');
-      alert('Invalid code');
+      setConfirmations('');
+
+      // console.log('Invalid code.');
+      alert('Invalid code click on change number to retry');
     }
   };
 
@@ -175,6 +187,7 @@ const OTPLoginScreen = ({
         {phoneNumberValidation && (
           <InputOTP
             confirmCode={val => confirmCode(val)}
+            clearOTP={() => setConfirmations('')}
             onChangeNumber={changeNumber}
             phoneNumber={userPhoneNumber}
           />

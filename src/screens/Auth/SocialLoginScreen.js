@@ -59,7 +59,7 @@ const SocialLoginScreen = props => {
   //   }
   // };
   const SignInWithGoogle = async () => {
-    let gUser = {};
+    let googleUserDetails = {};
     try {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
@@ -68,43 +68,57 @@ const SocialLoginScreen = props => {
       // checkId({variables: {id: id}});
       // setGoogeleId(id);
 
-      // console.log(id, name, email, givenName, familyName, photo);
-
+      // just use google sign ti validate user
       if (user) {
-        gUser = {id, name, email, givenName, familyName, photo};
-        const {data} = await signUpWithGoogle({
-          variables: {id, name, email, givenName, familyName, photo},
+        // console.log(data?.createUser);
+        console.log('New User Created ' + name);
+        props.signInWithGoogle(user);
+        props.navigation.navigate('OTP', {
+          googleId: id,
+          userId: id,
         });
-        // console.log(checkId(data));
-        if (data) {
-          // console.log(data?.createUser);
-          console.log('New User Created ' + name);
-          props.signInWithGoogle(user);
-          props.navigation.navigate('OTP', {
-            googleId: user.id,
-            userId: data?.createUser?.id,
-          });
-        }
-        // console.log({data, loading, error});
       }
+      // console.log(id, name, email, givenName, familyName, photo);
+      // if (user) {
+      //   googleUserDetails = {id, name, email, givenName, familyName, photo};
+      //   // use backend to check if user is already registered
+      //   const {data} = await signUpWithGoogle({
+      //     variables: {id, name, email, givenName, familyName, photo},
+      //   });
+      //   // console.log(checkId(data));
+      //   if (data) {
+      //     // console.log(data?.createUser);
+      //     console.log('New User Created ' + name);
+      //     props.signInWithGoogle(user);
+      //     props.navigation.navigate('OTP', {
+      //       googleId: user.id,
+      //       userId: data?.createUser?.id,
+      //     });
+      //   }
+      //   // console.log({data, loading, error});
+      // }
     } catch (err) {
       let obj = JSON.parse(JSON.stringify(err));
-      // console.log(obj);
-      let {graphQLErrors} = obj;
-      let {
-        extensions: {
-          exception: {
-            code,
-            keyValue: {email, id},
-          },
-        },
-      } = graphQLErrors[0];
+      console.log(obj);
+      // // GRAHLY ERROR
+      // let {graphQLErrors} = obj;
+      // let {
+      //   extensions: {
+      //     exception: {
+      //       code,
+      //       keyValue: {email, id},
+      //     },
+      //   },
+      // } = graphQLErrors[0];
 
-      if ((code === 11000 && email) || id) {
-        console.log('Email exist for ' + gUser.name + ' proceed');
-        props.signInWithGoogle(gUser);
-        props.navigation.navigate('OTP', {googleId: gUser.id, userId: ''});
-      }
+      // if ((code === 11000 && email) || id) {
+      //   console.log('Email exist for ' + googleUserDetails.name + ' proceed');
+      //   props.signInWithGoogle(googleUserDetails);
+      //   props.navigation.navigate('OTP', {
+      //     googleId: googleUserDetails.id,
+      //     userId: '',
+      //   });
+      // }
       // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
       //   // user cancelled the login flow
       // } else if (error.code === statusCodes.IN_PROGRESS) {
