@@ -1,0 +1,7 @@
+{
+  "name": "pesawallet",
+  "displayName": "pesawallet",
+  "requireFullScreen": true,
+  // "orientation": "landscape"
+  "orientation": "portrait"
+}
