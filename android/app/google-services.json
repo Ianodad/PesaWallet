@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "445455504561",
+    "project_id": "pesawallett",
+    "storage_bucket": "pesawallett.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445455504561:android:9847131743ab1cc41b7e90",
+        "android_client_info": {
+          "package_name": "com.pesasite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445455504561-jqgk3er2jpq4a0jcnn76k67cedqro7n8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrLL2hb3GUiPkuODUHIucLg3CaDCVw2UQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445455504561-jqgk3er2jpq4a0jcnn76k67cedqro7n8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445455504561:android:79ae802308db83271b7e90",
+        "android_client_info": {
+          "package_name": "com.pesawallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445455504561-jqgk3er2jpq4a0jcnn76k67cedqro7n8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrLL2hb3GUiPkuODUHIucLg3CaDCVw2UQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445455504561-jqgk3er2jpq4a0jcnn76k67cedqro7n8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
