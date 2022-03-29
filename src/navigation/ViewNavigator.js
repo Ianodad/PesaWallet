@@ -8,7 +8,7 @@ import SourceDetails from '../screens/SourceDetailsScreen';
 const Stack = createStackNavigator();
 
 const ViewNavigator = () => (
-  <Stack.Navigator mode="card" screenOptions={{headerShown: false}}>
+  <Stack.Navigator screenOptions={{headerShown: false, presentation: 'card'}}>
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="SourceDetails" component={SourceDetails} />
     <Stack.Screen
