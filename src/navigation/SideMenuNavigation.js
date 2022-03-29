@@ -16,7 +16,7 @@ const SideMenuNavigation = () => {
   return (
     <>
       {/* <ReadAllMessages/> */}
-      <ReadMessages />
+      {/* <ReadMessages /> */}
       <Drawer.Navigator screenOptions={{headerShown: false}}>
         <Drawer.Screen
           name="HomeMain"

@@ -123,7 +123,7 @@ class App extends Component {
   };
 
   render() {
-    // {console.log(this.state.user)}
+    {console.log(this.state.user)}
     if (this.state.initializing) {
       return <Text>Checking state...</Text>;
     }
@@ -132,14 +132,15 @@ class App extends Component {
       <>
         {/* <ReadMessages/> */}
         <NavigationContainer>
-          <SideMenuNavigation />
-          {/* {this.state.initializing ? (
+          {/* <SideMenuNavigation /> */}
+          {/* <AppNavigator /> */}
+          {this.state.initializing ? (
             <Text>Checking state...</Text>
           ) : this.props.auth ? (
             <SideMenuNavigation />
           ) : (
             <AuthNavigator />
-          )} */}
+          )}
         </NavigationContainer>
       </>
     );
