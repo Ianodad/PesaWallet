@@ -3,5 +3,14 @@
   "displayName": "pesawallet",
   "requireFullScreen": true,
   // "orientation": "landscape"
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "expo": {
+    "android": {
+      "googleServicesFile": "./google-services.json"
+    },
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
+  }
 }

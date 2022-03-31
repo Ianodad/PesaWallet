@@ -43,6 +43,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "445455504561-n6nhiunsjnvhtcf7igvkuibuiqpmjhkr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pesawallet",
+            "certificate_hash": "a2941fa0490e58a2a9becdf0f579a834fd0c11c5"
+          }
+        },
+        {
           "client_id": "445455504561-jqgk3er2jpq4a0jcnn76k67cedqro7n8.apps.googleusercontent.com",
           "client_type": 3
         }

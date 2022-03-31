@@ -118,7 +118,7 @@ const OTPLoginScreen = ({
     // console.log(confirmations);
   };
 
-  const confirmCode = async code => {
+  const  confirmCode = async code => {
     console.log(confirmations);
     try {
       // await confirm.confirm(code);
@@ -127,10 +127,10 @@ const OTPLoginScreen = ({
         // console.log(data);
 
         // With backend
-        OTPPhoneNumberVerified(userPhoneNumber);
+        await OTPPhoneNumberVerified(userPhoneNumber);
         console.log('Success Code validation');
-        // console.log(navigation)
-        navigation.navigate('SideNavigation', {
+        console.log(await navigation)
+        await navigation.navigate('SideNavigation', {
           screen: 'HomeMain',
           params: {screen: 'HomeBottom'},
         });
