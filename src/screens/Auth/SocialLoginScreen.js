@@ -1,6 +1,9 @@
 // react libraries
 import {useMutation, useQuery} from '@apollo/client';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+} from '@react-native-google-signin/google-signin';
 import React, {useEffect, useState} from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
@@ -17,7 +20,10 @@ const {signInWithGoogle, signOut} = authActions;
 
 // others
 const {width, height} = Dimensions.get('window');
-
+// GoogleSignin.configure({
+//   webClientId:
+//     '445455504561-jqgk3er2jpq4a0jcnn76k67cedqro7n8.apps.googleusercontent.com',
+// });
 const SocialLoginScreen = props => {
   // constructor(props) {
   //   super(props);
@@ -25,6 +31,7 @@ const SocialLoginScreen = props => {
   // }
 
   const [gId, setGoogeleId] = useState();
+  const [isSigninInProgress, setIsSigninInProgress] = useState(false);
 
   const [signUpWithGoogle, {loading: loadingSignIn}] =
     useMutation(SIGNUP_WITH_GOOGLE);
@@ -69,6 +76,7 @@ const SocialLoginScreen = props => {
       // setGoogeleId(id);
 
       // just use google sign ti validate user
+      console.log(user);
       if (user) {
         // console.log(data?.createUser);
         console.log('New User Created ' + name);
@@ -97,9 +105,22 @@ const SocialLoginScreen = props => {
       //   }
       //   // console.log({data, loading, error});
       // }
-    } catch (err) {
-      let obj = JSON.parse(JSON.stringify(err));
-      console.log(obj);
+    } catch (error) {
+      let obj = JSON.parse(JSON.stringify(error));
+      // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+      //   // user cancelled the login flow
+      //   console.log('User cancelled login');
+      // } else if (error.code === statusCodes.IN_PROGRESS) {
+      //     // operation (e.g. sign in) is in progress already
+      //     console.log('Operation in progress');
+      // } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      //   // play services not available or outdated
+      //   console.log('Play services not available or outdated');
+      // } else {
+      //   // some other error happened
+      //   console.log(obj);
+      // }
+      console.log(error);
       // // GRAHLY ERROR
       // let {graphQLErrors} = obj;
       // let {
@@ -141,6 +162,13 @@ const SocialLoginScreen = props => {
       </View> */}
       <View style={styles.form}>
         <View style={styles.authButtons}>
+          {/* <GoogleSigninButton
+            style={{width: 192, height: 48}}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={SignInWithGoogle}
+            disabled={isSigninInProgress}
+          /> */}
           <Button
             buttonType
             style={styles.googlelogin}

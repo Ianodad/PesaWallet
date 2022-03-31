@@ -19,6 +19,7 @@ var stringify = require('fast-json-stable-stringify');
 // Global regex variables
 
 const setInitialState = data => async dispatch => {
+  console.log('setInitialState', data);
   try {
     if (data !== null) {
       // console.log('setInitialState', data);
@@ -77,7 +78,7 @@ const signOut = RNRestart => async dispatch => {
 
 const signInWithGoogle = user => async dispatch => {
   if (user) {
-    await AsyncStorage.setItem('User', stringify(user));
+    await AsyncStorage.setItem('User', JSON.stringify(user));
     // await setGoogleVerification();
     dispatch({
       type: GOOGLE_VERIFICATION,
@@ -101,8 +102,11 @@ const OTPPhoneNumberVerified = phoneNumber => async (dispatch, getState) => {
       userVerified,
       userPhoneNumber,
     };
-    await AsyncStorage.setItem('localUserDetails', stringify(localUserDetails));
-    // console.log('localUserDetails', localUserDetails);
+    await AsyncStorage.setItem(
+      'localUserDetails',
+      JSON.stringify(localUserDetails),
+    );
+    console.log('localUserDetails', localUserDetails);
     dispatch({
       type: PHONE_NO_VERIFICATION,
       payload: true,

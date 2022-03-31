@@ -29,8 +29,14 @@ class App extends Component {
   setInitialState = async () => {
     try {
       const data = await AsyncStorage.getItem('localUserDetails');
-      if (data !== null) {
-        await this.props.setInitialState(JSON.parse(data));
+      const storageData = JSON.parse(data);
+      if (storageData !== null) {
+        await this.props.setInitialState(storageData);
+        console.log('data.userVerified', storageData.userVerified);
+
+        if (storageData.userVerified) {
+          this.setState({auth: true});
+        }
         this.setState({initializing: false});
       }
     } catch (e) {
@@ -123,7 +129,7 @@ class App extends Component {
   };
 
   render() {
-    {console.log(this.state.user)}
+    {console.log("state.auth", this.state.auth);}
     if (this.state.initializing) {
       return <Text>Checking state...</Text>;
     }
@@ -132,15 +138,16 @@ class App extends Component {
       <>
         {/* <ReadMessages/> */}
         <NavigationContainer>
-          {/* <SideMenuNavigation /> */}
+          <SideMenuNavigation />
           {/* <AppNavigator /> */}
-          {this.state.initializing ? (
+          {/* {this.state.auth ? <SideMenuNavigation /> : <SideMenuNavigation />} */}
+          {/* {this.state.initializing ? (
             <Text>Checking state...</Text>
-          ) : this.props.auth ? (
+          ) : this.state.auth ? (
             <SideMenuNavigation />
           ) : (
             <AuthNavigator />
-          )}
+          )} */}
         </NavigationContainer>
       </>
     );
