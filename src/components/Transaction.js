@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import DayJS from 'react-dayjs';
 import {
   StyleSheet,
@@ -11,7 +11,7 @@ import Text from '../components/Text';
 import colors from '../config/colors';
 import defaultStyles from '../config/styles';
 import IconButton from './Button/IconButton';
-
+import MessageDetailModal from './Modal/MessageDetailModal';
 // import DateLineSeparator from './DateLineSeparator';
 
 const Transaction = ({
@@ -24,6 +24,7 @@ const Transaction = ({
   amount,
   detail,
   finance,
+  message,
   separator,
   transactionCost,
   navigation,
@@ -52,15 +53,38 @@ const Transaction = ({
     }
   };
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   if (finance == 'Debit') {
     amount = `-${NumberCommas(amount)}`;
   } else {
     amount = NumberCommas(amount);
   }
+
+  let messageData = {
+    id,
+    phoneNo,
+    type,
+    name,
+    date,
+    time,
+    amount,
+    finance,
+    message,
+  };
   return (
     <View>
       {/* <DateLineSeparator date={date}/> */}
-      <TouchableWithoutFeedback>
+      <MessageDetailModal
+        messageData={messageData}
+        onModalAction={toggleModal}
+        isModalVisible={isModalVisible}
+      />
+      <TouchableWithoutFeedback onPress={toggleModal}>
         <View style={styles.container}>
           <View style={styles.leftCard}>
             <IconButton
