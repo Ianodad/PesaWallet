@@ -114,37 +114,37 @@ export const processMpesa = mpesaData => {
 // This is function takes in message and type message to processed and cleaned
 function processSent(message, sent) {
   // cleanedSend takes in filtered and type to clean data
-  return cleanedSend(filterContent(message, sent), sent);
+  return cleanedSend(filterContent(message, sent), message);
 }
 
 function processReceived(message, receive) {
-  return cleanedReceive(filterContent(message, receive), receive);
+  return cleanedReceive(filterContent(message, receive), message);
 }
 
 function processAccountPaid(message, accountPaid) {
-  return cleanedAccountPaid(filterContent(message, accountPaid), accountPaid);
+  return cleanedAccountPaid(filterContent(message, accountPaid), message);
 }
 
 function processGoodsPaid(message, goodsPaid) {
-  return cleanedGoodsPaid(filterContent(message, goodsPaid), goodsPaid);
+  return cleanedGoodsPaid(filterContent(message, goodsPaid), message);
 }
 
 function processDeposit(message, deposit) {
-  return cleanedDeposit(filterContent(message, deposit), deposit);
+  return cleanedDeposit(filterContent(message, deposit), message);
 }
 
 function processWithdraw(message, withdraw) {
-  return cleanedWithdraw(filterContent(message, withdraw), withdraw);
+  return cleanedWithdraw(filterContent(message, withdraw), message);
 }
 
 function processAirtime(message, airtime) {
-  return cleanedAirtime(filterContent(message, airtime), airtime);
+  return cleanedAirtime(filterContent(message, airtime), message);
 }
 function processReversed(message, reverse) {
-  return cleanReverse(filterContent(message, reverse), reverse);
+  return cleanReverse(filterContent(message, reverse), message);
 }
 
-function cleanedSend(clean) {
+function cleanedSend(clean, message) {
   try {
     const TYPE = 'Sent';
     const FINANCE = 'Debit';
@@ -157,7 +157,7 @@ function cleanedSend(clean) {
     const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
 
     const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
-
+    const MESSAGE = message;
     let NAME;
     if (PHONENO) {
       NAME = nameCapitalize(
@@ -192,6 +192,7 @@ function cleanedSend(clean) {
       COST,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     // console.log(data)
     return data;
@@ -202,7 +203,7 @@ function cleanedSend(clean) {
   }
 }
 
-function cleanedReceive(clean) {
+function cleanedReceive(clean, message) {
   try {
     const TYPE = 'Receive';
     const FINANCE = 'Credit';
@@ -212,6 +213,7 @@ function cleanedReceive(clean) {
     const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
     const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
+    const MESSAGE = message;
 
     let NAME;
     if (PHONENO) {
@@ -247,6 +249,7 @@ function cleanedReceive(clean) {
       BALANCE,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     return data;
   } catch (error) {
@@ -256,20 +259,18 @@ function cleanedReceive(clean) {
   }
 }
 
-function cleanedAccountPaid(clean) {
-  // console.log(clean)
-
+function cleanedAccountPaid(clean, message) {
   try {
     const TYPE = 'PayBill';
     const FINANCE = 'Debit';
     const ID = cleanSwitch(clean, 'ID');
     let DATE = cleanSwitch(clean, 'DATE');
-    // console.log(DATE)
     let PHONENO = cleanSwitch(clean, 'PHONENO');
     const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
     const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
     const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
+    const MESSAGE = message;
 
     let NAME;
 
@@ -306,6 +307,7 @@ function cleanedAccountPaid(clean) {
       COST,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     return data;
   } catch (error) {
@@ -315,7 +317,7 @@ function cleanedAccountPaid(clean) {
   }
 }
 
-function cleanedGoodsPaid(clean) {
+function cleanedGoodsPaid(clean, message) {
   try {
     const TYPE = 'BuyGoods';
     const FINANCE = 'Debit';
@@ -328,6 +330,7 @@ function cleanedGoodsPaid(clean) {
     const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
     const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
+    const MESSAGE = message;
 
     let NAME;
 
@@ -366,6 +369,7 @@ function cleanedGoodsPaid(clean) {
       COST,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     //   console.log(data)
     return data;
@@ -376,7 +380,7 @@ function cleanedGoodsPaid(clean) {
   }
 }
 
-function cleanedDeposit(clean) {
+function cleanedDeposit(clean, message) {
   try {
     const TYPE = 'Deposit';
     const FINANCE = 'Credit';
@@ -386,6 +390,7 @@ function cleanedDeposit(clean) {
     const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
     const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
+    const MESSAGE = message;
 
     let NAME;
 
@@ -422,6 +427,7 @@ function cleanedDeposit(clean) {
       BALANCE,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     return data;
   } catch (error) {
@@ -431,7 +437,7 @@ function cleanedDeposit(clean) {
   }
 }
 
-function cleanedWithdraw(clean) {
+function cleanedWithdraw(clean, message) {
   try {
     const TYPE = 'Withdraw';
     const FINANCE = 'Debit';
@@ -444,6 +450,7 @@ function cleanedWithdraw(clean) {
     const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
     const AGENTNO = clean[clean.indexOf('-') - 1];
+    const MESSAGE = message;
 
     let NAME;
     if (PHONENO) {
@@ -481,6 +488,7 @@ function cleanedWithdraw(clean) {
       BALANCE,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     // console.log(data);
     return data;
@@ -491,7 +499,7 @@ function cleanedWithdraw(clean) {
   }
 }
 
-function cleanedAirtime(clean) {
+function cleanedAirtime(clean, message) {
   try {
     const TYPE = 'Airtime';
     const ID = cleanSwitch(clean, 'ID');
@@ -504,6 +512,7 @@ function cleanedAirtime(clean) {
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
     const COST = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[2]);
     const FINANCE = 'Debit';
+    const MESSAGE = message;
 
     // console.log(COST);
 
@@ -519,6 +528,7 @@ function cleanedAirtime(clean) {
       COST,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
     // console.log(data)
     return data;
@@ -529,7 +539,7 @@ function cleanedAirtime(clean) {
   }
 }
 
-function cleanReverse(clean) {
+function cleanReverse(clean, message) {
   try {
     const TYPE = 'Reverse';
     const FINANCE = 'Credit';
@@ -539,6 +549,7 @@ function cleanReverse(clean) {
     const TIME = `${cleanSwitch(clean, 'TIME')} ${cleanSwitch(clean, 'AMPM')}`;
     const AMOUNT = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[0]);
     const BALANCE = currencyToNumber(cleanSwitch(clean, 'ALLCASH')[1]);
+    const MESSAGE = message;
 
     DATE = dateConverter(DATE);
     const data = {
@@ -550,6 +561,7 @@ function cleanReverse(clean) {
       BALANCE,
       TYPE,
       FINANCE,
+      MESSAGE,
     };
 
     //   console.log(data);

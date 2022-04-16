@@ -23,6 +23,7 @@ const FlatListItem = ({data, navigation}) => {
           amount={item?.AMOUNT}
           finance={item?.FINANCE}
           navigation={navigation}
+          message={item.MESSAGE}
         />
       )}
     />

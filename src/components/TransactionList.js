@@ -32,7 +32,7 @@ const TransactionList = ({
           </TouchableOpacity>
         )}
       </View>
-      {!!data && (
+      {!data && (
         <View>
           <Text>NO DATA</Text>
         </View>
