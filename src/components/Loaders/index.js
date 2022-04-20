@@ -1,5 +1,6 @@
 import React from 'react';
 import SourceLoader from './SourceLoader';
+import InitialLoader from './InitialLoader';
 import {
   responsiveHeight,
   responsiveWidth,
@@ -20,19 +21,31 @@ const index = ({Loader}) => {
     width,
     'height',
     height,
+    'Loader',
+    Loader,
   );
-  return (
-    <>
-      {Loader === 'SourceDetails' && (
-        <SourceLoader
-          width={width}
-          height={height}
-          containerWidth={containerWidth}
-          containerHeight={containerHeight}
-        />
-      )}
-    </>
-  );
+  const LOADER = {
+    sourceDetails: (
+      <SourceLoader
+        width={width}
+        height={height}
+        containerWidth={containerWidth}
+        containerHeight={containerHeight}
+      />
+    ),
+    initialView: (
+      <InitialLoader
+        width={width}
+        height={height}
+        containerWidth={containerWidth}
+        containerHeight={containerHeight}
+      />
+    ),
+  };
+  // const loaderData =(view) =>{
+  //   loader[view]
+  // }
+  return <>{LOADER[Loader]}</>;
 };
 
 export default index;

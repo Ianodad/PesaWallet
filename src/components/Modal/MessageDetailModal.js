@@ -1,17 +1,56 @@
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Linking, Share} from 'react-native';
 import React, {useEffect} from 'react';
 import Modal from 'react-native-modal';
 import defaultStyles from '../../config/styles';
 import Text from '../Text.js';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
+import IconsFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconsAntDesign from 'react-native-vector-icons/AntDesign';
+import IconsIonicons from 'react-native-vector-icons/Ionicons';
+import IconsMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const MessageDetailModal = ({onModalAction, isModalVisible, messageData}) => {
+// import Contacts from 'react-native-contacts';
+import colors from '../../config/colors';
+
+const MessageDetailModal = ({
+  onModalAction,
+  isModalVisible,
+  messageData,
+  navigation,
+}) => {
   const {id, phoneNo, type, name, date, time, amount, finance, message} =
     messageData;
+
+  const onHandlePhoneCall = () => {
+    Linking.openURL(`tel://${phoneNo}`);
+  };
+
+  const onHandleMessage = () => {
+    Linking.openURL(`sms:${phoneNo}`);
+  };
+
+  const onAddPhoneNumber = () => {
+    let newPerson = {
+      phoneNumbers: [
+        {
+          label: 'mobile',
+          number: phoneNo,
+        },
+      ],
+      displayName: name,
+    };
+
+    Contacts.openContactForm(newPerson, err => {
+      if (err) console.warn(err);
+      // form is open
+    });
+  };
+  const onHandleShare = () => {
+    Share.share({
+      message: `${message}`,
+    });
+  };
   useEffect(() => {
-    console.log('message', message);
+    console.log('message', phoneNo);
   }, []);
   return (
     <Modal
@@ -19,38 +58,66 @@ const MessageDetailModal = ({onModalAction, isModalVisible, messageData}) => {
       isVisible={isModalVisible}
       onSwipeComplete={onModalAction}
       swipeDirection={['down', 'up', 'left', 'right']}>
+      <TouchableOpacity style={styles.closeButton} onPress={onModalAction}>
+        {/* <Text>Hello</Text> */}
+        <IconsMaterialCommunity name="close-circle" size={35} color="white" />
+      </TouchableOpacity>
       <View style={styles.modalHeader}>
-        <Text style={styles.name}>{name}</Text>
-        <View style={styles.amount}>
-          <Text style={{color: 'green', fontWeight: 'bold'}}>{type}</Text>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('FilteredDetailsScreen', {
+              id: phoneNo || name,
+              title: name,
+              phoneNo: phoneNo,
+            })
+          }>
+          <Text style={styles.nameText}>
+            {name.split(' ').slice(0, 2).join(' ')}
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.amountText}>
+          <Text style={{color: 'white', fontSize: 22}}>{type}</Text>
           <Text
-            style={{color: 'white', fontSize: 10, marginTop: 4, marginLeft: 5}}>
+            style={{color: 'white', fontSize: 10, marginTop: 7, marginLeft: 5}}>
             KSH
           </Text>
-          <Text style={{color: 'white', fontWeight: 'bold'}}>{amount}</Text>
+          <Text style={{...styles.moneyText, color: colors[finance]}}>
+            {amount.replace('-', '')}
+          </Text>
         </View>
       </View>
       <View style={styles.modalBody}>
-        <Text style={styles.id}>{id}</Text>
-        <View style={[styles.message, styles.messageShadow]}>
+        <Text style={styles.idText}>{id}</Text>
+        <View style={[styles.messageText, styles.messageShadow]}>
           <Text>{message}</Text>
         </View>
       </View>
       <View style={styles.modalFooter}>
-        <TouchableOpacity style={styles.actionCall}>
-          <IconFontAwesome name="phone" size={35} color="darkblue" />
+        <TouchableOpacity
+          style={{...styles.actionCall, backgroundColor: colors['Receive']}}
+          onPress={onHandlePhoneCall}>
+          <IconsFontAwesome name="phone" size={35} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionMessage}>
-          <IconAntDesign name="message1" size={35} color="darkblue" />
+        <TouchableOpacity
+          style={{
+            ...styles.actionMessage,
+            backgroundColor: colors['secondary'],
+          }}
+          onPress={onHandleMessage}>
+          <IconsAntDesign name="message1" size={35} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionContact}>
-          <IconIonicons name="person-add-sharp" size={35} color="darkblue" />
+        <TouchableOpacity
+          style={{...styles.actionContact, backgroundColor: colors['primary']}}
+          onPress={onAddPhoneNumber}>
+          <IconsIonicons name="person-add-sharp" size={35} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionShare}>
-          <IconIonicons name="share-social-sharp" size={35} color="darkblue" />
+        <TouchableOpacity
+          style={{...styles.actionShare, backgroundColor: colors['red']}}
+          onPress={onHandleShare}>
+          <IconsIonicons name="share-social-sharp" size={35} color="white" />
         </TouchableOpacity>
       </View>
     </Modal>
@@ -68,6 +135,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
+  closeButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+  },
   modalHeader: {
     alignItems: 'center',
     marginRight: 15,
@@ -75,12 +148,13 @@ const styles = StyleSheet.create({
     borderColor: '#7A7A7A',
     marginBottom: 15,
   },
-  name: {
+  nameText: {
     fontSize: 30,
     fontWeight: '900',
     color: 'white',
+    marginBottom: 5,
   },
-  amount: {
+  amountText: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -89,6 +163,11 @@ const styles = StyleSheet.create({
     // fontWeight: '900',
     color: 'white',
   },
+  moneyText: {
+    fontSize: 24,
+    fontWeight: '900',
+    marginLeft: 4,
+  },
   modalBody: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -96,7 +175,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderColor: '#7A7A7A',
   },
-  id: {
+  idText: {
     fontSize: 24,
     fontWeight: 'bold',
     zIndex: 3,
@@ -109,8 +188,11 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: -5},
     shadowOpacity: 0.5,
     shadowRadius: 2.6,
+    borderTopEndRadius: 10,
+
+    // borderWidth: 2,
   },
-  message: {
+  messageText: {
     borderRadius: 10,
     // borderColor: '#7A7A7A',
     // borderWidth: 1,
@@ -121,6 +203,8 @@ const styles = StyleSheet.create({
     // // shadowOpacity: 0.5,
     // shadowRadius: 2.6,
     // elevation: 5,
+    borderWidth: 2,
+    borderColor: '#7A7A7A',
   },
   messageShadow: {
     shadowColor: '#7A7',
@@ -140,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.offWhite,
     shadowColor: 'black',
     shadowOffset: {width: 1, height: 2},
-    backgroundColor: 'white',
+    backgroundColor: '#65cd7',
     shadowOpacity: 0.5,
     shadowRadius: 6,
     height: 50,
@@ -150,6 +234,8 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     shadowRadius: 2.6,
+    borderWidth: 1,
+    borderColor: '#7A7A7A',
   },
   actionMessage: {
     backgroundColor: defaultStyles.colors.offWhite,
@@ -165,6 +251,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#7A7A7A',
   },
   actionContact: {
     backgroundColor: defaultStyles.colors.offWhite,
@@ -180,6 +268,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#7A7A7A',
   },
   actionShare: {
     backgroundColor: defaultStyles.colors.offWhite,
@@ -195,5 +285,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#7A7A7A',
   },
 });

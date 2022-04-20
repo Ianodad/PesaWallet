@@ -44,6 +44,7 @@ const SectionListIem = ({data, navigation, renderScrollComponent}) => {
             cost={item.COST}
             amount={item.AMOUNT}
             finance={item.FINANCE}
+            message={item.MESSAGE}
             navigation={navigation}
           />
         )}
