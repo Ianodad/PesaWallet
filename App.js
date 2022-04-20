@@ -17,6 +17,7 @@ import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
+import Loaders from './src/components/Loaders';
 
 // actions for redux implementation
 const {setInitialState} = authActions;
@@ -129,9 +130,15 @@ class App extends Component {
   };
 
   render() {
-    {console.log("state.auth", this.state.auth);}
+    {
+      console.log('state.auth', this.state.auth);
+    }
     if (this.state.initializing) {
-      return <Text>Checking state...</Text>;
+      return (
+        <>
+          <Loaders Loader="initialView" />
+        </>
+      );
     }
 
     return (

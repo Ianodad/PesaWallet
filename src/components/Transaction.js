@@ -56,6 +56,7 @@ const Transaction = ({
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
+    console.log("modalmoda")
     setModalVisible(!isModalVisible);
   };
 
@@ -80,6 +81,7 @@ const Transaction = ({
     <View>
       {/* <DateLineSeparator date={date}/> */}
       <MessageDetailModal
+        navigation={navigation}
         messageData={messageData}
         onModalAction={toggleModal}
         isModalVisible={isModalVisible}
