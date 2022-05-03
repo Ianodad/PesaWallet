@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
-import {PermissionsAndroid, Text} from 'react-native';
+import {PermissionsAndroid, Text, LogBox} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {connect} from 'react-redux';
 import {authActions} from './src/_actions/authActions';
@@ -18,6 +18,10 @@ import AuthNavigator from './src/navigation/AuthNavigator';
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import Loaders from './src/components/Loaders';
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+]);
+LogBox.ignoreLogs(['Remote debugger']);
 
 // actions for redux implementation
 const {setInitialState} = authActions;
