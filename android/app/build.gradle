@@ -193,6 +193,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation "androidx.core:core-splashscreen:1.0.0-beta01" // Add this line
+
 
     implementation 'androidx.browser:browser:1.2.0'
     // Add the dependency for the Firebase SDK for Google Analytics
