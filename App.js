@@ -94,7 +94,8 @@ class App extends Component {
   };
 
   componentDidMount = async () => {
-    // RNBootSplash.hide({duration: 250});
+    RNBootSplash.hide({duration: 250});
+    console.log('Bootsplash has been hidden successfully');
 
     const granted = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.READ_SMS,
