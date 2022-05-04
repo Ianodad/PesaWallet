@@ -17,7 +17,10 @@ const AuthNavigator = () => (
       screenOptions={{headerShown: false}}
       component={WelcomeScreen}
     />
-    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen
+      name="Login"
+      component={LoginScreen}
+    />
     <Stack.Screen name="Create" component={CreateAccountScreen} />
     <Stack.Screen name="OTP" component={OTPLoginScreen} />
     {true && (

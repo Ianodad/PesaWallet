@@ -149,16 +149,15 @@ class App extends Component {
       <>
         {/* <ReadMessages/> */}
         <NavigationContainer>
-          <SideMenuNavigation />
           {/* <AppNavigator /> */}
           {/* {this.state.auth ? <SideMenuNavigation /> : <SideMenuNavigation />} */}
-          {/* {this.state.initializing ? (
+          {this.state.initializing ? (
             <Text>Checking state...</Text>
           ) : this.state.auth ? (
             <SideMenuNavigation />
           ) : (
             <AuthNavigator />
-          )} */}
+          )}
         </NavigationContainer>
       </>
     );
