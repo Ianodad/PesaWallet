@@ -380,8 +380,7 @@ class SourceDetailsScreen extends Component {
 
     const portraitOrientation = orientation === 'PORTRAIT';
     // console.log(selectedType)
-    console.log('loadingData', filterLoad, loadingData);
-    console.log('fuldate', fullData?.length);
+    console.log('navigation', navigation);
     // if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
     return (
       <Screen

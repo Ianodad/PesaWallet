@@ -10,6 +10,7 @@ import {
 import {getRandomInt} from '../_helpers/getRandomInt';
 import defaultStyles from '../config/styles';
 import Button from './Button/Button';
+import {DrawerActions} from '@react-navigation/native';
 
 const Screen = ({
   children,
@@ -22,16 +23,16 @@ const Screen = ({
   width = responsiveWidth(getRandomInt(20, 30)),
 }) => {
   return (
-    <SafeAreaView style={[styles.screen, style]} onLayout={onLayout}>
-      {/* {menu && (
+    <View style={[styles.screen, style]} onLayout={onLayout}>
+      {menu && (
         <Button
           style={styles.button}
           iconStyle={styles.iconImage}
           color=""
           image={require('../assets/Menu.png')}
-          onPress={() => navigation.openDrawer()}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         />
-      )} */}
+      )}
 
       {Gradient ? (
         <>
@@ -60,7 +61,7 @@ const Screen = ({
       ) : (
         <View style={[styles.view, style]}>{children}</View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
