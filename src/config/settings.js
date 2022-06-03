@@ -1,4 +1,3 @@
-// import Constants from 'expo-constants';
 import {
   API_URL,
   API_KEY,
@@ -9,14 +8,7 @@ import {
   APP_ID,
   MEASUREMENT_ID,
 } from '@env';
-// import {Constants} from 'react-native-unimodules';
-// API_KEY;
-// AUTH_DOMAIN;
-// PROJECT_ID;
-// STORAGE_BUCKET;
-// MESSAGING_SENDER_ID;
-// APP_ID;
-// MEASUREMENT_ID;
+
 const settings = {
   dev: {
     API_URL: 'http://10.0.2.2:5000/api/graphql',
