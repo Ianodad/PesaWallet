@@ -75,7 +75,6 @@ export const processMpesa = mpesaData => {
       //  reversedData = [...reversedData, processReversed(body, reverse)]
       allData = [...allData, processReversed(body, reverse)];
     } else {
-      console.log('message cant be processed');
     }
   });
   //   console.log(sentData);
@@ -711,38 +710,30 @@ function filterContent(message, type) {
     case sent:
       // console.log(message)
       return words.filter(word => !sentFilter.includes(word));
-      break;
     case receive:
       // console.log(message)
       return words.filter(word => !receiveFilter.includes(word));
-      break;
     case accountPaid:
       // console.log(message)
       return words.filter(x => !accountPaidFilter.includes(x));
-      break;
     case goodsPaid:
       // console.log(message)
       return words.filter(word => !goodsPaidFilter.includes(word));
-      break;
     case withdraw:
       // console.log(message)
       return words.filter(word => !withdrawFilter.includes(word));
-      break;
     case deposit:
       // console.log(message)
       return words.filter(word => !depositFilter.includes(word));
-      break;
     case airtime:
       // console.log(message)
       return words.filter(word => !airtimeFilter.includes(word));
-      break;
     case reverse:
       // console.log(message)
       return words.filter(word => !reverseFilter.includes(word));
     default:
       console.log('Error');
       return 'Nothing to filer here';
-      break;
   }
 }
 

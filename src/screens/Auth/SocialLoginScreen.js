@@ -118,7 +118,7 @@ const SocialLoginScreen = props => {
       //   console.log('Play services not available or outdated');
       // } else {
       //   // some other error happened
-      //   console.log(obj);
+        console.log(obj);
       // }
       console.log(error);
       // // GRAHLY ERROR

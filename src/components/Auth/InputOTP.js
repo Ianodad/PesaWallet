@@ -28,11 +28,10 @@ export default function InputOTPScreen({
   const lengthInput = 6;
 
   const onChangeText = async val => {
-    console.log('InputOTPScreen -> val', val);
+    // console.log('InputOTPScreen -> val', val);
     setInternalVal(val);
     setVerificationCode(val);
     try {
-      console.log(val.length);
       if (val.length === 6) {
         confirmCode(val);
         // if (authResult) {

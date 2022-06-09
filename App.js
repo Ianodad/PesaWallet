@@ -37,7 +37,7 @@ class App extends Component {
       const storageData = JSON.parse(data);
       if (storageData !== null) {
         await this.props.setInitialState(storageData);
-        console.log('data.userVerified', storageData.userVerified);
+        // console.log('data.userVerified', storageData.userVerified);
 
         if (storageData.userVerified) {
           this.setState({auth: true});

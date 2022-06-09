@@ -19,7 +19,7 @@ var stringify = require('fast-json-stable-stringify');
 // Global regex variables
 
 const setInitialState = data => async dispatch => {
-  console.log('setInitialState', data);
+  // console.log('setInitialState', data);
   try {
     if (data !== null) {
       // console.log('setInitialState', data);
@@ -106,7 +106,7 @@ const OTPPhoneNumberVerified = phoneNumber => async (dispatch, getState) => {
       'localUserDetails',
       JSON.stringify(localUserDetails),
     );
-    console.log('localUserDetails', localUserDetails);
+    // console.log('localUserDetails', localUserDetails);
     dispatch({
       type: PHONE_NO_VERIFICATION,
       payload: true,

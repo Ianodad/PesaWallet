@@ -356,23 +356,6 @@ class SourceDetailsScreen extends Component {
       filterLoad,
     } = this.state;
 
-    // const {fullFiltered, filter, datalength, title} = this.filterMessages(
-    //   fullData,
-    //   selectedRange,
-    //   selectedType,
-    // );
-
-    // console.log(fullFiltered);
-    // console.log(filter)
-    // console.log(datalength)
-    // console.log(title)
-    // const graphData = this.getGraphData(fullFiltered);
-    // const typesSummed = this.filterType(collectionFiltered);
-
-    // console.log("type color", typeColors)
-    // console.log("Selected type", selectedType )
-    // console.log(typesSummed)
-    // console.log(fullFiltered)
     const config = {
       velocityThreshold: 0.3,
       directionalOffsetThreshold: 80,
@@ -380,7 +363,10 @@ class SourceDetailsScreen extends Component {
 
     const portraitOrientation = orientation === 'PORTRAIT';
     // console.log(selectedType)
-    console.log('navigation', navigation);
+    {
+      'message',
+        console.log(collectionFiltered, datalength, title, typesSummed);
+    }
     // if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
     return (
       <Screen

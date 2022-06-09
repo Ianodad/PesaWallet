@@ -41,7 +41,6 @@ export const dayGroup = data => {
       return acc;
     }, {}),
   );
-  console.log(DATA);
   return DATA;
 };
 

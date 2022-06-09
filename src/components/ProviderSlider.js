@@ -38,7 +38,7 @@ const ProviderSlider = ({
   };
 
   const filterChange = data => {
-    console.log(data);
+    // console.log(data);
     const newArr = data?.map(source => {
       if (source.title === phoneNumberChecker(phoneNumber)) {
         return {

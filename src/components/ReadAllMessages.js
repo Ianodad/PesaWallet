@@ -30,7 +30,6 @@ const ReadAllMessages = ({collection, storeMessages}) => {
       },
       (count, smsList) => {
         // if (!count) return null
-        console.log('Count: ', count);
         // console.log('List: ', smsList);
         var arr = JSON.parse(smsList);
         callback(address, arr);

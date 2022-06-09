@@ -1,5 +1,4 @@
 export const filterType = data => {
-  console.log(data);
   let typesSummed = _(data)
     .groupBy('TYPE')
     .map((objs, key) => {

@@ -56,7 +56,6 @@ const Transaction = ({
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
-    console.log("modalmoda")
     setModalVisible(!isModalVisible);
   };
 

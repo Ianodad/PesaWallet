@@ -91,7 +91,6 @@ const OTPLoginScreen = ({
   });
 
   const changeNumber = () => {
-    console.log('here');
     setConfirmations('');
     setUserPhoneNumber('');
     setPhoneNumberValidation(false);
@@ -129,7 +128,6 @@ const OTPLoginScreen = ({
         // With backend
         await OTPPhoneNumberVerified(userPhoneNumber);
         console.log('Success Code validation');
-        console.log(await navigation)
         await navigation.navigate('SideNavigation', {
           screen: 'HomeMain',
           params: {screen: 'HomeBottom'},

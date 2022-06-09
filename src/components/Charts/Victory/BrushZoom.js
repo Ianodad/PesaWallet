@@ -17,7 +17,6 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
-console.log(responsiveWidth);
 
 class LineChart extends Component {
     constructor() {

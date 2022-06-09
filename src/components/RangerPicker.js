@@ -19,7 +19,7 @@ const RangePicker = ({range, onSetRange}) => {
   ]);
 
   const onSetValue = value => {
-    console.log(value);
+    // console.log(value);
     setValue(value);
     onSetRange(value);
   };
