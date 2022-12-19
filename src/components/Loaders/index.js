@@ -12,18 +12,18 @@ const width = responsiveWidth(95);
 const height = responsiveHeight(95);
 
 const index = ({Loader}) => {
-  console.log(
-    'containerWidth',
-    containerWidth,
-    'containerHeight',
-    containerHeight,
-    'width',
-    width,
-    'height',
-    height,
-    'Loader',
-    Loader,
-  );
+  // console.log(
+  //   'containerWidth',
+  //   containerWidth,
+  //   'containerHeight',
+  //   containerHeight,
+  //   'width',
+  //   width,
+  //   'height',
+  //   height,
+  //   'Loader',
+  //   Loader,
+  // );
   const LOADER = {
     sourceDetails: (
       <SourceLoader

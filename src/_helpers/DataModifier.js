@@ -16,6 +16,42 @@ export const DataModifier = (data) => {
   return DATA;
 };
 
+// const DataModifier = data => {
+//   const dates = new Set(data.map(item => item.DATE));
+//   const result = new Map();
+//   for (const date of dates) {
+//     result.set(
+//       date,
+//       data.filter(item => item.DATE === date),
+//     );
+//   }
+//   return Array.from(result.entries()).map(([date, items]) => ({
+//     dateTitle: date,
+//     data: items,
+//   }));
+// };
+
+
+// const DataModifier = data => {
+//   const dates = new Set(data.map(item => item.DATE));
+//   return [...dates].map(date => ({
+//     dateTitle: date,
+//     data: data.filter(item => item.DATE === date),
+//   }));
+// };
+
+// const DataModifier = data => {
+//   const dates = new Set(data.map(item => item.DATE));
+//   const result = new Map();
+//   for (const date of dates) {
+//     result.set(
+//       date,
+//       data.filter(item => item.DATE === date),
+//     );
+//   }
+//   return result;
+// };
+
 // let newDirectory = Object.values(directory.reduce((acc, item) => {
 //     if (!acc[item.name]) acc[item.name] = {
 //         name: item.name,

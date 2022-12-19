@@ -40,6 +40,7 @@ const setInitialState = data => async dispatch => {
 };
 
 const signOut = RNRestart => async dispatch => {
+  console.log('signout');
   try {
     await GoogleSignin.revokeAccess();
     await GoogleSignin.signOut();
@@ -63,6 +64,7 @@ const signOut = RNRestart => async dispatch => {
       type: USER_VERIFIED,
       payload: false,
     });
+    await RNRestart.restart();
     // this.setState({user: ''}); // Remember to remove the user from your app's state as well
   } catch (error) {
     dispatch({
@@ -71,9 +73,6 @@ const signOut = RNRestart => async dispatch => {
     });
     console.error(error);
   }
-
-  console.log('App logged out');
-  await RNRestart.restart();
 };
 
 const signInWithGoogle = user => async dispatch => {

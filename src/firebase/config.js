@@ -14,15 +14,6 @@ import {
   APP_ID,
   MEASUREMENT_ID,
 } from '@env';
-console.log(
-  API_URL,
-  APP_ID,
-  MEASUREMENT_ID,
-  PROJECT_ID,
-  AUTH_DOMAIN,
-  STORAGE_BUCKET,
-  MESSAGING_SENDER_ID,
-);
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,

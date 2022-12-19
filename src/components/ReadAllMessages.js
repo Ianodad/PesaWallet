@@ -45,12 +45,7 @@ const ReadAllMessages = ({collection, storeMessages}) => {
     // collectSms();
   }, [ReadMessages, storeMessages]);
 
-  return (
-    <View>
-      {/* <Text>{collection}</Text> */}
-      <Text>Hello</Text>
-    </View>
-  );
+  return null;
 };
 
 const mapStateToProps = state => {

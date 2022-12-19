@@ -24,7 +24,7 @@ const Screen = ({
 }) => {
   return (
     <View style={[styles.screen, style]} onLayout={onLayout}>
-      {menu && (
+      {/* {menu && (
         <Button
           style={styles.button}
           iconStyle={styles.iconImage}
@@ -32,7 +32,7 @@ const Screen = ({
           image={require('../assets/Menu.png')}
           onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         />
-      )}
+      )} */}
 
       {Gradient ? (
         <>

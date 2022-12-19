@@ -13,11 +13,14 @@ import {PermissionsAndroid, Text, LogBox} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {connect} from 'react-redux';
 import {authActions} from './src/_actions/authActions';
+import {messageActions} from './src/_actions';
+
 import {Auth} from './src/firebase/config';
 import AuthNavigator from './src/navigation/AuthNavigator';
 // import AppNavigator from './src/navigation/AppNavigator';
 import SideMenuNavigation from './src/navigation/SideMenuNavigation';
 import Loaders from './src/components/Loaders';
+const {storeMessages} = messageActions;
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
 ]);
@@ -35,6 +38,7 @@ class App extends Component {
     try {
       const data = await AsyncStorage.getItem('localUserDetails');
       const storageData = JSON.parse(data);
+      console.log('storageData', storageData);
       if (storageData !== null) {
         await this.props.setInitialState(storageData);
         // console.log('data.userVerified', storageData.userVerified);
@@ -43,6 +47,8 @@ class App extends Component {
           this.setState({auth: true});
         }
         this.setState({initializing: false});
+      } else {
+        await this.props.storeMessages('MPESA');
       }
     } catch (e) {
       console.log(e);
@@ -135,9 +141,6 @@ class App extends Component {
   };
 
   render() {
-    {
-      console.log('state.auth', this.state.auth);
-    }
     if (this.state.initializing) {
       return (
         <>
@@ -180,7 +183,6 @@ const mapStateToProps = state => {
     auth: state.authState.userVerified,
   };
 };
+const mapDispatchToProps = {storeMessages, setInitialState};
 
-export default connect(mapStateToProps, {
-  setInitialState,
-})(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

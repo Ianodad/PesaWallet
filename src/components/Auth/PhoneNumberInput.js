@@ -37,13 +37,12 @@ const PhoneNumberInput = ({onHandleSubmit}) => {
       setButtonColor('primary');
       setTextButton('white');
     }
-    console.log('onTextChange', new AsYouType(countryCode).input(number));
+    // console.log('onTextChange', new AsYouType(countryCode).input(number));
     setValue(new AsYouType(countryCode).input(number));
   };
   const submitPhoneNumber = () => {
     const phoneNumber = parsePhoneNumberFromString(value, countryCode);
     if (phoneNumber.isValid()) {
-      console.log('phoneNumber', phoneNumber.formatNational());
       onHandleSubmit(phoneNumber.number);
     }
   };

@@ -1,9 +1,17 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import RNRestart from 'react-native-restart';
+
+import {StyleSheet, View, TouchableOpacity, Button} from 'react-native';
 import {NumberCommas} from '../_helpers/NumberCommas';
 import Text from '../components/Text';
 import colors from '../config/colors';
 import defaultStyles from '../config/styles';
+
+import {authActions} from '../_actions/authActions';
+import Logout from '../assets/svgs/logout.svg';
+import {connect} from 'react-redux';
+
+const {signOut} = authActions;
 
 const TitleHeader = ({
   home,
@@ -15,14 +23,27 @@ const TitleHeader = ({
   debitLength,
   filter,
   color,
+  signOut,
 }) => {
   return (
     <View style={[styles.container, {backgroundColor: colors[color]}]}>
-      <View style={styles.Title}>
-        {home && <Text style={styles.greeting}>Hello</Text>}
-        <Text style={styles.title}>{title}</Text>
-        {/* <Text>{caller}</Text> */}
-        {filter && <Text style={styles.number}>{phoneNo}</Text>}
+      <View style={styles.titleBody}>
+        <View style={styles.Title}>
+          {home && <Text style={styles.greeting}>Hello</Text>}
+          <Text style={styles.title}>{title}</Text>
+          {/* <Text>{caller}</Text> */}
+          {filter && <Text style={styles.number}>{phoneNo}</Text>}
+        </View>
+        {home && (
+          <TouchableOpacity
+            styles={{flex: 1, zIndex: 4}}
+            onPress={() => {
+              console.log('Log');
+              signOut(RNRestart);
+            }}>
+            <Logout width={35} height={35} />
+          </TouchableOpacity>
+        )}
       </View>
       {filter && (
         <View style={styles.details}>
@@ -74,6 +95,11 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
     fontWeight: 'bold',
   },
+  titleBody: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   number: {
     fontSize: 20,
   },
@@ -103,5 +129,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 });
+const mapStateToProps = state => {
+  // console.log(state.gitHubApiData)
+  return {};
+};
 
-export default TitleHeader;
+export default connect(mapStateToProps, {signOut})(TitleHeader);

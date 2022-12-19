@@ -10,7 +10,7 @@ import ProviderCard from './ProviderCard';
 const ProviderSlider = ({
   navigation,
   onSliderInfo,
-  phoneNumber = '0712725144',
+  phoneNumber = '0700XXXXXX',
   balances,
 }) => {
   const isCarousel = React.useRef(null);
@@ -40,11 +40,12 @@ const ProviderSlider = ({
   const filterChange = data => {
     // console.log(data);
     const newArr = data?.map(source => {
+      console.log(source.title);
       if (source.title === phoneNumberChecker(phoneNumber)) {
         return {
           ...source,
           accountNo: replaceCode(phoneNumber),
-          balance: balances[source.title] ? balances[source.title] : 0,
+          balance: balances[source.title] || 0,
         };
       }
 
@@ -52,6 +53,7 @@ const ProviderSlider = ({
     });
     return newArr;
   };
+  console.log('phoneNumber', phoneNumberChecker(phoneNumber));
   // const sliderInfoIndex = index => {
   //   onSliderInfo(index);
   // };
@@ -60,8 +62,8 @@ const ProviderSlider = ({
       ref={c => {
         isCarousel.current = c;
       }}
-      // data={filterChange(sources)}
-      data={sources}
+      data={filterChange(sources)}
+      // data={sources}
       renderItem={_renderItem}
       sliderWidth={responsiveWidth(100)}
       itemWidth={responsiveWidth(90)}

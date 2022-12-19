@@ -84,9 +84,6 @@ const TabButton = props => {
   );
 };
 const AppNavigator = prop => {
-  {
-    console.log(prop);
-  }
   return (
     <Tab.Navigator
       screenOptions={{

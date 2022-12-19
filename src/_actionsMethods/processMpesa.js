@@ -33,14 +33,9 @@ export const processMpesa = mpesaData => {
   mpesaData.map(textMessage => {
     const {body} = textMessage;
     if (body.includes(sent) && !body.includes(accountPaid)) {
-      // console.log(body);
-      // sentData = [...sentData, processSent(body, sent)]
-      // console.log(processSent(body, sent))
       allData = [...allData, processSent(body, sent)];
-      // return processSent(body, sent)
     } else if (body.includes(receive)) {
-      // console.log(body)
-      // receiveData = [...receiveData, processReceived(body, receive)];
+      
       allData = [...allData, processReceived(body, receive)];
     } else if (
       body.includes(accountPaid) &&
@@ -77,34 +72,7 @@ export const processMpesa = mpesaData => {
     } else {
     }
   });
-  //   console.log(sentData);
-  //   console.log(receiveData);
-  //   console.log(accountData);
-  //   console.log(goodsPaidData);
-  //   console.log(withdrawData);
-  //   console.log(depositData);
-  //   console.log(airtimeData);
-  //   console.log(reversedData);
-  // const processData = {
-  //   sentData,
-  //   receiveData,
-  //   accountData,
-  //   goodsPaidData,
-  //   withdrawData,
-  //   depositData,
-  //   airtimeData,
-  //   reversedData,
-  // }
-  //   const processData = stringifyObject(allData, {
-  // 	// indent: '  ',
-  // 	singleQuotes: false
-  // });
 
-  // console.log(pretty)
-  // console.log(allData.map((each)=>{return JSON.parse(each)}));
-  // return allData.map((each)=>{return JSON.parse(each)});
-
-  // console.log(allData)
   return allData.filter(function (e) {
     return e != null;
   });
@@ -574,7 +542,8 @@ function cleanReverse(clean, message) {
 
 function cleanSwitch(clean, type) {
   const regexID = /[0-9a-zA-Z]{10}/; // get ID
-  const regexPhoneNo = /^[07|+254|254][0-9]{9}/; // Phone number
+  // const regexPhoneNo = /^[07|+254|254][0-9]{9}/; // Phone number
+  const regexPhoneNo = /^((\+?254)|0)(7(?:[0-9]{7}|[0-9]{8}))$/; // Phone number
   const regexName = /([A-Z])\w+/;
   const regexDate = /^(\d{1,2})\/(\d{1,2})\/(\d{2})$/;
   const regexTime = /:[0-5][0-9]/;

@@ -97,7 +97,6 @@ const OTPLoginScreen = ({
   };
 
   const signInWithPhoneNumber = async phoneNumber => {
-    console.log(phoneNumber);
     // const userPhoneNumberInput = `+254${phoneNumber}`;
     // // console.log(phoneNumber);
     try {
@@ -118,7 +117,6 @@ const OTPLoginScreen = ({
   };
 
   const  confirmCode = async code => {
-    console.log(confirmations);
     try {
       // await confirm.confirm(code);
       if (confirmations) {
