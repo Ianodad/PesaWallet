@@ -16,7 +16,7 @@ const ReadAllMessages = ({collection, storeMessages}) => {
     let filter = {
       box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
       // read: 0, // 0 for unread SMS, 1 for SMS already read
-      address: 'MPESA', // sender's phone number
+      address: address, // sender's phone number
       // body: , // content to match
       // the next 2 filters can be used for pagination
       indexFrom: 0, // start from index 0
@@ -40,9 +40,13 @@ const ReadAllMessages = ({collection, storeMessages}) => {
     );
   }, []);
 
+  const provioderList = ['MPESA', 'AIRTEL', 'KCB'];
   useEffect(() => {
+    provioderList.map(provider => {
+      console.log('provider', provider);
+      ReadAll(provider, storeMessages);
+    });
     // console.log(storeMessages);
-    ReadAll('MPESA', storeMessages);
 
     // Update the document title using the browser API
     // collectSms();

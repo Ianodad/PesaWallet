@@ -16,6 +16,7 @@ var stringify = require('fast-json-stable-stringify');
 // Global regex variables
 
 const storeMessages = (address, messages) => async dispatch => {
+  console.log('messagesmessages', `${address}_COLLECTION}`, messages);
   // AsyncStorage.removeItem('COLLECTION').then(() => console.log('Cleared'));
   const messagesProcesses = await processMpesa(messages);
   // console.log('messageProcess', messages);
@@ -24,7 +25,7 @@ const storeMessages = (address, messages) => async dispatch => {
 
   console.log('messageCollection', messageCollection);
   try {
-    await AsyncStorage.setItem('COLLECTION', messageCollection);
+    await AsyncStorage.setItem(`${address}_COLLECTION}`, messageCollection);
     dispatch({
       type: STORE_MESSAGES,
       payload: JSON.parse(messageCollection),
