@@ -3,6 +3,8 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text} from 'react-native';
 import SmsAndroid from 'react-native-get-sms-android';
 import {connect} from 'react-redux';
+import _ from 'lodash';
+
 // import { ReadAllMessages} from "../_helpers/ReadAllMessages"
 
 import {messageActions} from '../_actions/index';
@@ -12,7 +14,9 @@ import * as allActionTypes from '../_actions/types';
 const {storeMessages} = messageActions;
 // eslint-disable-next-line no-shadow
 const ReadAllMessages = ({collection, storeMessages}) => {
-  const ReadAll = useCallback(async (address, callback) => {
+  const [typeCollection, setTypeCollection] = useState({});
+
+  const ReadAll = useCallback((address, callback) => {
     let filter = {
       box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
       // read: 0, // 0 for unread SMS, 1 for SMS already read
@@ -23,7 +27,7 @@ const ReadAllMessages = ({collection, storeMessages}) => {
       // maxCount: 200, // count of SMS to return each time
     };
 
-    await SmsAndroid.list(
+    SmsAndroid.list(
       JSON.stringify(filter),
       fail => {
         console.log('Failed with this error: ' + fail);
@@ -33,24 +37,43 @@ const ReadAllMessages = ({collection, storeMessages}) => {
         // console.log('Count: ', count);
         // console.log('List: ', smsList);
         var arr = JSON.parse(smsList);
-        // console.log('sms', arr);
+        console.log('sms', address);
         // console.log(callback);
         callback(address, arr);
       },
     );
   }, []);
 
-  const provioderList = ['MPESA', 'AIRTEL', 'KCB'];
+  const provioderList = [
+    'MPESA',
+    'NCBA',
+    'airtelmoney',
+    'COOPBANK',
+    'KCB',
+    'TKASH',
+    'Equity Bank',
+    'ABSA',
+  ];
+  let data = {};
   useEffect(() => {
+    const setMessages = (address, messages) => {
+      console.log('setMessages', messages);
+      data = {...data, [address]: messages};
+      if (Object.keys(data).length === provioderList.length) {
+        storeMessages(data);
+      }
+    };
+
     provioderList.map(provider => {
       console.log('provider', provider);
-      ReadAll(provider, storeMessages);
+      ReadAll(provider, setMessages);
+      console.log('typeCollection', typeCollection);
     });
-    // console.log(storeMessages);
+    // let data = {};
 
     // Update the document title using the browser API
     // collectSms();
-  }, [ReadAll, storeMessages]);
+  }, [ReadAll]);
 
   return <></>;
 };

@@ -2,6 +2,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from 'lodash';
 import {processMpesa} from '../_actionsMethods/processMpesa.js';
+import {mpesaAggregator} from '../_actionsMethods/mpesaAggregator.js';
+import SmsAndroid from 'react-native-get-sms-android';
+
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import {DateFilter} from '../_helpers/DateFilter';
@@ -14,24 +17,44 @@ import {
 var stringify = require('fast-json-stable-stringify');
 
 // Global regex variables
-
-const storeMessages = (address, messages) => async dispatch => {
-  console.log('messagesmessages', `${address}_COLLECTION}`, messages);
+const provioderList = [
+  'MPESA',
+  'NCBA',
+  'AIRTEL',
+  'COOPBANK',
+  'KCB',
+  'Equity Bank',
+];
+const storeMessages = messages => async dispatch => {
+  console.log('COLLECTIONS', messages);
   // AsyncStorage.removeItem('COLLECTION').then(() => console.log('Cleared'));
-  const messagesProcesses = await processMpesa(messages);
-  // console.log('messageProcess', messages);
 
-  const messageCollection = await stringify(messagesProcesses);
+  let processedCollections = {};
+  for (const [address, collection] of Object.entries(messages)) {
+    console.log('address', address);
+    if (address === 'MPESA') {
+      const processedCollection = await processMpesa(collection);
+      processedCollections[address] = processedCollection;
+    } else {
+      // null for now until we create a way to process new adress
+      processedCollections[address] = null;
+    }
+  }
+  // const messagesProcesses = await processMpesa(messages["MPESA"]);
+  console.log('processedCollections', processedCollections);
 
-  console.log('messageCollection', messageCollection);
+  const messageCollection = await stringify(processedCollections);
+
+  console.log('processedCollections', processedCollections);
   try {
-    await AsyncStorage.setItem(`${address}_COLLECTION}`, messageCollection);
+    await AsyncStorage.setItem('PROCESSED_COLLECTIONS', messageCollection);
     dispatch({
       type: STORE_MESSAGES,
       payload: JSON.parse(messageCollection),
     });
 
     dispatch(aggregatorMessageData());
+    // loadAndStoreMessages(address);
     dispatch(getBalance());
   } catch (e) {
     // console.log(e);
@@ -43,6 +66,23 @@ const storeMessages = (address, messages) => async dispatch => {
   }
 };
 
+// const loadAndStoreMessages = async address => {
+//   let filter = {
+//     box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
+//     // read: 0, // 0 for unread SMS, 1 for SMS already read
+//     address, // sender's phone number
+//     // body: , // content to match
+//     // the next 2 filters can be used for pagination
+//     // indexFrom: 0, // start from index 0
+//     // maxCount: 10, // count of SMS to return each time
+//   };
+//   try {
+//     const smsList = await SmsAndroid.list(filter);
+//     console.log('smsList', smsList);
+//   } catch (error) {
+//     console.log(`Failed with this error: ${error}`);
+//   }
+// };
 const filterType = data => {
   let typesSummed = _(data)
     .groupBy('TYPE')
@@ -57,68 +97,47 @@ const filterType = data => {
   // console.log(summed);
 };
 const aggregatorMessageData = () => async dispatch => {
+  let aggregatorMessageCollections = {};
   // ('Sent');
   // ('Receive');
   // ('PayBill');
   // ('BuyGoods');
   // ('Withdraw');
-  let messageCollection;
-  messageCollection = JSON.parse(await AsyncStorage.getItem('COLLECTION'));
-  messageCollection = DateFilter(messageCollection, 'max');
-  console.log('messageCollection', messageCollection);
-  let data = [];
-  const sent = await _.filter(messageCollection, {TYPE: 'Sent'});
-  const SentTotal = await filterType(sent);
-  if (sent.length > 0) {
-    data.push({...SentTotal[0], ...{LENGTH: sent.length}});
-  } else {
-    data.push({TYPE: 'Sent', AMOUNT: 0, LENGTH: 0});
+  let messageCollections;
+  let data;
+
+  const messageCollection = JSON.parse(
+    await AsyncStorage.getItem('PROCESSED_COLLECTIONS'),
+  );
+
+  for (const [address, collection] of Object.entries(messageCollection)) {
+    if (address === 'MPESA') {
+      let mpesaAggregatored = await mpesaAggregator(
+        DateFilter(collection, 'max'),
+      );
+      aggregatorMessageCollections = {
+        ...aggregatorMessageCollections,
+        MPESA: mpesaAggregatored,
+      };
+    } else {
+      // null untill we find a way to aggregate data
+      aggregatorMessageCollections = {
+        ...aggregatorMessageCollections,
+        [address]: null,
+      };
+    }
   }
-  // console.log('Sent', typeof SentTotal);
-  const received = _.filter(messageCollection, {TYPE: 'Receive'});
-  const ReceivedTotal = await filterType(received);
-  // console.log('Receive', ReceivedTotal);
-  if (received.length > 0) {
-    data.push({...ReceivedTotal[0], ...{LENGTH: received.length}});
-  } else {
-    data.push({TYPE: 'Receive', AMOUNT: 0, LENGTH: 0});
-  }
-  const paybill = _.filter(messageCollection, {TYPE: 'PayBill'});
-  const PayBillTotal = await filterType(paybill);
-  if (paybill.length > 0) {
-    data.push({...PayBillTotal[0], ...{LENGTH: paybill.length}});
-  } else {
-    data.push({TYPE: 'PayBill', AMOUNT: 0, LENGTH: 0});
-  }
-  // console.log('PayBill', paybill);
-  const buyGoods = _.filter(messageCollection, {TYPE: 'BuyGoods'});
-  const BuyGoodsTotal = await filterType(buyGoods);
-  if (buyGoods.length > 0) {
-    data.push({...BuyGoodsTotal[0], ...{LENGTH: buyGoods.length}});
-  } else {
-    data.push({TYPE: 'BuyGoods', AMOUNT: 0, LENGTH: 0});
-  }
-  // console.log('BuyGoods', buyGoods);
-  const withdraw = _.filter(messageCollection, {TYPE: 'Withdraw'});
-  const WithdrawTotal = await filterType(withdraw);
-  if (withdraw.length > 0) {
-    data.push({...WithdrawTotal[0], ...{LENGTH: withdraw.length}});
-  } else {
-    data.push({TYPE: 'Withdraw', AMOUNT: 0, LENGTH: 0});
-  }
-  // console.log('Withdraw', WithdrawTotal);
-  // const cilter = filterType(collectionFiltered);
-  console.log('aggregator', data);
+  console.log('aggregatorMessageCollections', aggregatorMessageCollections);
 
   dispatch({
     type: AGGREGATED_DATA,
-    payload: data,
+    payload: aggregatorMessageCollections,
   });
 };
 const getCollection = () => async dispatch => {
   try {
     const messageCollection = await AsyncStorage.getItem('COLLECTION');
-    console.log('messageCollection', messageCollection);
+    // console.log('messageCollection', messageCollection);
     const storageCollection =
       messageCollection != null ? JSON.parse(messageCollection) : null;
 

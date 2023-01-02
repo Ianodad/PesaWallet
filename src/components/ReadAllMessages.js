@@ -12,7 +12,7 @@ import * as allActionTypes from '../_actions/types';
 const {storeMessages} = messageActions;
 // eslint-disable-next-line no-shadow
 const ReadAllMessages = ({collection, storeMessages}) => {
-  const ReadMessages = useCallback((address, callback) => {
+  const ReadMessages = async address => {
     let filter = {
       box: 'inbox', // 'inbox' (default), 'sent', 'draft', 'outbox', 'failed', 'queued', and '' for all
       // read: 0, // 0 for unread SMS, 1 for SMS already read
@@ -32,11 +32,11 @@ const ReadAllMessages = ({collection, storeMessages}) => {
         // if (!count) return null
         // console.log('List: ', smsList);
         var arr = JSON.parse(smsList);
-        callback(address, arr);
+        return arr;
         // console.log(arr);
       },
     );
-  }, []);
+  };
 
   useEffect(() => {
     ReadMessages('MPESA', storeMessages);

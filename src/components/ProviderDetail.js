@@ -20,30 +20,45 @@ const typesImage = {
 responsiveWidth(70);
 const ProviderDetail = ({Title, aggregatoredData}) => {
   return (
-    !!aggregatoredData && (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>
-            {Title?.toUpperCase()}
-            <Text style={{color: 'grey'}}>-Weekly</Text>
-          </Text>
-        </View>
-        <View style={styles.body}>
-          {aggregatoredData.map((data, key) => (
-            <View key={key} style={styles.row}>
-              <View style={styles.rowLeft}>
-                <Image style={styles.image} source={typesImage[data.TYPE]} />
-                <Text style={styles.text}>{data.TYPE}</Text>
+    <>
+      {aggregatoredData && (
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              {Title?.toUpperCase()}
+              <Text style={{color: 'grey'}}>-Weekly</Text>
+            </Text>
+          </View>
+          <View style={styles.body}>
+            {aggregatoredData.map((data, key) => (
+              <View key={key} style={styles.row}>
+                <View style={styles.rowLeft}>
+                  <Image style={styles.image} source={typesImage[data.TYPE]} />
+                  <Text style={styles.text}>{data.TYPE}</Text>
+                </View>
+                <Text style={styles.textPrice}>
+                  <Text style={{fontSize: 10}}>Ksh </Text>
+                  {NumberCommas(data.AMOUNT)}
+                </Text>
               </View>
-              <Text style={styles.textPrice}>
-                <Text style={{fontSize: 10}}>Ksh </Text>
-                {NumberCommas(data.AMOUNT)}
-              </Text>
-            </View>
-          ))}
+            ))}
+          </View>
         </View>
-      </View>
-    )
+      )}
+      {!aggregatoredData && (
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>
+              {Title?.toUpperCase()}
+              <Text style={{color: 'grey'}}>-Weekly</Text>
+            </Text>
+          </View>
+          <View style={styles.nobody}>
+            <Text style={styles.textPrice}>No data</Text>
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -100,6 +115,11 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-between',
     // alignItems: 'flex-start',
     marginHorizontal: 25,
+  },
+  nobody: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     color: '#000',

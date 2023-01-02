@@ -110,7 +110,7 @@ class HomeScreen extends Component {
     const {navigation, userDetails, phoneNumber, aggregatoredData, balances} =
       this.props;
     const {sliderInfo} = this.state;
-
+    console.log('sliderInfo[sliderInfo.type]', sliderInfo.type);
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
         {/* <ActivityIndicator visible={this.state.loading} /> */}
@@ -129,7 +129,7 @@ class HomeScreen extends Component {
             {/* <ProviderList navigation={navigation} /> */}
             <View style={styles.sliderInfo}>
               <ProviderDetail
-                aggregatoredData={aggregatoredData}
+                aggregatoredData={aggregatoredData[sliderInfo.type]}
                 Title={sliderInfo.title}
               />
               {/* <Text>{sliderInfo.title}</Text> */}

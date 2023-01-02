@@ -11,32 +11,14 @@ const reverse = 'Reversal';
 const failed = 'Failed.';
 
 export const processMpesa = mpesaData => {
-  // // holds all proceeded sent cash transactions
-  let sentData = [];
-  // holds all proceeded receive cash transactions
-  let receiveData = [];
-  // //holds all processed playbills account cash transactions
-  let accountData = [];
-  // //holds all proceeded paid goods cash transactions
-  let goodsPaidData = [];
-  // // holds all processed withdrawn data transactions
-  let withdrawData = [];
-  // // holds all deposit cash transactions
-  let depositData = [];
-  // // holds all airtime bought through mpesa
-  let airtimeData = [];
-  // // holds all reversed transactions
-  let reversedData = [];
-  // hold all proccessed messages
+  // // holds all processed messages
   let allData = [];
-  // console.log('mpesaData', mpesaData);
-  mpesaData.map(textMessage => {
+  mpesaData.forEach(textMessage => {
     const {body} = textMessage;
     if (body.includes(sent) && !body.includes(accountPaid)) {
-      allData = [...allData, processSent(body, sent)];
+      allData.push(processSent(body, sent));
     } else if (body.includes(receive)) {
-      
-      allData = [...allData, processReceived(body, receive)];
+      allData.push(processReceived(body, receive));
     } else if (
       body.includes(accountPaid) &&
       !body.includes(reverse) &&
@@ -46,36 +28,20 @@ export const processMpesa = mpesaData => {
       !body.includes('enough money') &&
       !body.includes('Failed.')
     ) {
-      //   console.log(body)
-      // accountData = [...accountData, processAccountPaid(body, accountPaid)]
-      allData = [...allData, processAccountPaid(body, accountPaid)];
+      allData.push(processAccountPaid(body, accountPaid));
     } else if (body.includes(goodsPaid)) {
-      //console.log(body)
-      // goodsPaidData = [...goodsPaidData, processGoodsPaid(body, goodsPaid)];
-      allData = [...allData, processGoodsPaid(body, goodsPaid)];
+      allData.push(processGoodsPaid(body, goodsPaid));
     } else if (body.includes(deposit)) {
-      //console.log(body)
-      // depositData = [...depositData, processDeposit(body, deposit)]
-      allData = [...allData, processDeposit(body, deposit)];
+      allData.push(processDeposit(body, deposit));
     } else if (withdraw.some(word => body.includes(word))) {
-      // console.log(body)
-      // withdrawData = [...withdrawData, processWithdraw(body, withdraw)]
-      allData = [...allData, processWithdraw(body, withdraw)];
+      allData.push(processWithdraw(body, withdraw));
     } else if (body.includes(airtime)) {
-      //console.log(body)
-      // airtimeData =  [...airtimeData, processAirtime(body, airtime)]
-      allData = [...allData, processAirtime(body, airtime)];
+      allData.push(processAirtime(body, airtime));
     } else if (body.includes(reverse)) {
-      //console.log(body)
-      //  reversedData = [...reversedData, processReversed(body, reverse)]
-      allData = [...allData, processReversed(body, reverse)];
-    } else {
+      allData.push(processReversed(body, reverse));
     }
   });
-
-  return allData.filter(function (e) {
-    return e != null;
-  });
+  return allData;
 };
 
 // This is function takes in message and type message to processed and cleaned
