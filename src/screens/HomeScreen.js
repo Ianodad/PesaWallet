@@ -73,7 +73,7 @@ class HomeScreen extends Component {
 
   loadCollection = async () => {
     try {
-      const collection = await AsyncStorage.getItem('COLLECTION');
+      const collection = await AsyncStorage.getItem('PROCESSED_COLLECTIONS');
       if (collection !== null) {
         // We have data!!
         // console.log('this here');

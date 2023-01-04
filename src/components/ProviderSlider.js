@@ -45,7 +45,7 @@ const ProviderSlider = ({
         return {
           ...source,
           accountNo: replaceCode(phoneNumber),
-          balance: balances[source.title] || 0,
+          balance: balances[source.type] || 0,
         };
       }
 

@@ -64,10 +64,9 @@ class SourceDetailsScreen extends Component {
     // this.filterMessages(this.props.collection, this.state.)
     // const fullData = JSON.parse(this.props.collection)
     await this.loadCollection();
-    // console.log("thisCollection",this.collection)
-
-    // console.log(this.fullData)
-    this.setState({fullData: this.props.collection});
+    console.log('thisCollection', this.props.collection[type]);
+    const type = this.props.route.params.type;
+    this.setState({fullData: this.props.collection[type]});
     this.setState({types: typesData});
     const initial = Orientation.getInitialOrientation();
     this.setState({orientation: initial});
@@ -102,19 +101,22 @@ class SourceDetailsScreen extends Component {
   // }
 
   loadCollection = async () => {
+    // const {item} = this.props;
+    const type = this.props.route.params.type;
+    console.log('type', type);
     try {
-      const collection = await AsyncStorage.getItem('COLLECTION');
+      const collection = await AsyncStorage.getItem('PROCESSED_COLLECTIONS');
       // await AsyncStorage.removeItem('COLLECTION');
       if (collection !== null) {
         // We have data!!
         // console.log('this here');
         const data = await JSON.parse(collection);
-        console.log('collection', data);
+        console.log('loadCollection', data[type]);
 
         // console.log(data)
         // const typesSummed = await this.filterType(data);
         // console.log(typesSummed)
-        this.setState({fullData: data[2]});
+        this.setState({fullData: data[type][2]});
         await this.filterCollection(
           data,
           this.state.selectedRange,

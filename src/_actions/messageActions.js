@@ -127,7 +127,6 @@ const aggregatorMessageData = () => async dispatch => {
       };
     }
   }
-  console.log('aggregatorMessageCollections', aggregatorMessageCollections);
 
   dispatch({
     type: AGGREGATED_DATA,
@@ -135,39 +134,49 @@ const aggregatorMessageData = () => async dispatch => {
   });
 };
 const getCollection = () => async dispatch => {
-  try {
-    const messageCollection = await AsyncStorage.getItem('COLLECTION');
-    // console.log('messageCollection', messageCollection);
-    const storageCollection =
-      messageCollection != null ? JSON.parse(messageCollection) : null;
+  let allCollections = {};
+  const messageCollection = JSON.parse(
+    await AsyncStorage.getItem('PROCESSED_COLLECTIONS'),
+  );
 
-    // console.log(storageCollection);
-    dispatch({
-      type: GET_COLLECTION,
-      payload: storageCollection,
-    });
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: GET_COLLECTION,
-      payload: null,
-    });
-    // Error retrieving data
+  for (const [address, collection] of Object.entries(messageCollection)) {
+    allCollections = {
+      ...allCollections,
+      [address]: collection,
+    };
   }
+  // console.log(storageCollection);
+  dispatch({
+    type: GET_COLLECTION,
+    payload: allCollections,
+  });
 };
 
 const getBalance = () => async dispatch => {
-  const messageCollection = await AsyncStorage.getItem('COLLECTION');
-
   let balances = {};
-  let mpesaBalance = {Mpesa: JSON.parse(messageCollection)[0].BALANCE};
-  console.log('mpesaBalance', mpesaBalance);
+  const messageCollection = JSON.parse(
+    await AsyncStorage.getItem('PROCESSED_COLLECTIONS'),
+  );
+  console.log('messageCollection', messageCollection);
+  for (const [address, collection] of Object.entries(messageCollection)) {
+    if (address === 'MPESA') {
+      balances = {
+        ...balances,
+        MPESA: collection[0].BALANCE || 0,
+      };
+      console.log('balances', balances);
+    } else {
+      balances = {
+        ...balances,
+        [address]: 0,
+      };
+    }
+  }
+  console.log('balances', balances);
   // console.log([{...mpesaBalance}]);
-  const data = {...mpesaBalance};
-  console.log('data', data);
   dispatch({
     type: GET_BALANCES,
-    payload: data,
+    payload: balances,
   });
 };
 
