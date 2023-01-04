@@ -13,6 +13,7 @@ import {
   GET_COLLECTION,
   AGGREGATED_DATA,
   GET_BALANCES,
+  SELECT_PROVIDER_TYPE,
 } from './types';
 var stringify = require('fast-json-stable-stringify');
 
@@ -164,7 +165,6 @@ const getBalance = () => async dispatch => {
         ...balances,
         MPESA: collection[0].BALANCE || 0,
       };
-      console.log('balances', balances);
     } else {
       balances = {
         ...balances,
@@ -181,10 +181,17 @@ const getBalance = () => async dispatch => {
 };
 
 const removeFromStorage = () => async dispatch => {
-  await AsyncStorage.removeItem('COLLECTION');
+  await AsyncStorage.removeItem('PROCESSED_COLLECTIONS');
   dispatch({
     type: GET_COLLECTION,
     payload: [],
+  });
+};
+
+const selectProvideType = providerType => async dispatch => {
+  dispatch({
+    type: SELECT_PROVIDER_TYPE,
+    payload: providerType,
   });
 };
 
@@ -193,4 +200,5 @@ export const messageActions = {
   storeMessages,
   getBalance,
   removeFromStorage,
+  selectProvideType,
 };

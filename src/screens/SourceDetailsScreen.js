@@ -81,7 +81,6 @@ class SourceDetailsScreen extends Component {
       this.state.typeColors !== this.state.typeColors
     ) {
       console.log('collectionFiltered state has changed.');
-
       this.filterCollection(
         this.state.fullData,
         this.state.selectedRange,
@@ -116,9 +115,9 @@ class SourceDetailsScreen extends Component {
         // console.log(data)
         // const typesSummed = await this.filterType(data);
         // console.log(typesSummed)
-        this.setState({fullData: data[type][2]});
+        this.setState({fullData: data[type]});
         await this.filterCollection(
-          data,
+          data[type],
           this.state.selectedRange,
           this.state.selectedType,
           this.state.setDataIndex,
@@ -340,7 +339,7 @@ class SourceDetailsScreen extends Component {
   };
 
   render() {
-    const {navigation, route} = this.props;
+    const {navigation, route, item} = this.props;
     // console.log(navigation.setOptions({ tabBarVisible: false }));
     // navigation.setOptions()
     const {
@@ -366,9 +365,16 @@ class SourceDetailsScreen extends Component {
     const portraitOrientation = orientation === 'PORTRAIT';
     // console.log(selectedType)
     {
-      'message',
-        console.log(collectionFiltered, datalength, title, typesSummed);
+      'messagemessage',
+        console.log(
+          'messagemessage',
+          collectionFiltered,
+          datalength,
+          title,
+          typesSummed,
+        );
     }
+
     // if (!fullFiltered) return (<><Text> There are no products on display </Text></>);
     return (
       <Screen

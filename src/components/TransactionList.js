@@ -15,7 +15,7 @@ const TransactionList = ({
   sectionList,
   header,
 }) => {
-  // console.log(messages)
+  console.log('datadata', data);
   return (
     <View style={styles.container}>
       <View style={styles.transaction}>

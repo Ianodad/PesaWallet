@@ -4,11 +4,13 @@ import {
   GET_COLLECTION,
   AGGREGATED_DATA,
   GET_BALANCES,
+  SELECT_PROVIDER_TYPE,
 } from '../_actions/types';
 
 const initialState = {
   collection: [],
   balances: [],
+  providerType: null,
   collectionState: false,
   aggregatedMessageData: [],
 };
@@ -34,6 +36,11 @@ const SmsCollectionReducer = (state = initialState, action) => {
       return {
         ...state,
         balances: action.payload,
+      };
+    case SELECT_PROVIDER_TYPE:
+      return {
+        ...state,
+        providerType: action.payload,
       };
     default:
       return state;

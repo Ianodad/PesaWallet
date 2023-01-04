@@ -15,7 +15,7 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {connect} from 'react-redux';
-import {storeMessages, getCollection, aggregatorMessageData} from '../_actions';
+import {messageActions} from '../_actions';
 import {NumberCommas} from '../_helpers/NumberCommas';
 import ReadMessages from '../_helpers/ReadMessages';
 import commentsApi from '../api/comments';
@@ -34,6 +34,13 @@ import defaultStyles from '../config/styles';
 
 import {firestore, firebase} from '../firebase/config';
 import {sources} from '../services/sources';
+const {
+  getCollection,
+  storeMessages,
+  removeFromStorage,
+  selectProvideType,
+  aggregatorMessageData,
+} = messageActions;
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -107,10 +114,16 @@ class HomeScreen extends Component {
   // };
 
   render() {
-    const {navigation, userDetails, phoneNumber, aggregatoredData, balances} =
-      this.props;
+    const {
+      navigation,
+      userDetails,
+      phoneNumber,
+      aggregatoredData,
+      balances,
+      selectProvideType,
+    } = this.props;
     const {sliderInfo} = this.state;
-    console.log('sliderInfo[sliderInfo.type]', sliderInfo.type);
+    console.log('sliderInfo[sliderInfo.type]', this.props);
     return (
       <Screen navigation={navigation} style={styles.screen} menu Gradient>
         {/* <ActivityIndicator visible={this.state.loading} /> */}
@@ -140,6 +153,7 @@ class HomeScreen extends Component {
                 phoneNumber={phoneNumber}
                 balances={balances}
                 onSliderInfo={this.setSliderInfo}
+                onSelectProvideType={selectProvideType}
               />
             </View>
           </View>
@@ -160,7 +174,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {getCollection, aggregatorMessageData};
+const mapDispatchToProps = {
+  getCollection,
+  aggregatorMessageData,
+  selectProvideType,
+};
 
 // gradinetColors={['#5a60f8', '#5a60f8', '#8387f9']}
 // gradinetColors={['#39b54b', '#39b54b', '#65cd73']}

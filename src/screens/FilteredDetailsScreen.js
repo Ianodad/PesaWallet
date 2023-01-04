@@ -44,17 +44,19 @@ class FilteredDetailsScreen extends Component {
   }
 
   getMessages = (messages, id) => {
+    console.log('messages', messages);
     // console.log(id)
     // console.log(_.filter(messages, (message) => message.PHONENO == id || message.NAME == id.toUpperCase()));
     return _.filter(
       messages,
-      message => message.PHONENO == id || nameTitleCase(message.NAME) == id,
+      message => message?.PHONENO == id || nameTitleCase(message?.NAME) == id,
     );
     // return messages.filter((message) => message);
   };
 
   componentDidMount() {
-    const messages = this.props.collection;
+    const messages = this.props.collection[this.props.providerType];
+    console.assert('this.props.collection', this.props);
     this.setState({
       data:
         this.props.route.params.data ||
@@ -191,6 +193,7 @@ const mapStateToProps = state => {
   const {SmsCollected} = state;
   return {
     collection: SmsCollected.collection,
+    providerType: SmsCollected.providerType,
   };
 };
 const mapDispatchToProps = {storeMessages};

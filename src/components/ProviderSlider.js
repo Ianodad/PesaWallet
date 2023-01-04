@@ -12,6 +12,7 @@ const ProviderSlider = ({
   onSliderInfo,
   phoneNumber = '0700XXXXXX',
   balances,
+  onSelectProvideType,
 }) => {
   const isCarousel = React.useRef(null);
   const [index, setIndex] = useState(0);
@@ -32,7 +33,10 @@ const ProviderSlider = ({
         balance={item.balance}
         accountNo={replaceCode(item.accountNo)}
         gradientColors={item.color}
-        onPress={() => navigation.navigate('SourceDetails', item)}
+        onPress={() => {
+          onSelectProvideType(item.type);
+          navigation.navigate('SourceDetails', item);
+        }}
       />
     );
   };

@@ -198,23 +198,29 @@ const weekGroup = data => {
 // };
 
 const monthGroup = data => {
-  return data.reduce((acc, item) => {
-    const title = dayjs(item.DATE).format('MMM YYYY');
-    const month = dayjs(item.DATE).format('MMMM');
-    const id = dayjs(title).unix();
-    if (!acc[id]) {
-      acc[id] = {
-        id: id,
-        title: title,
-        name: dayjs(title).format('MMM YY'),
-        month: month,
-        year: dayjs(title).format('YYYY'),
-        data: [],
-      };
-    }
-    acc[id].data.push(item);
-    return acc;
-  }, {});
+  let title;
+  let month;
+  const DATA = Object.values(
+    data.reduce((acc, item) => {
+      title = dayjs(item.DATE).format('MMM YYYY');
+      month = dayjs(item.DATE).format('MMMM');
+      id = dayjs(title).unix();
+      if (!acc[id]) {
+        acc[id] = {
+          id: id,
+          title: title,
+          name: dayjs(title).format('MMM YY'),
+          month: month,
+          year: dayjs(title).format('YYYY'),
+          data: [],
+        };
+      }
+      acc[id].data.push(item);
+      return acc;
+    }, {}),
+  );
+  // console.log(DATA)
+  return DATA;
 };
 
 // const yearGroup = data => {
@@ -251,38 +257,37 @@ const monthGroup = data => {
 // };
 
 const yearGroup = data => {
-  // Create an array to hold the year arrays
-  const years = [];
-
-  // Iterate over the data array
-  data.forEach(item => {
-    if (item != null) {
-      try {
-        // Extract the year from the item's date
-        const year = new Date(item.DATE).getFullYear();
-
-        // Check if a year array already exists for this year
-        let yearArray = years.find(y => y.year === year);
-        if (!yearArray) {
-          // If not, create a new year array
-          yearArray = {
-            year: year,
-            data: [],
-          };
-          years.push(yearArray);
+  let title;
+  let year;
+  const DATA = Object.values(
+    data.reduce((acc, item) => {
+      if (item != null) {
+        try {
+          // console.log(item.DATE);
+          title = dayjs(item.DATE).format('YYYY');
+          id = dayjs(title).unix();
+          // const month = dayjs(item.DATE).format("MMMM")
+          console.log('check', !acc[id]);
+          if (!acc[id]) {
+            acc[id] = {
+              id: id,
+              title: title,
+              name: title,
+              year: dayjs(title).format('YYYY'),
+              data: [],
+            };
+          }
+          acc[id].data.push(item);
+          return acc;
+        } catch (error) {
+          console.log(error);
+          console.log('item', item.DATE, dayjs(item.DATE).format('YYYY'));
         }
-
-        // Add the item to the year array
-        yearArray.data.push(item);
-      } catch (error) {
-        console.log(error);
-        console.log('item', item.DATE, dayjs(item.DATE).format('YYYY'));
       }
-    }
-  });
-  return years;
+    }, {}),
+  );
+  return DATA;
 };
-
 
 export const DateFilter = (dataNew, range) => {
   if (range === 'hour') {
