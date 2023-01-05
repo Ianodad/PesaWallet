@@ -5,6 +5,7 @@ import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import colors from '../config/colors';
 import BillingScreen from '../screens/BillsScreen';
+import SearchScreen from '../screens/SearchScreen';
 import Home from '../screens/HomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ReportsScreen from '../screens/ReportsScreen';
@@ -30,7 +31,7 @@ const TabNavigationData = [
     name: 'Search',
     activeIcon: 'search1',
     inActiveIcon: 'search1',
-    component: ViewNavigator,
+    component: SearchScreen,
     tabBarVisible: false,
   },
   {

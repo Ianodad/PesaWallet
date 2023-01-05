@@ -58,13 +58,14 @@ class LoginScreen extends Component {
           <AppForm
             initialValues={{email: '', password: ''}}
             validationSchema={this.validationSchema}
-            onSubmit={(values) => this.handleLoginUser(values)}>
+            onSubmit={values => this.handleLoginUser(values)}>
             <AppFormField
               icon="envelope"
               autoCapitalize="none"
               autoCorrect={false}
               placeholder="Email"
               name="email"
+             
               keyboardType="email-address"
               textContentType="emailAddress"
               shadow
