@@ -53,6 +53,7 @@ class SourceDetailsScreen extends Component {
 
     // let filtered, initialFilter, datalength, title;
   }
+  
 
   // componentWillMount() {
   //   const initial = Orientation.getInitialOrientation();

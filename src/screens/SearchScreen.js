@@ -87,17 +87,20 @@ const SearchScreen = ({
       <View style={styles.container}>
         <View style={styles.header}>
           <SearchBar
+            containerStyle={styles.searchBarContainer}
+            inputContainerStyle={styles.searchbarInputContainer}
             round
             searchIcon={{size: 24}}
             onChangeText={text => searchFilterFunction(text)}
             onClear={text => searchFilterFunction('')}
             placeholder="Type Here..."
+            lightTheme
+            default
             value={search}
           />
         </View>
         <View swapShadows inner style={styles.sources}>
           <TransactionList
-            header
             flatList={true}
             navigation={navigation}
             title={'Results'}
@@ -162,7 +165,29 @@ const styles = StyleSheet.create({
     // borderBottomLeftRadius: 50,
     // borderBottomRightRadius: 50,
     overflow: 'scroll',
+    justifyContent: 'center', //Centered vertically
+    // alignItems: 'center', // Centered horizontally
+    flex: 1,
     // height:110
+  },
+  searchBarContainer: {
+    // marginTop: 10,
+    backgroundColor: 'transparent',
+    elevation: 12,
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  },
+  searchbarInputContainer: {
+    backgroundColor: 'white',
+    height: 40,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 12,
   },
   slider: {
     flex: 1,
