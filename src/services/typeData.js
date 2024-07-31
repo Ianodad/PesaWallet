@@ -69,6 +69,6 @@ export const typesData = [
     value: 'Reverse',
     image: require('../assets/buttons/Reverse.png'),
     amount: 'k7700',
-    colors: ['#9c5518', '#9c5518', '#de7c28'],
+    colors: ['#9c5518', '#9c5518', '#de7c28', ],
   },
 ];
