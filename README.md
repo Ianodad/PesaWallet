@@ -117,7 +117,7 @@ This application supports various login methods and provides several useful feat
 4. **Filter Transactions**: Use the filter feature to find transactions by name or company.
 5. **Manage Transactions**: Click on any transaction to view details, share it, or make a call related to the transaction.
 
-# Download
+## Download
 
 Download the latest PesaWallet APK from the [Releases](release/PesaWallet.apk) page.
 
